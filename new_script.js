@@ -634,7 +634,6 @@ function createRow(marker) {
     });
     col.appendChild(icon);
    
-
     //edit
     icon = document.createElement('i');
     icon.className = "fa-sharp fa-solid fa-pen"
