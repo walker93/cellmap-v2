@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Cell Map Designer</title>
+    <meta charset="utf-8">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.3.0/mapbox-gl-draw.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.3.0/mapbox-gl-draw.css"
+        type="text/css">
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        type="text/css">
+    <link href='https://watergis.github.io/mapbox-gl-export/mapbox-gl-export.css' rel='stylesheet' />
+    <script src="https://watergis.github.io/mapbox-gl-export/mapbox-gl-export.js"></script>
+    <script src="https://kit.fontawesome.com/1f687205b2.js" crossorigin="anonymous"></script>
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="tokml.js"></script>
+    <script src="config.js"></script>
+    
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body>
+    <header>
+        <h1>Cell Map Designer</h1>
+    </header>
+    <main>
+        <section id="map-container">
+            <div id="map"></div>
+        </section>
+        <aside id="controls">
+            <div id="inputs">
+                <div id="cell-form">
+
+                    <div class="line">
+                        <label for="inp_name">Name:</label>
+                        <input type="text" id="inp_name" placeholder="Enter cell name">
+                    </div>
+                    <div class="line">
+                        <label for="inp_desc">Description:</label>
+                        <input type="text" id="inp_desc" placeholder="Description">
+                    </div>
+                    <div class="line">
+                        <label for="inp_lat">Lat:</label>
+                        <input type="text" id="inp_lat" placeholder="Latitude">
+                    </div>
+                    <div class="line">
+                        <label for="inp_lon">Long:</label>
+                        <input type="text" id="inp_lon" placeholder="Longitude">
+                    </div>
+                    <div class="line">
+                        <label for="inp_radius">Radius:</label>
+                        <input type="number" id="inp_radius" placeholder="Radius in km" min="0.25" max="10" step="0.25"
+                        value="3">
+                    </div>
+                    <div class="line">
+                        <label for="angle1">Start angle:</label>
+                        <input type="number" id="angle1" placeholder="Angle min" min="0" max="360" value="0">
+                    </div>
+                    <div class="line">
+                        <label for="angle2">End angle:</label>
+                        <input type="number" id="angle2" placeholder="Angle max" min="0" max="360" value="360">
+                    </div>
+                    <div class="line">
+                        <label for="inp_alpha">Trasparency:</label>
+                        <input type="number" id="inp_alpha" placeholder="Trasparency" min="0.1" max="1" step="0.01"
+                        value="0.2">
+                    </div>
+                    <div class="line">
+                        <label for="inp_fill">Color:</label>
+                        <input type="color" id="inp_fill" placeholder="Colore" value="#FF0000">
+                    </div>
+                    <input type="hidden" id="feature-id" value="">
+                    <button class="form-btn" onclick="closeForm()">Annulla</button>
+                    <button id="addcell" class="form-btn" onclick="aggiungiCella()">Aggiungi</button>
+                    <button id="editcell" class="form-btn" style="display: none;" onclick="modificaCella()">Salva</button>
+                </div>
+            </div>
+            <div id="buttons">
+                <button id="add" onclick="openForm(null)"><i class="fa-sharp fa-solid fa-plus"></i> Add Cell</button>
+                <button id="import" onclick="openfile()"><i class="fa-sharp fa-solid fa-file-csv"></i> Add from CSV</button>
+                <button id="savejson" onclick="scaricageojson()"><i class="fa-sharp fa-solid fa-file-export"></i> Export
+                    GeoJson</button>
+                <button id="importjson" onclick="importjson()"><i class="fa-sharp fa-solid fa-file-import"></i> Import
+                    GeoJson</button>
+                <button id="savekml" onclick="scaricakml()"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>
+                    Generate KML</button>
+                    <button id="deleteall" onclick="deleteAll()"><i class="fa-sharp fa-solid fa-trash-can"></i> Delete
+                    All</button>
+            </div>
+            <div id="table">
+                <h4 style="margin-bottom: 0px;">Elementi:</h4>
+                <table id="features">
+                    
+                </table>
+            </div>
+        </aside>
+    </main>
+    <footer>
+        <p>© 2024 Cell Map Designer by <a class="link" href="https://alexcortinovis.tech" target="_blank">Alex Cortinovis</a></p>
+        <script src="new_script.js"></script>
+    </footer>
+</body>
+
+</html>

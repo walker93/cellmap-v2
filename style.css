@@ -1,0 +1,146 @@
+:root {
+    --primary-color: #005f73;
+    --secondary-color: #0a9396;
+    --accent-color: #ee9b00;
+    --text-color: #001219;
+    --background-color: #e9d8a6;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    height: 83vh;
+}
+
+header, footer {
+    text-align: center;
+    padding: 0.1rem;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+#map-container {
+    flex-grow: 1;
+}
+
+#map {
+    width: 100%; 
+    height: 100%; 
+}
+
+/* Link */
+.link {
+    color: var(--background-color);
+}
+
+.link:visited {
+    color: var(--accent-color);
+}
+
+/* contenuto laterale */
+#controls {
+    width: 400px;
+    border-left: 2px solid var(--secondary-color);
+    padding: 0.5rem;
+}
+
+.line > input[type="text"], .line > input[type="number"] {
+    width: 60%;
+    margin: 0.5rem 0;
+}
+
+#buttons {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-evenly; 
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#buttons > button {
+    margin: 2px;
+    width: 45%;
+    height: 25px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+}
+
+#buttons > button:hover {
+    background-color: var(--secondary-color);
+
+}
+
+/* tabella elementi */
+table, tr{
+    width: 100%;
+}
+tr td:first-child{
+    width: auto;
+}
+.btn-col{
+    text-align: right;
+}
+.square-color{
+    display: inline-block; 
+    width: 10px; 
+    height: 10px;
+}
+td > .fa-sharp {
+    margin: 3px;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+td > .fa-sharp:hover {
+    color: var(--secondary-color);
+}
+
+/* FORM a POPUP */
+#inputs {
+    display: none;
+    position: fixed;
+    top: 20%;
+    right: 50%;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    background-color: white;
+}
+
+.line {
+    display:flex; 
+    flex-direction: row; 
+    justify-content: flex-end; 
+    align-items: baseline;
+    margin: 0px;
+}
+
+label {
+ margin-right: 5px;
+}
+
+#cell-form {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+
+.form-btn {
+    margin-left: 10%;
+    margin-top: 10px;
+    width: 35%;
+    height: 25px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+}
