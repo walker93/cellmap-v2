@@ -845,7 +845,7 @@ map.on('contextmenu', (e) => {
 
 function openForm(marker) {
     if (marker != null) {
-        document.getElementById("editcell").style.display = "block";
+        document.getElementById("editcell").style.display = "inline-block";
         document.getElementById("addcell").style.display = "none";
     }
     document.getElementById("inputs").style.display = "block";
@@ -854,8 +854,5 @@ function openForm(marker) {
 function closeForm() {
     document.getElementById("inputs").style.display = "none";
     document.getElementById("editcell").style.display = "none";
-    document.getElementById("addcell").style.display = "block";
+    document.getElementById("addcell").style.display = "inline-block";
 }
-
-//TODO:
-//Aggiungere bottone duplica cella
