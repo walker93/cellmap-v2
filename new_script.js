@@ -553,17 +553,141 @@ function modificaCella() {
 }
 
 function createTable(tableData) {
-    var table = document.getElementById('features');
-    table.innerHTML = "";
+    //update tower table
+    var tower_table = document.getElementById('features');
+    var poi_table = document.getElementById('poi');
+    tower_table.innerHTML = "";
+    poi_table.innerHTML = "";
     for (const marker of tableData.features) {
-        if (marker.properties.marker == "cell") {
-            const row = createRow(marker);
-            table.appendChild(row);
+        if (marker.properties.marker && marker.properties.marker == "cell") {
+            const tower_row = createTowerRow(marker);
+            tower_table.appendChild(tower_row);
+        } else {
+            const poi_row = createPOIRow(marker);
+            poi_table.appendChild(poi_row);
         }
     }
 }
 
-function createRow(marker) {
+function createPOIRow(marker) {
+    const row = document.createElement('tr');
+    //type Column
+    var col = document.createElement('td');
+    var span_name = document.createElement('span');
+    span_name.setAttribute("data-id", marker.id);
+    var testo = "";
+    switch (marker.geometry.type) {
+        case "Point":
+            testo = "PoI"
+            break;
+        case "LineString":
+            testo = "Measure"
+            break;
+        case "Polygon":
+                
+                testo = "Area";
+                break;
+        default:
+            break;
+    }
+    span_name.innerText = testo;
+
+    col.appendChild(span_name);
+    row.appendChild(col);
+
+
+    //name Column
+    col = document.createElement('td');
+    span_name = document.createElement('span');
+    span_name.innerText = marker.properties.name;
+    if (marker.properties.name === undefined || marker.properties.name == "") {
+        var testo = "";
+        switch (marker.geometry.type) {
+            case "Point":
+                testo = marker.geometry.coordinates[1].toFixed(6) + '\n' + marker.geometry.coordinates[0].toFixed(6);
+                break;
+            case "LineString":
+                var length = turf.length(marker);
+                testo = numeral(length * 1000).format('0,0.0a') + 'm';
+                break;
+            case "Polygon":
+                var area = turf.area(marker);
+                testo = numeral(area).format('0,0.0a') + 'm²';
+                break;
+            default:
+                break;
+        }
+        span_name.innerText = testo;
+    }
+    col.appendChild(span_name);
+    row.appendChild(col);
+
+
+
+
+    //button column
+    col = document.createElement('td');
+    col.className = "btn-col";
+    //locate column
+    var icon = document.createElement('i');
+    icon.className = "fa-sharp fa-solid fa-location-dot"
+    icon.addEventListener("click", function () {
+        //center on map feature
+      
+        var bounds = new mapboxgl.LngLatBounds(turf.bbox(marker));
+        map.fitBounds(bounds, {
+            padding: 100,
+            maxZoom: 13
+        });
+    });
+    col.appendChild(icon);
+
+    //duplicate
+    icon = document.createElement('i');
+    icon.className = "fa-sharp fa-solid fa-copy"
+    icon.addEventListener("click", function () {
+        //duplicate cell
+        var copy_poi = draw.get(marker.id);
+        copy_poi.id = "";
+        var new_id = draw.add(copy_poi);
+
+        createTable(draw.getAll());
+        addGeoJsonSource('settori', draw.getAll());
+        //var copy_sector = geojson.features.filter(function (e) { return e.properties.towerid === feature_id });
+        //copy_sector.properties.towerid = new_id[0];
+        //geojson.features.push(copy_sector);
+        //addGeoJsonSource('aree', geojson);
+
+    });
+    col.appendChild(icon);
+    /*
+     //edit
+     icon = document.createElement('i');
+     icon.className = "fa-sharp fa-solid fa-pen"
+     icon.addEventListener("click", function () {
+         //EDIT AND UPDATE FEATURE
+         loadForm(marker);
+         openForm(marker);
+     });
+     col.appendChild(icon);
+ */
+    //delete icon
+    icon = document.createElement('i');
+    icon.className = "fa-sharp fa-solid fa-xmark"
+    icon.addEventListener("click", function () {
+        draw.delete(marker.id);
+        createTable(draw.getAll());
+        addGeoJsonSource('settori', draw.getAll());
+        geojson.features = geojson.features.filter(function (e) { return e.properties.towerid !== marker.id });
+        addGeoJsonSource('aree', geojson);
+    });
+    col.appendChild(icon);
+    row.appendChild(col);
+
+    return row;
+}
+
+function createTowerRow(marker) {
     const row = document.createElement('tr');
     //Name Column
     var col = document.createElement('td');
@@ -633,7 +757,7 @@ function createRow(marker) {
 
     });
     col.appendChild(icon);
-   
+
     //edit
     icon = document.createElement('i');
     icon.className = "fa-sharp fa-solid fa-pen"
@@ -708,7 +832,7 @@ function importjson() {
                                 towerid: feat.id
                             }
                         });
-                        geojson.features.push(area_polygon);
+                    geojson.features.push(area_polygon);
                 }
             }
 
@@ -725,7 +849,7 @@ function scaricaKML() {
         'type': 'FeatureCollection',
         'features': draw.getAll().features.concat(geojson.features)
     };
-    
+
     const kmlData = generateKML(merged);
     downloadFile('map.kml', kmlData, 'text/kml');
 }
@@ -784,6 +908,7 @@ function setupClustering(map) {
 // on draw.render update the measurments
 map.on('draw.render', function (e) {
     var labelFeatures = [];
+
     var all = draw.getAll();
     if (all && all.features) {
         all.features.forEach(function (feature) {
@@ -836,6 +961,18 @@ map.on('draw.render', function (e) {
         type: 'FeatureCollection',
         features: labelFeatures
     });
+});
+
+map.on('draw.create', function (e) {
+    createTable(draw.getAll());
+});
+
+map.on('draw.delete', function (e) {
+    createTable(draw.getAll());
+});
+
+map.on('draw.update', function (e) {
+    createTable(draw.getAll());
 });
 
 map.on('contextmenu', (e) => {
