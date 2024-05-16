@@ -21,7 +21,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script src="tokml.js"></script>
     <script src="config.js"></script>
-    
+
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
@@ -56,7 +56,7 @@
                     <div class="line">
                         <label for="inp_radius">Radius:</label>
                         <input type="number" id="inp_radius" placeholder="Radius in km" min="0.25" max="10" step="0.25"
-                        value="3">
+                            value="3">
                     </div>
                     <div class="line">
                         <label for="angle1">Start angle:</label>
@@ -69,7 +69,7 @@
                     <div class="line">
                         <label for="inp_alpha">Trasparency:</label>
                         <input type="number" id="inp_alpha" placeholder="Trasparency" min="0.1" max="1" step="0.01"
-                        value="0.2">
+                            value="0.2">
                     </div>
                     <div class="line">
                         <label for="inp_fill">Color:</label>
@@ -77,32 +77,44 @@
                     </div>
                     <input type="hidden" id="feature-id" value="">
                     <button class="form-btn" onclick="closeForm()">Annulla</button>
-                    <button id="addcell" class="form-btn" style="display: inline-block;" onclick="aggiungiCella()">Aggiungi</button>
-                    <button id="editcell" class="form-btn" style="display: none;" onclick="modificaCella()">Salva</button>
+                    <button id="addcell" class="form-btn" style="display: inline-block;"
+                        onclick="aggiungiCella()">Aggiungi</button>
+                    <button id="editcell" class="form-btn" style="display: none;"
+                        onclick="modificaCella()">Salva</button>
                 </div>
             </div>
             <div id="buttons">
                 <button id="add" onclick="openForm(null)"><i class="fa-sharp fa-solid fa-plus"></i> Add Cell</button>
-                <button id="import" onclick="openfile()"><i class="fa-sharp fa-solid fa-file-csv"></i> Add from CSV</button>
+                <button id="import" onclick="openfile()"><i class="fa-sharp fa-solid fa-file-csv"></i> Add from
+                    CSV</button>
                 <button id="savejson" onclick="scaricageojson()"><i class="fa-sharp fa-solid fa-file-export"></i> Export
                     GeoJson</button>
                 <button id="importjson" onclick="importjson()"><i class="fa-sharp fa-solid fa-file-import"></i> Import
                     GeoJson</button>
                 <button id="savekml" onclick="scaricaKML()"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>
                     Generate KML</button>
-                    <button id="deleteall" onclick="deleteAll()"><i class="fa-sharp fa-solid fa-trash-can"></i> Delete
+                <button id="deleteall" onclick="deleteAll()"><i class="fa-sharp fa-solid fa-trash-can"></i> Delete
                     All</button>
             </div>
-            <div id="table">
-                <h4 style="margin-bottom: 0px;">Elementi:</h4>
-                <table id="features">
-                    
-                </table>
+            <div id="elements">
+                <div id="table">
+                    <h4 style="margin-bottom: 0px;">Cell Towers:</h4>
+                    <table id="features">
+
+                    </table>
+                </div>
+                <div id="poi-table">
+                    <h4 style="margin-bottom: 0px;">Points of interest:</h4>
+                    <table id="poi">
+
+                    </table>
+                </div>
             </div>
         </aside>
     </main>
     <footer>
-        <p>© 2024 Cell Map Designer by <a class="link" href="https://alexcortinovis.tech" target="_blank">Alex Cortinovis</a></p>
+        <p>© 2024 Cell Map Designer by <a class="link" href="https://alexcortinovis.tech" target="_blank">Alex
+                Cortinovis</a></p>
         <script src="new_script.js"></script>
     </footer>
 </body>

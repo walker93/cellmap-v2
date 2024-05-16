@@ -721,7 +721,6 @@ function importjson() {
 }
 
 function scaricaKML() {
-    //TODO: EDIT to download all rendered features
     var merged = {
         'type': 'FeatureCollection',
         'features': draw.getAll().features.concat(geojson.features)

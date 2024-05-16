@@ -49,6 +49,10 @@ main {
     width: 400px;
     border-left: 2px solid var(--secondary-color);
     padding: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+
 }
 
 .line > input[type="text"], .line > input[type="number"] {
@@ -143,4 +147,15 @@ label {
     background-color: var(--primary-color);
     color: white;
     cursor: pointer;
+}
+
+#elements {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    height: 100%;
+}
+div#table {
+    height: 50%;
 }
