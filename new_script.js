@@ -676,6 +676,7 @@ function scaricageojson() {
 function importjson() {
     var inp_file = document.createElement("input");
     inp_file.setAttribute("type", "file");
+    inp_file.setAttribute("accept", ".geojson");
     inp_file.click();
     inp_file.addEventListener('change', function filechange() {
         if (this.files.length === 0) {
@@ -707,8 +708,8 @@ function importjson() {
                                 towerid: feat.id
                             }
                         });
+                        geojson.features.push(area_polygon);
                 }
-                geojson.features.push(area_polygon);
             }
 
             addGeoJsonSource('aree', geojson);
@@ -721,8 +722,12 @@ function importjson() {
 
 function scaricaKML() {
     //TODO: EDIT to download all rendered features
-
-    const kmlData = generateKML(geojson);
+    var merged = {
+        'type': 'FeatureCollection',
+        'features': draw.getAll().features.concat(geojson.features)
+    };
+    
+    const kmlData = generateKML(merged);
     downloadFile('map.kml', kmlData, 'text/kml');
 }
 
