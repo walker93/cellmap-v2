@@ -623,8 +623,6 @@ function createPOIRow(marker) {
     row.appendChild(col);
 
 
-
-
     //button column
     col = document.createElement('td');
     col.className = "btn-col";
@@ -653,10 +651,6 @@ function createPOIRow(marker) {
 
         createTable(draw.getAll());
         addGeoJsonSource('settori', draw.getAll());
-        //var copy_sector = geojson.features.filter(function (e) { return e.properties.towerid === feature_id });
-        //copy_sector.properties.towerid = new_id[0];
-        //geojson.features.push(copy_sector);
-        //addGeoJsonSource('aree', geojson);
 
     });
     col.appendChild(icon);
@@ -946,12 +940,15 @@ map.on('draw.render', function (e) {
                 case 'Polygon':
                     // label Polygons
                     if (feature.geometry.coordinates.length > 0 && feature.geometry.coordinates[0].length > 3) {
-                        var area = turf.area(feature);
-                        var label = numeral(area).format('0,0.0a') + 'm²';
-                        labelFeatures.push(turf.centroid(feature, {
-                            type: 'area',
-                            label: label
-                        }));
+                        var area = math.unit(turf.area(feature),"m^2");
+                        var label = math.format(area.to("km^2"),{notation: 'fixed', precision: 2}); //numeral(area).format('0,0.0a') + 'm²';
+                        var centroid = turf.centroid(feature);
+                        centroid.properties = {
+                            type: 'fill',
+                            label: label,
+                            size: 16
+                        };
+                        labelFeatures.push(centroid);
                     }
                     break;
             }
