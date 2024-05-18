@@ -119,9 +119,9 @@ function addMeasurementTools() {
                     ['!=', "user_marker", 'cell']
                 ],
                 'paint': {
-                    'fill-color': '#3bb2d0',
-                    'fill-outline-color': '#3bb2d0',
-                    'fill-opacity': 0.1
+                    'fill-color': ['get', 'user_fill'],//'#3bb2d0',
+                    'fill-outline-color': ['get', 'user_fill'], //'#3bb2d0',
+                    'fill-opacity': ['get', 'user_opacity'] //0.1
                 }
             },
             {
@@ -162,7 +162,7 @@ function addMeasurementTools() {
                     'line-join': 'round'
                 },
                 'paint': {
-                    'line-color': '#3bb2d0',
+                    'line-color': ['get', 'user_fill'], //'#3bb2d0',
                     'line-width': 2
                 }
             },
@@ -281,7 +281,7 @@ function addMeasurementTools() {
                 ],
                 'paint': {
                     'circle-radius': 8,
-                    'circle-color': '#ffe63b'
+                    'circle-color': ['get', 'user_fill'] //'#ffe63b'
                 }
             },
             {
@@ -320,7 +320,7 @@ function addMeasurementTools() {
                 ],
                 'paint': {
                     'circle-radius': 10, //default è 5
-                    'circle-color': '#ffe63b' //'#fbb03b'
+                    'circle-color': ['get', 'user_fill']//'#ffe63b' //'#fbb03b'
                 }
             },
             {
@@ -348,7 +348,7 @@ function addMeasurementTools() {
                     'line-join': 'round',
                 },
                 'paint': {
-                    'line-color': '#000000', //'#3bb2d0',
+                    'line-color': ['get', 'user_fill'], //'#000000', //'#3bb2d0',
                     'line-width': 2,
                 }
             },
@@ -363,7 +363,7 @@ function addMeasurementTools() {
                     'line-join': 'round'
                 },
                 'paint': {
-                    'line-color': '#000000', //'#fbb03b',
+                    'line-color': '#fbb03b',
                     'line-dasharray': [0.2, 2],
                     'line-width': 2
                 }
@@ -522,16 +522,75 @@ function resetForm() {
 }
 
 function loadForm(feature) {
-    document.getElementById('inp_lon').value = feature.geometry.coordinates[0];
-    document.getElementById('inp_lat').value = feature.geometry.coordinates[1];
-    document.getElementById('angle1').value = feature.properties.Angle1;
-    document.getElementById('angle2').value = feature.properties.Angle2;
-    document.getElementById('inp_name').value = feature.properties.name;
-    document.getElementById('inp_desc').value = feature.properties.description;
-    document.getElementById('inp_radius').value = feature.properties.Radius;
-    document.getElementById('inp_fill').value = feature.properties.fill;
-    document.getElementById('inp_alpha').value = feature.properties.opacity;
-    document.getElementById('feature-id').value = feature.id;
+    var lat = document.getElementById('inp_lat');
+    var lon = document.getElementById('inp_lon');
+    var angolo1 = document.getElementById('angle1');
+    var angolo2 = document.getElementById('angle2');
+    var name = document.getElementById('inp_name');
+    var desc = document.getElementById('inp_desc');
+    var radius = document.getElementById('inp_radius');
+    var fillcolor = document.getElementById('inp_fill');
+    var alpha = document.getElementById('inp_alpha');
+    var feat_id = document.getElementById('feature-id');
+    var savebtn = document.getElementById("savebtn");
+
+    if (feature.properties.marker && feature.properties.marker == "cell") {
+        //if cell feature load all previus fields
+        angolo1.value = feature.properties.Angle1;
+        angolo2.value = feature.properties.Angle2;
+        radius.value = feature.properties.Radius;
+        radius.disabled = false;
+        angolo1.disabled = false;
+        angolo2.disabled = false;
+        savebtn.setAttribute('onclick', 'modificaCella()');
+    } else {
+        //if marker is a PoI feature disable sector related fields
+        radius.disabled = true;
+        angolo1.disabled = true;
+        angolo2.disabled = true;
+        savebtn.setAttribute('onclick', 'modificaPoi()');
+    }
+    //enable or disable coords field according to geometry type
+    if (feature.geometry.type === "Point") {
+        lon.value = feature.geometry.coordinates[0];
+        lat.value = feature.geometry.coordinates[1];
+        lon.disabled = false
+        lat.disabled = false
+    } else {
+        lon.disabled = true
+        lat.disabled = true
+    }
+    //load all the other features
+    name.value = feature.properties.name || "";
+    desc.value = feature.properties.description || "";
+    fillcolor.value = feature.properties.fill || "";
+    alpha.value = feature.properties.opacity || "0.2";
+    feat_id.value = feature.id;
+}
+
+function modificaPoi() {
+    var feature_id = document.getElementById('feature-id').value;
+    var feature = draw.get(feature_id);
+    var lat = document.getElementById('inp_lat');
+    var lon = document.getElementById('inp_lon');
+    var name = document.getElementById('inp_name');
+    var desc = document.getElementById('inp_desc');
+    var fillcolor = document.getElementById('inp_fill');
+    var alpha = document.getElementById('inp_alpha');
+    feature.properties.name = name.value;
+    feature.properties.description = desc.value;
+    feature.properties.fill = fillcolor.value;
+    feature.properties.opacity = parseFloat(alpha.value);
+    if (feature.geometry.type === "Point") {
+        feature.geometry.coordinates[0] = parseFloat(lon.value);
+        feature.geometry.coordinates[1] = parseFloat(lat.value);
+    }
+    draw.add(feature);
+    //reset and close form
+    closeForm();
+    resetForm();
+    createTable(draw.getAll());
+    addGeoJsonSource('settori', draw.getAll());
 }
 
 function modificaCella() {
@@ -584,9 +643,9 @@ function createPOIRow(marker) {
             testo = "Measure"
             break;
         case "Polygon":
-                
-                testo = "Area";
-                break;
+
+            testo = "Area";
+            break;
         default:
             break;
     }
@@ -611,8 +670,8 @@ function createPOIRow(marker) {
                 testo = numeral(length * 1000).format('0,0.0a') + 'm';
                 break;
             case "Polygon":
-                var area = math.unit(turf.area(marker),"m^2");
-                testo = area.format({notation: 'fixed', precision: 2});    
+                var area = math.unit(turf.area(marker), "m^2");
+                testo = area.format({ notation: 'fixed', precision: 2 });
                 break;
             default:
                 break;
@@ -622,6 +681,13 @@ function createPOIRow(marker) {
     col.appendChild(span_name);
     row.appendChild(col);
 
+    //color column
+    col = document.createElement('td');
+    var square = document.createElement('div');
+    square.className = "square-color"
+    square.style.backgroundColor = marker.properties.fill;
+    col.appendChild(square);
+    row.appendChild(col);
 
     //button column
     col = document.createElement('td');
@@ -631,7 +697,7 @@ function createPOIRow(marker) {
     icon.className = "fa-sharp fa-solid fa-location-dot"
     icon.addEventListener("click", function () {
         //center on map feature
-      
+
         var bounds = new mapboxgl.LngLatBounds(turf.bbox(marker));
         map.fitBounds(bounds, {
             padding: 100,
@@ -654,17 +720,17 @@ function createPOIRow(marker) {
 
     });
     col.appendChild(icon);
-    /*
-     //edit
-     icon = document.createElement('i');
-     icon.className = "fa-sharp fa-solid fa-pen"
-     icon.addEventListener("click", function () {
-         //EDIT AND UPDATE FEATURE
-         loadForm(marker);
-         openForm(marker);
-     });
-     col.appendChild(icon);
- */
+
+    //edit
+    icon = document.createElement('i');
+    icon.className = "fa-sharp fa-solid fa-pen"
+    icon.addEventListener("click", function () {
+        //EDIT AND UPDATE FEATURE
+        loadForm(marker);
+        openForm(marker);
+    });
+    col.appendChild(icon);
+
     //delete icon
     icon = document.createElement('i');
     icon.className = "fa-sharp fa-solid fa-xmark"
@@ -913,9 +979,10 @@ map.on('draw.render', function (e) {
                     //Remove this check if you want cells to show coordinates
                     if (feature.properties.marker != 'cell') {
                         if (feature.geometry.coordinates.length > 1) {
+                            var label = feature.properties.name || feature.geometry.coordinates[1].toFixed(6) + ',\n ' + feature.geometry.coordinates[0].toFixed(6);
                             labelFeatures.push(turf.point(feature.geometry.coordinates, {
                                 type: 'point',
-                                label: feature.geometry.coordinates[1].toFixed(6) + ',\n ' + feature.geometry.coordinates[0].toFixed(6),
+                                label: label,
                                 size: 12,
                                 offset: 1.3,
                             }));
@@ -926,7 +993,7 @@ map.on('draw.render', function (e) {
                     // label Lines
                     if (feature.geometry.coordinates.length > 1) {
                         var length = turf.length(feature);
-                        var label = numeral(length * 1000).format('0,0.0a') + 'm';
+                        var label = feature.properties.name || numeral(length * 1000).format('0,0.0a') + 'm';
                         var midpoint = turf.along(feature, length / 2);
                         midpoint.properties = {
                             type: 'line',
@@ -940,8 +1007,8 @@ map.on('draw.render', function (e) {
                 case 'Polygon':
                     // label Polygons
                     if (feature.geometry.coordinates.length > 0 && feature.geometry.coordinates[0].length > 3) {
-                        var area = math.unit(turf.area(feature),"m^2");
-                        var label = area.format({notation: 'fixed', precision: 2});  //numeral(area).format('0,0.0a') + 'm²';
+                        var area = math.unit(turf.area(feature), "m^2");
+                        var label = feature.properties.name || area.format({ notation: 'fixed', precision: 2 });  //numeral(area).format('0,0.0a') + 'm²';
                         var centroid = turf.centroid(feature);
                         centroid.properties = {
                             type: 'fill',
@@ -961,6 +1028,10 @@ map.on('draw.render', function (e) {
 });
 
 map.on('draw.create', function (e) {
+    var feature = draw.get(e.features[0].id);
+    feature.properties.fill = "#ff0000";
+    feature.properties.opacity = 0.2;
+    draw.add(feature);
     createTable(draw.getAll());
 });
 
@@ -983,14 +1054,16 @@ map.on('contextmenu', (e) => {
 
 function openForm(marker) {
     if (marker != null) {
-        document.getElementById("editcell").style.display = "inline-block";
-        document.getElementById("addcell").style.display = "none";
+        //change button to save instead of add
+        document.getElementById("savebtn").style.display = "inline-block";
+        document.getElementById("addbtn").style.display = "none";
+
     }
     document.getElementById("inputs").style.display = "block";
 }
 
 function closeForm() {
     document.getElementById("inputs").style.display = "none";
-    document.getElementById("editcell").style.display = "none";
-    document.getElementById("addcell").style.display = "inline-block";
+    document.getElementById("savebtn").style.display = "none";
+    document.getElementById("addbtn").style.display = "inline-block";
 }
