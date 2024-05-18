@@ -611,8 +611,8 @@ function createPOIRow(marker) {
                 testo = numeral(length * 1000).format('0,0.0a') + 'm';
                 break;
             case "Polygon":
-                var area = turf.area(marker);
-                testo = numeral(area).format('0,0.0a') + 'm²';
+                var area = math.unit(turf.area(marker),"m^2");
+                testo = area.format({notation: 'fixed', precision: 2});    
                 break;
             default:
                 break;
@@ -941,7 +941,7 @@ map.on('draw.render', function (e) {
                     // label Polygons
                     if (feature.geometry.coordinates.length > 0 && feature.geometry.coordinates[0].length > 3) {
                         var area = math.unit(turf.area(feature),"m^2");
-                        var label = math.format(area.to("km^2"),{notation: 'fixed', precision: 2}); //numeral(area).format('0,0.0a') + 'm²';
+                        var label = area.format({notation: 'fixed', precision: 2});  //numeral(area).format('0,0.0a') + 'm²';
                         var centroid = turf.centroid(feature);
                         centroid.properties = {
                             type: 'fill',
