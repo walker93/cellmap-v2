@@ -13,11 +13,23 @@ body {
     height: 83vh;
 }
 
-header, footer {
+header,
+footer {
     text-align: center;
     padding: 0.1rem;
     background-color: var(--primary-color);
     color: white;
+}
+
+#logo {
+    height: 4.5rem;
+}
+
+header.line {
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
 }
 
 main {
@@ -31,8 +43,8 @@ main {
 }
 
 #map {
-    width: 100%; 
-    height: 100%; 
+    width: 100%;
+    height: 100%;
 }
 
 /* Link */
@@ -55,7 +67,8 @@ main {
 
 }
 
-.line > input[type="text"], .line > input[type="number"] {
+.line>input[type="text"],
+.line>input[type="number"] {
     width: 60%;
     margin: 0.5rem 0;
 }
@@ -63,13 +76,13 @@ main {
 #buttons {
     margin-top: 5px;
     display: flex;
-    flex-direction: row; 
-    justify-content: space-evenly; 
+    flex-direction: row;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: center;
 }
 
-#buttons > button {
+#buttons>button {
     margin: 2px;
     width: 45%;
     height: 25px;
@@ -79,33 +92,38 @@ main {
     cursor: pointer;
 }
 
-#buttons > button:hover {
+#buttons>button:hover {
     background-color: var(--secondary-color);
 
 }
 
 /* tabella elementi */
-table, tr{
+table,
+tr {
     width: 100%;
 }
-tr td:first-child{
+
+tr td:first-child {
     width: auto;
 }
-.btn-col{
+
+.btn-col {
     text-align: right;
 }
-.square-color{
-    display: inline-block; 
-    width: 10px; 
+
+.square-color {
+    display: inline-block;
+    width: 10px;
     height: 10px;
 }
-td > .fa-sharp {
+
+td>.fa-sharp {
     margin: 3px;
     cursor: pointer;
     color: var(--primary-color);
 }
 
-td > .fa-sharp:hover {
+td>.fa-sharp:hover {
     color: var(--secondary-color);
 }
 
@@ -121,22 +139,22 @@ td > .fa-sharp:hover {
 }
 
 .line {
-    display:flex; 
-    flex-direction: row; 
-    justify-content: flex-end; 
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     align-items: baseline;
     margin: 0px;
 }
 
 label {
- margin-right: 5px;
+    margin-right: 5px;
 }
 
 #cell-form {
     max-width: 300px;
     padding: 10px;
     background-color: white;
-  }
+}
 
 .form-btn {
     margin-left: 10%;
@@ -156,6 +174,7 @@ label {
     align-items: stretch;
     height: 100%;
 }
+
 div#table {
     height: 50%;
 }
