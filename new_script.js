@@ -965,6 +965,106 @@ function setupClustering(map) {
     });
 }
 
+function openForm(marker) {
+    if (marker != null) {
+        //change button to save instead of add
+        document.getElementById("savebtn").style.display = "inline-block";
+        document.getElementById("addbtn").style.display = "none";
+
+    }
+    document.getElementById("inputs").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("inputs").style.display = "none";
+    document.getElementById("savebtn").style.display = "none";
+    document.getElementById("addbtn").style.display = "inline-block";
+}
+
+
+function openfile() {
+    /* csv example 
+    lat,lon,name,desc,fill,marker,angle1,angle2,radius,opacity
+    45.1256,9.2365,"torre","descrizione","#ff0000","cell",0,360,3,0.2
+    
+    */
+
+    var inp_file = document.createElement("input");
+    inp_file.setAttribute("type", "file");
+    inp_file.setAttribute("accept", ".csv");
+    inp_file.click();
+    inp_file.addEventListener('change', function filechange() {
+        if (this.files.length === 0) {
+            console.log('No file selected.');
+            return;
+        }
+        Papa.parse(inp_file.files[0], {
+            header: true,
+            dynamicTyping: true,
+            complete: function (results) {
+                deleteAll();
+                var data = results.data;
+                for (const cell of data) {
+                    const cella_feat = [
+                        turf.point([cell.lon, cell.lat], {
+                            name: cell.name,
+                            description: cell.desc,
+                            "fill": cell.fill,
+                            "marker": "cell",
+                            'meta': 'feature',
+                            'Angle1': cell.angle1,
+                            'Angle2': cell.angle2,
+                            'Radius': cell.radius,
+                            'opacity': parseFloat(cell.opacity)
+                        }),
+                        turf.sector(
+                            [cell.lon, cell.lat],
+                            cell.radius, //radius
+                            cell.angle1,
+                            cell.angle2,
+                            {
+                                properties: {
+                                    name: cell.name,
+                                    description: cell.desc,
+                                    "fill": cell.fill,
+                                    "fill-opacity": parseFloat(cell.opacity),
+                                    "marker": "cell"
+                                }
+                            })
+                    ]
+                    const tower = cella_feat[0];
+                    var tower_id = draw.add(tower);
+
+                    //Creare area torre
+                    var area_polygon = cella_feat[1];
+                    area_polygon.properties.towerid = tower_id[0];
+                    geojson.features.push(area_polygon);
+
+                    //Aggiorno mappa
+                    addGeoJsonSource('aree', geojson);
+                    addGeoJsonSource('settori', draw.getAll());
+
+                    createTable(draw.getAll());
+                }
+            }
+        });
+    });
+
+    /*
+            Papa.parse(inp_file.files[0], {
+                complete: function(results) {
+                    
+    
+    
+                },
+                header: true
+            });
+    
+        });*/
+}
+
+/* MAP EVENTS */
+
 // on draw.render update the measurments
 map.on('draw.render', function (e) {
     var labelFeatures = [];
@@ -1051,19 +1151,3 @@ map.on('contextmenu', (e) => {
         lon.value = e.lngLat.lng;
     }
 });
-
-function openForm(marker) {
-    if (marker != null) {
-        //change button to save instead of add
-        document.getElementById("savebtn").style.display = "inline-block";
-        document.getElementById("addbtn").style.display = "none";
-
-    }
-    document.getElementById("inputs").style.display = "block";
-}
-
-function closeForm() {
-    document.getElementById("inputs").style.display = "none";
-    document.getElementById("savebtn").style.display = "none";
-    document.getElementById("addbtn").style.display = "inline-block";
-}
