@@ -18,7 +18,6 @@ function setupMapLayers() {
         'type': 'FeatureCollection',
         'features': []
     };
-
     addGeoJsonSource('settori', geojson);
     addGeoJsonSource('aree', geojson);
     addCellLayer();
@@ -26,6 +25,8 @@ function setupMapLayers() {
     addMeasurementTools();
 }
 var draw;
+
+
 function addCellLayer() {
     map.loadImage("cell-tower.png", (error, image) => {
         if (error) throw error;
@@ -979,6 +980,87 @@ function closeForm() {
     document.getElementById("inputs").style.display = "none";
     document.getElementById("savebtn").style.display = "none";
     document.getElementById("addbtn").style.display = "inline-block";
+}
+
+
+function processKMZ() {
+    
+    var inp_file = document.createElement("input");
+    inp_file.setAttribute("type", "file");
+    inp_file.setAttribute("accept", ".kmz");
+    inp_file.click();
+    inp_file.addEventListener('change', async function filechange() {
+        if (this.files.length === 0) {
+            console.log('No file selected.');
+            return;
+        }
+        const file = inp_file.files[0];
+        JSZip.loadAsync(file)
+        .then(zip => {
+            let kmlContentPromise, imageBlobPromise;
+
+            // Cerca il file KML e l'immagine nel KMZ
+            zip.forEach((relativePath, zipEntry) => {
+                if (relativePath.endsWith(".kml")) {
+                    kmlContentPromise = zipEntry.async("string");
+                } else if (relativePath.endsWith(".png")) {
+                    imageBlobPromise = zipEntry.async("blob");
+                }
+            });
+
+            // Verifica che esistano sia il file KML sia l'immagine
+            if (!kmlContentPromise || !imageBlobPromise) {
+                alert("File KMZ non valido: KML o immagine mancante.");
+                return Promise.reject("KML o immagine mancante");
+            }
+
+            // Risolvi le promesse per ottenere i contenuti del KML e l'immagine
+            return Promise.all([kmlContentPromise, imageBlobPromise]);
+        })
+        .then(([kmlContent, imageBlob]) => {
+            // Parsing del contenuto KML usando DOMParser
+            const parser = new DOMParser();
+            const kmlDoc = parser.parseFromString(kmlContent, "application/xml");
+
+            // Estrai le coordinate dal KML
+            const latLonBox = kmlDoc.querySelector("LatLonBox");
+            const north = parseFloat(latLonBox.querySelector("north").textContent);
+            const south = parseFloat(latLonBox.querySelector("south").textContent);
+            const east = parseFloat(latLonBox.querySelector("east").textContent);
+            const west = parseFloat(latLonBox.querySelector("west").textContent);
+
+            // Crea un URL temporaneo per l'immagine
+            const imageUrl = URL.createObjectURL(imageBlob);
+
+            // Aggiungi l'immagine come sorgente e sovrapponila alla mappa
+            map.addSource('radar', {
+                'type': 'image',
+                'url': imageUrl,
+                'coordinates': [
+                    [west, north], // NO
+                    [east, north], // NE
+                    [east, south], // SE
+                    [west, south]  // SO
+                ]
+            });
+
+            map.addLayer({
+                id: 'radar-layer',
+                'type': 'raster',
+                'source': 'radar',
+                'paint': {
+                    'raster-fade-duration': 0,
+                    'raster-opacity': 0.3
+                }
+            });
+
+        })
+        .catch(error => {
+            console.error("Errore nell'elaborazione del file KMZ:", error);
+            alert("Si è verificato un errore durante l'elaborazione del file KMZ.");
+        });
+
+    });
 }
 
 

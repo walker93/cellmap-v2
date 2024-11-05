@@ -23,6 +23,9 @@
     <script src="lib/tokml.js"></script>
     <script src="lib/papaparse.min.js"></script>
     <script src="config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xml2js/0.4.23/xml2js.min.js"></script>
+
 
     <link rel="stylesheet" href="style.css" type="text/css">
 
@@ -101,6 +104,8 @@
                     GeoJson</button>
                 <button id="savekml" onclick="scaricaKML()"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>
                     Generate KML</button>
+                <button id="addoverlay" onclick="processKMZ()"><i class="fa-sharp fa-solid fa-file-arrow-up"></i>
+                    Add Overlay</button>
                 <button id="deleteall" onclick="deleteAll()"><i class="fa-sharp fa-solid fa-trash-can"></i> Delete
                     All</button>
             </div>
