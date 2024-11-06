@@ -25,7 +25,7 @@ function setupMapLayers() {
     addMeasurementTools();
 }
 var draw;
-
+var overlays = [];
 
 function addCellLayer() {
     map.loadImage("cell-tower.png", (error, image) => {
@@ -848,6 +848,14 @@ function createTowerRow(marker) {
 function deleteAll() {
     draw.deleteAll();
     geojson.features = [];
+
+    overlays.forEach(function(overlay){
+        map.removeLayer("overlay-layer-"+overlay.ID);
+        map.removeSource("overlay-source-"+overlay.ID);
+    });
+
+
+    overlays = [];
     addGeoJsonSource('aree', geojson);
     addGeoJsonSource('settori', draw.getAll());
     createTable(draw.getAll());
@@ -1010,7 +1018,7 @@ function processKMZ() {
 
             // Verifica che esistano sia il file KML sia l'immagine
             if (!kmlContentPromise || !imageBlobPromise) {
-                alert("File KMZ non valido: KML o immagine mancante.");
+                alert("Invalid KMZ file: inner KML or image missing.");
                 return Promise.reject("KML o immagine mancante");
             }
 
@@ -1031,9 +1039,10 @@ function processKMZ() {
 
             // Crea un URL temporaneo per l'immagine
             const imageUrl = URL.createObjectURL(imageBlob);
+            const overlayID = Date.now();
 
             // Aggiungi l'immagine come sorgente e sovrapponila alla mappa
-            map.addSource('radar', {
+            map.addSource('overlay-source-'+overlayID, {
                 'type': 'image',
                 'url': imageUrl,
                 'coordinates': [
@@ -1043,17 +1052,25 @@ function processKMZ() {
                     [west, south]  // SO
                 ]
             });
-
+            
             map.addLayer({
-                id: 'radar-layer',
+                id: 'overlay-layer-'+overlayID,
                 'type': 'raster',
-                'source': 'radar',
+                'source': 'overlay-source-'+overlayID,
                 'paint': {
                     'raster-fade-duration': 0,
                     'raster-opacity': 0.3
                 }
             });
-
+            overlays.push({
+                'file': file.name,
+                'ID': overlayID,
+                'imageURL': imageUrl,
+                'north': north,
+                'east': east,
+                'west': west,
+                'south': south
+            });
         })
         .catch(error => {
             console.error("Errore nell'elaborazione del file KMZ:", error);
@@ -1132,17 +1149,6 @@ function openfile() {
         });
     });
 
-    /*
-            Papa.parse(inp_file.files[0], {
-                complete: function(results) {
-                    
-    
-    
-                },
-                header: true
-            });
-    
-        });*/
 }
 
 /* MAP EVENTS */
