@@ -42,11 +42,19 @@ main {
     display: flex;
     flex-direction: row;
     height: 100%;
-    flex-grow: 1;
+    /*flex-grow: 1;*/
+    width: 100%;
+}
+
+.resizer {
+    background-color: var(--primary-color);
+    cursor: ew-resize;
+    height: 100%;
+    width: 5px;
 }
 
 #map-container {
-    flex-grow: 1;
+    width: 90%;
 }
 
 #map {
@@ -65,8 +73,9 @@ main {
 
 /* contenuto laterale */
 #controls {
-    width: 400px;
-    border-left: 2px solid var(--secondary-color);
+    /*width: 75%;
+    /*border-left: 2px solid var(--secondary-color);*/
+    flex-grow: 1;
     padding: 0.5rem;
 
     display: flex;
