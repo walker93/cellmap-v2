@@ -37,15 +37,15 @@
 
 <body>
     <header class="line">
-        <img id="logo" src="images/Logo.png" >
+        <img id="logo" src="images/Logo.png">
         <h1>Cell Map Designer</h1>
     </header>
     <main>
-        <section id="map-container">
+        <div id="map-container">
             <div id="map"></div>
-        </section>
+        </div>
         <div class="resizer" id="dragMe"></div>
-        <aside id="controls">
+        <div id="controls">
             <div id="inputs">
                 <div id="cell-form">
 
@@ -111,24 +111,33 @@
                     All</button>
             </div>
             <div id="elements">
-                <div id="table">
-                    <h4 style="margin-bottom: 0px;">Cell Towers:</h4>
-                    <div style="overflow-y: auto; height: 89%;">
-                        <table id="features">
+                <div id="table" class="tab">
+                    <input type="checkbox" name="accordion-1" id="cb1" checked>
+                    <label for="cb1" class="tab__label">Cell Towers</label>
+                    <div class="tab__content">
+                        <div id="features">
 
-                        </table>
+                        </div>
                     </div>
                 </div>
-                <div id="poi-table">
-                    <h4 style="margin-bottom: 0px;">Points of interest:</h4>
-                    <div style="overflow-y: auto; height: 89%;">
-                        <table id="poi">
-
-                        </table>
+                <div id="poi-table" class="tab">
+                    <input type="checkbox" name="accordion-2" id="cb2">
+                    <label for="cb2" class="tab__label">Points of interest:</label>
+                    <div class="tab__content">
+                        <div id="poi">
+                        </div>
+                    </div>
+                </div>
+                <div id="over-table" class="tab">
+                    <input type="checkbox" name="accordion-3" id="cb3">
+                    <label for="cb3" class="tab__label">Overlays</label>
+                    <div class="tab__content">
+                        <div id="overlays">
+                        </div>
                     </div>
                 </div>
             </div>
-        </aside>
+        </div>
     </main>
     <footer>
         <p>© 2024 Cell Map Designer by <a class="link" href="https://alexcortinovis.tech" target="_blank">Alex

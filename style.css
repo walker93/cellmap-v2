@@ -5,7 +5,74 @@
     --text-color: #001219;
     --background-color: #e9d8a6;
 }
+/* INIZIO */
+.table-element {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+  gap: 10px;
+    height: 1.5rem;
+}
 
+.tab {
+  position: relative;
+}
+.tab input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+.tab__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.35s;
+}
+.tab input:checked ~ .tab__content {
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+.tab__label,
+.tab__close {
+  display: flex;
+  color: white;
+  background: var(--primary-color);
+  cursor: pointer;
+}
+.tab__label {
+  justify-content: space-between;
+  padding: 1rem;
+}
+.tab__label:hover {
+    background-color: var(--secondary-color);
+}
+.tab__label::after {
+  content: "\276F";
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  transform: rotate(90deg);
+  transition: all 0.35s;
+}
+.tab input:checked + .tab__label::after {
+  transform: rotate(270deg);
+}
+/* Arrow animation */
+.tab input:not(:checked) + .tab__label:hover::after {
+  animation: bounce .5s infinite;
+
+}
+@keyframes bounce {
+  25% {
+    transform: rotate(90deg) translate(.25rem);
+  }
+  75% {
+    transform: rotate(90deg) translate(-.25rem);
+  }
+}
+
+/* FINE */
 body {
     font-family: 'Arial', sans-serif;
     color: var(--text-color);
@@ -76,7 +143,7 @@ main {
     /*width: 75%;
     /*border-left: 2px solid var(--secondary-color);*/
     flex-grow: 1;
-    padding: 0.5rem;
+    padding: 0rem;
 
     display: flex;
     flex-direction: column;
@@ -90,18 +157,16 @@ main {
 }
 
 #buttons {
-    margin-top: 5px;
+    margin: 5px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
-    align-items: center;
+    gap: 5px;
 }
 
 #buttons>button {
-    margin: 2px;
-    width: 45%;
-    height: 25px;
+    padding: 10px;
     border: none;
     background-color: var(--primary-color);
     color: white;
@@ -133,13 +198,13 @@ tr td:first-child {
     height: 10px;
 }
 
-td>.fa-sharp {
+span>.fa-sharp {
     margin: 3px;
     cursor: pointer;
     color: var(--primary-color);
 }
 
-td>.fa-sharp:hover {
+span>.fa-sharp:hover {
     color: var(--secondary-color);
 }
 
@@ -162,9 +227,9 @@ td>.fa-sharp:hover {
     margin: 0px;
 }
 
-label {
+/*label {
     margin-right: 5px;
-}
+}*/
 
 #cell-form {
     max-width: 300px;
@@ -183,14 +248,10 @@ label {
     cursor: pointer;
 }
 
-#elements {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    height: 100%;
+.table-element >*:not(:first-child) {
+  flex-shrink: 0;
 }
-
-div#table {
-    height: 50%;
+.table-element >*:first-child {
+  text-align: end;
+  padding-left: 10px;
 }

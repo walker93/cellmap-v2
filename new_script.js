@@ -616,23 +616,85 @@ function createTable(tableData) {
     //update tower table
     var tower_table = document.getElementById('features');
     var poi_table = document.getElementById('poi');
+    var overlay_table = document.getElementById('overlays');
     tower_table.innerHTML = "";
     poi_table.innerHTML = "";
-    for (const marker of tableData.features) {
-        if (marker.properties.marker && marker.properties.marker == "cell") {
-            const tower_row = createTowerRow(marker);
-            tower_table.appendChild(tower_row);
-        } else {
-            const poi_row = createPOIRow(marker);
-            poi_table.appendChild(poi_row);
+    overlay_table.innerHTML = "";
+    if (tableData) {
+        for (const marker of tableData.features) {
+            if (marker.properties.marker && marker.properties.marker == "cell") {
+                const tower_row = createTowerRow(marker);
+                tower_table.appendChild(tower_row);
+            } else {
+                const poi_row = createPOIRow(marker);
+                poi_table.appendChild(poi_row);
+            }
         }
+    }
+    for (const overlay of overlays) {
+        const overlay_row = createOverlayRow(overlay);
+        overlay_table.appendChild(overlay_row);
     }
 }
 
+function createOverlayRow(overlay) {
+    const row = document.createElement('div');
+    row.className = "table-element";
+    var span_name = document.createElement('span');
+    span_name.innerText = overlay.file;
+    row.appendChild(span_name);
+
+    //button column
+    col = document.createElement('span');
+    col.className = "btn-col";
+    //locate column
+    var icon = document.createElement('i');
+    icon.className = "fa-sharp fa-solid fa-location-dot"
+    icon.addEventListener("click", function () {
+        //center on map feature
+        var bounds = [overlay.west, overlay.south, overlay.east, overlay.north];
+        map.fitBounds(bounds, {
+            padding: 100,
+            maxZoom: 13
+        });
+    });
+    col.appendChild(icon);
+
+    //delete icon
+    icon = document.createElement('i');
+    icon.className = "fa-sharp fa-solid fa-xmark"
+    icon.addEventListener("click", function () {
+        //delete overlay
+        var index = overlays.indexOf(overlay);
+        if (index > -1) {
+            overlays.splice(index, 1);
+            createTable(draw.getAll());
+            map.removeLayer("overlay-layer-" + overlay.ID);
+            map.removeSource("overlay-source-" + overlay.ID);
+        }
+    });
+    col.appendChild(icon);
+    row.appendChild(col);
+
+    return row;
+}
+
+/*overlays.push({
+    'file': file.name,
+    'ID': overlayID,
+    'imageURL': imageUrl,
+    'imageBlob': imageBlob,
+    'north': north,
+    'east': east,
+    'west': west,
+    'south': south
+});*/
+
 function createPOIRow(marker) {
-    const row = document.createElement('tr');
+    const row = document.createElement('div');
     //type Column
-    var col = document.createElement('td');
+    //var col = document.createElement('td');
+    row.className = "table-element";
     var span_name = document.createElement('span');
     span_name.setAttribute("data-id", marker.id);
     var testo = "";
@@ -652,19 +714,19 @@ function createPOIRow(marker) {
     }
     span_name.innerText = testo;
 
-    col.appendChild(span_name);
-    row.appendChild(col);
+    //col.appendChild(span_name);
+    row.appendChild(span_name);
 
 
     //name Column
-    col = document.createElement('td');
+    //col = document.createElement('td');
     span_name = document.createElement('span');
     span_name.innerText = marker.properties.name;
     if (marker.properties.name === undefined || marker.properties.name == "") {
         var testo = "";
         switch (marker.geometry.type) {
             case "Point":
-                testo = marker.geometry.coordinates[1].toFixed(6) + '\n' + marker.geometry.coordinates[0].toFixed(6);
+                testo = marker.geometry.coordinates[1].toFixed(6) + ';' + marker.geometry.coordinates[0].toFixed(6);
                 break;
             case "LineString":
                 var length = turf.length(marker);
@@ -679,19 +741,19 @@ function createPOIRow(marker) {
         }
         span_name.innerText = testo;
     }
-    col.appendChild(span_name);
-    row.appendChild(col);
+    //col.appendChild(span_name);
+    row.appendChild(span_name);
 
     //color column
-    col = document.createElement('td');
+    //col = document.createElement('td');
     var square = document.createElement('div');
     square.className = "square-color"
     square.style.backgroundColor = marker.properties.fill;
-    col.appendChild(square);
-    row.appendChild(col);
+    //col.appendChild(square);
+    row.appendChild(square);
 
     //button column
-    col = document.createElement('td');
+    col = document.createElement('span');
     col.className = "btn-col";
     //locate column
     var icon = document.createElement('i');
@@ -749,9 +811,10 @@ function createPOIRow(marker) {
 }
 
 function createTowerRow(marker) {
-    const row = document.createElement('tr');
+    const row = document.createElement('div');
+    row.className = "table-element";
     //Name Column
-    var col = document.createElement('td');
+    //var col = document.createElement('td');
     var span_name = document.createElement('span');
     span_name.setAttribute("data-id", marker.id);
     span_name.innerText = marker.properties.name;
@@ -759,34 +822,34 @@ function createTowerRow(marker) {
         span_name.innerText = "Unnamed";
     }
 
-    col.appendChild(span_name);
-    row.appendChild(col);
+    row.appendChild(span_name);
+    //row.appendChild(col);
 
     //Angle Column
-    col = document.createElement('td');
+    //col = document.createElement('td');
     span_name = document.createElement('span');
     var testo = marker.properties.Angle1.toString() + " - " + marker.properties.Angle2.toString() + "°";
     span_name.innerText = testo;
-    col.appendChild(span_name);
-    row.appendChild(col);
+    row.appendChild(span_name);
+    //row.appendChild(col);
 
     //Radius Column
-    col = document.createElement('td');
+    //col = document.createElement('td');
     span_name = document.createElement('span');
     span_name.innerText = marker.properties.Radius.toString() + "km";
-    col.appendChild(span_name);
-    row.appendChild(col);
+    row.appendChild(span_name);
+    //row.appendChild(col);
 
     //color column
-    col = document.createElement('td');
+    //col = document.createElement('td');
     var square = document.createElement('div');
     square.className = "square-color"
     square.style.backgroundColor = marker.properties.fill;
-    col.appendChild(square);
-    row.appendChild(col);
+    row.appendChild(square);
+    //row.appendChild(col);
 
     //button column
-    col = document.createElement('td');
+    col = document.createElement('span');
     col.className = "btn-col";
     //locate column
     var icon = document.createElement('i');
@@ -849,9 +912,9 @@ function deleteAll() {
     draw.deleteAll();
     geojson.features = [];
 
-    overlays.forEach(function(overlay){
-        map.removeLayer("overlay-layer-"+overlay.ID);
-        map.removeSource("overlay-source-"+overlay.ID);
+    overlays.forEach(function (overlay) {
+        map.removeLayer("overlay-layer-" + overlay.ID);
+        map.removeSource("overlay-source-" + overlay.ID);
     });
 
 
@@ -992,7 +1055,7 @@ function closeForm() {
 
 
 function processKMZ() {
-    
+
     var inp_file = document.createElement("input");
     inp_file.setAttribute("type", "file");
     inp_file.setAttribute("accept", ".kmz");
@@ -1004,78 +1067,80 @@ function processKMZ() {
         }
         const file = inp_file.files[0];
         JSZip.loadAsync(file)
-        .then(zip => {
-            let kmlContentPromise, imageBlobPromise;
+            .then(zip => {
+                let kmlContentPromise, imageBlobPromise;
 
-            // Cerca il file KML e l'immagine nel KMZ
-            zip.forEach((relativePath, zipEntry) => {
-                if (relativePath.endsWith(".kml")) {
-                    kmlContentPromise = zipEntry.async("string");
-                } else if (relativePath.endsWith(".png")) {
-                    imageBlobPromise = zipEntry.async("blob");
+                // Cerca il file KML e l'immagine nel KMZ
+                zip.forEach((relativePath, zipEntry) => {
+                    if (relativePath.endsWith(".kml")) {
+                        kmlContentPromise = zipEntry.async("string");
+                    } else if (relativePath.endsWith(".png")) {
+                        imageBlobPromise = zipEntry.async("blob");
+                    }
+                });
+
+                // Verifica che esistano sia il file KML sia l'immagine
+                if (!kmlContentPromise || !imageBlobPromise) {
+                    alert("Invalid KMZ file: inner KML or image missing.");
+                    return Promise.reject("KML o immagine mancante");
                 }
+
+                // Risolvi le promesse per ottenere i contenuti del KML e l'immagine
+                return Promise.all([kmlContentPromise, imageBlobPromise]);
+            })
+            .then(([kmlContent, imageBlob]) => {
+                // Parsing del contenuto KML usando DOMParser
+                const parser = new DOMParser();
+                const kmlDoc = parser.parseFromString(kmlContent, "application/xml");
+
+                // Estrai le coordinate dal KML
+                const latLonBox = kmlDoc.querySelector("LatLonBox");
+                const north = parseFloat(latLonBox.querySelector("north").textContent);
+                const south = parseFloat(latLonBox.querySelector("south").textContent);
+                const east = parseFloat(latLonBox.querySelector("east").textContent);
+                const west = parseFloat(latLonBox.querySelector("west").textContent);
+
+                // Crea un URL temporaneo per l'immagine
+                const imageUrl = URL.createObjectURL(imageBlob);
+                const overlayID = Date.now();
+
+                // Aggiungi l'immagine come sorgente e sovrapponila alla mappa
+                map.addSource('overlay-source-' + overlayID, {
+                    'type': 'image',
+                    'url': imageUrl,
+                    'coordinates': [
+                        [west, north], // NO
+                        [east, north], // NE
+                        [east, south], // SE
+                        [west, south]  // SO
+                    ]
+                });
+
+                map.addLayer({
+                    id: 'overlay-layer-' + overlayID,
+                    'type': 'raster',
+                    'source': 'overlay-source-' + overlayID,
+                    'paint': {
+                        'raster-fade-duration': 0,
+                        'raster-opacity': 0.3
+                    }
+                });
+                overlays.push({
+                    'file': file.name,
+                    'ID': overlayID,
+                    'imageURL': imageUrl,
+                    'imageBlob': imageBlob,
+                    'north': north,
+                    'east': east,
+                    'west': west,
+                    'south': south
+                });
+                createTable();
+            })
+            .catch(error => {
+                console.error("Errore nell'elaborazione del file KMZ:", error);
+                alert("Si è verificato un errore durante l'elaborazione del file KMZ.");
             });
-
-            // Verifica che esistano sia il file KML sia l'immagine
-            if (!kmlContentPromise || !imageBlobPromise) {
-                alert("Invalid KMZ file: inner KML or image missing.");
-                return Promise.reject("KML o immagine mancante");
-            }
-
-            // Risolvi le promesse per ottenere i contenuti del KML e l'immagine
-            return Promise.all([kmlContentPromise, imageBlobPromise]);
-        })
-        .then(([kmlContent, imageBlob]) => {
-            // Parsing del contenuto KML usando DOMParser
-            const parser = new DOMParser();
-            const kmlDoc = parser.parseFromString(kmlContent, "application/xml");
-
-            // Estrai le coordinate dal KML
-            const latLonBox = kmlDoc.querySelector("LatLonBox");
-            const north = parseFloat(latLonBox.querySelector("north").textContent);
-            const south = parseFloat(latLonBox.querySelector("south").textContent);
-            const east = parseFloat(latLonBox.querySelector("east").textContent);
-            const west = parseFloat(latLonBox.querySelector("west").textContent);
-
-            // Crea un URL temporaneo per l'immagine
-            const imageUrl = URL.createObjectURL(imageBlob);
-            const overlayID = Date.now();
-
-            // Aggiungi l'immagine come sorgente e sovrapponila alla mappa
-            map.addSource('overlay-source-'+overlayID, {
-                'type': 'image',
-                'url': imageUrl,
-                'coordinates': [
-                    [west, north], // NO
-                    [east, north], // NE
-                    [east, south], // SE
-                    [west, south]  // SO
-                ]
-            });
-            
-            map.addLayer({
-                id: 'overlay-layer-'+overlayID,
-                'type': 'raster',
-                'source': 'overlay-source-'+overlayID,
-                'paint': {
-                    'raster-fade-duration': 0,
-                    'raster-opacity': 0.3
-                }
-            });
-            overlays.push({
-                'file': file.name,
-                'ID': overlayID,
-                'imageURL': imageUrl,
-                'north': north,
-                'east': east,
-                'west': west,
-                'south': south
-            });
-        })
-        .catch(error => {
-            console.error("Errore nell'elaborazione del file KMZ:", error);
-            alert("Si è verificato un errore durante l'elaborazione del file KMZ.");
-        });
 
     });
 }

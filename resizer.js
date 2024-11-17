@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const mouseMoveHandler = function (e) {
         // How far the mouse has been moved
-        const dx = e.clientX - x;
-        const dy = e.clientY - y;
+        const dx = e.offsetX - x;
+        const dy = e.offsetY - y;
 
-        const newLeftWidth = ((leftWidth + dx) * 100) / (resizer.parentNode.getBoundingClientRect().width-500);
+        const newLeftWidth = ((leftWidth + dx) * 100) / (resizer.parentNode.getBoundingClientRect().width);
         leftSide.style.width = newLeftWidth + '%';
 
         resizer.style.cursor = 'col-resize';
