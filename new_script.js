@@ -1135,7 +1135,7 @@ function processKMZ() {
                     'west': west,
                     'south': south
                 });
-                createTable();
+                createTable(draw.getAll());
             })
             .catch(error => {
                 console.error("Errore nell'elaborazione del file KMZ:", error);
