@@ -1,0 +1,2 @@
+lat,lon,name,desc,fill,marker,angle1,angle2,radius,opacity
+45.1256,9.2365,"torre","descrizione","#ff0000","cell",0,360,3,0.2

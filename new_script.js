@@ -63,7 +63,7 @@ function addCellLayer() {
             "icon-color": ["get", "fill"]
         },
         filter: ['all', ["==", ["geometry-type"], "Point"],
-            ['==', ['get', "marker"], 'cell']
+            ['==', ['get', "marker"], 'cell'],
         ]
 
     });
@@ -860,6 +860,40 @@ function createTowerRow(marker) {
             center: marker.geometry.coordinates,
             zoom: 11
         });
+    });
+    col.appendChild(icon);
+
+    //hide/show column
+    icon = document.createElement('i');
+    icon.className = "fa-sharp fa-solid fa-eye";
+    if (marker.properties.hidden) {
+        icon.className = "fa-sharp fa-solid fa-eye-slash";
+    }
+    icon.addEventListener("click", function () {
+        //hide/show feature
+
+        //DA CONTROLLARE
+        var hiddenFilterMarkers = map.getFilter('markers');
+        var hiddenFilterSectors = map.getFilter('sectors') || ['all'];
+        
+        var feat = draw.get(marker.id);
+        if (feat.properties.hidden) {
+            feat.properties.hidden = false;
+            hiddenFilterMarkers.push(['==', ['get','id'], feat.id]);
+            hiddenFilterSectors.push(['==', ['get','id'], feat.id]);
+
+            this.className = "fa-sharp fa-solid fa-eye";
+        } else {
+            feat.properties.hidden = true;
+            hiddenFilterMarkers = hiddenFilterMarkers.filter(function (e) { return e[2] !== feat.id });
+            hiddenFilterSectors = hiddenFilterSectors.filter(function (e) { return e[2] !== feat.id });
+            this.className = "fa-sharp fa-solid fa-eye-slash";
+        }
+        console.log(hiddenFilterMarkers);
+        map.setFilter('markers', hiddenFilterMarkers);
+        map.setFilter('sectors', hiddenFilterSectors);
+        draw.add(feat);
+        createTable(draw.getAll());
     });
     col.appendChild(icon);
 
