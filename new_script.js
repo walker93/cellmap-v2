@@ -444,8 +444,14 @@ function aggiungiCella() {
     const cella_feat = createFeatureFromInput();
     const tower = cella_feat[0];
     var tower_id = draw.add(tower);
-
-    //Creare area torre
+    // Aggiungi l'id del marker nelle proprietà (così ["id"] funzionerà correttamente)
+    {
+        let t = draw.get(tower_id[0]);
+        t.properties.id = tower_id[0];
+        draw.add(t);
+    }
+    
+    // Creare area torre
     var area_polygon = cella_feat[1];
     area_polygon.properties.towerid = tower_id[0];
     geojson.features.push(area_polygon);
@@ -643,26 +649,45 @@ function createOverlayRow(overlay) {
     var span_name = document.createElement('span');
     span_name.innerText = overlay.file;
     row.appendChild(span_name);
-
+    
     //button column
     col = document.createElement('span');
     col.className = "btn-col";
     //locate column
     var icon = document.createElement('i');
-    icon.className = "fa-sharp fa-solid fa-location-dot"
+    icon.className = "fa-sharp fa-solid fa-location-dot";
     icon.addEventListener("click", function () {
         //center on map feature
         var bounds = [overlay.west, overlay.south, overlay.east, overlay.north];
-        map.fitBounds(bounds, {
-            padding: 100,
-            maxZoom: 13
-        });
+        map.fitBounds(bounds, { padding: 100, maxZoom: 13 });
     });
     col.appendChild(icon);
-
+    
+    // New hide/show icon for overlay
+    icon = document.createElement('i');
+    // If overlay.hidden is truthy, show eye-slash, otherwise eye
+    icon.className = overlay.hidden ? 
+                   "fa-sharp fa-solid fa-eye-slash" : 
+                   "fa-sharp fa-solid fa-eye";
+    icon.addEventListener("click", function () {
+        var layerId = "overlay-layer-" + overlay.ID;
+        if (overlay.hidden) {
+            // Show overlay: set visibility to visible
+            overlay.hidden = false;
+            map.setLayoutProperty(layerId, 'visibility', 'visible');
+            this.className = "fa-sharp fa-solid fa-eye";
+        } else {
+            // Hide overlay: set visibility to none
+            overlay.hidden = true;
+            map.setLayoutProperty(layerId, 'visibility', 'none');
+            this.className = "fa-sharp fa-solid fa-eye-slash";
+        }
+    });
+    col.appendChild(icon);
+    
     //delete icon
     icon = document.createElement('i');
-    icon.className = "fa-sharp fa-solid fa-xmark"
+    icon.className = "fa-sharp fa-solid fa-xmark";
     icon.addEventListener("click", function () {
         //delete overlay
         var index = overlays.indexOf(overlay);
@@ -675,7 +700,7 @@ function createOverlayRow(overlay) {
     });
     col.appendChild(icon);
     row.appendChild(col);
-
+    
     return row;
 }
 
@@ -757,18 +782,44 @@ function createPOIRow(marker) {
     col.className = "btn-col";
     //locate column
     var icon = document.createElement('i');
-    icon.className = "fa-sharp fa-solid fa-location-dot"
+    icon.className = "fa-sharp fa-solid fa-location-dot";
     icon.addEventListener("click", function () {
-        //center on map feature
-
         var bounds = new mapboxgl.LngLatBounds(turf.bbox(marker));
-        map.fitBounds(bounds, {
-            padding: 100,
-            maxZoom: 13
-        });
+        map.fitBounds(bounds, { padding: 100, maxZoom: 13 });
     });
     col.appendChild(icon);
-
+    
+    // Hide/Show icon for POI
+    icon = document.createElement('i');
+    // default visible icon
+    icon.className = "fa-sharp fa-solid fa-eye";
+    icon.addEventListener("click", function () {
+        var hiddenFilterMarkers = map.getFilter('markers') || ['all'];
+        if (!Array.isArray(hiddenFilterMarkers)) { hiddenFilterMarkers = ['all']; }
+        var feat = draw.get(marker.id);
+        if (feat.properties.hidden) {
+            feat.properties.hidden = false;
+            hiddenFilterMarkers = hiddenFilterMarkers.filter(f =>
+                !(Array.isArray(f) && f[0] === "!=" &&
+                  JSON.stringify(f[1]) === JSON.stringify(["get", "id"]) &&
+                  f[2] === marker.id)
+            );
+            this.className = "fa-sharp fa-solid fa-eye";
+        } else {
+            feat.properties.hidden = true;
+            if (hiddenFilterMarkers.length === 1 && hiddenFilterMarkers[0] === 'all') {
+                hiddenFilterMarkers = ['all', ["!=", ["get", "id"], marker.id]];
+            } else {
+                hiddenFilterMarkers.push(["!=", ["get", "id"], marker.id]);
+            }
+            this.className = "fa-sharp fa-solid fa-eye-slash";
+        }
+        map.setFilter('markers', hiddenFilterMarkers);
+        draw.add(feat);
+        createTable(draw.getAll());
+    });
+    col.appendChild(icon);
+    
     //duplicate
     icon = document.createElement('i');
     icon.className = "fa-sharp fa-solid fa-copy"
@@ -871,25 +922,43 @@ function createTowerRow(marker) {
     }
     icon.addEventListener("click", function () {
         //hide/show feature
-
-        //DA CONTROLLARE
-        var hiddenFilterMarkers = map.getFilter('markers');
+        var hiddenFilterMarkers = map.getFilter('markers') || ['all'];
         var hiddenFilterSectors = map.getFilter('sectors') || ['all'];
+        if (!Array.isArray(hiddenFilterMarkers)) { hiddenFilterMarkers = ['all']; }
+        if (!Array.isArray(hiddenFilterSectors)) { hiddenFilterSectors = ['all']; }
         
         var feat = draw.get(marker.id);
         if (feat.properties.hidden) {
+            // Show the feature
             feat.properties.hidden = false;
-            hiddenFilterMarkers.push(['==', ['get','id'], feat.id]);
-            hiddenFilterSectors.push(['==', ['get','id'], feat.id]);
-
+            // Remove the marker hide filter that was added (using ["id"])
+            hiddenFilterMarkers = hiddenFilterMarkers.filter(f => 
+                !(Array.isArray(f) && f[0] === "!=" && JSON.stringify(f[1]) === JSON.stringify(["get", "id"]) && f[2] === marker.id)
+            );
+            // Remove the sector hide filter (using ["get", "towerid"])
+            hiddenFilterSectors = hiddenFilterSectors.filter(f => 
+                !(Array.isArray(f) && f[0] === "!=" && JSON.stringify(f[1]) === JSON.stringify(["get", "towerid"]) && f[2] === marker.id)
+            );
             this.className = "fa-sharp fa-solid fa-eye";
         } else {
+            // Hide the feature
             feat.properties.hidden = true;
-            hiddenFilterMarkers = hiddenFilterMarkers.filter(function (e) { return e[2] !== feat.id });
-            hiddenFilterSectors = hiddenFilterSectors.filter(function (e) { return e[2] !== feat.id });
+            
+            // Aggiungi il filtro per nascondere questa feature
+            if (hiddenFilterMarkers.length === 1 && hiddenFilterMarkers[0] === 'all') {
+                hiddenFilterMarkers = ['all', ["!=", ["get","id"], marker.id]];
+            } else {
+                hiddenFilterMarkers.push(["!=", ["get", "id"], marker.id]);
+            }
+            
+            if (hiddenFilterSectors.length === 1 && hiddenFilterSectors[0] === 'all') {
+                hiddenFilterSectors = ['all', ["!=", ["get", "towerid"], marker.id]];
+            } else {
+                hiddenFilterSectors.push(["!=", ["get", "towerid"], marker.id]);
+            }
             this.className = "fa-sharp fa-solid fa-eye-slash";
         }
-        console.log(hiddenFilterMarkers);
+    
         map.setFilter('markers', hiddenFilterMarkers);
         map.setFilter('sectors', hiddenFilterSectors);
         draw.add(feat);
