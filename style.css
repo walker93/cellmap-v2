@@ -103,6 +103,7 @@ header.line {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin: 0;
 }
 
 main {
@@ -150,10 +151,22 @@ main {
 
 }
 
+#icon-preview {
+    height: 19px;
+    aspect-ratio: 1;
+    display: block;
+    margin: 0 10px;
+    border: 1px solid var(--primary-color);
+}
+
+#icon-preview[src=""] {
+    display: none;
+}
+
 .line>input[type="text"],
 .line>input[type="number"] {
     width: 60%;
-    margin: 0.5rem 0;
+    /* margin: 0.5rem 0; */
 }
 
 #buttons {
@@ -223,8 +236,8 @@ span>.fa-sharp:hover {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    align-items: baseline;
-    margin: 0px;
+    align-items: center;
+    margin: 0.5rem 0;
 }
 
 /*label {

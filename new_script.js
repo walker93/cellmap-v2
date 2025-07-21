@@ -25,6 +25,7 @@ function setupMapLayers() {
     addCellLayer();
     addOtherTools();
     addMeasurementTools();
+    loadicons();
 }
 var draw;
 var overlays = [];
@@ -34,7 +35,6 @@ function addCellLayer() {
         if (error) throw error;
         map.addImage('tower', image, { sdf: true });
     });
-
     map.addLayer({
         id: 'sectors',
         type: 'fill',
@@ -63,8 +63,6 @@ function addCellLayer() {
         },
         paint: {
             "icon-color": ["get", "fill"],
-            // Se la proprietà "hidden" è true, icon-opacity 0, altrimenti 1
-            //"icon-opacity": ['case', ['boolean', ['get','hidden'], false], 0, 1]
         },
         filter: ['all', ["==", ["geometry-type"], "Point"],
             ['==', ['get', "marker"], 'cell'],
@@ -267,7 +265,8 @@ function addMeasurementTools() {
                     ['==', '$type', 'Point'],
                     ['==', 'meta', 'feature'],
                     ['!=', 'mode', 'static'],
-                    ['!=', "user_marker", 'cell']
+                    ['!=', "user_marker", 'cell'],
+                    ['!has', 'user_icon']
                 ],
                 'paint': {
                     'circle-radius': 10,
@@ -282,7 +281,8 @@ function addMeasurementTools() {
                     ['==', '$type', 'Point'],
                     ['==', 'meta', 'feature'],
                     ['!=', 'mode', 'static'],
-                    ['!=', "user_marker", 'cell']
+                    ['!=', "user_marker", 'cell'],
+                    ['!has', 'user_icon']
                 ],
                 'paint': {
                     'circle-radius': 8,
@@ -295,7 +295,8 @@ function addMeasurementTools() {
                 'filter': ['all', ['==', '$type', 'Point'],
                     ['!=', 'meta', 'midpoint'],
                     ['==', 'active', 'false'],
-                    ['!=', "user_marker", 'cell']
+                    ['!=', "user_marker", 'cell'],
+                    ['!has', 'user_icon']
                 ],
                 'paint': {
                     'circle-radius': 2,
@@ -308,7 +309,8 @@ function addMeasurementTools() {
                 'filter': ['all', ['==', '$type', 'Point'],
                     ['==', 'active', 'true'],
                     ['!=', 'meta', 'midpoint'],
-                    ['!=', "user_marker", 'cell']
+                    ['!=', "user_marker", 'cell'],
+                    ['!has', 'user_icon']
                 ],
                 'paint': {
                     'circle-radius': 12, //default è 7
@@ -321,7 +323,8 @@ function addMeasurementTools() {
                 'filter': ['all', ['==', '$type', 'Point'],
                     ['!=', 'meta', 'midpoint'],
                     ['==', 'active', 'true'],
-                    ['!=', "user_marker", 'cell']
+                    ['!=', "user_marker", 'cell'],
+                    ['!has', 'user_icon']
                 ],
                 'paint': {
                     'circle-radius': 10, //default è 5
@@ -334,7 +337,8 @@ function addMeasurementTools() {
                 'filter': ['all', ['==', '$type', 'Point'],
                     ['!=', 'meta', 'midpoint'],
                     ['==', 'active', 'true'],
-                    ['!=', "user_marker", 'cell']
+                    ['!=', "user_marker", 'cell'],
+                    ['!has', 'user_icon']
                 ],
                 'paint': {
                     'circle-radius': 3,
@@ -383,6 +387,39 @@ function addMeasurementTools() {
                 'paint': {
                     'circle-radius': 5,
                     'circle-color': '#404040'
+                }
+            },
+            {
+                'id': 'gl-draw-point-icon',
+                'type': 'symbol',
+                'filter': ['all', ['==', '$type', 'Point'],
+                    ['==', 'meta', 'feature'],
+                    ['has', 'user_icon']
+                ],
+                'layout': {
+                    'icon-image': ['get', 'user_icon'],
+                    'icon-allow-overlap': true,
+                    'icon-size': 0.9,
+                    "text-allow-overlap": false,
+                    "text-ignore-placement": true,
+                    "icon-ignore-placement": true,
+                }
+            },
+            {
+                'id': 'gl-draw-point-icon-active',
+                'type': 'symbol',
+                'filter': ['all', ['==', '$type', 'Point'],
+                    ['==', 'meta', 'feature'],
+                    ['has', 'user_icon'],
+                    ['==', 'active', 'true']
+                ],
+                'layout': {
+                    'icon-image': ['get', 'user_icon'],
+                    'icon-allow-overlap': true,
+                    'icon-size': 1.1,
+                    "text-allow-overlap": false,
+                    "text-ignore-placement": true,
+                    "icon-ignore-placement": true,
                 }
             }
         ],
@@ -445,11 +482,11 @@ function aggiungiCella(existingCell) {
         alert('Please correct the inputs.');
         return;
     }
-    var cella_feat = createFeatureFromInput(); 
+    var cella_feat = createFeatureFromInput();
     var tower = cella_feat[0];
     // Se esiste una cella, aggiorno le proprietà
     if (existingCell) tower.id = existingCell.id; // Mantengo l'id della cella esistente
-       
+
 
     var tower_id = draw.add(tower);
     // Aggiungi l'id del marker nelle proprietà (così ["id"] funzionerà correttamente)
@@ -534,6 +571,8 @@ function resetForm() {
     document.getElementById('inp_fill').value = "#FF0000";
     document.getElementById('inp_alpha').value = "0.2";
     document.getElementById('feature-id').value = "";
+    document.getElementById('inp_icon').value = "";
+    document.getElementById('icon-preview').src = "";
 }
 
 function loadForm(feature) {
@@ -548,6 +587,8 @@ function loadForm(feature) {
     var alpha = document.getElementById('inp_alpha');
     var feat_id = document.getElementById('feature-id');
     var savebtn = document.getElementById("savebtn");
+    var icn = document.getElementById('inp_icon');
+    var icn_prew = document.getElementById('icon-preview');
 
     if (feature.properties.marker && feature.properties.marker == "cell") {
         //if cell feature load all previus fields
@@ -557,12 +598,15 @@ function loadForm(feature) {
         radius.disabled = false;
         angolo1.disabled = false;
         angolo2.disabled = false;
+        icn.disabled = true; // disable icon input for cell features
         savebtn.setAttribute('onclick', 'modificaCella()');
     } else {
         //if marker is a PoI feature disable sector related fields
         radius.disabled = true;
         angolo1.disabled = true;
         angolo2.disabled = true;
+        icn.disabled = false;
+       
         savebtn.setAttribute('onclick', 'modificaPoi()');
     }
     //enable or disable coords field according to geometry type
@@ -580,6 +624,8 @@ function loadForm(feature) {
     desc.value = feature.properties.description || "";
     fillcolor.value = feature.properties.fill || "";
     alpha.value = feature.properties.opacity || "0.2";
+    icn.value = feature.properties.icon || "";
+    icn_prew.src = feature.properties.icon ? `images/icons/${feature.properties.icon}.png` : "";
     feat_id.value = feature.id;
 }
 
@@ -599,6 +645,10 @@ function modificaPoi() {
     if (feature.geometry.type === "Point") {
         feature.geometry.coordinates[0] = parseFloat(lon.value);
         feature.geometry.coordinates[1] = parseFloat(lat.value);
+    }
+    if (!(feature.properties.marker && feature.properties.marker == "cell")) {
+        var icon = document.getElementById('inp_icon').value;
+        feature.properties.icon = icon.trim() || undefined; // Set icon or remove if empty
     }
     draw.add(feature);
     //reset and close form
@@ -1165,8 +1215,15 @@ function openForm(marker) {
         document.getElementById("savebtn").style.display = "inline-block";
         document.getElementById("addbtn").style.display = "none";
 
+    } else {
+        //change button to add instead of save
+        document.getElementById("savebtn").style.display = "none";
+        document.getElementById("addbtn").style.display = "inline-block";
+        document.getElementById('inp_icon').disabled = true;
+        document.getElementById('icon-preview').src = "";
     }
     document.getElementById("inputs").style.display = "block";
+
 }
 
 function closeForm() {
@@ -1175,6 +1232,14 @@ function closeForm() {
     document.getElementById("addbtn").style.display = "inline-block";
 }
 
+function changeIcon() {
+    var icon = document.getElementById('inp_icon').value;
+    if (icon.trim() === "") {
+        document.getElementById('icon-preview').src = "";
+    } else{
+        document.getElementById('icon-preview').src = "images/icons/" + icon.trim() + ".png" || '';
+    }
+}
 
 function processKMZ() {
 
@@ -1338,6 +1403,35 @@ function openfile() {
 
 }
 
+//fecth icon folder and add each image as a mapbox image - add option to select icon for PoI
+function loadicons() {
+    // Fetch the list of files in the icons directory
+    fetch('/images/icons/')
+        .then(response => response.text())
+        .then(data => {
+            // Create a temporary DOM element to parse the HTML response
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(data, 'text/html');
+            var files = Array.from(doc.querySelectorAll("a.icon-image")).map( file => file.title);
+
+            files.forEach(function (file) {
+                if (file.endsWith('.png')) {
+                    var iconName = file.replace('.png', '');
+
+                    map.loadImage('/images/icons/' + file, function (error, image) {
+                        if (error) throw error;
+                        map.addImage(iconName, image);
+                    });
+                }
+                // Add the icon to the input field for selection
+                var iconInput = document.getElementById('inp_icon');
+                var option = document.createElement('option');
+                option.value = iconName;
+                option.textContent = iconName.replace('usr_', ''); // Remove 'usr_' prefix for display
+                iconInput.appendChild(option);
+            });
+        });
+}
 /* MAP EVENTS */
 
 // on draw.render update the measurments

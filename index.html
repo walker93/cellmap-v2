@@ -87,6 +87,13 @@
                         <label for="inp_fill">Color:</label>
                         <input type="color" id="inp_fill" placeholder="Colore" value="#FF0000">
                     </div>
+                    <div class="line">
+                        <label for="inp_icon">Icon:</label>
+                        <select id="inp_icon" placeholder="Select icon" value="" disabled onchange="changeIcon()">
+                            <option value=""  selected>Choose an icon</option>
+                        </select>
+                        <img id="icon-preview" src="" alt="Icon Preview">
+                    </div>
                     <input type="hidden" id="feature-id" value="">
                     <button class="form-btn" onclick="closeForm()">Annulla</button>
                     <button id="addbtn" class="form-btn" style="display: inline-block;"
