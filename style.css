@@ -151,20 +151,8 @@ main {
 
 }
 
-#icon-preview {
-    height: 19px;
-    aspect-ratio: 1;
-    display: block;
-    margin: 0 10px;
-    border: 1px solid var(--primary-color);
-}
-
-#icon-preview[src=""] {
-    display: none;
-}
-
-#inp_icon {
-    width: 70%;;
+.ts-wrapper{
+    width: 100%;
 }
 
 .line>input[type="text"],
