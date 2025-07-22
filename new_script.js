@@ -403,6 +403,7 @@ function addMeasurementTools() {
                     "text-allow-overlap": false,
                     "text-ignore-placement": true,
                     "icon-ignore-placement": true,
+                    "icon-anchor": 'bottom'
                 }
             },
             {
@@ -418,8 +419,8 @@ function addMeasurementTools() {
                     'icon-allow-overlap': true,
                     'icon-size': 1.1,
                     "text-allow-overlap": false,
-                    "text-ignore-placement": true,
                     "icon-ignore-placement": true,
+                    "icon-anchor": 'bottom'
                 }
             }
         ],
@@ -606,7 +607,7 @@ function loadForm(feature) {
         angolo1.disabled = true;
         angolo2.disabled = true;
         icn.disabled = false;
-       
+
         savebtn.setAttribute('onclick', 'modificaPoi()');
     }
     //enable or disable coords field according to geometry type
@@ -625,7 +626,10 @@ function loadForm(feature) {
     fillcolor.value = feature.properties.fill || "";
     alpha.value = feature.properties.opacity || "0.2";
     icn.value = feature.properties.icon || "";
-    icn_prew.src = feature.properties.icon ? `images/icons/${feature.properties.icon}.png` : "";
+
+    var category = feature.properties.icon_category || "";
+
+    icn_prew.src = feature.properties.icon ? `images/icons/${category}/${feature.properties.icon}.png` : "";
     feat_id.value = feature.id;
 }
 
@@ -647,8 +651,10 @@ function modificaPoi() {
         feature.geometry.coordinates[1] = parseFloat(lat.value);
     }
     if (!(feature.properties.marker && feature.properties.marker == "cell")) {
-        var icon = document.getElementById('inp_icon').value;
-        feature.properties.icon = icon.trim() || undefined; // Set icon or remove if empty
+        var icon_select = document.getElementById('inp_icon');
+        var category = icon_select.options[icon_select.selectedIndex].parentNode;
+        feature.properties.icon = icon_select.value || undefined; // Set icon or remove if empty
+        feature.properties.icon_category = category.label || undefined; // Set icon category or remove if empty
     }
     draw.add(feature);
     //reset and close form
@@ -1233,11 +1239,13 @@ function closeForm() {
 }
 
 function changeIcon() {
-    var icon = document.getElementById('inp_icon').value;
-    if (icon.trim() === "") {
+    var icon_select = document.getElementById('inp_icon');
+    var icon = icon_select.options[icon_select.selectedIndex];
+    var category = icon.parentNode;
+    if (icon_select.value.trim() === "") {
         document.getElementById('icon-preview').src = "";
-    } else{
-        document.getElementById('icon-preview').src = "images/icons/" + icon.trim() + ".png" || '';
+    } else {
+        document.getElementById('icon-preview').src = "images/icons/" + category.label + "/" + icon_select.value.trim() + ".png" || '';
     }
 }
 
@@ -1405,6 +1413,7 @@ function openfile() {
 
 //fecth icon folder and add each image as a mapbox image - add option to select icon for PoI
 function loadicons() {
+    var iconInput = document.getElementById('inp_icon');
     // Fetch the list of files in the icons directory
     fetch('/images/icons/')
         .then(response => response.text())
@@ -1412,23 +1421,38 @@ function loadicons() {
             // Create a temporary DOM element to parse the HTML response
             var parser = new DOMParser();
             var doc = parser.parseFromString(data, 'text/html');
-            var files = Array.from(doc.querySelectorAll("a.icon-image")).map( file => file.title);
 
-            files.forEach(function (file) {
-                if (file.endsWith('.png')) {
-                    var iconName = file.replace('.png', '');
+            // parse each subfolder as categories for optgroup
+            var categories = Array.from(doc.querySelectorAll("a.icon-directory")).slice(1).map(fold => ({ 'title': fold.title, 'path': fold.href }));
+            categories.forEach(function (category) {
+                var optgroup = document.createElement('optgroup');
+                optgroup.label = category.title;
+                fetch(category.path)
+                    .then(response => response.text())
+                    .then(data => {
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(data, 'text/html');
+                        var files = Array.from(doc.querySelectorAll("a.icon-image")).map(file => file.title);
+                        files.forEach(function (file) {
+                            if (file.endsWith('.png')) {
+                                var iconName = file.replace('.png', '');
 
-                    map.loadImage('/images/icons/' + file, function (error, image) {
-                        if (error) throw error;
-                        map.addImage(iconName, image);
-                    });
-                }
-                // Add the icon to the input field for selection
-                var iconInput = document.getElementById('inp_icon');
-                var option = document.createElement('option');
-                option.value = iconName;
-                option.textContent = iconName.replace('usr_', ''); // Remove 'usr_' prefix for display
-                iconInput.appendChild(option);
+                                map.loadImage(category.path + '/' + file, function (error, image) {
+                                    if (error) throw error;
+                                    if (!map.hasImage(iconName)) map.addImage(iconName, image);
+                                });
+                            }
+                            // Add the icon to the input field for selection
+                            var option = document.createElement('option');
+                            option.value = iconName;
+                            option.textContent = iconName.replace('usr_', ''); // Remove 'usr_' prefix for display
+                            optgroup.appendChild(option);
+                        })
+                        iconInput.appendChild(optgroup);
+                    })
+
+
+
             });
         });
 }
@@ -1449,11 +1473,12 @@ map.on('draw.render', function (e) {
                     if (feature.properties.marker != 'cell') {
                         if (feature.geometry.coordinates.length > 1) {
                             var label = feature.properties.name || feature.geometry.coordinates[1].toFixed(6) + ',\n ' + feature.geometry.coordinates[0].toFixed(6);
+                            var offset = feature.properties.icon ? 3 : 1.3;
                             labelFeatures.push(turf.point(feature.geometry.coordinates, {
                                 type: 'point',
                                 label: label,
-                                size: 12,
-                                offset: 1.3,
+                                size: feature.properties.name ? 16 : 12,
+                                offset: offset,
                             }));
                         }
                     }
