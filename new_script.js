@@ -1398,7 +1398,7 @@ function loadicons() {
     iconInput.innerHTML = '<option value="" selected>Choose an icon</option>';
     iconInput.disabled = true;
     // Fetch the list of files in the icons directory
-    fetch('/images/icons/')
+    fetch('images/icons/')
         .then(response => response.text())
         .then(data => {
             var parser = new DOMParser();
