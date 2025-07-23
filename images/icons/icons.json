@@ -1,0 +1,5066 @@
+{
+    "usr_alien": {
+        "value": "usr_alien",
+        "text": "alien",
+        "category": "Events",
+        "url": "images/icons/Events/usr_alien.png"
+    },
+    "usr_anon": {
+        "value": "usr_anon",
+        "text": "anon",
+        "category": "Events",
+        "url": "images/icons/Events/usr_anon.png"
+    },
+    "usr_avalanche1": {
+        "value": "usr_avalanche1",
+        "text": "avalanche1",
+        "category": "Events",
+        "url": "images/icons/Events/usr_avalanche1.png"
+    },
+    "usr_battlefield": {
+        "value": "usr_battlefield",
+        "text": "battlefield",
+        "category": "Events",
+        "url": "images/icons/Events/usr_battlefield.png"
+    },
+    "usr_blast": {
+        "value": "usr_blast",
+        "text": "blast",
+        "category": "Events",
+        "url": "images/icons/Events/usr_blast.png"
+    },
+    "usr_bomb": {
+        "value": "usr_bomb",
+        "text": "bomb",
+        "category": "Events",
+        "url": "images/icons/Events/usr_bomb.png"
+    },
+    "usr_caraccident": {
+        "value": "usr_caraccident",
+        "text": "caraccident",
+        "category": "Events",
+        "url": "images/icons/Events/usr_caraccident.png"
+    },
+    "usr_cowabduction": {
+        "value": "usr_cowabduction",
+        "text": "cowabduction",
+        "category": "Events",
+        "url": "images/icons/Events/usr_cowabduction.png"
+    },
+    "usr_crimescene": {
+        "value": "usr_crimescene",
+        "text": "crimescene",
+        "category": "Events",
+        "url": "images/icons/Events/usr_crimescene.png"
+    },
+    "usr_cropcircles": {
+        "value": "usr_cropcircles",
+        "text": "cropcircles",
+        "category": "Events",
+        "url": "images/icons/Events/usr_cropcircles.png"
+    },
+    "usr_earthquake-3": {
+        "value": "usr_earthquake-3",
+        "text": "earthquake-3",
+        "category": "Events",
+        "url": "images/icons/Events/usr_earthquake-3.png"
+    },
+    "usr_fire": {
+        "value": "usr_fire",
+        "text": "fire",
+        "category": "Events",
+        "url": "images/icons/Events/usr_fire.png"
+    },
+    "usr_flood": {
+        "value": "usr_flood",
+        "text": "flood",
+        "category": "Events",
+        "url": "images/icons/Events/usr_flood.png"
+    },
+    "usr_knottemplate": {
+        "value": "usr_knottemplate",
+        "text": "knottemplate",
+        "category": "Events",
+        "url": "images/icons/Events/usr_knottemplate.png"
+    },
+    "usr_linedown": {
+        "value": "usr_linedown",
+        "text": "linedown",
+        "category": "Events",
+        "url": "images/icons/Events/usr_linedown.png"
+    },
+    "usr_love_date": {
+        "value": "usr_love_date",
+        "text": "love_date",
+        "category": "Events",
+        "url": "images/icons/Events/usr_love_date.png"
+    },
+    "usr_peace": {
+        "value": "usr_peace",
+        "text": "peace",
+        "category": "Events",
+        "url": "images/icons/Events/usr_peace.png"
+    },
+    "usr_phantom": {
+        "value": "usr_phantom",
+        "text": "phantom",
+        "category": "Events",
+        "url": "images/icons/Events/usr_phantom.png"
+    },
+    "usr_pirates": {
+        "value": "usr_pirates",
+        "text": "pirates",
+        "category": "Events",
+        "url": "images/icons/Events/usr_pirates.png"
+    },
+    "usr_planecrash": {
+        "value": "usr_planecrash",
+        "text": "planecrash",
+        "category": "Events",
+        "url": "images/icons/Events/usr_planecrash.png"
+    },
+    "usr_poweroutage": {
+        "value": "usr_poweroutage",
+        "text": "poweroutage",
+        "category": "Events",
+        "url": "images/icons/Events/usr_poweroutage.png"
+    },
+    "usr_radiation": {
+        "value": "usr_radiation",
+        "text": "radiation",
+        "category": "Events",
+        "url": "images/icons/Events/usr_radiation.png"
+    },
+    "usr_rape": {
+        "value": "usr_rape",
+        "text": "rape",
+        "category": "Events",
+        "url": "images/icons/Events/usr_rape.png"
+    },
+    "usr_rescue-2": {
+        "value": "usr_rescue-2",
+        "text": "rescue-2",
+        "category": "Events",
+        "url": "images/icons/Events/usr_rescue-2.png"
+    },
+    "usr_revolt": {
+        "value": "usr_revolt",
+        "text": "revolt",
+        "category": "Events",
+        "url": "images/icons/Events/usr_revolt.png"
+    },
+    "usr_robbery": {
+        "value": "usr_robbery",
+        "text": "robbery",
+        "category": "Events",
+        "url": "images/icons/Events/usr_robbery.png"
+    },
+    "usr_shark-export": {
+        "value": "usr_shark-export",
+        "text": "shark-export",
+        "category": "Events",
+        "url": "images/icons/Events/usr_shark-export.png"
+    },
+    "usr_shooting": {
+        "value": "usr_shooting",
+        "text": "shooting",
+        "category": "Events",
+        "url": "images/icons/Events/usr_shooting.png"
+    },
+    "usr_skull": {
+        "value": "usr_skull",
+        "text": "skull",
+        "category": "Events",
+        "url": "images/icons/Events/usr_skull.png"
+    },
+    "usr_strike": {
+        "value": "usr_strike",
+        "text": "strike",
+        "category": "Events",
+        "url": "images/icons/Events/usr_strike.png"
+    },
+    "usr_theft": {
+        "value": "usr_theft",
+        "text": "theft",
+        "category": "Events",
+        "url": "images/icons/Events/usr_theft.png"
+    },
+    "usr_tornado-2": {
+        "value": "usr_tornado-2",
+        "text": "tornado-2",
+        "category": "Events",
+        "url": "images/icons/Events/usr_tornado-2.png"
+    },
+    "usr_torture": {
+        "value": "usr_torture",
+        "text": "torture",
+        "category": "Events",
+        "url": "images/icons/Events/usr_torture.png"
+    },
+    "usr_treedown": {
+        "value": "usr_treedown",
+        "text": "treedown",
+        "category": "Events",
+        "url": "images/icons/Events/usr_treedown.png"
+    },
+    "usr_tsunami": {
+        "value": "usr_tsunami",
+        "text": "tsunami",
+        "category": "Events",
+        "url": "images/icons/Events/usr_tsunami.png"
+    },
+    "usr_ufo": {
+        "value": "usr_ufo",
+        "text": "ufo",
+        "category": "Events",
+        "url": "images/icons/Events/usr_ufo.png"
+    },
+    "usr_war": {
+        "value": "usr_war",
+        "text": "war",
+        "category": "Events",
+        "url": "images/icons/Events/usr_war.png"
+    },
+    "usr_wedding": {
+        "value": "usr_wedding",
+        "text": "wedding",
+        "category": "Events",
+        "url": "images/icons/Events/usr_wedding.png"
+    },
+    "usr_zombie-outbreak1": {
+        "value": "usr_zombie-outbreak1",
+        "text": "zombie-outbreak1",
+        "category": "Events",
+        "url": "images/icons/Events/usr_zombie-outbreak1.png"
+    },
+    "usr_acupuncture": {
+        "value": "usr_acupuncture",
+        "text": "acupuncture",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_acupuncture.png"
+    },
+    "usr_aed-2": {
+        "value": "usr_aed-2",
+        "text": "aed-2",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_aed-2.png"
+    },
+    "usr_ambulance": {
+        "value": "usr_ambulance",
+        "text": "ambulance",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_ambulance.png"
+    },
+    "usr_ambulanceboat": {
+        "value": "usr_ambulanceboat",
+        "text": "ambulanceboat",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_ambulanceboat.png"
+    },
+    "usr_augenarzt": {
+        "value": "usr_augenarzt",
+        "text": "augenarzt",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_augenarzt.png"
+    },
+    "usr_barber": {
+        "value": "usr_barber",
+        "text": "barber",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_barber.png"
+    },
+    "usr_beautysalon": {
+        "value": "usr_beautysalon",
+        "text": "beautysalon",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_beautysalon.png"
+    },
+    "usr_breastfeeding": {
+        "value": "usr_breastfeeding",
+        "text": "breastfeeding",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_breastfeeding.png"
+    },
+    "usr_chiropractor": {
+        "value": "usr_chiropractor",
+        "text": "chiropractor",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_chiropractor.png"
+    },
+    "usr_cramschool": {
+        "value": "usr_cramschool",
+        "text": "cramschool",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_cramschool.png"
+    },
+    "usr_dance_class": {
+        "value": "usr_dance_class",
+        "text": "dance_class",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_dance_class.png"
+    },
+    "usr_daycare": {
+        "value": "usr_daycare",
+        "text": "daycare",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_daycare.png"
+    },
+    "usr_dentist": {
+        "value": "usr_dentist",
+        "text": "dentist",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_dentist.png"
+    },
+    "usr_disability": {
+        "value": "usr_disability",
+        "text": "disability",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_disability.png"
+    },
+    "usr_drogerie": {
+        "value": "usr_drogerie",
+        "text": "drogerie",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_drogerie.png"
+    },
+    "usr_emergencyphone": {
+        "value": "usr_emergencyphone",
+        "text": "emergencyphone",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_emergencyphone.png"
+    },
+    "usr_fetalalcoholsyndrom": {
+        "value": "usr_fetalalcoholsyndrom",
+        "text": "fetalalcoholsyndrom",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_fetalalcoholsyndrom.png"
+    },
+    "usr_firstaid": {
+        "value": "usr_firstaid",
+        "text": "firstaid",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_firstaid.png"
+    },
+    "usr_footprint": {
+        "value": "usr_footprint",
+        "text": "footprint",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_footprint.png"
+    },
+    "usr_fsb_marker": {
+        "value": "usr_fsb_marker",
+        "text": "fsb_marker",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_fsb_marker.png"
+    },
+    "usr_highschool": {
+        "value": "usr_highschool",
+        "text": "highschool",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_highschool.png"
+    },
+    "usr_hoergeraeteakustiker_22px": {
+        "value": "usr_hoergeraeteakustiker_22px",
+        "text": "hoergeraeteakustiker_22px",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_hoergeraeteakustiker_22px.png"
+    },
+    "usr_hospital-building": {
+        "value": "usr_hospital-building",
+        "text": "hospital-building",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_hospital-building.png"
+    },
+    "usr_icon-nailsalon": {
+        "value": "usr_icon-nailsalon",
+        "text": "icon-nailsalon",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_icon-nailsalon.png"
+    },
+    "usr_jacuzzi": {
+        "value": "usr_jacuzzi",
+        "text": "jacuzzi",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_jacuzzi.png"
+    },
+    "usr_latrine": {
+        "value": "usr_latrine",
+        "text": "latrine",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_latrine.png"
+    },
+    "usr_lungenarzt": {
+        "value": "usr_lungenarzt",
+        "text": "lungenarzt",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_lungenarzt.png"
+    },
+    "usr_marijuana": {
+        "value": "usr_marijuana",
+        "text": "marijuana",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_marijuana.png"
+    },
+    "usr_massage": {
+        "value": "usr_massage",
+        "text": "massage",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_massage.png"
+    },
+    "usr_medicalstore": {
+        "value": "usr_medicalstore",
+        "text": "medicalstore",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_medicalstore.png"
+    },
+    "usr_medicine": {
+        "value": "usr_medicine",
+        "text": "medicine",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_medicine.png"
+    },
+    "usr_nanny": {
+        "value": "usr_nanny",
+        "text": "nanny",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_nanny.png"
+    },
+    "usr_nursery": {
+        "value": "usr_nursery",
+        "text": "nursery",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_nursery.png"
+    },
+    "usr_nursing_home_icon": {
+        "value": "usr_nursing_home_icon",
+        "text": "nursing_home_icon",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_nursing_home_icon.png"
+    },
+    "usr_ophthalmologist": {
+        "value": "usr_ophthalmologist",
+        "text": "ophthalmologist",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_ophthalmologist.png"
+    },
+    "usr_pleasurepier": {
+        "value": "usr_pleasurepier",
+        "text": "pleasurepier",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_pleasurepier.png"
+    },
+    "usr_sauna": {
+        "value": "usr_sauna",
+        "text": "sauna",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_sauna.png"
+    },
+    "usr_school": {
+        "value": "usr_school",
+        "text": "school",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_school.png"
+    },
+    "usr_sozialeeinrichtung": {
+        "value": "usr_sozialeeinrichtung",
+        "text": "sozialeeinrichtung",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_sozialeeinrichtung.png"
+    },
+    "usr_spa": {
+        "value": "usr_spa",
+        "text": "spa",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_spa.png"
+    },
+    "usr_summercamp": {
+        "value": "usr_summercamp",
+        "text": "summercamp",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_summercamp.png"
+    },
+    "usr_therapy": {
+        "value": "usr_therapy",
+        "text": "therapy",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_therapy.png"
+    },
+    "usr_toilets_inclusive": {
+        "value": "usr_toilets_inclusive",
+        "text": "toilets_inclusive",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_toilets_inclusive.png"
+    },
+    "usr_traditionelle_chinesische_medizin": {
+        "value": "usr_traditionelle_chinesische_medizin",
+        "text": "traditionelle_chinesische_medizin",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_traditionelle_chinesische_medizin.png"
+    },
+    "usr_university": {
+        "value": "usr_university",
+        "text": "university",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_university.png"
+    },
+    "usr_veterinary": {
+        "value": "usr_veterinary",
+        "text": "veterinary",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_veterinary.png"
+    },
+    "usr_welfareroom": {
+        "value": "usr_welfareroom",
+        "text": "welfareroom",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_welfareroom.png"
+    },
+    "usr_workshop": {
+        "value": "usr_workshop",
+        "text": "workshop",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_workshop.png"
+    },
+    "usr_x-ray": {
+        "value": "usr_x-ray",
+        "text": "x-ray",
+        "category": "Healt & Education",
+        "url": "images/icons/Healt%20%26%20Education/usr_x-ray.png"
+    },
+    "usr_aboriginal": {
+        "value": "usr_aboriginal",
+        "text": "aboriginal",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_aboriginal.png"
+    },
+    "usr_airshow-2": {
+        "value": "usr_airshow-2",
+        "text": "airshow-2",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_airshow-2.png"
+    },
+    "usr_anniversary": {
+        "value": "usr_anniversary",
+        "text": "anniversary",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_anniversary.png"
+    },
+    "usr_anthropo": {
+        "value": "usr_anthropo",
+        "text": "anthropo",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_anthropo.png"
+    },
+    "usr_aquarium": {
+        "value": "usr_aquarium",
+        "text": "aquarium",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_aquarium.png"
+    },
+    "usr_art-museum-2": {
+        "value": "usr_art-museum-2",
+        "text": "art-museum-2",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_art-museum-2.png"
+    },
+    "usr_assortment": {
+        "value": "usr_assortment",
+        "text": "assortment",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_assortment.png"
+    },
+    "usr_billiard-2": {
+        "value": "usr_billiard-2",
+        "text": "billiard-2",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_billiard-2.png"
+    },
+    "usr_bowling": {
+        "value": "usr_bowling",
+        "text": "bowling",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_bowling.png"
+    },
+    "usr_bullfight": {
+        "value": "usr_bullfight",
+        "text": "bullfight",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_bullfight.png"
+    },
+    "usr_bumper-car": {
+        "value": "usr_bumper-car",
+        "text": "bumper-car",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_bumper-car.png"
+    },
+    "usr_bustour": {
+        "value": "usr_bustour",
+        "text": "bustour",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_bustour.png"
+    },
+    "usr_casino-2": {
+        "value": "usr_casino-2",
+        "text": "casino-2",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_casino-2.png"
+    },
+    "usr_cinema": {
+        "value": "usr_cinema",
+        "text": "cinema",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_cinema.png"
+    },
+    "usr_circus": {
+        "value": "usr_circus",
+        "text": "circus",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_circus.png"
+    },
+    "usr_coins": {
+        "value": "usr_coins",
+        "text": "coins",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_coins.png"
+    },
+    "usr_comedyclub": {
+        "value": "usr_comedyclub",
+        "text": "comedyclub",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_comedyclub.png"
+    },
+    "usr_dancinghall": {
+        "value": "usr_dancinghall",
+        "text": "dancinghall",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_dancinghall.png"
+    },
+    "usr_dinopark": {
+        "value": "usr_dinopark",
+        "text": "dinopark",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_dinopark.png"
+    },
+    "usr_ferriswheel": {
+        "value": "usr_ferriswheel",
+        "text": "ferriswheel",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_ferriswheel.png"
+    },
+    "usr_festival": {
+        "value": "usr_festival",
+        "text": "festival",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_festival.png"
+    },
+    "usr_fireworks": {
+        "value": "usr_fireworks",
+        "text": "fireworks",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_fireworks.png"
+    },
+    "usr_fishing": {
+        "value": "usr_fishing",
+        "text": "fishing",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_fishing.png"
+    },
+    "usr_geocaching-3": {
+        "value": "usr_geocaching-3",
+        "text": "geocaching-3",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_geocaching-3.png"
+    },
+    "usr_hifi": {
+        "value": "usr_hifi",
+        "text": "hifi",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_hifi.png"
+    },
+    "usr_historical_museum": {
+        "value": "usr_historical_museum",
+        "text": "historical_museum",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_historical_museum.png"
+    },
+    "usr_hookah_final": {
+        "value": "usr_hookah_final",
+        "text": "hookah_final",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_hookah_final.png"
+    },
+    "usr_jazzclub": {
+        "value": "usr_jazzclub",
+        "text": "jazzclub",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_jazzclub.png"
+    },
+    "usr_laterne": {
+        "value": "usr_laterne",
+        "text": "laterne",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_laterne.png"
+    },
+    "usr_library": {
+        "value": "usr_library",
+        "text": "library",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_library.png"
+    },
+    "usr_magicshow": {
+        "value": "usr_magicshow",
+        "text": "magicshow",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_magicshow.png"
+    },
+    "usr_mural": {
+        "value": "usr_mural",
+        "text": "mural",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_mural.png"
+    },
+    "usr_museum_archeological": {
+        "value": "usr_museum_archeological",
+        "text": "museum_archeological",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_museum_archeological.png"
+    },
+    "usr_museum_art": {
+        "value": "usr_museum_art",
+        "text": "museum_art",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_museum_art.png"
+    },
+    "usr_museum_crafts": {
+        "value": "usr_museum_crafts",
+        "text": "museum_crafts",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_museum_crafts.png"
+    },
+    "usr_museum_industry": {
+        "value": "usr_museum_industry",
+        "text": "museum_industry",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_museum_industry.png"
+    },
+    "usr_museum_naval": {
+        "value": "usr_museum_naval",
+        "text": "museum_naval",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_museum_naval.png"
+    },
+    "usr_museum_openair": {
+        "value": "usr_museum_openair",
+        "text": "museum_openair",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_museum_openair.png"
+    },
+    "usr_museum_science": {
+        "value": "usr_museum_science",
+        "text": "museum_science",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_museum_science.png"
+    },
+    "usr_museum_war": {
+        "value": "usr_museum_war",
+        "text": "museum_war",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_museum_war.png"
+    },
+    "usr_music_choral": {
+        "value": "usr_music_choral",
+        "text": "music_choral",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_music_choral.png"
+    },
+    "usr_music_classical": {
+        "value": "usr_music_classical",
+        "text": "music_classical",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_music_classical.png"
+    },
+    "usr_music_hiphop": {
+        "value": "usr_music_hiphop",
+        "text": "music_hiphop",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_music_hiphop.png"
+    },
+    "usr_music_live": {
+        "value": "usr_music_live",
+        "text": "music_live",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_music_live.png"
+    },
+    "usr_music_rock": {
+        "value": "usr_music_rock",
+        "text": "music_rock",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_music_rock.png"
+    },
+    "usr_paintball": {
+        "value": "usr_paintball",
+        "text": "paintball",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_paintball.png"
+    },
+    "usr_party-2": {
+        "value": "usr_party-2",
+        "text": "party-2",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_party-2.png"
+    },
+    "usr_planetarium-2": {
+        "value": "usr_planetarium-2",
+        "text": "planetarium-2",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_planetarium-2.png"
+    },
+    "usr_poker": {
+        "value": "usr_poker",
+        "text": "poker",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_poker.png"
+    },
+    "usr_publicart": {
+        "value": "usr_publicart",
+        "text": "publicart",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_publicart.png"
+    },
+    "usr_regroup": {
+        "value": "usr_regroup",
+        "text": "regroup",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_regroup.png"
+    },
+    "usr_ropescourse": {
+        "value": "usr_ropescourse",
+        "text": "ropescourse",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_ropescourse.png"
+    },
+    "usr_segway": {
+        "value": "usr_segway",
+        "text": "segway",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_segway.png"
+    },
+    "usr_sledge_summer": {
+        "value": "usr_sledge_summer",
+        "text": "sledge_summer",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_sledge_summer.png"
+    },
+    "usr_snowman": {
+        "value": "usr_snowman",
+        "text": "snowman",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_snowman.png"
+    },
+    "usr_square-compass": {
+        "value": "usr_square-compass",
+        "text": "square-compass",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_square-compass.png"
+    },
+    "usr_stripclub2": {
+        "value": "usr_stripclub2",
+        "text": "stripclub2",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_stripclub2.png"
+    },
+    "usr_targ": {
+        "value": "usr_targ",
+        "text": "targ",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_targ.png"
+    },
+    "usr_theater": {
+        "value": "usr_theater",
+        "text": "theater",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_theater.png"
+    },
+    "usr_themepark": {
+        "value": "usr_themepark",
+        "text": "themepark",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_themepark.png"
+    },
+    "usr_treasure-mark": {
+        "value": "usr_treasure-mark",
+        "text": "treasure-mark",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_treasure-mark.png"
+    },
+    "usr_triskelion": {
+        "value": "usr_triskelion",
+        "text": "triskelion",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_triskelion.png"
+    },
+    "usr_videogames": {
+        "value": "usr_videogames",
+        "text": "videogames",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_videogames.png"
+    },
+    "usr_walkingtour": {
+        "value": "usr_walkingtour",
+        "text": "walkingtour",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_walkingtour.png"
+    },
+    "usr_waterpark": {
+        "value": "usr_waterpark",
+        "text": "waterpark",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_waterpark.png"
+    },
+    "usr_zoo": {
+        "value": "usr_zoo",
+        "text": "zoo",
+        "category": "Culture & Entertainment",
+        "url": "images/icons/Culture%20%26%20Entertainment/usr_zoo.png"
+    },
+    "usr_agritourism": {
+        "value": "usr_agritourism",
+        "text": "agritourism",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_agritourism.png"
+    },
+    "usr_amphitheater-2": {
+        "value": "usr_amphitheater-2",
+        "text": "amphitheater-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_amphitheater-2.png"
+    },
+    "usr_arch": {
+        "value": "usr_arch",
+        "text": "arch",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_arch.png"
+    },
+    "usr_bigcity": {
+        "value": "usr_bigcity",
+        "text": "bigcity",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_bigcity.png"
+    },
+    "usr_bouddha": {
+        "value": "usr_bouddha",
+        "text": "bouddha",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_bouddha.png"
+    },
+    "usr_bridge_modern": {
+        "value": "usr_bridge_modern",
+        "text": "bridge_modern",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_bridge_modern.png"
+    },
+    "usr_bridge_old": {
+        "value": "usr_bridge_old",
+        "text": "bridge_old",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_bridge_old.png"
+    },
+    "usr_cabin-2": {
+        "value": "usr_cabin-2",
+        "text": "cabin-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_cabin-2.png"
+    },
+    "usr_campfire-2": {
+        "value": "usr_campfire-2",
+        "text": "campfire-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_campfire-2.png"
+    },
+    "usr_campingcar": {
+        "value": "usr_campingcar",
+        "text": "campingcar",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_campingcar.png"
+    },
+    "usr_castle-2": {
+        "value": "usr_castle-2",
+        "text": "castle-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_castle-2.png"
+    },
+    "usr_cathedral": {
+        "value": "usr_cathedral",
+        "text": "cathedral",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_cathedral.png"
+    },
+    "usr_catholicgrave": {
+        "value": "usr_catholicgrave",
+        "text": "catholicgrave",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_catholicgrave.png"
+    },
+    "usr_cave-2": {
+        "value": "usr_cave-2",
+        "text": "cave-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_cave-2.png"
+    },
+    "usr_cemetary": {
+        "value": "usr_cemetary",
+        "text": "cemetary",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_cemetary.png"
+    },
+    "usr_chapel-2": {
+        "value": "usr_chapel-2",
+        "text": "chapel-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_chapel-2.png"
+    },
+    "usr_church-2": {
+        "value": "usr_church-2",
+        "text": "church-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_church-2.png"
+    },
+    "usr_citysquare": {
+        "value": "usr_citysquare",
+        "text": "citysquare",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_citysquare.png"
+    },
+    "usr_citywalls": {
+        "value": "usr_citywalls",
+        "text": "citywalls",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_citywalls.png"
+    },
+    "usr_clock": {
+        "value": "usr_clock",
+        "text": "clock",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_clock.png"
+    },
+    "usr_convent-2": {
+        "value": "usr_convent-2",
+        "text": "convent-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_convent-2.png"
+    },
+    "usr_country": {
+        "value": "usr_country",
+        "text": "country",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_country.png"
+    },
+    "usr_crematorium": {
+        "value": "usr_crematorium",
+        "text": "crematorium",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_crematorium.png"
+    },
+    "usr_cromlech": {
+        "value": "usr_cromlech",
+        "text": "cromlech",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_cromlech.png"
+    },
+    "usr_cross-2": {
+        "value": "usr_cross-2",
+        "text": "cross-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_cross-2.png"
+    },
+    "usr_cruiseship": {
+        "value": "usr_cruiseship",
+        "text": "cruiseship",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_cruiseship.png"
+    },
+    "usr_dogs_leash": {
+        "value": "usr_dogs_leash",
+        "text": "dogs_leash",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_dogs_leash.png"
+    },
+    "usr_flag-export": {
+        "value": "usr_flag-export",
+        "text": "flag-export",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_flag-export.png"
+    },
+    "usr_ford-2": {
+        "value": "usr_ford-2",
+        "text": "ford-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_ford-2.png"
+    },
+    "usr_forest": {
+        "value": "usr_forest",
+        "text": "forest",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_forest.png"
+    },
+    "usr_fountain-3": {
+        "value": "usr_fountain-3",
+        "text": "fountain-3",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_fountain-3.png"
+    },
+    "usr_ghosttown": {
+        "value": "usr_ghosttown",
+        "text": "ghosttown",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_ghosttown.png"
+    },
+    "usr_gondola-2": {
+        "value": "usr_gondola-2",
+        "text": "gondola-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_gondola-2.png"
+    },
+    "usr_headstone-2": {
+        "value": "usr_headstone-2",
+        "text": "headstone-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_headstone-2.png"
+    },
+    "usr_historicalquarter": {
+        "value": "usr_historicalquarter",
+        "text": "historicalquarter",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_historicalquarter.png"
+    },
+    "usr_horse-drawn_carriage": {
+        "value": "usr_horse-drawn_carriage",
+        "text": "horse-drawn_carriage",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_horse-drawn_carriage.png"
+    },
+    "usr_hut": {
+        "value": "usr_hut",
+        "text": "hut",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_hut.png"
+    },
+    "usr_icon-sevilla": {
+        "value": "usr_icon-sevilla",
+        "text": "icon-sevilla",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_icon-sevilla.png"
+    },
+    "usr_information": {
+        "value": "usr_information",
+        "text": "information",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_information.png"
+    },
+    "usr_japanese-lantern": {
+        "value": "usr_japanese-lantern",
+        "text": "japanese-lantern",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_japanese-lantern.png"
+    },
+    "usr_japanese-temple": {
+        "value": "usr_japanese-temple",
+        "text": "japanese-temple",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_japanese-temple.png"
+    },
+    "usr_jewishgrave": {
+        "value": "usr_jewishgrave",
+        "text": "jewishgrave",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_jewishgrave.png"
+    },
+    "usr_jewishquarter": {
+        "value": "usr_jewishquarter",
+        "text": "jewishquarter",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_jewishquarter.png"
+    },
+    "usr_landmark": {
+        "value": "usr_landmark",
+        "text": "landmark",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_landmark.png"
+    },
+    "usr_lifeguard-2": {
+        "value": "usr_lifeguard-2",
+        "text": "lifeguard-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_lifeguard-2.png"
+    },
+    "usr_lighthouse-2": {
+        "value": "usr_lighthouse-2",
+        "text": "lighthouse-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_lighthouse-2.png"
+    },
+    "usr_map": {
+        "value": "usr_map",
+        "text": "map",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_map.png"
+    },
+    "usr_mapicon": {
+        "value": "usr_mapicon",
+        "text": "mapicon",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_mapicon.png"
+    },
+    "usr_marina-2": {
+        "value": "usr_marina-2",
+        "text": "marina-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_marina-2.png"
+    },
+    "usr_megalith": {
+        "value": "usr_megalith",
+        "text": "megalith",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_megalith.png"
+    },
+    "usr_memorial": {
+        "value": "usr_memorial",
+        "text": "memorial",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_memorial.png"
+    },
+    "usr_modernmonument": {
+        "value": "usr_modernmonument",
+        "text": "modernmonument",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_modernmonument.png"
+    },
+    "usr_moderntower": {
+        "value": "usr_moderntower",
+        "text": "moderntower",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_moderntower.png"
+    },
+    "usr_monument-historique-icon-white-22x22": {
+        "value": "usr_monument-historique-icon-white-22x22",
+        "text": "monument-historique-icon-white-22x22",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_monument-historique-icon-white-22x22.png"
+    },
+    "usr_monument": {
+        "value": "usr_monument",
+        "text": "monument",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_monument.png"
+    },
+    "usr_mosquee": {
+        "value": "usr_mosquee",
+        "text": "mosquee",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_mosquee.png"
+    },
+    "usr_ne_barn-2": {
+        "value": "usr_ne_barn-2",
+        "text": "ne_barn-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_ne_barn-2.png"
+    },
+    "usr_notvisited": {
+        "value": "usr_notvisited",
+        "text": "notvisited",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_notvisited.png"
+    },
+    "usr_olympicsite": {
+        "value": "usr_olympicsite",
+        "text": "olympicsite",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_olympicsite.png"
+    },
+    "usr_pagoda-2": {
+        "value": "usr_pagoda-2",
+        "text": "pagoda-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_pagoda-2.png"
+    },
+    "usr_palace-2": {
+        "value": "usr_palace-2",
+        "text": "palace-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_palace-2.png"
+    },
+    "usr_palm-tree-export": {
+        "value": "usr_palm-tree-export",
+        "text": "palm-tree-export",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_palm-tree-export.png"
+    },
+    "usr_panoramicview": {
+        "value": "usr_panoramicview",
+        "text": "panoramicview",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_panoramicview.png"
+    },
+    "usr_petroglyphs-2": {
+        "value": "usr_petroglyphs-2",
+        "text": "petroglyphs-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_petroglyphs-2.png"
+    },
+    "usr_picnic-2": {
+        "value": "usr_picnic-2",
+        "text": "picnic-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_picnic-2.png"
+    },
+    "usr_pin-export": {
+        "value": "usr_pin-export",
+        "text": "pin-export",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_pin-export.png"
+    },
+    "usr_prayer": {
+        "value": "usr_prayer",
+        "text": "prayer",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_prayer.png"
+    },
+    "usr_pyramid": {
+        "value": "usr_pyramid",
+        "text": "pyramid",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_pyramid.png"
+    },
+    "usr_rockhouse": {
+        "value": "usr_rockhouse",
+        "text": "rockhouse",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_rockhouse.png"
+    },
+    "usr_ruins-2": {
+        "value": "usr_ruins-2",
+        "text": "ruins-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_ruins-2.png"
+    },
+    "usr_shintoshrine": {
+        "value": "usr_shintoshrine",
+        "text": "shintoshrine",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_shintoshrine.png"
+    },
+    "usr_shower": {
+        "value": "usr_shower",
+        "text": "shower",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_shower.png"
+    },
+    "usr_sight-2": {
+        "value": "usr_sight-2",
+        "text": "sight-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_sight-2.png"
+    },
+    "usr_signpost-2": {
+        "value": "usr_signpost-2",
+        "text": "signpost-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_signpost-2.png"
+    },
+    "usr_sikh": {
+        "value": "usr_sikh",
+        "text": "sikh",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_sikh.png"
+    },
+    "usr_smallcity": {
+        "value": "usr_smallcity",
+        "text": "smallcity",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_smallcity.png"
+    },
+    "usr_st-margarets-cross-map-icon-22-x-22": {
+        "value": "usr_st-margarets-cross-map-icon-22-x-22",
+        "text": "st-margarets-cross-map-icon-22-x-22",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_st-margarets-cross-map-icon-22-x-22.png"
+    },
+    "usr_star-3": {
+        "value": "usr_star-3",
+        "text": "star-3",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_star-3.png"
+    },
+    "usr_statue-2": {
+        "value": "usr_statue-2",
+        "text": "statue-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_statue-2.png"
+    },
+    "usr_synagogue-2": {
+        "value": "usr_synagogue-2",
+        "text": "synagogue-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_synagogue-2.png"
+    },
+    "usr_temple-2": {
+        "value": "usr_temple-2",
+        "text": "temple-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_temple-2.png"
+    },
+    "usr_templehindu": {
+        "value": "usr_templehindu",
+        "text": "templehindu",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_templehindu.png"
+    },
+    "usr_theravadapagoda": {
+        "value": "usr_theravadapagoda",
+        "text": "theravadapagoda",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_theravadapagoda.png"
+    },
+    "usr_theravadatemple": {
+        "value": "usr_theravadatemple",
+        "text": "theravadatemple",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_theravadatemple.png"
+    },
+    "usr_tower": {
+        "value": "usr_tower",
+        "text": "tower",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_tower.png"
+    },
+    "usr_treasure_chest": {
+        "value": "usr_treasure_chest",
+        "text": "treasure_chest",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_treasure_chest.png"
+    },
+    "usr_world": {
+        "value": "usr_world",
+        "text": "world",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_world.png"
+    },
+    "usr_you-are-here-2": {
+        "value": "usr_you-are-here-2",
+        "text": "you-are-here-2",
+        "category": "Tourism",
+        "url": "images/icons/Tourism/usr_you-are-here-2.png"
+    },
+    "usr_archery": {
+        "value": "usr_archery",
+        "text": "archery",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_archery.png"
+    },
+    "usr_atv": {
+        "value": "usr_atv",
+        "text": "atv",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_atv.png"
+    },
+    "usr_australianfootball": {
+        "value": "usr_australianfootball",
+        "text": "australianfootball",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_australianfootball.png"
+    },
+    "usr_badminton-2": {
+        "value": "usr_badminton-2",
+        "text": "badminton-2",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_badminton-2.png"
+    },
+    "usr_baseball": {
+        "value": "usr_baseball",
+        "text": "baseball",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_baseball.png"
+    },
+    "usr_basketball": {
+        "value": "usr_basketball",
+        "text": "basketball",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_basketball.png"
+    },
+    "usr_beachvolleyball": {
+        "value": "usr_beachvolleyball",
+        "text": "beachvolleyball",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_beachvolleyball.png"
+    },
+    "usr_bike_downhill": {
+        "value": "usr_bike_downhill",
+        "text": "bike_downhill",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_bike_downhill.png"
+    },
+    "usr_bike_rising": {
+        "value": "usr_bike_rising",
+        "text": "bike_rising",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_bike_rising.png"
+    },
+    "usr_boardercross": {
+        "value": "usr_boardercross",
+        "text": "boardercross",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_boardercross.png"
+    },
+    "usr_bobsleigh": {
+        "value": "usr_bobsleigh",
+        "text": "bobsleigh",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_bobsleigh.png"
+    },
+    "usr_boccia": {
+        "value": "usr_boccia",
+        "text": "boccia",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_boccia.png"
+    },
+    "usr_bock": {
+        "value": "usr_bock",
+        "text": "bock",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_bock.png"
+    },
+    "usr_bollie": {
+        "value": "usr_bollie",
+        "text": "bollie",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_bollie.png"
+    },
+    "usr_borb": {
+        "value": "usr_borb",
+        "text": "borb",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_borb.png"
+    },
+    "usr_boxing": {
+        "value": "usr_boxing",
+        "text": "boxing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_boxing.png"
+    },
+    "usr_chess": {
+        "value": "usr_chess",
+        "text": "chess",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_chess.png"
+    },
+    "usr_chronometer": {
+        "value": "usr_chronometer",
+        "text": "chronometer",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_chronometer.png"
+    },
+    "usr_climbing-bentgate_carabiner": {
+        "value": "usr_climbing-bentgate_carabiner",
+        "text": "climbing-bentgate_carabiner",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_climbing-bentgate_carabiner.png"
+    },
+    "usr_climbing": {
+        "value": "usr_climbing",
+        "text": "climbing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_climbing.png"
+    },
+    "usr_coldfoodcheckpoint": {
+        "value": "usr_coldfoodcheckpoint",
+        "text": "coldfoodcheckpoint",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_coldfoodcheckpoint.png"
+    },
+    "usr_cricket": {
+        "value": "usr_cricket",
+        "text": "cricket",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_cricket.png"
+    },
+    "usr_cup": {
+        "value": "usr_cup",
+        "text": "cup",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_cup.png"
+    },
+    "usr_curling-2": {
+        "value": "usr_curling-2",
+        "text": "curling-2",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_curling-2.png"
+    },
+    "usr_cycling_feed": {
+        "value": "usr_cycling_feed",
+        "text": "cycling_feed",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_cycling_feed.png"
+    },
+    "usr_cycling_sprint": {
+        "value": "usr_cycling_sprint",
+        "text": "cycling_sprint",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_cycling_sprint.png"
+    },
+    "usr_cycling": {
+        "value": "usr_cycling",
+        "text": "cycling",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_cycling.png"
+    },
+    "usr_deepseafishing": {
+        "value": "usr_deepseafishing",
+        "text": "deepseafishing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_deepseafishing.png"
+    },
+    "usr_discgolf": {
+        "value": "usr_discgolf",
+        "text": "discgolf",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_discgolf.png"
+    },
+    "usr_diving": {
+        "value": "usr_diving",
+        "text": "diving",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_diving.png"
+    },
+    "usr_finish2": {
+        "value": "usr_finish2",
+        "text": "finish2",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_finish2.png"
+    },
+    "usr_fitness": {
+        "value": "usr_fitness",
+        "text": "fitness",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_fitness.png"
+    },
+    "usr_fourbyfour": {
+        "value": "usr_fourbyfour",
+        "text": "fourbyfour",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_fourbyfour.png"
+    },
+    "usr_ft": {
+        "value": "usr_ft",
+        "text": "ft",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_ft.png"
+    },
+    "usr_glasswater": {
+        "value": "usr_glasswater",
+        "text": "glasswater",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_glasswater.png"
+    },
+    "usr_golf-2": {
+        "value": "usr_golf-2",
+        "text": "golf-2",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_golf-2.png"
+    },
+    "usr_handball": {
+        "value": "usr_handball",
+        "text": "handball",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_handball.png"
+    },
+    "usr_hanggliding": {
+        "value": "usr_hanggliding",
+        "text": "hanggliding",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_hanggliding.png"
+    },
+    "usr_hiking2": {
+        "value": "usr_hiking2",
+        "text": "hiking2",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_hiking2.png"
+    },
+    "usr_hochsitz": {
+        "value": "usr_hochsitz",
+        "text": "hochsitz",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_hochsitz.png"
+    },
+    "usr_horseriding": {
+        "value": "usr_horseriding",
+        "text": "horseriding",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_horseriding.png"
+    },
+    "usr_hotfoodcheckpoint": {
+        "value": "usr_hotfoodcheckpoint",
+        "text": "hotfoodcheckpoint",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_hotfoodcheckpoint.png"
+    },
+    "usr_hunting": {
+        "value": "usr_hunting",
+        "text": "hunting",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_hunting.png"
+    },
+    "usr_ice_fishing": {
+        "value": "usr_ice_fishing",
+        "text": "ice_fishing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_ice_fishing.png"
+    },
+    "usr_icehockey": {
+        "value": "usr_icehockey",
+        "text": "icehockey",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_icehockey.png"
+    },
+    "usr_iceskating": {
+        "value": "usr_iceskating",
+        "text": "iceskating",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_iceskating.png"
+    },
+    "usr_indoor-arena": {
+        "value": "usr_indoor-arena",
+        "text": "indoor-arena",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_indoor-arena.png"
+    },
+    "usr_jogging": {
+        "value": "usr_jogging",
+        "text": "jogging",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_jogging.png"
+    },
+    "usr_judo": {
+        "value": "usr_judo",
+        "text": "judo",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_judo.png"
+    },
+    "usr_kanzeldach": {
+        "value": "usr_kanzeldach",
+        "text": "kanzeldach",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_kanzeldach.png"
+    },
+    "usr_karate": {
+        "value": "usr_karate",
+        "text": "karate",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_karate.png"
+    },
+    "usr_karting": {
+        "value": "usr_karting",
+        "text": "karting",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_karting.png"
+    },
+    "usr_kayaking": {
+        "value": "usr_kayaking",
+        "text": "kayaking",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_kayaking.png"
+    },
+    "usr_kitesurfing": {
+        "value": "usr_kitesurfing",
+        "text": "kitesurfing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_kitesurfing.png"
+    },
+    "usr_lockerroom": {
+        "value": "usr_lockerroom",
+        "text": "lockerroom",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_lockerroom.png"
+    },
+    "usr_motorbike": {
+        "value": "usr_motorbike",
+        "text": "motorbike",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_motorbike.png"
+    },
+    "usr_mountainbiking-3": {
+        "value": "usr_mountainbiking-3",
+        "text": "mountainbiking-3",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_mountainbiking-3.png"
+    },
+    "usr_mountains_cathc": {
+        "value": "usr_mountains_cathc",
+        "text": "mountains_cathc",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_mountains_cathc.png"
+    },
+    "usr_nordicskiing-2": {
+        "value": "usr_nordicskiing-2",
+        "text": "nordicskiing-2",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_nordicskiing-2.png"
+    },
+    "usr_orienteering": {
+        "value": "usr_orienteering",
+        "text": "orienteering",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_orienteering.png"
+    },
+    "usr_paragliding": {
+        "value": "usr_paragliding",
+        "text": "paragliding",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_paragliding.png"
+    },
+    "usr_parasailing": {
+        "value": "usr_parasailing",
+        "text": "parasailing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_parasailing.png"
+    },
+    "usr_radio-control-model-car": {
+        "value": "usr_radio-control-model-car",
+        "text": "radio-control-model-car",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_radio-control-model-car.png"
+    },
+    "usr_rollerblade": {
+        "value": "usr_rollerblade",
+        "text": "rollerblade",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_rollerblade.png"
+    },
+    "usr_rollerskate": {
+        "value": "usr_rollerskate",
+        "text": "rollerskate",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_rollerskate.png"
+    },
+    "usr_rowboat": {
+        "value": "usr_rowboat",
+        "text": "rowboat",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_rowboat.png"
+    },
+    "usr_rugbyfield": {
+        "value": "usr_rugbyfield",
+        "text": "rugbyfield",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_rugbyfield.png"
+    },
+    "usr_sailing": {
+        "value": "usr_sailing",
+        "text": "sailing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_sailing.png"
+    },
+    "usr_scubadiving": {
+        "value": "usr_scubadiving",
+        "text": "scubadiving",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_scubadiving.png"
+    },
+    "usr_shootingrange": {
+        "value": "usr_shootingrange",
+        "text": "shootingrange",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_shootingrange.png"
+    },
+    "usr_skiing": {
+        "value": "usr_skiing",
+        "text": "skiing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_skiing.png"
+    },
+    "usr_skijump": {
+        "value": "usr_skijump",
+        "text": "skijump",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_skijump.png"
+    },
+    "usr_skilifting": {
+        "value": "usr_skilifting",
+        "text": "skilifting",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_skilifting.png"
+    },
+    "usr_skistation": {
+        "value": "usr_skistation",
+        "text": "skistation",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_skistation.png"
+    },
+    "usr_sleddog": {
+        "value": "usr_sleddog",
+        "text": "sleddog",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_sleddog.png"
+    },
+    "usr_sledge": {
+        "value": "usr_sledge",
+        "text": "sledge",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_sledge.png"
+    },
+    "usr_snorkeling": {
+        "value": "usr_snorkeling",
+        "text": "snorkeling",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_snorkeling.png"
+    },
+    "usr_snowboarding": {
+        "value": "usr_snowboarding",
+        "text": "snowboarding",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_snowboarding.png"
+    },
+    "usr_snowmobiling": {
+        "value": "usr_snowmobiling",
+        "text": "snowmobiling",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_snowmobiling.png"
+    },
+    "usr_snowpark_arc": {
+        "value": "usr_snowpark_arc",
+        "text": "snowpark_arc",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_snowpark_arc.png"
+    },
+    "usr_snowshoeing": {
+        "value": "usr_snowshoeing",
+        "text": "snowshoeing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_snowshoeing.png"
+    },
+    "usr_soccer": {
+        "value": "usr_soccer",
+        "text": "soccer",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_soccer.png"
+    },
+    "usr_speedriding": {
+        "value": "usr_speedriding",
+        "text": "speedriding",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_speedriding.png"
+    },
+    "usr_spelunking": {
+        "value": "usr_spelunking",
+        "text": "spelunking",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_spelunking.png"
+    },
+    "usr_sponge": {
+        "value": "usr_sponge",
+        "text": "sponge",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_sponge.png"
+    },
+    "usr_sportscar": {
+        "value": "usr_sportscar",
+        "text": "sportscar",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_sportscar.png"
+    },
+    "usr_sportutilityvehicle": {
+        "value": "usr_sportutilityvehicle",
+        "text": "sportutilityvehicle",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_sportutilityvehicle.png"
+    },
+    "usr_squash-2": {
+        "value": "usr_squash-2",
+        "text": "squash-2",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_squash-2.png"
+    },
+    "usr_stadium": {
+        "value": "usr_stadium",
+        "text": "stadium",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_stadium.png"
+    },
+    "usr_startfinish": {
+        "value": "usr_startfinish",
+        "text": "startfinish",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_startfinish.png"
+    },
+    "usr_sumo-2": {
+        "value": "usr_sumo-2",
+        "text": "sumo-2",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_sumo-2.png"
+    },
+    "usr_surfacelift": {
+        "value": "usr_surfacelift",
+        "text": "surfacelift",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_surfacelift.png"
+    },
+    "usr_surfing": {
+        "value": "usr_surfing",
+        "text": "surfing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_surfing.png"
+    },
+    "usr_surfpaddle": {
+        "value": "usr_surfpaddle",
+        "text": "surfpaddle",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_surfpaddle.png"
+    },
+    "usr_swimming": {
+        "value": "usr_swimming",
+        "text": "swimming",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_swimming.png"
+    },
+    "usr_taekwondo-2": {
+        "value": "usr_taekwondo-2",
+        "text": "taekwondo-2",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_taekwondo-2.png"
+    },
+    "usr_tebletennis": {
+        "value": "usr_tebletennis",
+        "text": "tebletennis",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_tebletennis.png"
+    },
+    "usr_tennis": {
+        "value": "usr_tennis",
+        "text": "tennis",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_tennis.png"
+    },
+    "usr_tourisme-loisirs_telebob": {
+        "value": "usr_tourisme-loisirs_telebob",
+        "text": "tourisme-loisirs_telebob",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_tourisme-loisirs_telebob.png"
+    },
+    "usr_usfootball": {
+        "value": "usr_usfootball",
+        "text": "usfootball",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_usfootball.png"
+    },
+    "usr_volleyball": {
+        "value": "usr_volleyball",
+        "text": "volleyball",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_volleyball.png"
+    },
+    "usr_watercraft": {
+        "value": "usr_watercraft",
+        "text": "watercraft",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_watercraft.png"
+    },
+    "usr_waterskiing": {
+        "value": "usr_waterskiing",
+        "text": "waterskiing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_waterskiing.png"
+    },
+    "usr_weights": {
+        "value": "usr_weights",
+        "text": "weights",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_weights.png"
+    },
+    "usr_windsurfing": {
+        "value": "usr_windsurfing",
+        "text": "windsurfing",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_windsurfing.png"
+    },
+    "usr_yoga": {
+        "value": "usr_yoga",
+        "text": "yoga",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_yoga.png"
+    },
+    "usr_yooner": {
+        "value": "usr_yooner",
+        "text": "yooner",
+        "category": "Sports",
+        "url": "images/icons/Sports/usr_yooner.png"
+    },
+    "usr_accesdenied": {
+        "value": "usr_accesdenied",
+        "text": "accesdenied",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_accesdenied.png"
+    },
+    "usr_aircraftsmall": {
+        "value": "usr_aircraftsmall",
+        "text": "aircraftsmall",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_aircraftsmall.png"
+    },
+    "usr_airport_apron": {
+        "value": "usr_airport_apron",
+        "text": "airport_apron",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_airport_apron.png"
+    },
+    "usr_airport_runway": {
+        "value": "usr_airport_runway",
+        "text": "airport_runway",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_airport_runway.png"
+    },
+    "usr_airport_terminal": {
+        "value": "usr_airport_terminal",
+        "text": "airport_terminal",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_airport_terminal.png"
+    },
+    "usr_airport": {
+        "value": "usr_airport",
+        "text": "airport",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_airport.png"
+    },
+    "usr_barrier": {
+        "value": "usr_barrier",
+        "text": "barrier",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_barrier.png"
+    },
+    "usr_begrenzungspfahl_poller": {
+        "value": "usr_begrenzungspfahl_poller",
+        "text": "begrenzungspfahl_poller",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_begrenzungspfahl_poller.png"
+    },
+    "usr_bicycle_parking": {
+        "value": "usr_bicycle_parking",
+        "text": "bicycle_parking",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_bicycle_parking.png"
+    },
+    "usr_boat": {
+        "value": "usr_boat",
+        "text": "boat",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_boat.png"
+    },
+    "usr_bulldozer": {
+        "value": "usr_bulldozer",
+        "text": "bulldozer",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_bulldozer.png"
+    },
+    "usr_bus": {
+        "value": "usr_bus",
+        "text": "bus",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_bus.png"
+    },
+    "usr_busstop": {
+        "value": "usr_busstop",
+        "text": "busstop",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_busstop.png"
+    },
+    "usr_cablecar": {
+        "value": "usr_cablecar",
+        "text": "cablecar",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_cablecar.png"
+    },
+    "usr_car_share": {
+        "value": "usr_car_share",
+        "text": "car_share",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_car_share.png"
+    },
+    "usr_car": {
+        "value": "usr_car",
+        "text": "car",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_car.png"
+    },
+    "usr_carrental": {
+        "value": "usr_carrental",
+        "text": "carrental",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_carrental.png"
+    },
+    "usr_carwash": {
+        "value": "usr_carwash",
+        "text": "carwash",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_carwash.png"
+    },
+    "usr_caution": {
+        "value": "usr_caution",
+        "text": "caution",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_caution.png"
+    },
+    "usr_closedroad": {
+        "value": "usr_closedroad",
+        "text": "closedroad",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_closedroad.png"
+    },
+    "usr_construction": {
+        "value": "usr_construction",
+        "text": "construction",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_construction.png"
+    },
+    "usr_convertible": {
+        "value": "usr_convertible",
+        "text": "convertible",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_convertible.png"
+    },
+    "usr_crossingguard": {
+        "value": "usr_crossingguard",
+        "text": "crossingguard",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_crossingguard.png"
+    },
+    "usr_curveleft": {
+        "value": "usr_curveleft",
+        "text": "curveleft",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_curveleft.png"
+    },
+    "usr_customs": {
+        "value": "usr_customs",
+        "text": "customs",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_customs.png"
+    },
+    "usr_dalben": {
+        "value": "usr_dalben",
+        "text": "dalben",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_dalben.png"
+    },
+    "usr_descent": {
+        "value": "usr_descent",
+        "text": "descent",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_descent.png"
+    },
+    "usr_direction_down": {
+        "value": "usr_direction_down",
+        "text": "direction_down",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_direction_down.png"
+    },
+    "usr_direction_uturn": {
+        "value": "usr_direction_uturn",
+        "text": "direction_uturn",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_direction_uturn.png"
+    },
+    "usr_ducati-diavel": {
+        "value": "usr_ducati-diavel",
+        "text": "ducati-diavel",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_ducati-diavel.png"
+    },
+    "usr_e-bike-charging": {
+        "value": "usr_e-bike-charging",
+        "text": "e-bike-charging",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_e-bike-charging.png"
+    },
+    "usr_fallingrocks": {
+        "value": "usr_fallingrocks",
+        "text": "fallingrocks",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_fallingrocks.png"
+    },
+    "usr_ferry": {
+        "value": "usr_ferry",
+        "text": "ferry",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_ferry.png"
+    },
+    "usr_fillingstation": {
+        "value": "usr_fillingstation",
+        "text": "fillingstation",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_fillingstation.png"
+    },
+    "usr_flagman": {
+        "value": "usr_flagman",
+        "text": "flagman",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_flagman.png"
+    },
+    "usr_funicolar-22x22": {
+        "value": "usr_funicolar-22x22",
+        "text": "funicolar-22x22",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_funicolar-22x22.png"
+    },
+    "usr_harbor": {
+        "value": "usr_harbor",
+        "text": "harbor",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_harbor.png"
+    },
+    "usr_helicopter": {
+        "value": "usr_helicopter",
+        "text": "helicopter",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_helicopter.png"
+    },
+    "usr_helipad": {
+        "value": "usr_helipad",
+        "text": "helipad",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_helipad.png"
+    },
+    "usr_highway": {
+        "value": "usr_highway",
+        "text": "highway",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_highway.png"
+    },
+    "usr_hotairbaloon": {
+        "value": "usr_hotairbaloon",
+        "text": "hotairbaloon",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_hotairbaloon.png"
+    },
+    "usr_icy_road": {
+        "value": "usr_icy_road",
+        "text": "icy_road",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_icy_road.png"
+    },
+    "usr_ipcam24": {
+        "value": "usr_ipcam24",
+        "text": "ipcam24",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_ipcam24.png"
+    },
+    "usr_jeep": {
+        "value": "usr_jeep",
+        "text": "jeep",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_jeep.png"
+    },
+    "usr_junction": {
+        "value": "usr_junction",
+        "text": "junction",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_junction.png"
+    },
+    "usr_kardinalstonne": {
+        "value": "usr_kardinalstonne",
+        "text": "kardinalstonne",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_kardinalstonne.png"
+    },
+    "usr_kingair": {
+        "value": "usr_kingair",
+        "text": "kingair",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_kingair.png"
+    },
+    "usr_lateraltonne": {
+        "value": "usr_lateraltonne",
+        "text": "lateraltonne",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_lateraltonne.png"
+    },
+    "usr_levelcrossing": {
+        "value": "usr_levelcrossing",
+        "text": "levelcrossing",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_levelcrossing.png"
+    },
+    "usr_map-icon-surface-metal": {
+        "value": "usr_map-icon-surface-metal",
+        "text": "map-icon-surface-metal",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_map-icon-surface-metal.png"
+    },
+    "usr_maxheight": {
+        "value": "usr_maxheight",
+        "text": "maxheight",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_maxheight.png"
+    },
+    "usr_maxweight": {
+        "value": "usr_maxweight",
+        "text": "maxweight",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_maxweight.png"
+    },
+    "usr_maxwidth": {
+        "value": "usr_maxwidth",
+        "text": "maxwidth",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_maxwidth.png"
+    },
+    "usr_metano-icon": {
+        "value": "usr_metano-icon",
+        "text": "metano-icon",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_metano-icon.png"
+    },
+    "usr_motorcycle": {
+        "value": "usr_motorcycle",
+        "text": "motorcycle",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_motorcycle.png"
+    },
+    "usr_oil-2": {
+        "value": "usr_oil-2",
+        "text": "oil-2",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_oil-2.png"
+    },
+    "usr_parkandride": {
+        "value": "usr_parkandride",
+        "text": "parkandride",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_parkandride.png"
+    },
+    "usr_parking-meter-export": {
+        "value": "usr_parking-meter-export",
+        "text": "parking-meter-export",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_parking-meter-export.png"
+    },
+    "usr_parkinggarage": {
+        "value": "usr_parkinggarage",
+        "text": "parkinggarage",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_parkinggarage.png"
+    },
+    "usr_pedestriancrossing": {
+        "value": "usr_pedestriancrossing",
+        "text": "pedestriancrossing",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_pedestriancrossing.png"
+    },
+    "usr_pickup_camper": {
+        "value": "usr_pickup_camper",
+        "text": "pickup_camper",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_pickup_camper.png"
+    },
+    "usr_pickup": {
+        "value": "usr_pickup",
+        "text": "pickup",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_pickup.png"
+    },
+    "usr_plowtruck": {
+        "value": "usr_plowtruck",
+        "text": "plowtruck",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_plowtruck.png"
+    },
+    "usr_repair": {
+        "value": "usr_repair",
+        "text": "repair",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_repair.png"
+    },
+    "usr_road": {
+        "value": "usr_road",
+        "text": "road",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_road.png"
+    },
+    "usr_roadtype_gravel": {
+        "value": "usr_roadtype_gravel",
+        "text": "roadtype_gravel",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_roadtype_gravel.png"
+    },
+    "usr_slipway": {
+        "value": "usr_slipway",
+        "text": "slipway",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_slipway.png"
+    },
+    "usr_solar-cruise": {
+        "value": "usr_solar-cruise",
+        "text": "solar-cruise",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_solar-cruise.png"
+    },
+    "usr_speed_130": {
+        "value": "usr_speed_130",
+        "text": "speed_130",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_speed_130.png"
+    },
+    "usr_speedhump": {
+        "value": "usr_speedhump",
+        "text": "speedhump",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_speedhump.png"
+    },
+    "usr_stargate-raw": {
+        "value": "usr_stargate-raw",
+        "text": "stargate-raw",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_stargate-raw.png"
+    },
+    "usr_steamtrain": {
+        "value": "usr_steamtrain",
+        "text": "steamtrain",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_steamtrain.png"
+    },
+    "usr_stop": {
+        "value": "usr_stop",
+        "text": "stop",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_stop.png"
+    },
+    "usr_taxi": {
+        "value": "usr_taxi",
+        "text": "taxi",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_taxi.png"
+    },
+    "usr_taxiboat": {
+        "value": "usr_taxiboat",
+        "text": "taxiboat",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_taxiboat.png"
+    },
+    "usr_taxiway": {
+        "value": "usr_taxiway",
+        "text": "taxiway",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_taxiway.png"
+    },
+    "usr_tidaldiamond": {
+        "value": "usr_tidaldiamond",
+        "text": "tidaldiamond",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_tidaldiamond.png"
+    },
+    "usr_tires": {
+        "value": "usr_tires",
+        "text": "tires",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_tires.png"
+    },
+    "usr_tollstation": {
+        "value": "usr_tollstation",
+        "text": "tollstation",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_tollstation.png"
+    },
+    "usr_trafficcamera": {
+        "value": "usr_trafficcamera",
+        "text": "trafficcamera",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_trafficcamera.png"
+    },
+    "usr_trafficlight": {
+        "value": "usr_trafficlight",
+        "text": "trafficlight",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_trafficlight.png"
+    },
+    "usr_train": {
+        "value": "usr_train",
+        "text": "train",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_train.png"
+    },
+    "usr_tramway": {
+        "value": "usr_tramway",
+        "text": "tramway",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_tramway.png"
+    },
+    "usr_triangle-down": {
+        "value": "usr_triangle-down",
+        "text": "triangle-down",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_triangle-down.png"
+    },
+    "usr_truck3": {
+        "value": "usr_truck3",
+        "text": "truck3",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_truck3.png"
+    },
+    "usr_tunnel": {
+        "value": "usr_tunnel",
+        "text": "tunnel",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_tunnel.png"
+    },
+    "usr_underground": {
+        "value": "usr_underground",
+        "text": "underground",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_underground.png"
+    },
+    "usr_van": {
+        "value": "usr_van",
+        "text": "van",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_van.png"
+    },
+    "usr_velocimeter": {
+        "value": "usr_velocimeter",
+        "text": "velocimeter",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_velocimeter.png"
+    },
+    "usr_vespa": {
+        "value": "usr_vespa",
+        "text": "vespa",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_vespa.png"
+    },
+    "usr_waterway-canal-icon": {
+        "value": "usr_waterway-canal-icon",
+        "text": "waterway-canal-icon",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_waterway-canal-icon.png"
+    },
+    "usr_wendepunkt": {
+        "value": "usr_wendepunkt",
+        "text": "wendepunkt",
+        "category": "Transportation",
+        "url": "images/icons/Transportation/usr_wendepunkt.png"
+    },
+    "usr_360degrees": {
+        "value": "usr_360degrees",
+        "text": "360degrees",
+        "category": "Media",
+        "url": "images/icons/Media/usr_360degrees.png"
+    },
+    "usr_3d": {
+        "value": "usr_3d",
+        "text": "3d",
+        "category": "Media",
+        "url": "images/icons/Media/usr_3d.png"
+    },
+    "usr_audio": {
+        "value": "usr_audio",
+        "text": "audio",
+        "category": "Media",
+        "url": "images/icons/Media/usr_audio.png"
+    },
+    "usr_award": {
+        "value": "usr_award",
+        "text": "award",
+        "category": "Media",
+        "url": "images/icons/Media/usr_award.png"
+    },
+    "usr_calendar-3": {
+        "value": "usr_calendar-3",
+        "text": "calendar-3",
+        "category": "Media",
+        "url": "images/icons/Media/usr_calendar-3.png"
+    },
+    "usr_chart-2": {
+        "value": "usr_chart-2",
+        "text": "chart-2",
+        "category": "Media",
+        "url": "images/icons/Media/usr_chart-2.png"
+    },
+    "usr_comment-map-icon": {
+        "value": "usr_comment-map-icon",
+        "text": "comment-map-icon",
+        "category": "Media",
+        "url": "images/icons/Media/usr_comment-map-icon.png"
+    },
+    "usr_conversation-map-icon": {
+        "value": "usr_conversation-map-icon",
+        "text": "conversation-map-icon",
+        "category": "Media",
+        "url": "images/icons/Media/usr_conversation-map-icon.png"
+    },
+    "usr_downloadicon": {
+        "value": "usr_downloadicon",
+        "text": "downloadicon",
+        "category": "Media",
+        "url": "images/icons/Media/usr_downloadicon.png"
+    },
+    "usr_folder-2": {
+        "value": "usr_folder-2",
+        "text": "folder-2",
+        "category": "Media",
+        "url": "images/icons/Media/usr_folder-2.png"
+    },
+    "usr_photo": {
+        "value": "usr_photo",
+        "text": "photo",
+        "category": "Media",
+        "url": "images/icons/Media/usr_photo.png"
+    },
+    "usr_price-tag-export": {
+        "value": "usr_price-tag-export",
+        "text": "price-tag-export",
+        "category": "Media",
+        "url": "images/icons/Media/usr_price-tag-export.png"
+    },
+    "usr_qr-code": {
+        "value": "usr_qr-code",
+        "text": "qr-code",
+        "category": "Media",
+        "url": "images/icons/Media/usr_qr-code.png"
+    },
+    "usr_share": {
+        "value": "usr_share",
+        "text": "share",
+        "category": "Media",
+        "url": "images/icons/Media/usr_share.png"
+    },
+    "usr_test-2": {
+        "value": "usr_test-2",
+        "text": "test-2",
+        "category": "Media",
+        "url": "images/icons/Media/usr_test-2.png"
+    },
+    "usr_text": {
+        "value": "usr_text",
+        "text": "text",
+        "category": "Media",
+        "url": "images/icons/Media/usr_text.png"
+    },
+    "usr_tv": {
+        "value": "usr_tv",
+        "text": "tv",
+        "category": "Media",
+        "url": "images/icons/Media/usr_tv.png"
+    },
+    "usr_tweet": {
+        "value": "usr_tweet",
+        "text": "tweet",
+        "category": "Media",
+        "url": "images/icons/Media/usr_tweet.png"
+    },
+    "usr_video": {
+        "value": "usr_video",
+        "text": "video",
+        "category": "Media",
+        "url": "images/icons/Media/usr_video.png"
+    },
+    "usr_webcam": {
+        "value": "usr_webcam",
+        "text": "webcam",
+        "category": "Media",
+        "url": "images/icons/Media/usr_webcam.png"
+    },
+    "usr_wiki-export": {
+        "value": "usr_wiki-export",
+        "text": "wiki-export",
+        "category": "Media",
+        "url": "images/icons/Media/usr_wiki-export.png"
+    },
+    "usr_zoom": {
+        "value": "usr_zoom",
+        "text": "zoom",
+        "category": "Media",
+        "url": "images/icons/Media/usr_zoom.png"
+    },
+    "usr_bar_coktail": {
+        "value": "usr_bar_coktail",
+        "text": "bar_coktail",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_bar_coktail.png"
+    },
+    "usr_bar_juice": {
+        "value": "usr_bar_juice",
+        "text": "bar_juice",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_bar_juice.png"
+    },
+    "usr_bar": {
+        "value": "usr_bar",
+        "text": "bar",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_bar.png"
+    },
+    "usr_barbecue": {
+        "value": "usr_barbecue",
+        "text": "barbecue",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_barbecue.png"
+    },
+    "usr_bed_breakfast1-2": {
+        "value": "usr_bed_breakfast1-2",
+        "text": "bed_breakfast1-2",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_bed_breakfast1-2.png"
+    },
+    "usr_beergarden": {
+        "value": "usr_beergarden",
+        "text": "beergarden",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_beergarden.png"
+    },
+    "usr_cafetaria": {
+        "value": "usr_cafetaria",
+        "text": "cafetaria",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_cafetaria.png"
+    },
+    "usr_coffee": {
+        "value": "usr_coffee",
+        "text": "coffee",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_coffee.png"
+    },
+    "usr_fastfood": {
+        "value": "usr_fastfood",
+        "text": "fastfood",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_fastfood.png"
+    },
+    "usr_fishchips": {
+        "value": "usr_fishchips",
+        "text": "fishchips",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_fishchips.png"
+    },
+    "usr_fooddeliveryservice": {
+        "value": "usr_fooddeliveryservice",
+        "text": "fooddeliveryservice",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_fooddeliveryservice.png"
+    },
+    "usr_foodtruck": {
+        "value": "usr_foodtruck",
+        "text": "foodtruck",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_foodtruck.png"
+    },
+    "usr_gay-female": {
+        "value": "usr_gay-female",
+        "text": "gay-female",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_gay-female.png"
+    },
+    "usr_gay-male": {
+        "value": "usr_gay-male",
+        "text": "gay-male",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_gay-male.png"
+    },
+    "usr_gluten_free": {
+        "value": "usr_gluten_free",
+        "text": "gluten_free",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_gluten_free.png"
+    },
+    "usr_gourmet_0star": {
+        "value": "usr_gourmet_0star",
+        "text": "gourmet_0star",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_gourmet_0star.png"
+    },
+    "usr_hostel_0star": {
+        "value": "usr_hostel_0star",
+        "text": "hostel_0star",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_hostel_0star.png"
+    },
+    "usr_hotel_0star": {
+        "value": "usr_hotel_0star",
+        "text": "hotel_0star",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_hotel_0star.png"
+    },
+    "usr_icecream": {
+        "value": "usr_icecream",
+        "text": "icecream",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_icecream.png"
+    },
+    "usr_japanese-food": {
+        "value": "usr_japanese-food",
+        "text": "japanese-food",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_japanese-food.png"
+    },
+    "usr_japanese-sake": {
+        "value": "usr_japanese-sake",
+        "text": "japanese-sake",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_japanese-sake.png"
+    },
+    "usr_kebab": {
+        "value": "usr_kebab",
+        "text": "kebab",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_kebab.png"
+    },
+    "usr_lodging_horseriding": {
+        "value": "usr_lodging_horseriding",
+        "text": "lodging_horseriding",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_lodging_horseriding.png"
+    },
+    "usr_lodging-2": {
+        "value": "usr_lodging-2",
+        "text": "lodging-2",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_lodging-2.png"
+    },
+    "usr_motel-2": {
+        "value": "usr_motel-2",
+        "text": "motel-2",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_motel-2.png"
+    },
+    "usr_pizzaria2": {
+        "value": "usr_pizzaria2",
+        "text": "pizzaria2",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_pizzaria2.png"
+    },
+    "usr_reception": {
+        "value": "usr_reception",
+        "text": "reception",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_reception.png"
+    },
+    "usr_resort": {
+        "value": "usr_resort",
+        "text": "resort",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_resort.png"
+    },
+    "usr_restaurant_african": {
+        "value": "usr_restaurant_african",
+        "text": "restaurant_african",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_african.png"
+    },
+    "usr_restaurant_breakfast": {
+        "value": "usr_restaurant_breakfast",
+        "text": "restaurant_breakfast",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_breakfast.png"
+    },
+    "usr_restaurant_buffet": {
+        "value": "usr_restaurant_buffet",
+        "text": "restaurant_buffet",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_buffet.png"
+    },
+    "usr_restaurant_chinese": {
+        "value": "usr_restaurant_chinese",
+        "text": "restaurant_chinese",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_chinese.png"
+    },
+    "usr_restaurant_fish": {
+        "value": "usr_restaurant_fish",
+        "text": "restaurant_fish",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_fish.png"
+    },
+    "usr_restaurant_greek": {
+        "value": "usr_restaurant_greek",
+        "text": "restaurant_greek",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_greek.png"
+    },
+    "usr_restaurant_indian": {
+        "value": "usr_restaurant_indian",
+        "text": "restaurant_indian",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_indian.png"
+    },
+    "usr_restaurant_italian": {
+        "value": "usr_restaurant_italian",
+        "text": "restaurant_italian",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_italian.png"
+    },
+    "usr_restaurant_korean": {
+        "value": "usr_restaurant_korean",
+        "text": "restaurant_korean",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_korean.png"
+    },
+    "usr_restaurant_mediterranean": {
+        "value": "usr_restaurant_mediterranean",
+        "text": "restaurant_mediterranean",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_mediterranean.png"
+    },
+    "usr_restaurant_mexican": {
+        "value": "usr_restaurant_mexican",
+        "text": "restaurant_mexican",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_mexican.png"
+    },
+    "usr_restaurant_romantic": {
+        "value": "usr_restaurant_romantic",
+        "text": "restaurant_romantic",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_romantic.png"
+    },
+    "usr_restaurant_steakhouse": {
+        "value": "usr_restaurant_steakhouse",
+        "text": "restaurant_steakhouse",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_steakhouse.png"
+    },
+    "usr_restaurant_tapas": {
+        "value": "usr_restaurant_tapas",
+        "text": "restaurant_tapas",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_tapas.png"
+    },
+    "usr_restaurant_thai": {
+        "value": "usr_restaurant_thai",
+        "text": "restaurant_thai",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_thai.png"
+    },
+    "usr_restaurant_turkish": {
+        "value": "usr_restaurant_turkish",
+        "text": "restaurant_turkish",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_turkish.png"
+    },
+    "usr_restaurant_vegetarian": {
+        "value": "usr_restaurant_vegetarian",
+        "text": "restaurant_vegetarian",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant_vegetarian.png"
+    },
+    "usr_restaurant": {
+        "value": "usr_restaurant",
+        "text": "restaurant",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_restaurant.png"
+    },
+    "usr_sandwich-2": {
+        "value": "usr_sandwich-2",
+        "text": "sandwich-2",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_sandwich-2.png"
+    },
+    "usr_tajine-2": {
+        "value": "usr_tajine-2",
+        "text": "tajine-2",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_tajine-2.png"
+    },
+    "usr_takeaway": {
+        "value": "usr_takeaway",
+        "text": "takeaway",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_takeaway.png"
+    },
+    "usr_teahouse": {
+        "value": "usr_teahouse",
+        "text": "teahouse",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_teahouse.png"
+    },
+    "usr_terrace": {
+        "value": "usr_terrace",
+        "text": "terrace",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_terrace.png"
+    },
+    "usr_villa": {
+        "value": "usr_villa",
+        "text": "villa",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_villa.png"
+    },
+    "usr_whiskey_barrel": {
+        "value": "usr_whiskey_barrel",
+        "text": "whiskey_barrel",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_whiskey_barrel.png"
+    },
+    "usr_wi-fi-2": {
+        "value": "usr_wi-fi-2",
+        "text": "wi-fi-2",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_wi-fi-2.png"
+    },
+    "usr_winebar": {
+        "value": "usr_winebar",
+        "text": "winebar",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_winebar.png"
+    },
+    "usr_winetasting": {
+        "value": "usr_winetasting",
+        "text": "winetasting",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_winetasting.png"
+    },
+    "usr_youthhostel": {
+        "value": "usr_youthhostel",
+        "text": "youthhostel",
+        "category": "Hotel & Resturants",
+        "url": "images/icons/Hotel%20%26%20Resturants/usr_youthhostel.png"
+    },
+    "usr_apartment-3": {
+        "value": "usr_apartment-3",
+        "text": "apartment-3",
+        "category": "People",
+        "url": "images/icons/People/usr_apartment-3.png"
+    },
+    "usr_babymarkt_ausstattung": {
+        "value": "usr_babymarkt_ausstattung",
+        "text": "babymarkt_ausstattung",
+        "category": "People",
+        "url": "images/icons/People/usr_babymarkt_ausstattung.png"
+    },
+    "usr_balloons": {
+        "value": "usr_balloons",
+        "text": "balloons",
+        "category": "People",
+        "url": "images/icons/People/usr_balloons.png"
+    },
+    "usr_beratungsstelle": {
+        "value": "usr_beratungsstelle",
+        "text": "beratungsstelle",
+        "category": "People",
+        "url": "images/icons/People/usr_beratungsstelle.png"
+    },
+    "usr_childmuseum01": {
+        "value": "usr_childmuseum01",
+        "text": "childmuseum01",
+        "category": "People",
+        "url": "images/icons/People/usr_childmuseum01.png"
+    },
+    "usr_cserkesz_ikon": {
+        "value": "usr_cserkesz_ikon",
+        "text": "cserkesz_ikon",
+        "category": "People",
+        "url": "images/icons/People/usr_cserkesz_ikon.png"
+    },
+    "usr_family": {
+        "value": "usr_family",
+        "text": "family",
+        "category": "People",
+        "url": "images/icons/People/usr_family.png"
+    },
+    "usr_female-2": {
+        "value": "usr_female-2",
+        "text": "female-2",
+        "category": "People",
+        "url": "images/icons/People/usr_female-2.png"
+    },
+    "usr_group-2": {
+        "value": "usr_group-2",
+        "text": "group-2",
+        "category": "People",
+        "url": "images/icons/People/usr_group-2.png"
+    },
+    "usr_home-2": {
+        "value": "usr_home-2",
+        "text": "home-2",
+        "category": "People",
+        "url": "images/icons/People/usr_home-2.png"
+    },
+    "usr_house": {
+        "value": "usr_house",
+        "text": "house",
+        "category": "People",
+        "url": "images/icons/People/usr_house.png"
+    },
+    "usr_loveinterest": {
+        "value": "usr_loveinterest",
+        "text": "loveinterest",
+        "category": "People",
+        "url": "images/icons/People/usr_loveinterest.png"
+    },
+    "usr_male-2": {
+        "value": "usr_male-2",
+        "text": "male-2",
+        "category": "People",
+        "url": "images/icons/People/usr_male-2.png"
+    },
+    "usr_playground": {
+        "value": "usr_playground",
+        "text": "playground",
+        "category": "People",
+        "url": "images/icons/People/usr_playground.png"
+    },
+    "usr_retirement_home": {
+        "value": "usr_retirement_home",
+        "text": "retirement_home",
+        "category": "People",
+        "url": "images/icons/People/usr_retirement_home.png"
+    },
+    "usr_santa2": {
+        "value": "usr_santa2",
+        "text": "santa2",
+        "category": "People",
+        "url": "images/icons/People/usr_santa2.png"
+    },
+    "usr_scoutgroup": {
+        "value": "usr_scoutgroup",
+        "text": "scoutgroup",
+        "category": "People",
+        "url": "images/icons/People/usr_scoutgroup.png"
+    },
+    "usr_smiley_happy": {
+        "value": "usr_smiley_happy",
+        "text": "smiley_happy",
+        "category": "People",
+        "url": "images/icons/People/usr_smiley_happy.png"
+    },
+    "usr_townhouse": {
+        "value": "usr_townhouse",
+        "text": "townhouse",
+        "category": "People",
+        "url": "images/icons/People/usr_townhouse.png"
+    },
+    "usr_toys": {
+        "value": "usr_toys",
+        "text": "toys",
+        "category": "People",
+        "url": "images/icons/People/usr_toys.png"
+    },
+    "usr_air_fixwing": {
+        "value": "usr_air_fixwing",
+        "text": "air_fixwing",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_air_fixwing.png"
+    },
+    "usr_aircraftcarrier": {
+        "value": "usr_aircraftcarrier",
+        "text": "aircraftcarrier",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_aircraftcarrier.png"
+    },
+    "usr_army": {
+        "value": "usr_army",
+        "text": "army",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_army.png"
+    },
+    "usr_battleship-3": {
+        "value": "usr_battleship-3",
+        "text": "battleship-3",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_battleship-3.png"
+    },
+    "usr_boatcrane": {
+        "value": "usr_boatcrane",
+        "text": "boatcrane",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_boatcrane.png"
+    },
+    "usr_bomber-2": {
+        "value": "usr_bomber-2",
+        "text": "bomber-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_bomber-2.png"
+    },
+    "usr_brewery1": {
+        "value": "usr_brewery1",
+        "text": "brewery1",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_brewery1.png"
+    },
+    "usr_bunker-2-2": {
+        "value": "usr_bunker-2-2",
+        "text": "bunker-2-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_bunker-2-2.png"
+    },
+    "usr_bunker": {
+        "value": "usr_bunker",
+        "text": "bunker",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_bunker.png"
+    },
+    "usr_channelchange": {
+        "value": "usr_channelchange",
+        "text": "channelchange",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_channelchange.png"
+    },
+    "usr_chemistry-2": {
+        "value": "usr_chemistry-2",
+        "text": "chemistry-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_chemistry-2.png"
+    },
+    "usr_constructioncrane": {
+        "value": "usr_constructioncrane",
+        "text": "constructioncrane",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_constructioncrane.png"
+    },
+    "usr_dam": {
+        "value": "usr_dam",
+        "text": "dam",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_dam.png"
+    },
+    "usr_database": {
+        "value": "usr_database",
+        "text": "database",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_database.png"
+    },
+    "usr_expert": {
+        "value": "usr_expert",
+        "text": "expert",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_expert.png"
+    },
+    "usr_factory": {
+        "value": "usr_factory",
+        "text": "factory",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_factory.png"
+    },
+    "usr_fishingboat": {
+        "value": "usr_fishingboat",
+        "text": "fishingboat",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_fishingboat.png"
+    },
+    "usr_foodcan": {
+        "value": "usr_foodcan",
+        "text": "foodcan",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_foodcan.png"
+    },
+    "usr_foundry-2": {
+        "value": "usr_foundry-2",
+        "text": "foundry-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_foundry-2.png"
+    },
+    "usr_freqchg": {
+        "value": "usr_freqchg",
+        "text": "freqchg",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_freqchg.png"
+    },
+    "usr_gas_cylinder1": {
+        "value": "usr_gas_cylinder1",
+        "text": "gas_cylinder1",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_gas_cylinder1.png"
+    },
+    "usr_geothermal-site": {
+        "value": "usr_geothermal-site",
+        "text": "geothermal-site",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_geothermal-site.png"
+    },
+    "usr_glazer": {
+        "value": "usr_glazer",
+        "text": "glazer",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_glazer.png"
+    },
+    "usr_hiretools": {
+        "value": "usr_hiretools",
+        "text": "hiretools",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_hiretools.png"
+    },
+    "usr_iobridge": {
+        "value": "usr_iobridge",
+        "text": "iobridge",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_iobridge.png"
+    },
+    "usr_jetfighter": {
+        "value": "usr_jetfighter",
+        "text": "jetfighter",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_jetfighter.png"
+    },
+    "usr_kitchen": {
+        "value": "usr_kitchen",
+        "text": "kitchen",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_kitchen.png"
+    },
+    "usr_laboratory": {
+        "value": "usr_laboratory",
+        "text": "laboratory",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_laboratory.png"
+    },
+    "usr_landfill": {
+        "value": "usr_landfill",
+        "text": "landfill",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_landfill.png"
+    },
+    "usr_lock": {
+        "value": "usr_lock",
+        "text": "lock",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_lock.png"
+    },
+    "usr_manhole-elk": {
+        "value": "usr_manhole-elk",
+        "text": "manhole-elk",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_manhole-elk.png"
+    },
+    "usr_mastcrane1": {
+        "value": "usr_mastcrane1",
+        "text": "mastcrane1",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_mastcrane1.png"
+    },
+    "usr_metronetwork": {
+        "value": "usr_metronetwork",
+        "text": "metronetwork",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_metronetwork.png"
+    },
+    "usr_mine": {
+        "value": "usr_mine",
+        "text": "mine",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_mine.png"
+    },
+    "usr_missile-2": {
+        "value": "usr_missile-2",
+        "text": "missile-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_missile-2.png"
+    },
+    "usr_mobilephonetower": {
+        "value": "usr_mobilephonetower",
+        "text": "mobilephonetower",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_mobilephonetower.png"
+    },
+    "usr_no-nuke-export": {
+        "value": "usr_no-nuke-export",
+        "text": "no-nuke-export",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_no-nuke-export.png"
+    },
+    "usr_observatory": {
+        "value": "usr_observatory",
+        "text": "observatory",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_observatory.png"
+    },
+    "usr_oil-and-gas-well": {
+        "value": "usr_oil-and-gas-well",
+        "text": "oil-and-gas-well",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_oil-and-gas-well.png"
+    },
+    "usr_oilpumpjack": {
+        "value": "usr_oilpumpjack",
+        "text": "oilpumpjack",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_oilpumpjack.png"
+    },
+    "usr_oilrig2": {
+        "value": "usr_oilrig2",
+        "text": "oilrig2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_oilrig2.png"
+    },
+    "usr_olfass": {
+        "value": "usr_olfass",
+        "text": "olfass",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_olfass.png"
+    },
+    "usr_outlet2": {
+        "value": "usr_outlet2",
+        "text": "outlet2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_outlet2.png"
+    },
+    "usr_plastering-icon": {
+        "value": "usr_plastering-icon",
+        "text": "plastering-icon",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_plastering-icon.png"
+    },
+    "usr_pond": {
+        "value": "usr_pond",
+        "text": "pond",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_pond.png"
+    },
+    "usr_powerlinepole": {
+        "value": "usr_powerlinepole",
+        "text": "powerlinepole",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_powerlinepole.png"
+    },
+    "usr_powerplant": {
+        "value": "usr_powerplant",
+        "text": "powerplant",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_powerplant.png"
+    },
+    "usr_powersubstation": {
+        "value": "usr_powersubstation",
+        "text": "powersubstation",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_powersubstation.png"
+    },
+    "usr_radar": {
+        "value": "usr_radar",
+        "text": "radar",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_radar.png"
+    },
+    "usr_radio-station-2": {
+        "value": "usr_radio-station-2",
+        "text": "radio-station-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_radio-station-2.png"
+    },
+    "usr_recycle": {
+        "value": "usr_recycle",
+        "text": "recycle",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_recycle.png"
+    },
+    "usr_satellite-dish": {
+        "value": "usr_satellite-dish",
+        "text": "satellite-dish",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_satellite-dish.png"
+    },
+    "usr_sawmill-2": {
+        "value": "usr_sawmill-2",
+        "text": "sawmill-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_sawmill-2.png"
+    },
+    "usr_septic_tank": {
+        "value": "usr_septic_tank",
+        "text": "septic_tank",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_septic_tank.png"
+    },
+    "usr_shipwreck": {
+        "value": "usr_shipwreck",
+        "text": "shipwreck",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_shipwreck.png"
+    },
+    "usr_solarenergy": {
+        "value": "usr_solarenergy",
+        "text": "solarenergy",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_solarenergy.png"
+    },
+    "usr_spaceport-2": {
+        "value": "usr_spaceport-2",
+        "text": "spaceport-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_spaceport-2.png"
+    },
+    "usr_splice": {
+        "value": "usr_splice",
+        "text": "splice",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_splice.png"
+    },
+    "usr_submarine-2": {
+        "value": "usr_submarine-2",
+        "text": "submarine-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_submarine-2.png"
+    },
+    "usr_surveying-2": {
+        "value": "usr_surveying-2",
+        "text": "surveying-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_surveying-2.png"
+    },
+    "usr_waco": {
+        "value": "usr_waco",
+        "text": "waco",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_waco.png"
+    },
+    "usr_warehouse-2": {
+        "value": "usr_warehouse-2",
+        "text": "warehouse-2",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_warehouse-2.png"
+    },
+    "usr_waterfilter": {
+        "value": "usr_waterfilter",
+        "text": "waterfilter",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_waterfilter.png"
+    },
+    "usr_watertower": {
+        "value": "usr_watertower",
+        "text": "watertower",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_watertower.png"
+    },
+    "usr_welding": {
+        "value": "usr_welding",
+        "text": "welding",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_welding.png"
+    },
+    "usr_windturbine": {
+        "value": "usr_windturbine",
+        "text": "windturbine",
+        "category": "Industry",
+        "url": "images/icons/Industry/usr_windturbine.png"
+    },
+    "usr_24_7_365": {
+        "value": "usr_24_7_365",
+        "text": "24_7_365",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_24_7_365.png"
+    },
+    "usr_above_ground": {
+        "value": "usr_above_ground",
+        "text": "above_ground",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_above_ground.png"
+    },
+    "usr_administration": {
+        "value": "usr_administration",
+        "text": "administration",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_administration.png"
+    },
+    "usr_administrativeboundary": {
+        "value": "usr_administrativeboundary",
+        "text": "administrativeboundary",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_administrativeboundary.png"
+    },
+    "usr_amphitheater": {
+        "value": "usr_amphitheater",
+        "text": "amphitheater",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_amphitheater.png"
+    },
+    "usr_atm-2": {
+        "value": "usr_atm-2",
+        "text": "atm-2",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_atm-2.png"
+    },
+    "usr_bank_euro": {
+        "value": "usr_bank_euro",
+        "text": "bank_euro",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_bank_euro.png"
+    },
+    "usr_coldstorage": {
+        "value": "usr_coldstorage",
+        "text": "coldstorage",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_coldstorage.png"
+    },
+    "usr_communitycentre": {
+        "value": "usr_communitycentre",
+        "text": "communitycentre",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_communitycentre.png"
+    },
+    "usr_company": {
+        "value": "usr_company",
+        "text": "company",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_company.png"
+    },
+    "usr_condominium": {
+        "value": "usr_condominium",
+        "text": "condominium",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_condominium.png"
+    },
+    "usr_conference": {
+        "value": "usr_conference",
+        "text": "conference",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_conference.png"
+    },
+    "usr_congress": {
+        "value": "usr_congress",
+        "text": "congress",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_congress.png"
+    },
+    "usr_contract": {
+        "value": "usr_contract",
+        "text": "contract",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_contract.png"
+    },
+    "usr_court": {
+        "value": "usr_court",
+        "text": "court",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_court.png"
+    },
+    "usr_currencyexchange": {
+        "value": "usr_currencyexchange",
+        "text": "currencyexchange",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_currencyexchange.png"
+    },
+    "usr_dressingroom": {
+        "value": "usr_dressingroom",
+        "text": "dressingroom",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_dressingroom.png"
+    },
+    "usr_drinkingfountain": {
+        "value": "usr_drinkingfountain",
+        "text": "drinkingfountain",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_drinkingfountain.png"
+    },
+    "usr_elevator_down": {
+        "value": "usr_elevator_down",
+        "text": "elevator_down",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_elevator_down.png"
+    },
+    "usr_elevator_up": {
+        "value": "usr_elevator_up",
+        "text": "elevator_up",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_elevator_up.png"
+    },
+    "usr_elevator": {
+        "value": "usr_elevator",
+        "text": "elevator",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_elevator.png"
+    },
+    "usr_embassy": {
+        "value": "usr_embassy",
+        "text": "embassy",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_embassy.png"
+    },
+    "usr_entrance": {
+        "value": "usr_entrance",
+        "text": "entrance",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_entrance.png"
+    },
+    "usr_eu": {
+        "value": "usr_eu",
+        "text": "eu",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_eu.png"
+    },
+    "usr_exchequer": {
+        "value": "usr_exchequer",
+        "text": "exchequer",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_exchequer.png"
+    },
+    "usr_exit": {
+        "value": "usr_exit",
+        "text": "exit",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_exit.png"
+    },
+    "usr_findajob": {
+        "value": "usr_findajob",
+        "text": "findajob",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_findajob.png"
+    },
+    "usr_fireexstinguisher": {
+        "value": "usr_fireexstinguisher",
+        "text": "fireexstinguisher",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_fireexstinguisher.png"
+    },
+    "usr_firemen": {
+        "value": "usr_firemen",
+        "text": "firemen",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_firemen.png"
+    },
+    "usr_gavel-auction-fw": {
+        "value": "usr_gavel-auction-fw",
+        "text": "gavel-auction-fw",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_gavel-auction-fw.png"
+    },
+    "usr_gendarmery_france": {
+        "value": "usr_gendarmery_france",
+        "text": "gendarmery_france",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_gendarmery_france.png"
+    },
+    "usr_heating-and-aircon": {
+        "value": "usr_heating-and-aircon",
+        "text": "heating-and-aircon",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_heating-and-aircon.png"
+    },
+    "usr_key": {
+        "value": "usr_key",
+        "text": "key",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_key.png"
+    },
+    "usr_laundromat": {
+        "value": "usr_laundromat",
+        "text": "laundromat",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_laundromat.png"
+    },
+    "usr_lock-2": {
+        "value": "usr_lock-2",
+        "text": "lock-2",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_lock-2.png"
+    },
+    "usr_lockerrental": {
+        "value": "usr_lockerrental",
+        "text": "lockerrental",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_lockerrental.png"
+    },
+    "usr_military": {
+        "value": "usr_military",
+        "text": "military",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_military.png"
+    },
+    "usr_moving-walkway-enter-export": {
+        "value": "usr_moving-walkway-enter-export",
+        "text": "moving-walkway-enter-export",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_moving-walkway-enter-export.png"
+    },
+    "usr_ododow": {
+        "value": "usr_ododow",
+        "text": "ododow",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_ododow.png"
+    },
+    "usr_office-building": {
+        "value": "usr_office-building",
+        "text": "office-building",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_office-building.png"
+    },
+    "usr_police": {
+        "value": "usr_police",
+        "text": "police",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_police.png"
+    },
+    "usr_postal": {
+        "value": "usr_postal",
+        "text": "postal",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_postal.png"
+    },
+    "usr_presentation": {
+        "value": "usr_presentation",
+        "text": "presentation",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_presentation.png"
+    },
+    "usr_printer-2": {
+        "value": "usr_printer-2",
+        "text": "printer-2",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_printer-2.png"
+    },
+    "usr_prison": {
+        "value": "usr_prison",
+        "text": "prison",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_prison.png"
+    },
+    "usr_ruble": {
+        "value": "usr_ruble",
+        "text": "ruble",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_ruble.png"
+    },
+    "usr_rupee-icon": {
+        "value": "usr_rupee-icon",
+        "text": "rupee-icon",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_rupee-icon.png"
+    },
+    "usr_smoking": {
+        "value": "usr_smoking",
+        "text": "smoking",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_smoking.png"
+    },
+    "usr_stairs": {
+        "value": "usr_stairs",
+        "text": "stairs",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_stairs.png"
+    },
+    "usr_telephone": {
+        "value": "usr_telephone",
+        "text": "telephone",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_telephone.png"
+    },
+    "usr_trash": {
+        "value": "usr_trash",
+        "text": "trash",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_trash.png"
+    },
+    "usr_unlock": {
+        "value": "usr_unlock",
+        "text": "unlock",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_unlock.png"
+    },
+    "usr_waiting": {
+        "value": "usr_waiting",
+        "text": "waiting",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_waiting.png"
+    },
+    "usr_wandhydrant": {
+        "value": "usr_wandhydrant",
+        "text": "wandhydrant",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_wandhydrant.png"
+    },
+    "usr_workcase": {
+        "value": "usr_workcase",
+        "text": "workcase",
+        "category": "Offices",
+        "url": "images/icons/Offices/usr_workcase.png"
+    },
+    "usr_algae": {
+        "value": "usr_algae",
+        "text": "algae",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_algae.png"
+    },
+    "usr_alligator": {
+        "value": "usr_alligator",
+        "text": "alligator",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_alligator.png"
+    },
+    "usr_anchorpier": {
+        "value": "usr_anchorpier",
+        "text": "anchorpier",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_anchorpier.png"
+    },
+    "usr_anemometer_mono": {
+        "value": "usr_anemometer_mono",
+        "text": "anemometer_mono",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_anemometer_mono.png"
+    },
+    "usr_animal-shelter-export": {
+        "value": "usr_animal-shelter-export",
+        "text": "animal-shelter-export",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_animal-shelter-export.png"
+    },
+    "usr_ant-export": {
+        "value": "usr_ant-export",
+        "text": "ant-export",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_ant-export.png"
+    },
+    "usr_apple": {
+        "value": "usr_apple",
+        "text": "apple",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_apple.png"
+    },
+    "usr_arbol": {
+        "value": "usr_arbol",
+        "text": "arbol",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_arbol.png"
+    },
+    "usr_bats": {
+        "value": "usr_bats",
+        "text": "bats",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_bats.png"
+    },
+    "usr_beach_icon": {
+        "value": "usr_beach_icon",
+        "text": "beach_icon",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_beach_icon.png"
+    },
+    "usr_bear": {
+        "value": "usr_bear",
+        "text": "bear",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_bear.png"
+    },
+    "usr_beautifulview": {
+        "value": "usr_beautifulview",
+        "text": "beautifulview",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_beautifulview.png"
+    },
+    "usr_bee": {
+        "value": "usr_bee",
+        "text": "bee",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_bee.png"
+    },
+    "usr_birds-2": {
+        "value": "usr_birds-2",
+        "text": "birds-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_birds-2.png"
+    },
+    "usr_blackcock1": {
+        "value": "usr_blackcock1",
+        "text": "blackcock1",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_blackcock1.png"
+    },
+    "usr_butterfly-2": {
+        "value": "usr_butterfly-2",
+        "text": "butterfly-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_butterfly-2.png"
+    },
+    "usr_canyon-2": {
+        "value": "usr_canyon-2",
+        "text": "canyon-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_canyon-2.png"
+    },
+    "usr_cat-2": {
+        "value": "usr_cat-2",
+        "text": "cat-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_cat-2.png"
+    },
+    "usr_cheese": {
+        "value": "usr_cheese",
+        "text": "cheese",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_cheese.png"
+    },
+    "usr_chicken-2": {
+        "value": "usr_chicken-2",
+        "text": "chicken-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_chicken-2.png"
+    },
+    "usr_cloudy": {
+        "value": "usr_cloudy",
+        "text": "cloudy",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_cloudy.png"
+    },
+    "usr_cloudysunny": {
+        "value": "usr_cloudysunny",
+        "text": "cloudysunny",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_cloudysunny.png"
+    },
+    "usr_compost": {
+        "value": "usr_compost",
+        "text": "compost",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_compost.png"
+    },
+    "usr_corn": {
+        "value": "usr_corn",
+        "text": "corn",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_corn.png"
+    },
+    "usr_corral": {
+        "value": "usr_corral",
+        "text": "corral",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_corral.png"
+    },
+    "usr_cow-export": {
+        "value": "usr_cow-export",
+        "text": "cow-export",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_cow-export.png"
+    },
+    "usr_crow": {
+        "value": "usr_crow",
+        "text": "crow",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_crow.png"
+    },
+    "usr_crow2": {
+        "value": "usr_crow2",
+        "text": "crow2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_crow2.png"
+    },
+    "usr_dachs": {
+        "value": "usr_dachs",
+        "text": "dachs",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_dachs.png"
+    },
+    "usr_deer": {
+        "value": "usr_deer",
+        "text": "deer",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_deer.png"
+    },
+    "usr_desert-2": {
+        "value": "usr_desert-2",
+        "text": "desert-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_desert-2.png"
+    },
+    "usr_desert-3": {
+        "value": "usr_desert-3",
+        "text": "desert-3",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_desert-3.png"
+    },
+    "usr_dolphins": {
+        "value": "usr_dolphins",
+        "text": "dolphins",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_dolphins.png"
+    },
+    "usr_dragon": {
+        "value": "usr_dragon",
+        "text": "dragon",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_dragon.png"
+    },
+    "usr_drinkingwater": {
+        "value": "usr_drinkingwater",
+        "text": "drinkingwater",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_drinkingwater.png"
+    },
+    "usr_duck-export": {
+        "value": "usr_duck-export",
+        "text": "duck-export",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_duck-export.png"
+    },
+    "usr_eggs": {
+        "value": "usr_eggs",
+        "text": "eggs",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_eggs.png"
+    },
+    "usr_elephants": {
+        "value": "usr_elephants",
+        "text": "elephants",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_elephants.png"
+    },
+    "usr_emu": {
+        "value": "usr_emu",
+        "text": "emu",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_emu.png"
+    },
+    "usr_farm-2": {
+        "value": "usr_farm-2",
+        "text": "farm-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_farm-2.png"
+    },
+    "usr_farmstand": {
+        "value": "usr_farmstand",
+        "text": "farmstand",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_farmstand.png"
+    },
+    "usr_field": {
+        "value": "usr_field",
+        "text": "field",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_field.png"
+    },
+    "usr_fjord-2": {
+        "value": "usr_fjord-2",
+        "text": "fjord-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_fjord-2.png"
+    },
+    "usr_forest2": {
+        "value": "usr_forest2",
+        "text": "forest2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_forest2.png"
+    },
+    "usr_fossils": {
+        "value": "usr_fossils",
+        "text": "fossils",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_fossils.png"
+    },
+    "usr_fox1": {
+        "value": "usr_fox1",
+        "text": "fox1",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_fox1.png"
+    },
+    "usr_frog-2": {
+        "value": "usr_frog-2",
+        "text": "frog-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_frog-2.png"
+    },
+    "usr_fruits": {
+        "value": "usr_fruits",
+        "text": "fruits",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_fruits.png"
+    },
+    "usr_garden": {
+        "value": "usr_garden",
+        "text": "garden",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_garden.png"
+    },
+    "usr_geyser-2": {
+        "value": "usr_geyser-2",
+        "text": "geyser-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_geyser-2.png"
+    },
+    "usr_giraffe": {
+        "value": "usr_giraffe",
+        "text": "giraffe",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_giraffe.png"
+    },
+    "usr_glacier-2": {
+        "value": "usr_glacier-2",
+        "text": "glacier-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_glacier-2.png"
+    },
+    "usr_grass": {
+        "value": "usr_grass",
+        "text": "grass",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_grass.png"
+    },
+    "usr_hare1": {
+        "value": "usr_hare1",
+        "text": "hare1",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_hare1.png"
+    },
+    "usr_haybale": {
+        "value": "usr_haybale",
+        "text": "haybale",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_haybale.png"
+    },
+    "usr_hill": {
+        "value": "usr_hill",
+        "text": "hill",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_hill.png"
+    },
+    "usr_honeycomb": {
+        "value": "usr_honeycomb",
+        "text": "honeycomb",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_honeycomb.png"
+    },
+    "usr_hotspring": {
+        "value": "usr_hotspring",
+        "text": "hotspring",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_hotspring.png"
+    },
+    "usr_iboga": {
+        "value": "usr_iboga",
+        "text": "iboga",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_iboga.png"
+    },
+    "usr_icon": {
+        "value": "usr_icon",
+        "text": "icon",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_icon.png"
+    },
+    "usr_kangaroo2": {
+        "value": "usr_kangaroo2",
+        "text": "kangaroo2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_kangaroo2.png"
+    },
+    "usr_lake": {
+        "value": "usr_lake",
+        "text": "lake",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_lake.png"
+    },
+    "usr_lawncareicon": {
+        "value": "usr_lawncareicon",
+        "text": "lawncareicon",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_lawncareicon.png"
+    },
+    "usr_leopard_snow": {
+        "value": "usr_leopard_snow",
+        "text": "leopard_snow",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_leopard_snow.png"
+    },
+    "usr_lobster-export": {
+        "value": "usr_lobster-export",
+        "text": "lobster-export",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_lobster-export.png"
+    },
+    "usr_manatee": {
+        "value": "usr_manatee",
+        "text": "manatee",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_manatee.png"
+    },
+    "usr_monkey-export": {
+        "value": "usr_monkey-export",
+        "text": "monkey-export",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_monkey-export.png"
+    },
+    "usr_moonstar": {
+        "value": "usr_moonstar",
+        "text": "moonstar",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_moonstar.png"
+    },
+    "usr_moose": {
+        "value": "usr_moose",
+        "text": "moose",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_moose.png"
+    },
+    "usr_mosquito-2": {
+        "value": "usr_mosquito-2",
+        "text": "mosquito-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_mosquito-2.png"
+    },
+    "usr_mountain-pass-locator-diagonal-reverse-export": {
+        "value": "usr_mountain-pass-locator-diagonal-reverse-export",
+        "text": "mountain-pass-locator-diagonal-reverse-export",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_mountain-pass-locator-diagonal-reverse-export.png"
+    },
+    "usr_mountains": {
+        "value": "usr_mountains",
+        "text": "mountains",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_mountains.png"
+    },
+    "usr_mushroom": {
+        "value": "usr_mushroom",
+        "text": "mushroom",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_mushroom.png"
+    },
+    "usr_oyster-3": {
+        "value": "usr_oyster-3",
+        "text": "oyster-3",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_oyster-3.png"
+    },
+    "usr_penguin-2": {
+        "value": "usr_penguin-2",
+        "text": "penguin-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_penguin-2.png"
+    },
+    "usr_pets": {
+        "value": "usr_pets",
+        "text": "pets",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_pets.png"
+    },
+    "usr_peyote": {
+        "value": "usr_peyote",
+        "text": "peyote",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_peyote.png"
+    },
+    "usr_pig": {
+        "value": "usr_pig",
+        "text": "pig",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_pig.png"
+    },
+    "usr_quadrifoglio": {
+        "value": "usr_quadrifoglio",
+        "text": "quadrifoglio",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_quadrifoglio.png"
+    },
+    "usr_rainy": {
+        "value": "usr_rainy",
+        "text": "rainy",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_rainy.png"
+    },
+    "usr_rice": {
+        "value": "usr_rice",
+        "text": "rice",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_rice.png"
+    },
+    "usr_riparianhabitat": {
+        "value": "usr_riparianhabitat",
+        "text": "riparianhabitat",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_riparianhabitat.png"
+    },
+    "usr_river-2": {
+        "value": "usr_river-2",
+        "text": "river-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_river-2.png"
+    },
+    "usr_rodent": {
+        "value": "usr_rodent",
+        "text": "rodent",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_rodent.png"
+    },
+    "usr_seals": {
+        "value": "usr_seals",
+        "text": "seals",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_seals.png"
+    },
+    "usr_shore-2": {
+        "value": "usr_shore-2",
+        "text": "shore-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_shore-2.png"
+    },
+    "usr_snail": {
+        "value": "usr_snail",
+        "text": "snail",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_snail.png"
+    },
+    "usr_snakes": {
+        "value": "usr_snakes",
+        "text": "snakes",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_snakes.png"
+    },
+    "usr_snowy-2": {
+        "value": "usr_snowy-2",
+        "text": "snowy-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_snowy-2.png"
+    },
+    "usr_soil-boring-icon": {
+        "value": "usr_soil-boring-icon",
+        "text": "soil-boring-icon",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_soil-boring-icon.png"
+    },
+    "usr_spider": {
+        "value": "usr_spider",
+        "text": "spider",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_spider.png"
+    },
+    "usr_sugar-shack": {
+        "value": "usr_sugar-shack",
+        "text": "sugar-shack",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_sugar-shack.png"
+    },
+    "usr_sunny": {
+        "value": "usr_sunny",
+        "text": "sunny",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_sunny.png"
+    },
+    "usr_sunsetland": {
+        "value": "usr_sunsetland",
+        "text": "sunsetland",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_sunsetland.png"
+    },
+    "usr_thunderstorm": {
+        "value": "usr_thunderstorm",
+        "text": "thunderstorm",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_thunderstorm.png"
+    },
+    "usr_tiger-2": {
+        "value": "usr_tiger-2",
+        "text": "tiger-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_tiger-2.png"
+    },
+    "usr_tree": {
+        "value": "usr_tree",
+        "text": "tree",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_tree.png"
+    },
+    "usr_turtle-2": {
+        "value": "usr_turtle-2",
+        "text": "turtle-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_turtle-2.png"
+    },
+    "usr_u-pick_stand": {
+        "value": "usr_u-pick_stand",
+        "text": "u-pick_stand",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_u-pick_stand.png"
+    },
+    "usr_umbrella-2": {
+        "value": "usr_umbrella-2",
+        "text": "umbrella-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_umbrella-2.png"
+    },
+    "usr_vineyard-2": {
+        "value": "usr_vineyard-2",
+        "text": "vineyard-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_vineyard-2.png"
+    },
+    "usr_volcano-2": {
+        "value": "usr_volcano-2",
+        "text": "volcano-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_volcano-2.png"
+    },
+    "usr_water": {
+        "value": "usr_water",
+        "text": "water",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_water.png"
+    },
+    "usr_waterdrop": {
+        "value": "usr_waterdrop",
+        "text": "waterdrop",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_waterdrop.png"
+    },
+    "usr_waterfall-2": {
+        "value": "usr_waterfall-2",
+        "text": "waterfall-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_waterfall-2.png"
+    },
+    "usr_watermill-2": {
+        "value": "usr_watermill-2",
+        "text": "watermill-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_watermill-2.png"
+    },
+    "usr_waterwell": {
+        "value": "usr_waterwell",
+        "text": "waterwell",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_waterwell.png"
+    },
+    "usr_waterwellpump": {
+        "value": "usr_waterwellpump",
+        "text": "waterwellpump",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_waterwellpump.png"
+    },
+    "usr_wetlands": {
+        "value": "usr_wetlands",
+        "text": "wetlands",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_wetlands.png"
+    },
+    "usr_whale-2": {
+        "value": "usr_whale-2",
+        "text": "whale-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_whale-2.png"
+    },
+    "usr_wildlifecrossing": {
+        "value": "usr_wildlifecrossing",
+        "text": "wildlifecrossing",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_wildlifecrossing.png"
+    },
+    "usr_wind-2": {
+        "value": "usr_wind-2",
+        "text": "wind-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_wind-2.png"
+    },
+    "usr_windmill-2": {
+        "value": "usr_windmill-2",
+        "text": "windmill-2",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_windmill-2.png"
+    },
+    "usr_woodshed": {
+        "value": "usr_woodshed",
+        "text": "woodshed",
+        "category": "Nature",
+        "url": "images/icons/Nature/usr_woodshed.png"
+    },
+    "usr_2hand": {
+        "value": "usr_2hand",
+        "text": "2hand",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_2hand.png"
+    },
+    "usr_artgallery": {
+        "value": "usr_artgallery",
+        "text": "artgallery",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_artgallery.png"
+    },
+    "usr_b_emblem": {
+        "value": "usr_b_emblem",
+        "text": "b_emblem",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_b_emblem.png"
+    },
+    "usr_bags": {
+        "value": "usr_bags",
+        "text": "bags",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_bags.png"
+    },
+    "usr_bicycle_shop": {
+        "value": "usr_bicycle_shop",
+        "text": "bicycle_shop",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_bicycle_shop.png"
+    },
+    "usr_binoculars": {
+        "value": "usr_binoculars",
+        "text": "binoculars",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_binoculars.png"
+    },
+    "usr_bread": {
+        "value": "usr_bread",
+        "text": "bread",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_bread.png"
+    },
+    "usr_burger": {
+        "value": "usr_burger",
+        "text": "burger",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_burger.png"
+    },
+    "usr_butcher-2": {
+        "value": "usr_butcher-2",
+        "text": "butcher-2",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_butcher-2.png"
+    },
+    "usr_candy_cane": {
+        "value": "usr_candy_cane",
+        "text": "candy_cane",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_candy_cane.png"
+    },
+    "usr_candy_floss": {
+        "value": "usr_candy_floss",
+        "text": "candy_floss",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_candy_floss.png"
+    },
+    "usr_candy": {
+        "value": "usr_candy",
+        "text": "candy",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_candy.png"
+    },
+    "usr_christmasmarket": {
+        "value": "usr_christmasmarket",
+        "text": "christmasmarket",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_christmasmarket.png"
+    },
+    "usr_clothers_female": {
+        "value": "usr_clothers_female",
+        "text": "clothers_female",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_clothers_female.png"
+    },
+    "usr_clothers_male": {
+        "value": "usr_clothers_male",
+        "text": "clothers_male",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_clothers_male.png"
+    },
+    "usr_comics": {
+        "value": "usr_comics",
+        "text": "comics",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_comics.png"
+    },
+    "usr_computers": {
+        "value": "usr_computers",
+        "text": "computers",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_computers.png"
+    },
+    "usr_conveniencestore": {
+        "value": "usr_conveniencestore",
+        "text": "conveniencestore",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_conveniencestore.png"
+    },
+    "usr_craftstore": {
+        "value": "usr_craftstore",
+        "text": "craftstore",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_craftstore.png"
+    },
+    "usr_departmentstore": {
+        "value": "usr_departmentstore",
+        "text": "departmentstore",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_departmentstore.png"
+    },
+    "usr_drink": {
+        "value": "usr_drink",
+        "text": "drink",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_drink.png"
+    },
+    "usr_e-bike-rental": {
+        "value": "usr_e-bike-rental",
+        "text": "e-bike-rental",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_e-bike-rental.png"
+    },
+    "usr_fishingstore": {
+        "value": "usr_fishingstore",
+        "text": "fishingstore",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_fishingstore.png"
+    },
+    "usr_gifts": {
+        "value": "usr_gifts",
+        "text": "gifts",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_gifts.png"
+    },
+    "usr_glasses": {
+        "value": "usr_glasses",
+        "text": "glasses",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_glasses.png"
+    },
+    "usr_grocery": {
+        "value": "usr_grocery",
+        "text": "grocery",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_grocery.png"
+    },
+    "usr_gumball_machine": {
+        "value": "usr_gumball_machine",
+        "text": "gumball_machine",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_gumball_machine.png"
+    },
+    "usr_hats": {
+        "value": "usr_hats",
+        "text": "hats",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_hats.png"
+    },
+    "usr_highhills": {
+        "value": "usr_highhills",
+        "text": "highhills",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_highhills.png"
+    },
+    "usr_homecenter": {
+        "value": "usr_homecenter",
+        "text": "homecenter",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_homecenter.png"
+    },
+    "usr_hotdog": {
+        "value": "usr_hotdog",
+        "text": "hotdog",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_hotdog.png"
+    },
+    "usr_japanese-sweet-2": {
+        "value": "usr_japanese-sweet-2",
+        "text": "japanese-sweet-2",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_japanese-sweet-2.png"
+    },
+    "usr_jewelry": {
+        "value": "usr_jewelry",
+        "text": "jewelry",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_jewelry.png"
+    },
+    "usr_kayak1": {
+        "value": "usr_kayak1",
+        "text": "kayak1",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_kayak1.png"
+    },
+    "usr_kiosk": {
+        "value": "usr_kiosk",
+        "text": "kiosk",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_kiosk.png"
+    },
+    "usr_lingerie": {
+        "value": "usr_lingerie",
+        "text": "lingerie",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_lingerie.png"
+    },
+    "usr_liquor": {
+        "value": "usr_liquor",
+        "text": "liquor",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_liquor.png"
+    },
+    "usr_mall": {
+        "value": "usr_mall",
+        "text": "mall",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_mall.png"
+    },
+    "usr_market": {
+        "value": "usr_market",
+        "text": "market",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_market.png"
+    },
+    "usr_milk_and_cookies": {
+        "value": "usr_milk_and_cookies",
+        "text": "milk_and_cookies",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_milk_and_cookies.png"
+    },
+    "usr_milk_bottle": {
+        "value": "usr_milk_bottle",
+        "text": "milk_bottle",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_milk_bottle.png"
+    },
+    "usr_movierental": {
+        "value": "usr_movierental",
+        "text": "movierental",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_movierental.png"
+    },
+    "usr_muffin_bagle": {
+        "value": "usr_muffin_bagle",
+        "text": "muffin_bagle",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_muffin_bagle.png"
+    },
+    "usr_music": {
+        "value": "usr_music",
+        "text": "music",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_music.png"
+    },
+    "usr_newsagent": {
+        "value": "usr_newsagent",
+        "text": "newsagent",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_newsagent.png"
+    },
+    "usr_ns_2015_nippon_marker_custom_icon": {
+        "value": "usr_ns_2015_nippon_marker_custom_icon",
+        "text": "ns_2015_nippon_marker_custom_icon",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_ns_2015_nippon_marker_custom_icon.png"
+    },
+    "usr_paint": {
+        "value": "usr_paint",
+        "text": "paint",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_paint.png"
+    },
+    "usr_patisserie": {
+        "value": "usr_patisserie",
+        "text": "patisserie",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_patisserie.png"
+    },
+    "usr_pens": {
+        "value": "usr_pens",
+        "text": "pens",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_pens.png"
+    },
+    "usr_perfumery": {
+        "value": "usr_perfumery",
+        "text": "perfumery",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_perfumery.png"
+    },
+    "usr_phones": {
+        "value": "usr_phones",
+        "text": "phones",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_phones.png"
+    },
+    "usr_photography": {
+        "value": "usr_photography",
+        "text": "photography",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_photography.png"
+    },
+    "usr_schreibwaren_web": {
+        "value": "usr_schreibwaren_web",
+        "text": "schreibwaren_web",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_schreibwaren_web.png"
+    },
+    "usr_shoes": {
+        "value": "usr_shoes",
+        "text": "shoes",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_shoes.png"
+    },
+    "usr_ski_shoe1": {
+        "value": "usr_ski_shoe1",
+        "text": "ski_shoe1",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_ski_shoe1.png"
+    },
+    "usr_skis": {
+        "value": "usr_skis",
+        "text": "skis",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_skis.png"
+    },
+    "usr_sledgerental": {
+        "value": "usr_sledgerental",
+        "text": "sledgerental",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_sledgerental.png"
+    },
+    "usr_sneakers": {
+        "value": "usr_sneakers",
+        "text": "sneakers",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_sneakers.png"
+    },
+    "usr_supermarket": {
+        "value": "usr_supermarket",
+        "text": "supermarket",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_supermarket.png"
+    },
+    "usr_tailor": {
+        "value": "usr_tailor",
+        "text": "tailor",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_tailor.png"
+    },
+    "usr_textiles": {
+        "value": "usr_textiles",
+        "text": "textiles",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_textiles.png"
+    },
+    "usr_thecapturelab_mapmarker-2": {
+        "value": "usr_thecapturelab_mapmarker-2",
+        "text": "thecapturelab_mapmarker-2",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_thecapturelab_mapmarker-2.png"
+    },
+    "usr_ticket_office2": {
+        "value": "usr_ticket_office2",
+        "text": "ticket_office2",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_ticket_office2.png"
+    },
+    "usr_tile-shop": {
+        "value": "usr_tile-shop",
+        "text": "tile-shop",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_tile-shop.png"
+    },
+    "usr_tools": {
+        "value": "usr_tools",
+        "text": "tools",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_tools.png"
+    },
+    "usr_tortillas1": {
+        "value": "usr_tortillas1",
+        "text": "tortillas1",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_tortillas1.png"
+    },
+    "usr_travel_agency": {
+        "value": "usr_travel_agency",
+        "text": "travel_agency",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_travel_agency.png"
+    },
+    "usr_trolley": {
+        "value": "usr_trolley",
+        "text": "trolley",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_trolley.png"
+    },
+    "usr_zipper": {
+        "value": "usr_zipper",
+        "text": "zipper",
+        "category": "Stores",
+        "url": "images/icons/Stores/usr_zipper.png"
+    }
+}

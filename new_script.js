@@ -1397,95 +1397,72 @@ function loadicons() {
     var iconInput = document.getElementById('inp_icon');
     iconInput.innerHTML = '<option value="" selected>Choose an icon</option>';
     iconInput.disabled = true;
-    // Fetch the list of files in the icons directory
-    fetch('images/icons/')
-        .then(response => response.text())
+    fetch('images/icons/icons.json')
+        .then(response => response.json())
         .then(data => {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(data, 'text/html');
-            var categories = Array.from(doc.querySelectorAll("a.icon-directory")).slice(1).map(fold => ({ 'title': fold.title, 'path': fold.href }));
-            var options = [];
-            var fetches = categories.map(category =>
-                fetch(category.path)
-                    .then(response => response.text())
-                    .then(data => {
-                        var parser = new DOMParser();
-                        var doc = parser.parseFromString(data, 'text/html');
-                        var files = Array.from(doc.querySelectorAll("a.icon-image")).map(file => file.title);
-                        files.forEach(function (file) {
-                            if (file.endsWith('.png')) {
-                                var iconName = file.replace('.png', '');
-                                // Carica l'immagine su mapbox
-                                map.loadImage(category.path + '/' + file, function (error, image) {
-                                    if (!error && !map.hasImage(iconName)) map.addImage(iconName, image);
-                                });
-                                options.push({
-                                    value: iconName,
-                                    text: iconName.replace('usr_', ''),
-                                    category: category.title,
-                                    url: category.path + '/' + file
-                                });
-                            }
-                        });
-                    })
-            );
-            Promise.all(fetches).then(() => {
-                // Raggruppa le opzioni per categoria
-                var optgroups = {};
-                options.forEach(opt => {
-                    if (!optgroups[opt.category]) optgroups[opt.category] = [];
-                    optgroups[opt.category].push(opt);
-                });
-                // Ricostruisci la select (per fallback)
-                iconInput.innerHTML = '<option value="" selected>Choose an icon</option>';
-                Object.keys(optgroups).forEach(cat => {
-                    var optgroup = document.createElement('optgroup');
-                    optgroup.label = cat;
-                    optgroups[cat].forEach(opt => {
-                        var option = document.createElement('option');
-                        option.value = opt.value;
-                        option.textContent = opt.text;
-                        optgroup.appendChild(option);
-                    });
-                    iconInput.appendChild(optgroup);
-                });
-                iconInput.disabled = false;
-                // Inizializza TomSelect
-                if (iconInput.tomselect) {
-                    iconInput.tomselect.destroy();
-                }
-                new TomSelect(iconInput, {
-                    maxItems: 1,
-                    maxOptions: null,
-                    valueField: 'value',
-                    labelField: 'text',
-                    searchField: ['text'],
-                    options: options,
-                    optgroups: Object.keys(optgroups).map(cat => ({ value: cat, label: cat })),
-                    optgroupField: 'category',
-                    optgroupLabelField: 'label',
-                    optgroupValueField: 'value',
-                    render: {
-                        option: function(data, escape) {
-                            return `<div style="display:flex;align-items:center;gap:8px;">
-                                <img src='${escape(data.url)}' style='width:24px;height:24px;object-fit:contain;margin-right:6px;'>
-                                <span>${escape(data.text)}</span>
-                            </div>`;
-                        },
-                        item: function(data, escape) {
-                            return `<div style="display:flex;align-items:center;gap:8px;">
-                                <img src='${escape(data.url)}' style='width:20px;height:20px;object-fit:contain;margin-right:4px;'>
-                                <span>${escape(data.text)}</span>
-                            </div>`;
-                        },
-                        // render function for bigger optgroups
-                        optgroup_header: function(data, escape) {
-                            return `<div style="font-weight:bold;padding:4px 0;text-align:center;background: var(--background-color);">${escape(data.label)}</div>`;
+            // data: { "usr_xxx": { value, text, category, url }, ... }
+            var options = Object.values(data);
+            // Carica tutte le icone in mapbox e raggruppa per categoria in un solo ciclo
+            var optgroups = {};
+            options.forEach(opt => {
+                if (opt.url && opt.value) {
+                    map.loadImage(opt.url, function (error, image) {
+                        if (!error && !map.hasImage(opt.value)) {
+                            map.addImage(opt.value, image);
                         }
-                    },
-                    placeholder: 'Choose an icon',
-                    allowEmptyOption: true
+                    });
+                }
+                if (!optgroups[opt.category]) optgroups[opt.category] = [];
+                optgroups[opt.category].push(opt);
+            });
+            // Ricostruisci la select (per fallback)
+            iconInput.innerHTML = '<option value="" selected>Choose an icon</option>';
+            Object.keys(optgroups).forEach(cat => {
+                var optgroup = document.createElement('optgroup');
+                optgroup.label = cat;
+                optgroups[cat].forEach(opt => {
+                    var option = document.createElement('option');
+                    option.value = opt.value;
+                    option.textContent = opt.text;
+                    optgroup.appendChild(option);
                 });
+                iconInput.appendChild(optgroup);
+            });
+            iconInput.disabled = false;
+            // Inizializza TomSelect
+            if (iconInput.tomselect) {
+                iconInput.tomselect.destroy();
+            }
+            new TomSelect(iconInput, {
+                maxItems: 1,
+                maxOptions: null,
+                valueField: 'value',
+                labelField: 'text',
+                searchField: ['text'],
+                options: options,
+                optgroups: Object.keys(optgroups).map(cat => ({ value: cat, label: cat })),
+                optgroupField: 'category',
+                optgroupLabelField: 'label',
+                optgroupValueField: 'value',
+                render: {
+                    option: function(data, escape) {
+                        return `<div style="display:flex;align-items:center;gap:8px;">
+                            <img src='${escape(data.url)}' style='width:24px;height:24px;object-fit:contain;margin-right:6px;'>
+                            <span>${escape(data.text)}</span>
+                        </div>`;
+                    },
+                    item: function(data, escape) {
+                        return `<div style="display:flex;align-items:center;gap:8px;">
+                            <img src='${escape(data.url)}' style='width:20px;height:20px;object-fit:contain;margin-right:4px;'>
+                            <span>${escape(data.text)}</span>
+                        </div>`;
+                    },
+                    optgroup_header: function(data, escape) {
+                        return `<div style="font-weight:bold;padding:4px 0;text-align:center;background: var(--background-color);">${escape(data.label)}</div>`;
+                    }
+                },
+                placeholder: 'Choose an icon',
+                allowEmptyOption: true
             });
         });
 }
