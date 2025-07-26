@@ -1555,3 +1555,23 @@ map.on('contextmenu', (e) => {
         lon.value = e.lngLat.lng;
     }
 });
+
+map.on('click', ['markers'], function (e) {
+    const feature = e.features[0];
+    const coordinates = feature.geometry.coordinates.slice();
+    const name = feature.properties.name || 'PoI';
+    const description = feature.properties.description || 'Nessuna descrizione';
+
+    new mapboxgl.Popup({offset: [0, -25] })
+        .setLngLat(coordinates)
+        .setHTML(`<strong>${name}</strong><br>${description}`)
+        .addTo(map);
+});
+
+// Cambia il cursore quando passi sopra un marker
+map.on('mouseenter', 'markers', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+map.on('mouseleave', 'markers', function () {
+    map.getCanvas().style.cursor = '';
+});
