@@ -1,5 +1,3 @@
-import { API_KEY } from './config.js';
-
 mapboxgl.accessToken = API_KEY;
 const map = new mapboxgl.Map({
     container: 'map',
