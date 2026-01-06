@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - :sparkles: Adds marker popup and hover effects [`cd1a9a1`](https://github.com/walker93/CellMap/commit/cd1a9a1)
 
 ### Documentation
+- :robot: changelog file generated [`ad57173`](https://github.com/walker93/CellMap/commit/ad57173)
 - :robot: changelog file generated [`7cd5e2f`](https://github.com/walker93/CellMap/commit/7cd5e2f)
 - :robot: changelog file generated [`b51a96f`](https://github.com/walker93/CellMap/commit/b51a96f)
 
@@ -18,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - :rocket: using modules [`d27557c`](https://github.com/walker93/CellMap/commit/d27557c)
 
 ### Other
+- Merge branch 'main' of https://github.com/walker93/CellMap into main [`eaa02ce`](https://github.com/walker93/CellMap/commit/eaa02ce)
+- revert: :ambulance: revert from using modules [`389cd66`](https://github.com/walker93/CellMap/commit/389cd66)
 - Merge branch 'main' of https://github.com/walker93/CellMap into main [`9b81191`](https://github.com/walker93/CellMap/commit/9b81191)
 
 ## v1.0.0 (2025-07-23)
