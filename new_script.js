@@ -1405,13 +1405,6 @@ function loadicons() {
             // Carica tutte le icone in mapbox e raggruppa per categoria in un solo ciclo
             var optgroups = {};
             options.forEach(opt => {
-                if (opt.url && opt.value) {
-                    map.loadImage(opt.url, function (error, image) {
-                        if (!error && !map.hasImage(opt.value)) {
-                            map.addImage(opt.value, image);
-                        }
-                    });
-                }
                 if (!optgroups[opt.category]) optgroups[opt.category] = [];
                 optgroups[opt.category].push(opt);
             });
@@ -1433,7 +1426,7 @@ function loadicons() {
             if (iconInput.tomselect) {
                 iconInput.tomselect.destroy();
             }
-            new TomSelect(iconInput, {
+            var select = new TomSelect(iconInput, {
                 maxItems: 1,
                 maxOptions: null,
                 valueField: 'value',
@@ -1445,26 +1438,43 @@ function loadicons() {
                 optgroupLabelField: 'label',
                 optgroupValueField: 'value',
                 render: {
-                    option: function(data, escape) {
+                    option: function (data, escape) {
                         return `<div style="display:flex;align-items:center;gap:8px;">
-                            <img src='${escape(data.url)}' style='width:24px;height:24px;object-fit:contain;margin-right:6px;'>
+                            <img src='${escape(data.url)}' loading="lazy" style='width:24px;height:24px;object-fit:contain;margin-right:6px;'>
                             <span>${escape(data.text)}</span>
                         </div>`;
                     },
-                    item: function(data, escape) {
+                    item: function (data, escape) {
                         return `<div style="display:flex;align-items:center;gap:8px;">
-                            <img src='${escape(data.url)}' style='width:20px;height:20px;object-fit:contain;margin-right:4px;'>
+                            <img src='${escape(data.url)}' loading="lazy" style='width:20px;height:20px;object-fit:contain;margin-right:4px;'>
                             <span>${escape(data.text)}</span>
                         </div>`;
                     },
-                    optgroup_header: function(data, escape) {
+                    optgroup_header: function (data, escape) {
                         return `<div style="font-weight:bold;padding:4px 0;text-align:center;background: var(--background-color);">${escape(data.label)}</div>`;
                     }
                 },
                 placeholder: 'Choose an icon',
                 allowEmptyOption: true
             });
+            select.on('change', function (value) {
+                const data = this.options[value];
+                if (value && data) {
+                    loadToMapbox(value, data);
+                }
+            });
         });
+}
+// Funzione helper per evitare ripetizioni
+function loadToMapbox(value, data) {
+    if (data.url && !map.hasImage(value)) {
+        map.loadImage(data.url, function (error, image) {
+            if (!error) {
+                map.addImage(value, image);
+                console.log(`Icona ${value} caricata in Mapbox`);
+            }
+        });
+    }
 }
 /* MAP EVENTS */
 
@@ -1562,7 +1572,7 @@ map.on('click', ['markers'], function (e) {
     const name = feature.properties.name || 'PoI';
     const description = feature.properties.description || 'Nessuna descrizione';
 
-    new mapboxgl.Popup({offset: [0, -25] })
+    new mapboxgl.Popup({ offset: [0, -25] })
         .setLngLat(coordinates)
         .setHTML(`<strong>${name}</strong><br>${description}`)
         .addTo(map);
