@@ -5,6 +5,7 @@ import {
     buildCoverageSector,
     csvRowToTowerFields,
     towerFieldsFromFeature,
+    validateTowerFields,
 } from './src/towerFeature.js';
 import {
     getSectors,
@@ -491,7 +492,6 @@ function addGeoJsonSource(sourceId, geojsonData) {
 function aggiungiCella(existingCell) {
 
     if (!validateCellInput()) {
-        alert('Please correct the inputs.');
         return;
     }
     var cella_feat = createFeatureFromInput();
@@ -522,11 +522,17 @@ function aggiungiCella(existingCell) {
 }
 
 function validateCellInput() {
-    const lat = document.getElementById('inp_lat').value;
-    const lon = document.getElementById('inp_lon').value;
-
-    // TODO: check other fields for valid not empty data
-    return isFinite(lat) && isFinite(lon);
+    const result = validateTowerFields({
+        lat: document.getElementById('inp_lat').value,
+        lon: document.getElementById('inp_lon').value,
+        radius: document.getElementById('inp_radius').value,
+        angle1: document.getElementById('angle1').value,
+        angle2: document.getElementById('angle2').value,
+    });
+    if (!result.valid) {
+        alert(result.errors.join('\n'));
+    }
+    return result.valid;
 }
 
 function createFeatureFromInput() {
@@ -1144,38 +1150,6 @@ function downloadFile(filename, data, mimeType) {
         elem.click();
         document.body.removeChild(elem);
     }
-}
-
-function showError(message) {
-    const errorContainer = document.getElementById('error-display');
-    errorContainer.textContent = message;
-    errorContainer.style.display = 'block';
-}
-
-function hideError() {
-    const errorContainer = document.getElementById('error-display');
-    errorContainer.style.display = 'none';
-}
-
-function setupClustering(map) {
-    map.addLayer({
-        id: 'clusters',
-        type: 'circle',
-        source: 'settori',
-        filter: ['has', 'point_count'],
-        paint: {
-            'circle-color': {
-                property: 'point_count',
-                type: 'interval',
-                stops: [[0, '#51bbd6'], [100, '#f1f075'], [750, '#f28cb1']]
-            },
-            'circle-radius': {
-                property: 'point_count',
-                type: 'interval',
-                stops: [[0, 20], [100, 30], [750, 40]]
-            }
-        }
-    });
 }
 
 function openForm(marker) {

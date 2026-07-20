@@ -4,6 +4,7 @@ import {
     buildTowerFeature,
     csvRowToTowerFields,
     towerFieldsFromFeature,
+    validateTowerFields,
 } from './towerFeature.js';
 
 const baseFields = {
@@ -121,6 +122,42 @@ describe('csvRowToTowerFields', () => {
         const fromForm = buildTowerFeature(baseFields);
         expect(fromCsv.marker.properties).toEqual(fromForm.marker.properties);
         expect(fromCsv.sector.properties).toEqual(fromForm.sector.properties);
+    });
+});
+
+describe('validateTowerFields', () => {
+    const valid = { lat: 45.46, lon: 9.19, radius: 2, angle1: 0, angle2: 90 };
+
+    it('accepts valid numeric fields (as numbers or strings)', () => {
+        expect(validateTowerFields(valid).valid).toBe(true);
+        expect(validateTowerFields({ lat: '45.46', lon: '9.19', radius: '2', angle1: '0', angle2: '90' }).valid).toBe(true);
+    });
+
+    it('rejects an empty latitude/longitude (the isFinite("") === true bug)', () => {
+        const r = validateTowerFields({ ...valid, lat: '', lon: '' });
+        expect(r.valid).toBe(false);
+        expect(r.errors).toHaveLength(2);
+    });
+
+    it('rejects out-of-range coordinates', () => {
+        expect(validateTowerFields({ ...valid, lat: 91 }).valid).toBe(false);
+        expect(validateTowerFields({ ...valid, lon: -200 }).valid).toBe(false);
+    });
+
+    it('rejects a non-positive radius', () => {
+        expect(validateTowerFields({ ...valid, radius: 0 }).valid).toBe(false);
+        expect(validateTowerFields({ ...valid, radius: -1 }).valid).toBe(false);
+    });
+
+    it('rejects angles outside 0..360', () => {
+        expect(validateTowerFields({ ...valid, angle1: -1 }).valid).toBe(false);
+        expect(validateTowerFields({ ...valid, angle2: 400 }).valid).toBe(false);
+    });
+
+    it('collects one error message per invalid field', () => {
+        const r = validateTowerFields({ lat: '', lon: '', radius: 0, angle1: -1, angle2: 400 });
+        expect(r.valid).toBe(false);
+        expect(r.errors).toHaveLength(5);
     });
 });
 

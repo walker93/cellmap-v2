@@ -109,6 +109,50 @@ export function csvRowToTowerFields(row) {
  * @param {object} feature A GeoJSON Point feature with `properties.marker === 'cell'`.
  * @returns {object} Fields for {@link buildCoverageSector}.
  */
+// Treat empty/blank input as "not a number" instead of coercing it to 0. The
+// legacy check used isFinite(value) directly, but isFinite('') is true (=== 0),
+// so an empty latitude/longitude passed validation and then produced a tower at
+// NaN coordinates via parseFloat(''). Number('') is also 0, so guard the blanks.
+function toNumber(value) {
+    if (value === '' || value === null || value === undefined) return NaN;
+    return Number(value);
+}
+
+/**
+ * Validate the numeric fields for a cell tower before building it. Pure and
+ * DOM-free so it can be unit-tested; the form handler reads the inputs and passes
+ * them here. Completes the old `// TODO: check other fields` in validateCellInput.
+ *
+ * @param {object} fields { lat, lon, radius, angle1, angle2 } (strings or numbers).
+ * @returns {{ valid: boolean, errors: string[] }}
+ */
+export function validateTowerFields(fields) {
+    const errors = [];
+    const lat = toNumber(fields.lat);
+    const lon = toNumber(fields.lon);
+    const radius = toNumber(fields.radius);
+    const angle1 = toNumber(fields.angle1);
+    const angle2 = toNumber(fields.angle2);
+
+    if (!Number.isFinite(lat) || lat < -90 || lat > 90) {
+        errors.push('Latitude must be a number between -90 and 90.');
+    }
+    if (!Number.isFinite(lon) || lon < -180 || lon > 180) {
+        errors.push('Longitude must be a number between -180 and 180.');
+    }
+    if (!Number.isFinite(radius) || radius <= 0) {
+        errors.push('Radius must be a positive number.');
+    }
+    if (!Number.isFinite(angle1) || angle1 < 0 || angle1 > 360) {
+        errors.push('Start angle must be between 0 and 360.');
+    }
+    if (!Number.isFinite(angle2) || angle2 < 0 || angle2 > 360) {
+        errors.push('End angle must be between 0 and 360.');
+    }
+
+    return { valid: errors.length === 0, errors };
+}
+
 export function towerFieldsFromFeature(feature) {
     const [lon, lat] = feature.geometry.coordinates;
     const p = feature.properties;

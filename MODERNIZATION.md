@@ -78,10 +78,13 @@ Each phase leaves the app in a working, statically-deployable state.
 
 ## Quick wins (independent of the above)
 
-- Remove dead `showError`/`hideError` (reference a non-existent `#error-display`).
-- Remove the unwired `setupClustering`.
+- ~~Remove dead `showError`/`hideError` (reference a non-existent `#error-display`).~~ done
+- ~~Remove the unwired `setupClustering`.~~ done
 - Cache repeated `document.getElementById` lookups (~66 calls).
-- Complete the input-validation TODO (only lat/lon finiteness is checked today).
+- ~~Complete the input-validation TODO (only lat/lon finiteness is checked today).~~ done —
+  `validateTowerFields` (in `src/towerFeature.js`) now checks lat/lon ranges, a
+  positive radius, and 0..360 angles, and rejects blank coordinates (the old
+  `isFinite('')===true` let empty inputs through and produced NaN towers).
 
 ## Verification
 
