@@ -20,6 +20,7 @@ import {
     removeHiddenPoi,
     clearHiddenPois,
 } from './src/hiddenPois.js';
+import { getOverlays, addOverlay, removeOverlay, clearOverlays } from './src/overlays.js';
 
 map.on('load', setupMapLayers);
 
@@ -36,7 +37,6 @@ function setupMapLayers() {
     loadicons();
 }
 var draw;
-var overlays = [];
 // The "Salva" button edits either a cell or a POI depending on which feature is
 // loaded into the form; loadForm() points this at modificaCella or modificaPoi.
 var pendingSaveHandler = null;
@@ -695,7 +695,7 @@ function createTable(tableData) {
         }
     }
     // add overlays to the table
-    for (const overlay of overlays) {
+    for (const overlay of getOverlays()) {
         const overlay_row = createOverlayRow(overlay);
         overlay_table.appendChild(overlay_row);
     }
@@ -748,9 +748,7 @@ function createOverlayRow(overlay) {
     icon.className = "fa-sharp fa-solid fa-xmark";
     icon.addEventListener("click", function () {
         //delete overlay
-        var index = overlays.indexOf(overlay);
-        if (index > -1) {
-            overlays.splice(index, 1);
+        if (removeOverlay(overlay)) {
             createTable(draw.getAll());
             map.removeLayer("overlay-layer-" + overlay.ID);
             map.removeSource("overlay-source-" + overlay.ID);
@@ -761,17 +759,6 @@ function createOverlayRow(overlay) {
 
     return row;
 }
-
-/*overlays.push({
-    'file': file.name,
-    'ID': overlayID,
-    'imageURL': imageUrl,
-    'imageBlob': imageBlob,
-    'north': north,
-    'east': east,
-    'west': west,
-    'south': south
-});*/
 
 function createPOIRow(marker) {
     const row = document.createElement('div');
@@ -1082,13 +1069,11 @@ function deleteAll() {
     clearSectors();
     clearHiddenPois();
 
-    overlays.forEach(function (overlay) {
+    getOverlays().forEach(function (overlay) {
         map.removeLayer("overlay-layer-" + overlay.ID);
         map.removeSource("overlay-source-" + overlay.ID);
     });
-
-
-    overlays = [];
+    clearOverlays();
     addGeoJsonSource('aree', getSectors());
     addGeoJsonSource('settori', draw.getAll());
     createTable(draw.getAll());
@@ -1286,7 +1271,7 @@ function processKMZ() {
                         'raster-opacity': 0.3
                     }
                 });
-                overlays.push({
+                addOverlay({
                     'file': file.name,
                     'ID': overlayID,
                     'imageURL': imageUrl,

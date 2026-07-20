@@ -60,13 +60,13 @@ Each phase leaves the app in a working, statically-deployable state.
 - **Phase 4 — Formalize the state model** into one module with an explicit API
   (`addTower`, `removeTower`, `hidePoi`, `showPoi`, `getVisibleFeatures`) that encapsulates
   the draw/geojson/hiddenPois sync rules in one place.
-  _(in progress: two collections are now explicit, unit-tested modules replacing the
-  scattered global mutations — `src/sectors.js` (coverage sectors, linked by `towerid`)
-  and `src/hiddenPois.js` (POIs pulled out of draw when hidden). Formalizing them
-  exposed and fixed three real desync bugs: duplicating a tower silently lost its
-  coverage sector; "Delete All" didn't clear the hidden-POI list; and deleting a hidden
-  POI left it lingering in that list. Still to formalize: the MapboxDraw store itself
-  (behind add/remove APIs) and the `overlays` array.)_
+  _(in progress: all three side collections are now explicit, unit-tested modules
+  replacing the scattered global mutations — `src/sectors.js` (coverage sectors, linked
+  by `towerid`), `src/hiddenPois.js` (POIs pulled out of draw when hidden), and
+  `src/overlays.js` (KMZ raster overlays). Formalizing them exposed and fixed three real
+  desync bugs: duplicating a tower silently lost its coverage sector; "Delete All" didn't
+  clear the hidden-POI list; and deleting a hidden POI left it lingering in that list.
+  Still to formalize: the MapboxDraw store itself, behind add/remove APIs.)_
 - **Phase 5 — Deduplicate** the three near-identical `create*Row` functions and the
   feature-construction paths. _(feature construction done: the form, CSV, and GeoJSON
   import paths all call the shared `src/towerFeature.js`; the three `create*Row`
