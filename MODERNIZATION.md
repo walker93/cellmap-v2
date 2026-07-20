@@ -3,6 +3,50 @@
 This repository is a modernized rebuild of [CellMap](https://github.com/walker93/CellMap),
 a static HTML+CSS+JS map editor for planning cell-tower coverage (built on Mapbox GL JS).
 
+## Current status
+
+The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** safety net
+(38 tests) and GitHub Actions CI. Work so far, on branch
+`claude/webapp-legacy-modernization-plan-chxyij`:
+
+**Done**
+- Seeded from CellMap with the **leaked Mapbox token scrubbed from git history** and the
+  deprecated `old/` backup removed.
+- Tooling: **Vite + Vitest + ESLint (flat) + Prettier + CI**; `config.js` now sets
+  `window.API_KEY`. Production is a `vite build` → static `dist/`.
+- **Phase 1** — all ~10 inline `onclick` handlers replaced with `addEventListener`.
+- **Phase 2/3** — `index.html` loads the app as `type="module"`; extracted `src/map.js`,
+  `src/towerFeature.js`, `src/sectors.js`, `src/hiddenPois.js`, `src/overlays.js`; `turf`
+  moved from a CDN `<script>` to an npm import.
+- **Phase 4 (partial)** — the three side collections (sectors, hiddenPois, overlays) are
+  formalized behind explicit, unit-tested module APIs.
+- **Phase 5 (partial)** — the form / CSV / GeoJSON-import feature-construction paths are
+  deduplicated into `src/towerFeature.js`.
+- **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input
+  validation completed.
+
+**Real bugs found and fixed while formalizing state**
+1. Duplicating a tower silently lost its coverage sector (referenced an undefined
+   `feature_id` and pushed the raw filter array).
+2. "Delete All" didn't clear the hidden-POI list, so hidden POIs reappeared.
+3. Deleting a POI while it was hidden left it stuck in the hidden list.
+4. Blank latitude/longitude passed validation (`isFinite('')===true`) and created towers
+   at NaN coordinates.
+
+**Remaining**
+- **Phase 4** — extract the MapboxDraw feature store behind an add/remove API (the largest
+  remaining piece; ~80 call sites).
+- **Phase 5** — merge the three near-identical `create*Row` functions.
+- **Phase 3** — the `io/{kml,kmz,csv}` and `ui/{table,form}` seams.
+- **Phase 6** — responsive CSS. **Phase 7** — accessibility.
+
+**Verification note:** the Mapbox CDN is unreachable from the dev/CI sandbox, so live map
+interaction can't be click-tested here — the module graph is verified to boot end to end
+and the extracted logic is unit-tested. When building locally with a real token, manually
+smoke-test the fixed flows: duplicating a tower keeps its sector; "Delete All" and deleting
+a hidden POI clear it from the table; blank coordinates are rejected; radius 0 and negative
+angles are accepted.
+
 ## Decision: incremental refactor, not a framework rewrite
 
 After analysing the original app (~2,000 LOC, single Mapbox-centric page, no build
@@ -82,9 +126,13 @@ Each phase leaves the app in a working, statically-deployable state.
 - ~~Remove the unwired `setupClustering`.~~ done
 - Cache repeated `document.getElementById` lookups (~66 calls).
 - ~~Complete the input-validation TODO (only lat/lon finiteness is checked today).~~ done —
-  `validateTowerFields` (in `src/towerFeature.js`) now checks lat/lon ranges, a
-  positive radius, and 0..360 angles, and rejects blank coordinates (the old
-  `isFinite('')===true` let empty inputs through and produced NaN towers).
+  `validateTowerFields` (in `src/towerFeature.js`) checks lat/lon ranges and rejects
+  blank coordinates (the old `isFinite('')===true` let empty inputs through and produced
+  NaN towers). Per the domain: radius may be **0** (a tower with no sector, e.g. when a
+  KMZ overlay already provides the coverage area) and angles may be **negative** (sectors
+  are azimuth offsets — azimuth 0 with a 120° beam is start=-60, end=60), so radius is
+  validated as ≥ 0 and angles within -360..360; the form's number inputs use matching
+  `min` values.
 
 ## Verification
 

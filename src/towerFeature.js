@@ -123,6 +123,12 @@ function toNumber(value) {
  * DOM-free so it can be unit-tested; the form handler reads the inputs and passes
  * them here. Completes the old `// TODO: check other fields` in validateCellInput.
  *
+ * Domain rules:
+ *  - radius may be 0 — that adds a tower with no coverage sector, e.g. when the
+ *    coverage area is already provided by a KMZ overlay.
+ *  - angles may be negative — sectors are expressed as azimuth offsets, so an
+ *    antenna pointing at azimuth 0 with a 120° beam is start=-60, end=60.
+ *
  * @param {object} fields { lat, lon, radius, angle1, angle2 } (strings or numbers).
  * @returns {{ valid: boolean, errors: string[] }}
  */
@@ -140,14 +146,14 @@ export function validateTowerFields(fields) {
     if (!Number.isFinite(lon) || lon < -180 || lon > 180) {
         errors.push('Longitude must be a number between -180 and 180.');
     }
-    if (!Number.isFinite(radius) || radius <= 0) {
-        errors.push('Radius must be a positive number.');
+    if (!Number.isFinite(radius) || radius < 0) {
+        errors.push('Radius must be 0 or a positive number.');
     }
-    if (!Number.isFinite(angle1) || angle1 < 0 || angle1 > 360) {
-        errors.push('Start angle must be between 0 and 360.');
+    if (!Number.isFinite(angle1) || angle1 < -360 || angle1 > 360) {
+        errors.push('Start angle must be between -360 and 360.');
     }
-    if (!Number.isFinite(angle2) || angle2 < 0 || angle2 > 360) {
-        errors.push('End angle must be between 0 and 360.');
+    if (!Number.isFinite(angle2) || angle2 < -360 || angle2 > 360) {
+        errors.push('End angle must be between -360 and 360.');
     }
 
     return { valid: errors.length === 0, errors };

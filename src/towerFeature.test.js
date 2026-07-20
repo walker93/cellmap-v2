@@ -144,18 +144,26 @@ describe('validateTowerFields', () => {
         expect(validateTowerFields({ ...valid, lon: -200 }).valid).toBe(false);
     });
 
-    it('rejects a non-positive radius', () => {
-        expect(validateTowerFields({ ...valid, radius: 0 }).valid).toBe(false);
+    it('allows radius 0 (tower with no sector, e.g. coverage from an overlay)', () => {
+        expect(validateTowerFields({ ...valid, radius: 0 }).valid).toBe(true);
+        expect(validateTowerFields({ ...valid, radius: '0' }).valid).toBe(true);
+    });
+
+    it('rejects a negative radius', () => {
         expect(validateTowerFields({ ...valid, radius: -1 }).valid).toBe(false);
     });
 
-    it('rejects angles outside 0..360', () => {
-        expect(validateTowerFields({ ...valid, angle1: -1 }).valid).toBe(false);
+    it('allows negative angles (azimuth offsets, e.g. start=-60 end=60)', () => {
+        expect(validateTowerFields({ ...valid, angle1: -60, angle2: 60 }).valid).toBe(true);
+    });
+
+    it('rejects angles outside -360..360', () => {
+        expect(validateTowerFields({ ...valid, angle1: -400 }).valid).toBe(false);
         expect(validateTowerFields({ ...valid, angle2: 400 }).valid).toBe(false);
     });
 
     it('collects one error message per invalid field', () => {
-        const r = validateTowerFields({ lat: '', lon: '', radius: 0, angle1: -1, angle2: 400 });
+        const r = validateTowerFields({ lat: '', lon: '', radius: -1, angle1: -400, angle2: 400 });
         expect(r.valid).toBe(false);
         expect(r.errors).toHaveLength(5);
     });
