@@ -29,6 +29,9 @@ function setupMapLayers() {
 }
 var draw;
 var overlays = [];
+// The "Salva" button edits either a cell or a POI depending on which feature is
+// loaded into the form; loadForm() points this at modificaCella or modificaPoi.
+var pendingSaveHandler = null;
 
 function addCellLayer() {
     map.loadImage("cell-tower.png", (error, image) => {
@@ -586,7 +589,6 @@ function loadForm(feature) {
     var fillcolor = document.getElementById('inp_fill');
     var alpha = document.getElementById('inp_alpha');
     var feat_id = document.getElementById('feature-id');
-    var savebtn = document.getElementById("savebtn");
     var icn = document.getElementById('inp_icon');
 
     if (feature.properties.marker && feature.properties.marker == "cell") {
@@ -598,14 +600,14 @@ function loadForm(feature) {
         angolo1.disabled = false;
         angolo2.disabled = false;
         icn.tomselect.disable(); // disable icon input for cell features
-        savebtn.setAttribute('onclick', 'modificaCella()');
+        pendingSaveHandler = modificaCella;
     } else {
         //if marker is a PoI feature disable sector related fields
         radius.disabled = true;
         angolo1.disabled = true;
         angolo2.disabled = true;
         icn.tomselect.enable();
-        savebtn.setAttribute('onclick', 'modificaPoi()');
+        pendingSaveHandler = modificaPoi;
     }
     //enable or disable coords field according to geometry type
     if (feature.geometry.type === "Point") {
@@ -1585,3 +1587,39 @@ map.on('mouseenter', 'markers', function () {
 map.on('mouseleave', 'markers', function () {
     map.getCanvas().style.cursor = '';
 });
+
+// ---------------------------------------------------------------------------
+// Control wiring
+//
+// Buttons used to call global functions through inline onclick="..." attributes
+// in index.html. That coupling forced every handler to live on window and broke
+// the app the one time it was switched to type="module" (see git history of the
+// original repo). Wiring the handlers here with addEventListener removes that
+// coupling, so new_script.js can later be converted to an ES module without the
+// buttons going dead. new_script.js is loaded at the end of <body>, so the DOM
+// is already parsed and every referenced function is defined by this point.
+// ---------------------------------------------------------------------------
+function wireControls() {
+    var handlers = {
+        add: function () { openForm(null); },
+        import: openfile,
+        savejson: scaricageojson,
+        importjson: importjson,
+        savekml: scaricaKML,
+        addoverlay: processKMZ,
+        deleteall: deleteAll,
+        cancelbtn: closeForm,
+        addbtn: function () { aggiungiCella(); },
+        savebtn: function () { if (pendingSaveHandler) pendingSaveHandler(); },
+    };
+    Object.keys(handlers).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('click', handlers[id]);
+        } else {
+            console.warn('wireControls: missing element #' + id);
+        }
+    });
+}
+
+wireControls();

@@ -96,26 +96,24 @@
                         </select>
                     </div>
                     <input type="hidden" id="feature-id" value="">
-                    <button class="form-btn" onclick="closeForm()">Annulla</button>
-                    <button id="addbtn" class="form-btn" style="display: inline-block;"
-                        onclick="aggiungiCella()">Aggiungi</button>
-                    <button id="savebtn" class="form-btn" style="display: none;"
-                        onclick="modificaCella()">Salva</button>
+                    <button id="cancelbtn" class="form-btn">Annulla</button>
+                    <button id="addbtn" class="form-btn" style="display: inline-block;">Aggiungi</button>
+                    <button id="savebtn" class="form-btn" style="display: none;">Salva</button>
                 </div>
             </div>
             <div id="buttons">
-                <button id="add" onclick="openForm(null)"><i class="fa-sharp fa-solid fa-plus"></i> Add Cell</button>
-                <button id="import" onclick="openfile()"><i class="fa-sharp fa-solid fa-file-csv"></i> Add from
+                <button id="add"><i class="fa-sharp fa-solid fa-plus"></i> Add Cell</button>
+                <button id="import"><i class="fa-sharp fa-solid fa-file-csv"></i> Add from
                     CSV</button>
-                <button id="savejson" onclick="scaricageojson()"><i class="fa-sharp fa-solid fa-file-export"></i> Export
+                <button id="savejson"><i class="fa-sharp fa-solid fa-file-export"></i> Export
                     GeoJson</button>
-                <button id="importjson" onclick="importjson()"><i class="fa-sharp fa-solid fa-file-import"></i> Import
+                <button id="importjson"><i class="fa-sharp fa-solid fa-file-import"></i> Import
                     GeoJson</button>
-                <button id="savekml" onclick="scaricaKML()"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>
+                <button id="savekml"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>
                     Generate KML</button>
-                <button id="addoverlay" onclick="processKMZ()"><i class="fa-sharp fa-solid fa-file-arrow-up"></i>
+                <button id="addoverlay"><i class="fa-sharp fa-solid fa-file-arrow-up"></i>
                     Add Overlay</button>
-                <button id="deleteall" onclick="deleteAll()"><i class="fa-sharp fa-solid fa-trash-can"></i> Delete
+                <button id="deleteall"><i class="fa-sharp fa-solid fa-trash-can"></i> Delete
                     All</button>
             </div>
             <div id="elements">
