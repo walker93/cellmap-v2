@@ -52,12 +52,18 @@ Each phase leaves the app in a working, statically-deployable state.
   skeleton; app entry still served as-is until Phase 3.)_
 - **Phase 3 — Convert to ES modules** along natural seams: `map`, `state`, `towers`,
   `pois`, `overlays`, `io/{csv,geojson,kml,kmz}`, `ui/{table,form}`.
+  _(started: `index.html` now loads `new_script.js`/`resizer.js` as `type="module"`;
+  extracted `src/map.js` (the shared map instance) and moved `turf` from a CDN
+  `<script>` to an npm import; the three feature-construction paths now call the
+  shared `src/towerFeature.js`. Remaining seams — state, io/\*, ui/\* — are the next
+  slice.)_
 - **Phase 4 — Formalize the state model** into one module with an explicit API
   (`addTower`, `removeTower`, `hidePoi`, `showPoi`, `getVisibleFeatures`) that encapsulates
   the draw/geojson/hiddenPois sync rules in one place.
-- **Phase 5 — Deduplicate** the three near-identical `create*Row` functions and the two
-  feature-construction paths. _(seeded: `src/towerFeature.js` is the shared
-  feature-construction function both the form and CSV paths will call.)_
+- **Phase 5 — Deduplicate** the three near-identical `create*Row` functions and the
+  feature-construction paths. _(feature construction done: the form, CSV, and GeoJSON
+  import paths all call the shared `src/towerFeature.js`; the three `create*Row`
+  functions remain to be merged.)_
 - **Phase 6 — CSS modernization** on the existing custom-properties foundation; add
   responsive `@media` queries (currently none). Tailwind optional as a pure utility layer.
 - **Phase 7 — Accessibility polish**: `aria-*`/`role` on accordions, form, and tables;

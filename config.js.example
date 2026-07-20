@@ -4,4 +4,7 @@
 // Get a free token at https://account.mapbox.com/access-tokens/
 // Use a PUBLIC token (starts with "pk.") and, for production, restrict it
 // by URL in the Mapbox dashboard so it cannot be reused on other sites.
-const API_KEY = 'pk.YOUR_MAPBOX_PUBLIC_TOKEN_HERE';
+//
+// This file is loaded as a plain <script> before the ES modules, so it must
+// assign the token onto `window` for the modules (src/map.js) to read it.
+window.API_KEY = 'pk.YOUR_MAPBOX_PUBLIC_TOKEN_HERE';

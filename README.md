@@ -128,17 +128,20 @@ This is an example of how to list things you need to use the software and how to
 3. Create your `config.js` from the template and paste your Mapbox token
    ```sh
    cp config.js.example config.js
-   # then edit config.js and set your own pk. token
+   # then edit config.js and set: window.API_KEY = 'pk.your-token'
    ```
    `config.js` is git-ignored, so your token is never committed.
 4. Install dependencies and start the dev server
    ```sh
    npm install
-   npm run dev      # start Vite dev server
-   npm run build    # production build into dist/
+   npm run dev      # start Vite dev server (http://localhost:5173)
    npm run test     # run the Vitest suite
    npm run lint     # run ESLint
    ```
+
+> **Build step required.** The app now uses ES modules with npm dependencies
+> (bundled by Vite), so it is no longer opened as raw files. For production run
+> `npm run build` and serve the generated `dist/` folder from any static host.
 
 > **Modernization in progress.** This repo is a rebuild of the original CellMap.
 > See [`MODERNIZATION.md`](MODERNIZATION.md) for the rationale (why an incremental

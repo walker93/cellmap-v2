@@ -10,29 +10,33 @@ export default [
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
-      globals: { ...globals.browser },
+      globals: {
+        ...globals.browser,
+        // CDN libraries exposed as globals by <script> tags in index.html and
+        // referenced from modules (e.g. src/map.js uses mapboxgl).
+        mapboxgl: 'readonly',
+      },
     },
   },
   {
-    // Legacy globals-based scripts: linted loosely until they are converted
-    // to ES modules in the modularization phase.
+    // The app entry (now an ES module) and the resizer. Still references several
+    // CDN libraries through their <script> globals; linted loosely until the
+    // remaining seams (state, io, ui) are extracted into src/ modules.
     files: ['new_script.js', 'resizer.js'],
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: 'script',
+      sourceType: 'module',
       globals: {
         ...globals.browser,
         mapboxgl: 'readonly',
         MapboxDraw: 'readonly',
         MapboxGeocoder: 'readonly',
-        turf: 'readonly',
         Papa: 'readonly',
         JSZip: 'readonly',
         numeral: 'readonly',
         math: 'readonly',
         tokml: 'readonly',
         TomSelect: 'readonly',
-        API_KEY: 'readonly',
       },
     },
     rules: {

@@ -1,11 +1,12 @@
-mapboxgl.accessToken = API_KEY;
-const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/ingmv/clr7zg5g1001k01r50orldets',
-    center: [11.7, 44],
-    zoom: 6,
-    projection: 'globe'
-});
+import { map } from './src/map.js';
+import * as turf from '@turf/turf';
+import {
+    buildTowerFeature,
+    buildCoverageSector,
+    csvRowToTowerFields,
+    towerFieldsFromFeature,
+} from './src/towerFeature.js';
+
 var geojson = {
     'type': 'FeatureCollection',
     'features': []
@@ -13,7 +14,6 @@ var geojson = {
 var hiddenPois = [];
 
 map.on('load', setupMapLayers);
-map.on('error', (error) => console.error('Mapbox error:', error));
 
 function setupMapLayers() {
     const geojson = {
@@ -532,36 +532,20 @@ function createFeatureFromInput() {
     var fillcolor = document.getElementById('inp_fill');
     var alpha = document.getElementById('inp_alpha');
 
-    const features = [
-        turf.point([lon, lat], {
-            name: name.value,
-            description: desc.value,
-            "fill": fillcolor.value,
-            "marker": "cell",
-            'meta': 'feature',
-            'Angle1': angolo1.value,
-            'Angle2': angolo2.value,
-            'Radius': radius.value,
-            'opacity': parseFloat(alpha.value)
-        }),
-        turf.sector(
-            [lon, lat],
-            radius.value, //radius
-            angolo1.value,
-            angolo2.value,
-            {
-                properties: {
-                    name: name.value,
-                    description: desc.value,
-                    "fill": fillcolor.value,
-                    "fill-opacity": parseFloat(alpha.value),
-                    "marker": "cell"
-                }
-            })
-    ]
+    const { marker, sector } = buildTowerFeature({
+        lon,
+        lat,
+        radius: radius.value,
+        angle1: angolo1.value,
+        angle2: angolo2.value,
+        name: name.value,
+        description: desc.value,
+        fill: fillcolor.value,
+        opacity: alpha.value,
+    });
     resetForm();
 
-    return features;
+    return [marker, sector];
 }
 
 function resetForm() {
@@ -1122,21 +1106,7 @@ function importjson() {
             draw.add(read_json);
             for (const feat of read_json.features) {
                 if (feat.properties.marker == "cell") { //se di tipo cella, aggiungo il relativo settore
-                    var area_polygon = turf.sector(
-                        feat.geometry.coordinates,
-                        feat.properties.Radius, //radius
-                        feat.properties.Angle1,
-                        feat.properties.Angle2,
-                        {
-                            properties: {
-                                name: feat.properties.name,
-                                description: feat.properties.description,
-                                "fill": feat.properties.fill,
-                                "fill-opacity": parseFloat(feat.properties.opacity),
-                                "marker": feat.properties.marker,
-                                towerid: feat.id
-                            }
-                        });
+                    var area_polygon = buildCoverageSector(towerFieldsFromFeature(feat));
                     geojson.features.push(area_polygon);
                 }
             }
@@ -1347,33 +1317,8 @@ function openfile() {
                 deleteAll();
                 var data = results.data;
                 for (const cell of data) {
-                    const cella_feat = [
-                        turf.point([cell.lon, cell.lat], {
-                            name: cell.name,
-                            description: cell.desc,
-                            "fill": cell.fill,
-                            "marker": "cell",
-                            'meta': 'feature',
-                            'Angle1': cell.angle1,
-                            'Angle2': cell.angle2,
-                            'Radius': cell.radius,
-                            'opacity': parseFloat(cell.opacity)
-                        }),
-                        turf.sector(
-                            [cell.lon, cell.lat],
-                            cell.radius, //radius
-                            cell.angle1,
-                            cell.angle2,
-                            {
-                                properties: {
-                                    name: cell.name,
-                                    description: cell.desc,
-                                    "fill": cell.fill,
-                                    "fill-opacity": parseFloat(cell.opacity),
-                                    "marker": "cell"
-                                }
-                            })
-                    ]
+                    const built = buildTowerFeature(csvRowToTowerFields(cell));
+                    const cella_feat = [built.marker, built.sector];
                     const tower = cella_feat[0];
                     var tower_id = draw.add(tower);
 
