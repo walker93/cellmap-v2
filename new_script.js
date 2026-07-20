@@ -6,11 +6,14 @@ import {
     csvRowToTowerFields,
     towerFieldsFromFeature,
 } from './src/towerFeature.js';
+import {
+    getSectors,
+    addSector,
+    getSectorsByTowerId,
+    removeSectorsByTowerId,
+    clearSectors,
+} from './src/sectors.js';
 
-var geojson = {
-    'type': 'FeatureCollection',
-    'features': []
-}
 var hiddenPois = [];
 
 map.on('load', setupMapLayers);
@@ -21,7 +24,7 @@ function setupMapLayers() {
         'features': []
     };
     addGeoJsonSource('settori', geojson);
-    addGeoJsonSource('aree', geojson);
+    addGeoJsonSource('aree', getSectors());
     addCellLayer();
     addOtherTools();
     addMeasurementTools();
@@ -503,10 +506,10 @@ function aggiungiCella(existingCell) {
     // Creare area torre
     var area_polygon = cella_feat[1];
     area_polygon.properties.towerid = tower_id[0];
-    geojson.features.push(area_polygon);
+    addSector(area_polygon);
 
     //Aggiorno mappa
-    addGeoJsonSource('aree', geojson);
+    addGeoJsonSource('aree', getSectors());
     addGeoJsonSource('settori', draw.getAll());
 
     createTable(draw.getAll());
@@ -648,13 +651,13 @@ function modificaCella() {
 
     //Delete old tower and sector
     //draw.delete(feature_id);
-    geojson.features = geojson.features.filter(function (e) { return e.properties.towerid !== feature_id });
+    removeSectorsByTowerId(feature_id);
 
     //invoke aggiungicella() for creation of new tower and sector with updated values
     aggiungiCella(draw.get(feature_id));
     createTable(draw.getAll());
     addGeoJsonSource('settori', draw.getAll());
-    addGeoJsonSource('aree', geojson);
+    addGeoJsonSource('aree', getSectors());
 
     //reset and close form
     closeForm();
@@ -906,8 +909,8 @@ function createPOIRow(marker) {
         draw.delete(marker.id);
         createTable(draw.getAll());
         addGeoJsonSource('settori', draw.getAll());
-        geojson.features = geojson.features.filter(function (e) { return e.properties.towerid !== marker.id });
-        addGeoJsonSource('aree', geojson);
+        removeSectorsByTowerId(marker.id);
+        addGeoJsonSource('aree', getSectors());
     });
     col.appendChild(icon);
     row.appendChild(col);
@@ -1031,10 +1034,16 @@ function createTowerRow(marker) {
 
         createTable(draw.getAll());
         addGeoJsonSource('settori', draw.getAll());
-        var copy_sector = geojson.features.filter(function (e) { return e.properties.towerid === feature_id });
-        copy_sector.properties.towerid = new_id[0];
-        geojson.features.push(copy_sector);
-        addGeoJsonSource('aree', geojson);
+        // Duplicate the tower's coverage sector too, relinked to the new marker id.
+        // (Previously this referenced an undefined `feature_id` and pushed the raw
+        // filter array, so the copied tower silently lost its sector.)
+        var original_sector = getSectorsByTowerId(marker.id)[0];
+        if (original_sector) {
+            var copy_sector = JSON.parse(JSON.stringify(original_sector));
+            copy_sector.properties.towerid = new_id[0];
+            addSector(copy_sector);
+        }
+        addGeoJsonSource('aree', getSectors());
 
     });
     col.appendChild(icon);
@@ -1056,8 +1065,8 @@ function createTowerRow(marker) {
         draw.delete(marker.id);
         createTable(draw.getAll());
         addGeoJsonSource('settori', draw.getAll());
-        geojson.features = geojson.features.filter(function (e) { return e.properties.towerid !== marker.id });
-        addGeoJsonSource('aree', geojson);
+        removeSectorsByTowerId(marker.id);
+        addGeoJsonSource('aree', getSectors());
     });
     col.appendChild(icon);
     row.appendChild(col);
@@ -1067,7 +1076,7 @@ function createTowerRow(marker) {
 
 function deleteAll() {
     draw.deleteAll();
-    geojson.features = [];
+    clearSectors();
 
     overlays.forEach(function (overlay) {
         map.removeLayer("overlay-layer-" + overlay.ID);
@@ -1076,7 +1085,7 @@ function deleteAll() {
 
 
     overlays = [];
-    addGeoJsonSource('aree', geojson);
+    addGeoJsonSource('aree', getSectors());
     addGeoJsonSource('settori', draw.getAll());
     createTable(draw.getAll());
 }
@@ -1107,11 +1116,11 @@ function importjson() {
             for (const feat of read_json.features) {
                 if (feat.properties.marker == "cell") { //se di tipo cella, aggiungo il relativo settore
                     var area_polygon = buildCoverageSector(towerFieldsFromFeature(feat));
-                    geojson.features.push(area_polygon);
+                    addSector(area_polygon);
                 }
             }
 
-            addGeoJsonSource('aree', geojson);
+            addGeoJsonSource('aree', getSectors());
             addGeoJsonSource('settori', draw.getAll());
             createTable(draw.getAll());
         };
@@ -1122,7 +1131,7 @@ function importjson() {
 function scaricaKML() {
     var merged = {
         'type': 'FeatureCollection',
-        'features': draw.getAll().features.concat(geojson.features)
+        'features': draw.getAll().features.concat(getSectors().features)
     };
 
     const kmlData = generateKML(merged);
@@ -1325,10 +1334,10 @@ function openfile() {
                     //Creare area torre
                     var area_polygon = cella_feat[1];
                     area_polygon.properties.towerid = tower_id[0];
-                    geojson.features.push(area_polygon);
+                    addSector(area_polygon);
 
                     //Aggiorno mappa
-                    addGeoJsonSource('aree', geojson);
+                    addGeoJsonSource('aree', getSectors());
                     addGeoJsonSource('settori', draw.getAll());
 
                     createTable(draw.getAll());
