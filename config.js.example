@@ -1,0 +1,7 @@
+// Copy this file to `config.js` and paste your own Mapbox access token.
+// `config.js` is git-ignored so your token is never committed.
+//
+// Get a free token at https://account.mapbox.com/access-tokens/
+// Use a PUBLIC token (starts with "pk.") and, for production, restrict it
+// by URL in the Mapbox dashboard so it cannot be reused on other sites.
+const API_KEY = 'pk.YOUR_MAPBOX_PUBLIC_TOKEN_HERE';
