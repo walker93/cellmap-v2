@@ -13,8 +13,13 @@ import {
     removeSectorsByTowerId,
     clearSectors,
 } from './src/sectors.js';
-
-var hiddenPois = [];
+import {
+    getHiddenPois,
+    addHiddenPoi,
+    takeHiddenPoi,
+    removeHiddenPoi,
+    clearHiddenPois,
+} from './src/hiddenPois.js';
 
 map.on('load', setupMapLayers);
 
@@ -672,7 +677,7 @@ function createTable(tableData) {
     tower_table.innerHTML = "";
     poi_table.innerHTML = "";
     overlay_table.innerHTML = "";
-    tableData.features = tableData.features.concat(hiddenPois).sort((a, b) => {
+    tableData.features = tableData.features.concat(getHiddenPois()).sort((a, b) => {
         //sort by id
         if (a.id < b.id) return -1;
         if (a.id > b.id) return 1;
@@ -689,11 +694,6 @@ function createTable(tableData) {
             }
         }
     }
-    // add hiddenpois to the table
-    /*for (const hiddenpoi of hiddenPois) {
-        const poi_row = createPOIRow(hiddenpoi);
-        poi_table.appendChild(poi_row);
-    }*/
     // add overlays to the table
     for (const overlay of overlays) {
         const overlay_row = createOverlayRow(overlay);
@@ -858,18 +858,17 @@ function createPOIRow(marker) {
             // Show the feature
             marker.properties.hidden = false;
             this.className = "fa-sharp fa-solid fa-eye";
-            // retrive the feature from the hidden array and add to draw
-            var index = hiddenPois.findIndex(f => f.id === marker.id);
-            if (index > -1) {
-                draw.add(hiddenPois[index]);
-                hiddenPois.splice(index, 1);
+            // retrieve the feature from the hidden list and add it back to draw
+            var restored = takeHiddenPoi(marker.id);
+            if (restored) {
+                draw.add(restored);
             }
         } else {
             // Hide the feature
             marker.properties.hidden = true;
             this.className = "fa-sharp fa-solid fa-eye-slash";
-            // add the feature to the hidden array
-            hiddenPois.push(marker);
+            // move the feature out of draw and into the hidden list
+            addHiddenPoi(marker);
             draw.delete(marker.id);
         }
         createTable(draw.getAll());
@@ -907,6 +906,8 @@ function createPOIRow(marker) {
     icon.className = "fa-sharp fa-solid fa-xmark"
     icon.addEventListener("click", function () {
         draw.delete(marker.id);
+        // a hidden POI lives in the hidden list, not in draw, so also drop it there
+        removeHiddenPoi(marker.id);
         createTable(draw.getAll());
         addGeoJsonSource('settori', draw.getAll());
         removeSectorsByTowerId(marker.id);
@@ -1063,6 +1064,8 @@ function createTowerRow(marker) {
     icon.className = "fa-sharp fa-solid fa-xmark"
     icon.addEventListener("click", function () {
         draw.delete(marker.id);
+        // a hidden POI lives in the hidden list, not in draw, so also drop it there
+        removeHiddenPoi(marker.id);
         createTable(draw.getAll());
         addGeoJsonSource('settori', draw.getAll());
         removeSectorsByTowerId(marker.id);
@@ -1077,6 +1080,7 @@ function createTowerRow(marker) {
 function deleteAll() {
     draw.deleteAll();
     clearSectors();
+    clearHiddenPois();
 
     overlays.forEach(function (overlay) {
         map.removeLayer("overlay-layer-" + overlay.ID);
