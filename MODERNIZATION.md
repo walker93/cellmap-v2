@@ -6,7 +6,7 @@ a static HTML+CSS+JS map editor for planning cell-tower coverage (built on Mapbo
 ## Current status
 
 The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** safety net
-(59 tests) and GitHub Actions CI. Work so far, on branch
+(64 tests) and GitHub Actions CI. Work so far, on branch
 `claude/webapp-legacy-modernization-plan-chxyij`:
 
 **Done**
@@ -40,6 +40,12 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   validation + feature building). It registers its own row-edit handler with `ui/table.js`,
   and exposes `openForm`/`closeForm`/`aggiungiCella`/`submitEditForm` for the toolbar
   wiring; the "Salva" dispatch (`pendingSaveHandler`) is now module-internal.
+- **Phase 3 (ui/iconPicker)** — the `#inp_icon` icon control is extracted into
+  `src/ui/iconPicker.js` (`loadIcons`): fetch `icons.json`, rebuild the category-grouped
+  `<select>`, wrap it in TomSelect, and register a picked icon as a Mapbox image. Unit
+  tested (fetch/TomSelect mocked) **and** verified in a real browser against the vendored
+  TomSelect and the real `icons.json` — 844 icons across 13 category optgroups load into
+  the control with no errors.
 - **Phase 5 (partial)** — the form / CSV / GeoJSON-import feature-construction paths are
   deduplicated into `src/towerFeature.js`.
 - **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input

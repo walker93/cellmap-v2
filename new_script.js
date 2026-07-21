@@ -29,6 +29,7 @@ import { parseLatLonBox } from './src/io/kmz.js';
 import { addGeoJsonSource } from './src/mapSource.js';
 import { createTable } from './src/ui/table.js';
 import { openForm, closeForm, aggiungiCella, submitEditForm } from './src/ui/form.js';
+import { loadIcons } from './src/ui/iconPicker.js';
 
 map.on('load', setupMapLayers);
 
@@ -42,7 +43,7 @@ function setupMapLayers() {
     addCellLayer();
     addOtherTools();
     addMeasurementTools();
-    loadicons();
+    loadIcons();
 }
 
 function addCellLayer() {
@@ -337,90 +338,6 @@ function openfile() {
 
 }
 
-//fecth icon folder and add each image as a mapbox image - add option to select icon for PoI
-function loadicons() {
-    var iconInput = document.getElementById('inp_icon');
-    iconInput.innerHTML = '<option value="" selected>Choose an icon</option>';
-    iconInput.disabled = true;
-    fetch('images/icons/icons.json')
-        .then(response => response.json())
-        .then(data => {
-            // data: { "usr_xxx": { value, text, category, url }, ... }
-            var options = Object.values(data);
-            // Carica tutte le icone in mapbox e raggruppa per categoria in un solo ciclo
-            var optgroups = {};
-            options.forEach(opt => {
-                if (!optgroups[opt.category]) optgroups[opt.category] = [];
-                optgroups[opt.category].push(opt);
-            });
-            // Ricostruisci la select (per fallback)
-            iconInput.innerHTML = '<option value="" selected>Choose an icon</option>';
-            Object.keys(optgroups).forEach(cat => {
-                var optgroup = document.createElement('optgroup');
-                optgroup.label = cat;
-                optgroups[cat].forEach(opt => {
-                    var option = document.createElement('option');
-                    option.value = opt.value;
-                    option.textContent = opt.text;
-                    optgroup.appendChild(option);
-                });
-                iconInput.appendChild(optgroup);
-            });
-            iconInput.disabled = false;
-            // Inizializza TomSelect
-            if (iconInput.tomselect) {
-                iconInput.tomselect.destroy();
-            }
-            var select = new TomSelect(iconInput, {
-                maxItems: 1,
-                maxOptions: null,
-                valueField: 'value',
-                labelField: 'text',
-                searchField: ['text'],
-                options: options,
-                optgroups: Object.keys(optgroups).map(cat => ({ value: cat, label: cat })),
-                optgroupField: 'category',
-                optgroupLabelField: 'label',
-                optgroupValueField: 'value',
-                render: {
-                    option: function (data, escape) {
-                        return `<div style="display:flex;align-items:center;gap:8px;">
-                            <img src='${escape(data.url)}' loading="lazy" style='width:24px;height:24px;object-fit:contain;margin-right:6px;'>
-                            <span>${escape(data.text)}</span>
-                        </div>`;
-                    },
-                    item: function (data, escape) {
-                        return `<div style="display:flex;align-items:center;gap:8px;">
-                            <img src='${escape(data.url)}' loading="lazy" style='width:20px;height:20px;object-fit:contain;margin-right:4px;'>
-                            <span>${escape(data.text)}</span>
-                        </div>`;
-                    },
-                    optgroup_header: function (data, escape) {
-                        return `<div style="font-weight:bold;padding:4px 0;text-align:center;background: var(--background-color);">${escape(data.label)}</div>`;
-                    }
-                },
-                placeholder: 'Choose an icon',
-                allowEmptyOption: true
-            });
-            select.on('change', function (value) {
-                const data = this.options[value];
-                if (value && data) {
-                    loadToMapbox(value, data);
-                }
-            });
-        });
-}
-// Funzione helper per evitare ripetizioni
-function loadToMapbox(value, data) {
-    if (data.url && !map.hasImage(value)) {
-        map.loadImage(data.url, function (error, image) {
-            if (!error) {
-                map.addImage(value, image);
-                console.log(`Icona ${value} caricata in Mapbox`);
-            }
-        });
-    }
-}
 /* MAP EVENTS */
 
 // on draw.render update the measurments

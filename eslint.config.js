@@ -20,6 +20,7 @@ export default [
         tokml: 'readonly',
         numeral: 'readonly',
         math: 'readonly',
+        TomSelect: 'readonly',
       },
     },
   },

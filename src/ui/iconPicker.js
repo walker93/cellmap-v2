@@ -1,0 +1,100 @@
+import { map } from '../map.js';
+
+// `TomSelect` is a global from lib/tom-select.complete.min.js (a <script> in
+// index.html).
+
+// Register a picked icon as a Mapbox image so it can be used as a marker symbol.
+function loadIconToMap(value, data) {
+    if (data.url && !map.hasImage(value)) {
+        map.loadImage(data.url, function (error, image) {
+            if (!error) {
+                map.addImage(value, image);
+            }
+        });
+    }
+}
+
+/**
+ * Populate the #inp_icon control from images/icons/icons.json: rebuild the native
+ * <select> (grouped by category, as a fallback) and wrap it in a TomSelect that
+ * renders each icon's thumbnail. Returns the fetch promise so callers/tests can
+ * await it.
+ *
+ * @returns {Promise<object>} resolves with the TomSelect instance.
+ */
+export function loadIcons() {
+    const iconInput = document.getElementById('inp_icon');
+    iconInput.innerHTML = '<option value="" selected>Choose an icon</option>';
+    iconInput.disabled = true;
+
+    return fetch('images/icons/icons.json')
+        .then((response) => response.json())
+        .then((data) => {
+            // data: { "usr_xxx": { value, text, category, url }, ... }
+            const options = Object.values(data);
+
+            // group by category
+            const optgroups = {};
+            options.forEach((opt) => {
+                if (!optgroups[opt.category]) optgroups[opt.category] = [];
+                optgroups[opt.category].push(opt);
+            });
+
+            // rebuild the native <select> (fallback for no-JS / TomSelect failure)
+            iconInput.innerHTML = '<option value="" selected>Choose an icon</option>';
+            Object.keys(optgroups).forEach((cat) => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = cat;
+                optgroups[cat].forEach((opt) => {
+                    const option = document.createElement('option');
+                    option.value = opt.value;
+                    option.textContent = opt.text;
+                    optgroup.appendChild(option);
+                });
+                iconInput.appendChild(optgroup);
+            });
+            iconInput.disabled = false;
+
+            if (iconInput.tomselect) {
+                iconInput.tomselect.destroy();
+            }
+            const select = new TomSelect(iconInput, {
+                maxItems: 1,
+                maxOptions: null,
+                valueField: 'value',
+                labelField: 'text',
+                searchField: ['text'],
+                options: options,
+                optgroups: Object.keys(optgroups).map((cat) => ({ value: cat, label: cat })),
+                optgroupField: 'category',
+                optgroupLabelField: 'label',
+                optgroupValueField: 'value',
+                render: {
+                    option: function (data, escape) {
+                        return `<div style="display:flex;align-items:center;gap:8px;">
+                            <img src='${escape(data.url)}' loading="lazy" style='width:24px;height:24px;object-fit:contain;margin-right:6px;'>
+                            <span>${escape(data.text)}</span>
+                        </div>`;
+                    },
+                    item: function (data, escape) {
+                        return `<div style="display:flex;align-items:center;gap:8px;">
+                            <img src='${escape(data.url)}' loading="lazy" style='width:20px;height:20px;object-fit:contain;margin-right:4px;'>
+                            <span>${escape(data.text)}</span>
+                        </div>`;
+                    },
+                    optgroup_header: function (data, escape) {
+                        return `<div style="font-weight:bold;padding:4px 0;text-align:center;background: var(--background-color);">${escape(data.label)}</div>`;
+                    },
+                },
+                placeholder: 'Choose an icon',
+                allowEmptyOption: true,
+            });
+            select.on('change', function (value) {
+                const optionData = this.options[value];
+                if (value && optionData) {
+                    loadIconToMap(value, optionData);
+                }
+            });
+            return select;
+        });
+}
