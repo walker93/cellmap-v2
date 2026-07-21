@@ -1,6 +1,6 @@
 import { draw } from '../draw.js';
 import { getSectors } from '../sectors.js';
-import { downloadFile } from './download.js';
+import { saveFile } from './download.js';
 
 // `tokml` is a global provided by lib/tokml.js (a <script> in index.html).
 
@@ -13,11 +13,14 @@ export function generateKML(featureCollection) {
     });
 }
 
-/** Export both the draw features and their coverage sectors as a .kml download. */
+/** Export both the draw features and their coverage sectors as a .kml file. */
 export function exportKML() {
     const merged = {
         type: 'FeatureCollection',
         features: draw.getAll().features.concat(getSectors().features),
     };
-    downloadFile('map.kml', generateKML(merged), 'text/kml');
+    return saveFile('map.kml', generateKML(merged), 'application/vnd.google-earth.kml+xml', {
+        description: 'KML',
+        extensions: ['.kml'],
+    });
 }

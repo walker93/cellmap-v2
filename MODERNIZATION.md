@@ -6,7 +6,7 @@ a static HTML+CSS+JS map editor for planning cell-tower coverage (built on Mapbo
 ## Current status
 
 The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** safety net
-(43 tests) and GitHub Actions CI. Work so far, on branch
+(48 tests) and GitHub Actions CI. Work so far, on branch
 `claude/webapp-legacy-modernization-plan-chxyij`:
 
 **Done**
@@ -23,10 +23,13 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   feature store** extracted into `src/draw.js` as the single shared `draw` instance. No
   mutable top-level state globals remain in `new_script.js`.
 - **Phase 3 (io, partial)** — the export/download side is extracted into `src/io/`:
-  `download.js` (blob download), `geojson.js` (`exportGeoJSON`), `kml.js`
+  `download.js` (`saveFile`), `geojson.js` (`exportGeoJSON`), `kml.js`
   (`generateKML`/`exportKML`), and `kmz.js` (`parseLatLonBox`, a pure, unit-tested
-  georeferencing parser). The import orchestrators stay in `new_script.js` for now
-  because they depend on the render layer (see Remaining).
+  georeferencing parser). Exports now use the **File System Access API**
+  (`showSaveFilePicker`) — a native "Save as" dialog with an editable name and a file-type
+  filter — instead of hardcoded names + the `<a download>` click trick; browsers without
+  the API fall back to a name prompt + anchor download. The import orchestrators stay in
+  `new_script.js` for now because they depend on the render layer (see Remaining).
 - **Phase 5 (partial)** — the form / CSV / GeoJSON-import feature-construction paths are
   deduplicated into `src/towerFeature.js`.
 - **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input
