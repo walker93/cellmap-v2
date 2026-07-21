@@ -1,0 +1,128 @@
+import { describe, it, expect, beforeAll, beforeEach, afterEach, vi } from 'vitest';
+
+// form.js transitively imports map.js and draw.js (which construct Mapbox objects
+// from CDN globals at module-eval time) and table.js. Stub the globals before
+// importing so the graph loads under jsdom. draw.add returns a fixed id so
+// aggiungiCella can link the sector to it.
+let form;
+let getSectors, clearSectors;
+
+beforeAll(async () => {
+    vi.stubGlobal('mapboxgl', {
+        accessToken: '',
+        Map: function () {
+            return {
+                on() {},
+                addControl() {},
+                addSource() {},
+                addLayer() {},
+                getSource() {
+                    return { setData() {} };
+                },
+                getCanvas() {
+                    return { style: {} };
+                },
+                getFilter: () => ['all'],
+                setFilter() {},
+                flyTo() {},
+                fitBounds() {},
+            };
+        },
+        LngLatBounds: function () {},
+    });
+    vi.stubGlobal('MapboxDraw', function () {
+        return {
+            add: () => ['t1'],
+            get: (id) => ({ id, properties: {} }),
+            getAll: () => ({ type: 'FeatureCollection', features: [] }),
+            delete() {},
+            deleteAll() {},
+        };
+    });
+    form = await import('./form.js');
+    ({ getSectors, clearSectors } = await import('../sectors.js'));
+});
+
+function tomselectStub() {
+    return { disable() {}, enable() {}, clear() {}, setValue() {} };
+}
+
+beforeEach(() => {
+    clearSectors();
+    document.body.innerHTML = `
+        <div id="inputs" style="display:none">
+            <input id="inp_name"><input id="inp_desc">
+            <input id="inp_lat"><input id="inp_lon">
+            <input id="inp_radius"><input id="angle1"><input id="angle2">
+            <input id="inp_alpha"><input id="inp_fill">
+            <select id="inp_icon"></select>
+            <input id="feature-id">
+            <button id="addbtn" style="display:inline-block"></button>
+            <button id="savebtn" style="display:none"></button>
+        </div>
+        <div id="features"></div><div id="poi"></div><div id="overlays"></div>`;
+    document.getElementById('inp_icon').tomselect = tomselectStub();
+});
+
+afterEach(() => vi.restoreAllMocks());
+
+function fillValidTower() {
+    document.getElementById('inp_lat').value = '45.46';
+    document.getElementById('inp_lon').value = '9.19';
+    document.getElementById('inp_radius').value = '2';
+    document.getElementById('angle1').value = '-60';
+    document.getElementById('angle2').value = '60';
+    document.getElementById('inp_name').value = 'Tower A';
+    document.getElementById('inp_desc').value = '';
+    document.getElementById('inp_fill').value = '#ff0000';
+    document.getElementById('inp_alpha').value = '0.2';
+}
+
+describe('openForm / closeForm', () => {
+    it('openForm(null) shows the panel in "add" mode', () => {
+        form.openForm(null);
+        expect(document.getElementById('inputs').style.display).toBe('block');
+        expect(document.getElementById('addbtn').style.display).toBe('inline-block');
+        expect(document.getElementById('savebtn').style.display).toBe('none');
+    });
+
+    it('openForm(marker) shows the panel in "save/edit" mode', () => {
+        form.openForm({ properties: {}, geometry: { type: 'Point', coordinates: [0, 0] } });
+        expect(document.getElementById('inputs').style.display).toBe('block');
+        expect(document.getElementById('savebtn').style.display).toBe('inline-block');
+        expect(document.getElementById('addbtn').style.display).toBe('none');
+    });
+
+    it('closeForm hides the panel', () => {
+        form.openForm(null);
+        form.closeForm();
+        expect(document.getElementById('inputs').style.display).toBe('none');
+    });
+});
+
+describe('aggiungiCella', () => {
+    it('adds a tower + its sector and closes the form on valid input', () => {
+        form.openForm(null);
+        fillValidTower();
+        form.aggiungiCella();
+        expect(getSectors().features).toHaveLength(1);
+        expect(getSectors().features[0].properties.towerid).toBe('t1');
+        expect(document.getElementById('inputs').style.display).toBe('none');
+    });
+
+    it('rejects blank coordinates without adding anything', () => {
+        const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+        form.openForm(null);
+        fillValidTower();
+        document.getElementById('inp_lat').value = ''; // invalid
+        form.aggiungiCella();
+        expect(alertSpy).toHaveBeenCalled();
+        expect(getSectors().features).toHaveLength(0);
+    });
+});
+
+describe('submitEditForm', () => {
+    it('is a no-op when no feature is being edited', () => {
+        expect(() => form.submitEditForm()).not.toThrow();
+    });
+});

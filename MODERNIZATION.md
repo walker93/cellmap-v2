@@ -6,7 +6,7 @@ a static HTML+CSS+JS map editor for planning cell-tower coverage (built on Mapbo
 ## Current status
 
 The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** safety net
-(53 tests) and GitHub Actions CI. Work so far, on branch
+(59 tests) and GitHub Actions CI. Work so far, on branch
 `claude/webapp-legacy-modernization-plan-chxyij`:
 
 **Done**
@@ -35,6 +35,11 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   which are **deduplicated** via a shared `actionIcon` helper). The row "edit" action is
   injected from `new_script.js` via `setRowEditHandler` to avoid a table↔form circular
   import.
+- **Phase 3 (ui/form)** — the add/edit form is extracted into `src/ui/form.js`
+  (`aggiungiCella`, `loadForm`, `modificaCella`/`modificaPoi`, `openForm`/`closeForm`,
+  validation + feature building). It registers its own row-edit handler with `ui/table.js`,
+  and exposes `openForm`/`closeForm`/`aggiungiCella`/`submitEditForm` for the toolbar
+  wiring; the "Salva" dispatch (`pendingSaveHandler`) is now module-internal.
 - **Phase 5 (partial)** — the form / CSV / GeoJSON-import feature-construction paths are
   deduplicated into `src/towerFeature.js`.
 - **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input
@@ -57,11 +62,10 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   sites still use `draw.add/get/delete` directly. Higher-level coordinating operations
   (`addTower`/`removeTower`/`hidePoi`/`showPoi` that also keep sectors/hiddenPois in sync)
   could be lifted out of the DOM handlers into a state module on top of `src/draw.js`.
-- **Phase 3** — the remaining io **import** orchestrators (`importjson`, `openfile` CSV,
-  `processKMZ`) and the `ui/form` seam. The render helpers they needed (`createTable`,
-  `addGeoJsonSource`) are now modules, so importjson/openfile can move to `src/io/` once
-  the form (`aggiungiCella`/`loadForm`/…) is extracted into `src/ui/form.js` — that is the
-  natural next slice.
+- **Phase 3 (final bit)** — the io **import** orchestrators (`importjson`, `openfile` CSV,
+  `processKMZ`) plus `deleteAll` are all that remain in `new_script.js` besides map setup
+  and event wiring. Their dependencies are now modules, so they can move into `src/io/`
+  (with `deleteAll` as a small shared "reset" action) to finish Phase 3.
 - **Phase 6** — responsive CSS. **Phase 7** — accessibility.
 
 **Verification note:** the Mapbox CDN is unreachable from the dev/CI sandbox, so live map
