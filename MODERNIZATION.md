@@ -6,7 +6,7 @@ a static HTML+CSS+JS map editor for planning cell-tower coverage (built on Mapbo
 ## Current status
 
 The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** safety net
-(48 tests) and GitHub Actions CI. Work so far, on branch
+(53 tests) and GitHub Actions CI. Work so far, on branch
 `claude/webapp-legacy-modernization-plan-chxyij`:
 
 **Done**
@@ -30,6 +30,11 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   filter — instead of hardcoded names + the `<a download>` click trick; browsers without
   the API fall back to a name prompt + anchor download. The import orchestrators stay in
   `new_script.js` for now because they depend on the render layer (see Remaining).
+- **Phase 3 / 5 (ui/table)** — the render layer is extracted: `src/mapSource.js`
+  (`addGeoJsonSource`) and `src/ui/table.js` (`createTable` + the three row builders,
+  which are **deduplicated** via a shared `actionIcon` helper). The row "edit" action is
+  injected from `new_script.js` via `setRowEditHandler` to avoid a table↔form circular
+  import.
 - **Phase 5 (partial)** — the form / CSV / GeoJSON-import feature-construction paths are
   deduplicated into `src/towerFeature.js`.
 - **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input
@@ -42,17 +47,21 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
 3. Deleting a POI while it was hidden left it stuck in the hidden list.
 4. Blank latitude/longitude passed validation (`isFinite('')===true`) and created towers
    at NaN coordinates.
+5. Table rows used an undeclared `col` variable; once `new_script.js` became a strict-mode
+   ES module (Phase 3), building any row threw `ReferenceError: col is not defined` — so the
+   sidebar was broken after modularization. Fixed by declaring it during the ui/table
+   extraction, with a Vitest regression guard that builds rows and asserts no throw.
 
 **Remaining**
 - **Phase 4 (optional refinement)** — the `draw` store is now a shared module, but call
   sites still use `draw.add/get/delete` directly. Higher-level coordinating operations
   (`addTower`/`removeTower`/`hidePoi`/`showPoi` that also keep sectors/hiddenPois in sync)
   could be lifted out of the DOM handlers into a state module on top of `src/draw.js`.
-- **Phase 5** — merge the three near-identical `create*Row` functions.
 - **Phase 3** — the remaining io **import** orchestrators (`importjson`, `openfile` CSV,
-  `processKMZ`) and the `ui/{table,form}` seams. These are entangled with the render
-  helpers `createTable`/`addGeoJsonSource` (still in `new_script.js`), so they are best
-  extracted together with — or after — the `ui/table` seam to avoid circular imports.
+  `processKMZ`) and the `ui/form` seam. The render helpers they needed (`createTable`,
+  `addGeoJsonSource`) are now modules, so importjson/openfile can move to `src/io/` once
+  the form (`aggiungiCella`/`loadForm`/…) is extracted into `src/ui/form.js` — that is the
+  natural next slice.
 - **Phase 6** — responsive CSS. **Phase 7** — accessibility.
 
 **Verification note:** the Mapbox CDN is unreachable from the dev/CI sandbox, so live map

@@ -18,6 +18,8 @@ export default [
         mapboxgl: 'readonly',
         MapboxDraw: 'readonly',
         tokml: 'readonly',
+        numeral: 'readonly',
+        math: 'readonly',
       },
     },
   },
