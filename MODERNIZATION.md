@@ -48,6 +48,14 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   the control with no errors.
 - **Phase 5 (partial)** — the form / CSV / GeoJSON-import feature-construction paths are
   deduplicated into `src/towerFeature.js`.
+- **Phase 6 (responsive CSS)** — the page and main area now use **CSS Grid**: `body` is a
+  `header / main / footer` row grid, and `main` is a `map | resizer | controls` column grid
+  driven by a `--sidebar-width` custom property. The drag-resizer updates that property
+  (grid-native) and re-measures the map, and also resizes the map on window resize. Added a
+  `viewport` meta and `@media` breakpoints (768px / 480px) that stack the map over the
+  controls and hide the resizer on narrow screens; the add/edit popup is now centred and
+  size-capped. Verified in headless Chromium at desktop and mobile viewports (grid tracks,
+  resizer drag, breakpoint stacking, popup centring) with screenshots.
 - **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input
   validation completed.
 
@@ -72,7 +80,7 @@ else lives in 16 focused `src/` modules.
   sites still use `draw.add/get/delete` directly. Higher-level coordinating operations
   (`addTower`/`removeTower`/`hidePoi`/`showPoi` that also keep sectors/hiddenPois in sync)
   could be lifted out of the DOM handlers into a state module on top of `src/draw.js`.
-- **Phase 6** — responsive CSS. **Phase 7** — accessibility.
+- **Phase 7** — accessibility.
 - **Optional** — extract the remaining Mapbox setup/event-handler bootstrap out of
   `new_script.js` into a `src/mapEvents.js` (or similar) if a leaner entry file is wanted;
   not required, since what's left is legitimately the app's bootstrap.
@@ -155,6 +163,10 @@ Each phase leaves the app in a working, statically-deployable state.
   functions remain to be merged.)_
 - **Phase 6 — CSS modernization** on the existing custom-properties foundation; add
   responsive `@media` queries (currently none). Tailwind optional as a pure utility layer.
+  _(**done**: main layout moved from flex to **CSS Grid** (`header/main/footer` +
+  `map | resizer | controls` via a `--sidebar-width` custom property); grid-native
+  drag-resizer; `viewport` meta + 768px/480px breakpoints that stack the layout and hide
+  the resizer on mobile; centred, size-capped popup form.)_
 - **Phase 7 — Accessibility polish**: `aria-*`/`role` on accordions, form, and tables;
   real `<dialog>` semantics for the add/edit form.
 
