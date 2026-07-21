@@ -6,7 +6,7 @@ a static HTML+CSS+JS map editor for planning cell-tower coverage (built on Mapbo
 ## Current status
 
 The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** safety net
-(38 tests) and GitHub Actions CI. Work so far, on branch
+(43 tests) and GitHub Actions CI. Work so far, on branch
 `claude/webapp-legacy-modernization-plan-chxyij`:
 
 **Done**
@@ -22,6 +22,11 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   (sectors, hiddenPois, overlays) behind explicit unit-tested APIs, and the **MapboxDraw
   feature store** extracted into `src/draw.js` as the single shared `draw` instance. No
   mutable top-level state globals remain in `new_script.js`.
+- **Phase 3 (io, partial)** — the export/download side is extracted into `src/io/`:
+  `download.js` (blob download), `geojson.js` (`exportGeoJSON`), `kml.js`
+  (`generateKML`/`exportKML`), and `kmz.js` (`parseLatLonBox`, a pure, unit-tested
+  georeferencing parser). The import orchestrators stay in `new_script.js` for now
+  because they depend on the render layer (see Remaining).
 - **Phase 5 (partial)** — the form / CSV / GeoJSON-import feature-construction paths are
   deduplicated into `src/towerFeature.js`.
 - **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input
@@ -41,7 +46,10 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   (`addTower`/`removeTower`/`hidePoi`/`showPoi` that also keep sectors/hiddenPois in sync)
   could be lifted out of the DOM handlers into a state module on top of `src/draw.js`.
 - **Phase 5** — merge the three near-identical `create*Row` functions.
-- **Phase 3** — the `io/{kml,kmz,csv}` and `ui/{table,form}` seams.
+- **Phase 3** — the remaining io **import** orchestrators (`importjson`, `openfile` CSV,
+  `processKMZ`) and the `ui/{table,form}` seams. These are entangled with the render
+  helpers `createTable`/`addGeoJsonSource` (still in `new_script.js`), so they are best
+  extracted together with — or after — the `ui/table` seam to avoid circular imports.
 - **Phase 6** — responsive CSS. **Phase 7** — accessibility.
 
 **Verification note:** the Mapbox CDN is unreachable from the dev/CI sandbox, so live map
@@ -103,8 +111,10 @@ Each phase leaves the app in a working, statically-deployable state.
   _(started: `index.html` now loads `new_script.js`/`resizer.js` as `type="module"`;
   extracted `src/map.js` (shared map instance) and `src/draw.js` (shared MapboxDraw
   instance) and moved `turf` from a CDN `<script>` to an npm import; the three
-  feature-construction paths now call the shared `src/towerFeature.js`. Remaining
-  seams — io/\*, ui/\* — are the next slice.)_
+  feature-construction paths now call the shared `src/towerFeature.js`; and the io
+  export side is now under `src/io/` (`download`, `geojson`, `kml`, `kmz`). Remaining
+  seams — the io **import** orchestrators and `ui/{table,form}`, both tied to the render
+  helpers — are the next slice.)_
 - **Phase 4 — Formalize the state model** into one module with an explicit API
   (`addTower`, `removeTower`, `hidePoi`, `showPoi`, `getVisibleFeatures`) that encapsulates
   the draw/geojson/hiddenPois sync rules in one place.

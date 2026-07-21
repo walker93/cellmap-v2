@@ -23,6 +23,9 @@ import {
 } from './src/hiddenPois.js';
 import { getOverlays, addOverlay, removeOverlay, clearOverlays } from './src/overlays.js';
 import { draw } from './src/draw.js';
+import { exportGeoJSON } from './src/io/geojson.js';
+import { exportKML } from './src/io/kml.js';
+import { parseLatLonBox } from './src/io/kmz.js';
 
 map.on('load', setupMapLayers);
 
@@ -768,11 +771,6 @@ function deleteAll() {
     createTable(draw.getAll());
 }
 
-function scaricageojson() {
-    var data = JSON.stringify(draw.getAll());
-    downloadFile("map.geojson", data, 'application/geo+json');
-}
-
 function importjson() {
     var inp_file = document.createElement("input");
     inp_file.setAttribute("type", "file");
@@ -804,35 +802,6 @@ function importjson() {
         };
         reader.readAsText(this.files[0]);
     });
-}
-
-function scaricaKML() {
-    var merged = {
-        'type': 'FeatureCollection',
-        'features': draw.getAll().features.concat(getSectors().features)
-    };
-
-    const kmlData = generateKML(merged);
-    downloadFile('map.kml', kmlData, 'text/kml');
-}
-
-function generateKML(geojsonData) {
-    return tokml(geojsonData, { name: 'name', description: 'description', simplestyle: true });
-}
-
-function downloadFile(filename, data, mimeType) {
-    const blob = new Blob([data], { type: mimeType });
-    if (window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveBlob(blob, filename);
-    }
-    else {
-        const elem = window.document.createElement('a');
-        elem.href = window.URL.createObjectURL(blob);
-        elem.download = filename;
-        document.body.appendChild(elem);
-        elem.click();
-        document.body.removeChild(elem);
-    }
 }
 
 function openForm(marker) {
@@ -892,16 +861,8 @@ function processKMZ() {
                 return Promise.all([kmlContentPromise, imageBlobPromise]);
             })
             .then(([kmlContent, imageBlob]) => {
-                // Parsing del contenuto KML usando DOMParser
-                const parser = new DOMParser();
-                const kmlDoc = parser.parseFromString(kmlContent, "application/xml");
-
-                // Estrai le coordinate dal KML
-                const latLonBox = kmlDoc.querySelector("LatLonBox");
-                const north = parseFloat(latLonBox.querySelector("north").textContent);
-                const south = parseFloat(latLonBox.querySelector("south").textContent);
-                const east = parseFloat(latLonBox.querySelector("east").textContent);
-                const west = parseFloat(latLonBox.querySelector("west").textContent);
+                // Estrai le coordinate di georeferenziazione dal KML
+                const { north, south, east, west } = parseLatLonBox(kmlContent);
 
                 // Crea un URL temporaneo per l'immagine
                 const imageUrl = URL.createObjectURL(imageBlob);
@@ -1203,9 +1164,9 @@ function wireControls() {
     var handlers = {
         add: function () { openForm(null); },
         import: openfile,
-        savejson: scaricageojson,
+        savejson: exportGeoJSON,
         importjson: importjson,
-        savekml: scaricaKML,
+        savekml: exportKML,
         addoverlay: processKMZ,
         deleteall: deleteAll,
         cancelbtn: closeForm,

@@ -17,6 +17,7 @@ export default [
         // MapboxDraw).
         mapboxgl: 'readonly',
         MapboxDraw: 'readonly',
+        tokml: 'readonly',
       },
     },
   },
