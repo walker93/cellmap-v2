@@ -13,8 +13,10 @@ export default [
       globals: {
         ...globals.browser,
         // CDN libraries exposed as globals by <script> tags in index.html and
-        // referenced from modules (e.g. src/map.js uses mapboxgl).
+        // referenced from modules (e.g. src/map.js uses mapboxgl, src/draw.js uses
+        // MapboxDraw).
         mapboxgl: 'readonly',
+        MapboxDraw: 'readonly',
       },
     },
   },

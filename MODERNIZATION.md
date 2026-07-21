@@ -16,10 +16,12 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   `window.API_KEY`. Production is a `vite build` → static `dist/`.
 - **Phase 1** — all ~10 inline `onclick` handlers replaced with `addEventListener`.
 - **Phase 2/3** — `index.html` loads the app as `type="module"`; extracted `src/map.js`,
-  `src/towerFeature.js`, `src/sectors.js`, `src/hiddenPois.js`, `src/overlays.js`; `turf`
-  moved from a CDN `<script>` to an npm import.
-- **Phase 4 (partial)** — the three side collections (sectors, hiddenPois, overlays) are
-  formalized behind explicit, unit-tested module APIs.
+  `src/draw.js`, `src/towerFeature.js`, `src/sectors.js`, `src/hiddenPois.js`,
+  `src/overlays.js`; `turf` moved from a CDN `<script>` to an npm import.
+- **Phase 4** — all shared state is now module-owned: the three side collections
+  (sectors, hiddenPois, overlays) behind explicit unit-tested APIs, and the **MapboxDraw
+  feature store** extracted into `src/draw.js` as the single shared `draw` instance. No
+  mutable top-level state globals remain in `new_script.js`.
 - **Phase 5 (partial)** — the form / CSV / GeoJSON-import feature-construction paths are
   deduplicated into `src/towerFeature.js`.
 - **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input
@@ -34,8 +36,10 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
    at NaN coordinates.
 
 **Remaining**
-- **Phase 4** — extract the MapboxDraw feature store behind an add/remove API (the largest
-  remaining piece; ~80 call sites).
+- **Phase 4 (optional refinement)** — the `draw` store is now a shared module, but call
+  sites still use `draw.add/get/delete` directly. Higher-level coordinating operations
+  (`addTower`/`removeTower`/`hidePoi`/`showPoi` that also keep sectors/hiddenPois in sync)
+  could be lifted out of the DOM handlers into a state module on top of `src/draw.js`.
 - **Phase 5** — merge the three near-identical `create*Row` functions.
 - **Phase 3** — the `io/{kml,kmz,csv}` and `ui/{table,form}` seams.
 - **Phase 6** — responsive CSS. **Phase 7** — accessibility.
@@ -97,20 +101,22 @@ Each phase leaves the app in a working, statically-deployable state.
 - **Phase 3 — Convert to ES modules** along natural seams: `map`, `state`, `towers`,
   `pois`, `overlays`, `io/{csv,geojson,kml,kmz}`, `ui/{table,form}`.
   _(started: `index.html` now loads `new_script.js`/`resizer.js` as `type="module"`;
-  extracted `src/map.js` (the shared map instance) and moved `turf` from a CDN
-  `<script>` to an npm import; the three feature-construction paths now call the
-  shared `src/towerFeature.js`. Remaining seams — state, io/\*, ui/\* — are the next
-  slice.)_
+  extracted `src/map.js` (shared map instance) and `src/draw.js` (shared MapboxDraw
+  instance) and moved `turf` from a CDN `<script>` to an npm import; the three
+  feature-construction paths now call the shared `src/towerFeature.js`. Remaining
+  seams — io/\*, ui/\* — are the next slice.)_
 - **Phase 4 — Formalize the state model** into one module with an explicit API
   (`addTower`, `removeTower`, `hidePoi`, `showPoi`, `getVisibleFeatures`) that encapsulates
   the draw/geojson/hiddenPois sync rules in one place.
-  _(in progress: all three side collections are now explicit, unit-tested modules
-  replacing the scattered global mutations — `src/sectors.js` (coverage sectors, linked
-  by `towerid`), `src/hiddenPois.js` (POIs pulled out of draw when hidden), and
-  `src/overlays.js` (KMZ raster overlays). Formalizing them exposed and fixed three real
-  desync bugs: duplicating a tower silently lost its coverage sector; "Delete All" didn't
-  clear the hidden-POI list; and deleting a hidden POI left it lingering in that list.
-  Still to formalize: the MapboxDraw store itself, behind add/remove APIs.)_
+  _(largely done: all shared state is module-owned. The three side collections are
+  explicit, unit-tested modules replacing the scattered global mutations — `src/sectors.js`
+  (coverage sectors, linked by `towerid`), `src/hiddenPois.js` (POIs pulled out of draw
+  when hidden), and `src/overlays.js` (KMZ raster overlays); and the MapboxDraw feature
+  store is now the single shared `draw` instance in `src/draw.js`. Formalizing the
+  collections exposed and fixed three real desync bugs: duplicating a tower silently lost
+  its coverage sector; "Delete All" didn't clear the hidden-POI list; and deleting a hidden
+  POI left it lingering in that list. Optional next step: lift `addTower`/`removeTower`/
+  `hidePoi`/`showPoi` coordinating logic out of the DOM handlers onto `src/draw.js`.)_
 - **Phase 5 — Deduplicate** the three near-identical `create*Row` functions and the
   feature-construction paths. _(feature construction done: the form, CSV, and GeoJSON
   import paths all call the shared `src/towerFeature.js`; the three `create*Row`
