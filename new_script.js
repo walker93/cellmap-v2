@@ -1,35 +1,16 @@
 import { map } from './src/map.js';
 import * as turf from '@turf/turf';
-import {
-    buildTowerFeature,
-    buildCoverageSector,
-    csvRowToTowerFields,
-    towerFieldsFromFeature,
-    validateTowerFields,
-} from './src/towerFeature.js';
-import {
-    getSectors,
-    addSector,
-    getSectorsByTowerId,
-    removeSectorsByTowerId,
-    clearSectors,
-} from './src/sectors.js';
-import {
-    getHiddenPois,
-    addHiddenPoi,
-    takeHiddenPoi,
-    removeHiddenPoi,
-    clearHiddenPois,
-} from './src/hiddenPois.js';
-import { getOverlays, addOverlay, removeOverlay, clearOverlays } from './src/overlays.js';
+import { getSectors } from './src/sectors.js';
 import { draw } from './src/draw.js';
-import { exportGeoJSON } from './src/io/geojson.js';
+import { exportGeoJSON, importGeoJSON } from './src/io/geojson.js';
 import { exportKML } from './src/io/kml.js';
-import { parseLatLonBox } from './src/io/kmz.js';
+import { importCSV } from './src/io/csv.js';
+import { importKMZ } from './src/io/kmz.js';
 import { addGeoJsonSource } from './src/mapSource.js';
 import { createTable } from './src/ui/table.js';
 import { openForm, closeForm, aggiungiCella, submitEditForm } from './src/ui/form.js';
 import { loadIcons } from './src/ui/iconPicker.js';
+import { deleteAll } from './src/reset.js';
 
 map.on('load', setupMapLayers);
 
@@ -161,183 +142,6 @@ function addMeasurementTools() {
     });
 }
 
-function deleteAll() {
-    draw.deleteAll();
-    clearSectors();
-    clearHiddenPois();
-
-    getOverlays().forEach(function (overlay) {
-        map.removeLayer("overlay-layer-" + overlay.ID);
-        map.removeSource("overlay-source-" + overlay.ID);
-    });
-    clearOverlays();
-    addGeoJsonSource('aree', getSectors());
-    addGeoJsonSource('settori', draw.getAll());
-    createTable(draw.getAll());
-}
-
-function importjson() {
-    var inp_file = document.createElement("input");
-    inp_file.setAttribute("type", "file");
-    inp_file.setAttribute("accept", ".geojson");
-    inp_file.click();
-    inp_file.addEventListener('change', function filechange() {
-        if (this.files.length === 0) {
-            console.log('No file selected.');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function fileReadCompleted() {
-            // when the reader is done, the content is in reader.result.
-            deleteAll();
-            //Parsing Geojson
-            var read_json = JSON.parse(reader.result);
-            draw.add(read_json);
-            for (const feat of read_json.features) {
-                if (feat.properties.marker == "cell") { //se di tipo cella, aggiungo il relativo settore
-                    var area_polygon = buildCoverageSector(towerFieldsFromFeature(feat));
-                    addSector(area_polygon);
-                }
-            }
-
-            addGeoJsonSource('aree', getSectors());
-            addGeoJsonSource('settori', draw.getAll());
-            createTable(draw.getAll());
-        };
-        reader.readAsText(this.files[0]);
-    });
-}
-
-function processKMZ() {
-
-    var inp_file = document.createElement("input");
-    inp_file.setAttribute("type", "file");
-    inp_file.setAttribute("accept", ".kmz");
-    inp_file.click();
-    inp_file.addEventListener('change', async function filechange() {
-        if (this.files.length === 0) {
-            console.log('No file selected.');
-            return;
-        }
-        const file = inp_file.files[0];
-        JSZip.loadAsync(file)
-            .then(zip => {
-                let kmlContentPromise, imageBlobPromise;
-
-                // Cerca il file KML e l'immagine nel KMZ
-                zip.forEach((relativePath, zipEntry) => {
-                    if (relativePath.endsWith(".kml")) {
-                        kmlContentPromise = zipEntry.async("string");
-                    } else if (relativePath.endsWith(".png")) {
-                        imageBlobPromise = zipEntry.async("blob");
-                    }
-                });
-
-                // Verifica che esistano sia il file KML sia l'immagine
-                if (!kmlContentPromise || !imageBlobPromise) {
-                    alert("Invalid KMZ file: inner KML or image missing.");
-                    return Promise.reject("KML o immagine mancante");
-                }
-
-                // Risolvi le promesse per ottenere i contenuti del KML e l'immagine
-                return Promise.all([kmlContentPromise, imageBlobPromise]);
-            })
-            .then(([kmlContent, imageBlob]) => {
-                // Estrai le coordinate di georeferenziazione dal KML
-                const { north, south, east, west } = parseLatLonBox(kmlContent);
-
-                // Crea un URL temporaneo per l'immagine
-                const imageUrl = URL.createObjectURL(imageBlob);
-                const overlayID = Date.now();
-
-                // Aggiungi l'immagine come sorgente e sovrapponila alla mappa
-                map.addSource('overlay-source-' + overlayID, {
-                    'type': 'image',
-                    'url': imageUrl,
-                    'coordinates': [
-                        [west, north], // NO
-                        [east, north], // NE
-                        [east, south], // SE
-                        [west, south]  // SO
-                    ]
-                });
-
-                map.addLayer({
-                    id: 'overlay-layer-' + overlayID,
-                    'type': 'raster',
-                    'source': 'overlay-source-' + overlayID,
-                    'paint': {
-                        'raster-fade-duration': 0,
-                        'raster-opacity': 0.3
-                    }
-                });
-                addOverlay({
-                    'file': file.name,
-                    'ID': overlayID,
-                    'imageURL': imageUrl,
-                    'imageBlob': imageBlob,
-                    'north': north,
-                    'east': east,
-                    'west': west,
-                    'south': south
-                });
-                createTable(draw.getAll());
-            })
-            .catch(error => {
-                console.error("Errore nell'elaborazione del file KMZ:", error);
-                alert("Si è verificato un errore durante l'elaborazione del file KMZ.");
-            });
-
-    });
-}
-
-
-function openfile() {
-    /* csv example 
-    lat,lon,name,desc,fill,marker,angle1,angle2,radius,opacity
-    45.1256,9.2365,"torre","descrizione","#ff0000","cell",0,360,3,0.2
-    
-    */
-
-    var inp_file = document.createElement("input");
-    inp_file.setAttribute("type", "file");
-    inp_file.setAttribute("accept", ".csv");
-    inp_file.click();
-    inp_file.addEventListener('change', function filechange() {
-        if (this.files.length === 0) {
-            console.log('No file selected.');
-            return;
-        }
-        Papa.parse(inp_file.files[0], {
-            header: true,
-            dynamicTyping: true,
-            complete: function (results) {
-                deleteAll();
-                var data = results.data;
-                for (const cell of data) {
-                    const built = buildTowerFeature(csvRowToTowerFields(cell));
-                    const cella_feat = [built.marker, built.sector];
-                    const tower = cella_feat[0];
-                    var tower_id = draw.add(tower);
-
-                    //Creare area torre
-                    var area_polygon = cella_feat[1];
-                    area_polygon.properties.towerid = tower_id[0];
-                    addSector(area_polygon);
-
-                    //Aggiorno mappa
-                    addGeoJsonSource('aree', getSectors());
-                    addGeoJsonSource('settori', draw.getAll());
-
-                    createTable(draw.getAll());
-                }
-            }
-        });
-    });
-
-}
-
 /* MAP EVENTS */
 
 // on draw.render update the measurments
@@ -462,11 +266,11 @@ map.on('mouseleave', 'markers', function () {
 function wireControls() {
     var handlers = {
         add: function () { openForm(null); },
-        import: openfile,
+        import: importCSV,
         savejson: exportGeoJSON,
-        importjson: importjson,
+        importjson: importGeoJSON,
         savekml: exportKML,
-        addoverlay: processKMZ,
+        addoverlay: importKMZ,
         deleteall: deleteAll,
         cancelbtn: closeForm,
         addbtn: function () { aggiungiCella(); },

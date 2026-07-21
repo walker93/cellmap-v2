@@ -1,5 +1,20 @@
-import { describe, it, expect } from 'vitest';
-import { parseLatLonBox } from './kmz.js';
+import { describe, it, expect, beforeAll, vi } from 'vitest';
+
+// kmz.js now imports map.js/draw.js (for importKMZ), which construct Mapbox objects
+// from CDN globals at module-eval time. Stub them before importing.
+let parseLatLonBox;
+beforeAll(async () => {
+    vi.stubGlobal('mapboxgl', {
+        accessToken: '',
+        Map: function () {
+            return { on() {}, addControl() {}, addSource() {}, addLayer() {}, getCanvas: () => ({ style: {} }) };
+        },
+    });
+    vi.stubGlobal('MapboxDraw', function () {
+        return { getAll: () => ({ type: 'FeatureCollection', features: [] }) };
+    });
+    ({ parseLatLonBox } = await import('./kmz.js'));
+});
 
 const kml = (box) => `<?xml version="1.0"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">

@@ -6,7 +6,7 @@ a static HTML+CSS+JS map editor for planning cell-tower coverage (built on Mapbo
 ## Current status
 
 The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** safety net
-(64 tests) and GitHub Actions CI. Work so far, on branch
+(66 tests) and GitHub Actions CI. Work so far, on branch
 `claude/webapp-legacy-modernization-plan-chxyij`:
 
 **Done**
@@ -22,14 +22,14 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   (sectors, hiddenPois, overlays) behind explicit unit-tested APIs, and the **MapboxDraw
   feature store** extracted into `src/draw.js` as the single shared `draw` instance. No
   mutable top-level state globals remain in `new_script.js`.
-- **Phase 3 (io, partial)** — the export/download side is extracted into `src/io/`:
-  `download.js` (`saveFile`), `geojson.js` (`exportGeoJSON`), `kml.js`
-  (`generateKML`/`exportKML`), and `kmz.js` (`parseLatLonBox`, a pure, unit-tested
-  georeferencing parser). Exports now use the **File System Access API**
-  (`showSaveFilePicker`) — a native "Save as" dialog with an editable name and a file-type
-  filter — instead of hardcoded names + the `<a download>` click trick; browsers without
-  the API fall back to a name prompt + anchor download. The import orchestrators stay in
-  `new_script.js` for now because they depend on the render layer (see Remaining).
+- **Phase 3 (io — complete)** — all io lives under `src/io/`: `download.js` (`saveFile`),
+  `geojson.js` (`exportGeoJSON` + `importGeoJSON`), `kml.js` (`generateKML`/`exportKML`),
+  `csv.js` (`importCSV`), and `kmz.js` (`parseLatLonBox` + `importKMZ`), with `deleteAll`
+  extracted into `src/reset.js` as the shared "clear the map" action the importers use.
+  Exports use the **File System Access API** (`showSaveFilePicker`) — a native "Save as"
+  dialog with an editable name and a file-type filter — instead of hardcoded names + the
+  `<a download>` click trick; browsers without the API fall back to a name prompt + anchor
+  download.
 - **Phase 3 / 5 (ui/table)** — the render layer is extracted: `src/mapSource.js`
   (`addGeoJsonSource`) and `src/ui/table.js` (`createTable` + the three row builders,
   which are **deduplicated** via a shared `actionIcon` helper). The row "edit" action is
@@ -51,6 +51,10 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
 - **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input
   validation completed.
 
+With this, **Phase 3 is complete**: `new_script.js` is down from ~1,586 lines to a ~290-line
+bootstrap (map/layer setup, the Mapbox event handlers, and `wireControls`), and everything
+else lives in 16 focused `src/` modules.
+
 **Real bugs found and fixed while formalizing state**
 1. Duplicating a tower silently lost its coverage sector (referenced an undefined
    `feature_id` and pushed the raw filter array).
@@ -68,11 +72,10 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   sites still use `draw.add/get/delete` directly. Higher-level coordinating operations
   (`addTower`/`removeTower`/`hidePoi`/`showPoi` that also keep sectors/hiddenPois in sync)
   could be lifted out of the DOM handlers into a state module on top of `src/draw.js`.
-- **Phase 3 (final bit)** — the io **import** orchestrators (`importjson`, `openfile` CSV,
-  `processKMZ`) plus `deleteAll` are all that remain in `new_script.js` besides map setup
-  and event wiring. Their dependencies are now modules, so they can move into `src/io/`
-  (with `deleteAll` as a small shared "reset" action) to finish Phase 3.
 - **Phase 6** — responsive CSS. **Phase 7** — accessibility.
+- **Optional** — extract the remaining Mapbox setup/event-handler bootstrap out of
+  `new_script.js` into a `src/mapEvents.js` (or similar) if a leaner entry file is wanted;
+  not required, since what's left is legitimately the app's bootstrap.
 
 **Verification note:** the Mapbox CDN is unreachable from the dev/CI sandbox, so live map
 interaction can't be click-tested here — the module graph is verified to boot end to end
@@ -130,13 +133,10 @@ Each phase leaves the app in a working, statically-deployable state.
   skeleton; app entry still served as-is until Phase 3.)_
 - **Phase 3 — Convert to ES modules** along natural seams: `map`, `state`, `towers`,
   `pois`, `overlays`, `io/{csv,geojson,kml,kmz}`, `ui/{table,form}`.
-  _(started: `index.html` now loads `new_script.js`/`resizer.js` as `type="module"`;
-  extracted `src/map.js` (shared map instance) and `src/draw.js` (shared MapboxDraw
-  instance) and moved `turf` from a CDN `<script>` to an npm import; the three
-  feature-construction paths now call the shared `src/towerFeature.js`; and the io
-  export side is now under `src/io/` (`download`, `geojson`, `kml`, `kmz`). Remaining
-  seams — the io **import** orchestrators and `ui/{table,form}`, both tied to the render
-  helpers — are the next slice.)_
+  _(**done**: `index.html` loads the app as `type="module"`; all seams are extracted into
+  16 `src/` modules — `map`, `draw`, `mapSource`, `reset`, the state modules, `towerFeature`,
+  `io/{download,geojson,kml,kmz,csv}`, and `ui/{table,form,iconPicker}`; `turf` moved to an
+  npm import. `new_script.js` is now a ~290-line bootstrap.)_
 - **Phase 4 — Formalize the state model** into one module with an explicit API
   (`addTower`, `removeTower`, `hidePoi`, `showPoi`, `getVisibleFeatures`) that encapsulates
   the draw/geojson/hiddenPois sync rules in one place.

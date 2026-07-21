@@ -21,6 +21,8 @@ export default [
         numeral: 'readonly',
         math: 'readonly',
         TomSelect: 'readonly',
+        Papa: 'readonly',
+        JSZip: 'readonly',
       },
     },
   },
