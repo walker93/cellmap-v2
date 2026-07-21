@@ -226,6 +226,35 @@ span>.fa-sharp:hover {
     color: var(--secondary-color);
 }
 
+/* Row action buttons: look like bare icons but are real, focusable, keyboard-
+   activatable, screen-reader-labelled <button>s. */
+.icon-btn {
+    background: none;
+    border: none;
+    padding: 3px;
+    margin: 3px;
+    cursor: pointer;
+    color: var(--primary-color);
+    font-size: inherit;
+    line-height: 1;
+}
+
+.icon-btn:hover {
+    color: var(--secondary-color);
+}
+
+.icon-btn:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 1px;
+    color: var(--secondary-color);
+}
+
+/* Visible keyboard focus for the checkbox-hack accordion (its checkbox is hidden). */
+.tab input:focus-visible+.tab__label {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
+}
+
 /* FORM a POPUP */
 #inputs {
     display: none;

@@ -75,13 +75,19 @@ describe('createTable', () => {
         expect(document.querySelectorAll('#poi .table-element')).toHaveLength(1);
     });
 
-    it('gives each row a button column with action icons', () => {
+    it('gives each row a11y action buttons (real <button> with aria-label, decorative icon)', () => {
         createTable({ type: 'FeatureCollection', features: [tower] });
-        const row = document.querySelector('#features .table-element');
-        const btnCol = row.querySelector('.btn-col');
+        const btnCol = document.querySelector('#features .table-element .btn-col');
         expect(btnCol).not.toBeNull();
         // locate, hide/show, duplicate, edit, delete
-        expect(btnCol.querySelectorAll('i').length).toBe(5);
+        const buttons = btnCol.querySelectorAll('button.icon-btn');
+        expect(buttons).toHaveLength(5);
+        for (const b of buttons) {
+            expect(b.getAttribute('aria-label')).toBeTruthy();
+            expect(b.querySelector('i').getAttribute('aria-hidden')).toBe('true');
+        }
+        const labels = [...buttons].map((b) => b.getAttribute('aria-label'));
+        expect(labels).toEqual(['Locate', 'Hide', 'Duplicate', 'Edit', 'Delete']);
     });
 
     it('clears and rebuilds on each call (no duplicate rows)', () => {
@@ -94,10 +100,10 @@ describe('createTable', () => {
         const onEdit = vi.fn();
         setRowEditHandler(onEdit);
         createTable({ type: 'FeatureCollection', features: [tower] });
-        const icons = document.querySelectorAll('#features .btn-col i');
-        // edit is the pen icon (4th: locate, hide, duplicate, edit)
-        const pen = [...icons].find((i) => i.className.includes('fa-pen'));
-        pen.dispatchEvent(new window.Event('click'));
+        const editBtn = [...document.querySelectorAll('#features .btn-col button')].find(
+            (b) => b.getAttribute('aria-label') === 'Edit'
+        );
+        editBtn.click();
         expect(onEdit).toHaveBeenCalledWith(tower);
     });
 });

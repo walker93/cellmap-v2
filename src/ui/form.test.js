@@ -98,6 +98,26 @@ describe('openForm / closeForm', () => {
         form.closeForm();
         expect(document.getElementById('inputs').style.display).toBe('none');
     });
+
+    it('moves focus into the dialog (first field) when opened', () => {
+        form.openForm(null);
+        expect(document.activeElement).toBe(document.getElementById('inp_name'));
+    });
+
+    it('closes on the Escape key', () => {
+        form.openForm(null);
+        document.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'Escape' }));
+        expect(document.getElementById('inputs').style.display).toBe('none');
+    });
+
+    it('restores focus to the opener when closed', () => {
+        const opener = document.createElement('button');
+        document.body.appendChild(opener);
+        opener.focus();
+        form.openForm(null);
+        form.closeForm();
+        expect(document.activeElement).toBe(opener);
+    });
 });
 
 describe('aggiungiCella', () => {

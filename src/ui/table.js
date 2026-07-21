@@ -23,13 +23,32 @@ export function setRowEditHandler(fn) {
     editHandler = fn;
 }
 
-// Create a Font Awesome action icon with a click handler. Regular function so the
-// handler's `this` is the icon element (several handlers toggle their own class).
-function actionIcon(className, handler) {
+// Create an accessible icon action button: a real <button> (focusable,
+// keyboard-activatable, announced by screen readers) with an aria-label; the
+// Font Awesome <i> inside is decorative (aria-hidden). Regular function so a
+// handler's `this` is the button element.
+function actionIcon(className, label, handler) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'icon-btn';
+    button.setAttribute('aria-label', label);
+    button.title = label;
     const icon = document.createElement('i');
     icon.className = className;
-    icon.addEventListener('click', handler);
-    return icon;
+    icon.setAttribute('aria-hidden', 'true');
+    button.appendChild(icon);
+    button.addEventListener('click', handler);
+    return button;
+}
+
+// Update a visibility toggle button (its icon + accessible label) after it flips.
+function setVisibilityButton(button, hidden, showLabel, hideLabel) {
+    button.querySelector('i').className = hidden
+        ? 'fa-sharp fa-solid fa-eye-slash'
+        : 'fa-sharp fa-solid fa-eye';
+    const label = hidden ? showLabel : hideLabel;
+    button.setAttribute('aria-label', label);
+    button.title = label;
 }
 
 /** Rebuild the tower / POI / overlay sidebar tables from the current features. */
@@ -70,32 +89,26 @@ function createOverlayRow(overlay) {
     col.className = 'btn-col';
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-location-dot', function () {
+        actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate overlay', function () {
             const bounds = [overlay.west, overlay.south, overlay.east, overlay.north];
             map.fitBounds(bounds, { padding: 100, maxZoom: 13 });
         })
     );
 
-    const visClass = overlay.hidden
+    const overlayVisClass = overlay.hidden
         ? 'fa-sharp fa-solid fa-eye-slash'
         : 'fa-sharp fa-solid fa-eye';
     col.appendChild(
-        actionIcon(visClass, function () {
+        actionIcon(overlayVisClass, overlay.hidden ? 'Show overlay' : 'Hide overlay', function () {
             const layerId = 'overlay-layer-' + overlay.ID;
-            if (overlay.hidden) {
-                overlay.hidden = false;
-                map.setLayoutProperty(layerId, 'visibility', 'visible');
-                this.className = 'fa-sharp fa-solid fa-eye';
-            } else {
-                overlay.hidden = true;
-                map.setLayoutProperty(layerId, 'visibility', 'none');
-                this.className = 'fa-sharp fa-solid fa-eye-slash';
-            }
+            overlay.hidden = !overlay.hidden;
+            map.setLayoutProperty(layerId, 'visibility', overlay.hidden ? 'none' : 'visible');
+            setVisibilityButton(this, overlay.hidden, 'Show overlay', 'Hide overlay');
         })
     );
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-xmark', function () {
+        actionIcon('fa-sharp fa-solid fa-xmark', 'Delete overlay', function () {
             if (removeOverlay(overlay)) {
                 createTable(draw.getAll());
                 map.removeLayer('overlay-layer-' + overlay.ID);
@@ -171,7 +184,7 @@ function createPOIRow(marker) {
     col.className = 'btn-col';
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-location-dot', function () {
+        actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate', function () {
             const bounds = new mapboxgl.LngLatBounds(turf.bbox(marker));
             map.fitBounds(bounds, { padding: 100, maxZoom: 13 });
         })
@@ -181,26 +194,25 @@ function createPOIRow(marker) {
         ? 'fa-sharp fa-solid fa-eye-slash'
         : 'fa-sharp fa-solid fa-eye';
     col.appendChild(
-        actionIcon(poiVisClass, function () {
+        actionIcon(poiVisClass, marker.properties.hidden ? 'Show' : 'Hide', function () {
             if (marker.properties.hidden) {
                 marker.properties.hidden = false;
-                this.className = 'fa-sharp fa-solid fa-eye';
                 const restored = takeHiddenPoi(marker.id);
                 if (restored) {
                     draw.add(restored);
                 }
             } else {
                 marker.properties.hidden = true;
-                this.className = 'fa-sharp fa-solid fa-eye-slash';
                 addHiddenPoi(marker);
                 draw.delete(marker.id);
             }
+            setVisibilityButton(this, marker.properties.hidden, 'Show', 'Hide');
             createTable(draw.getAll());
         })
     );
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-copy', function () {
+        actionIcon('fa-sharp fa-solid fa-copy', 'Duplicate', function () {
             const copyPoi = draw.get(marker.id);
             copyPoi.id = '';
             draw.add(copyPoi);
@@ -210,13 +222,13 @@ function createPOIRow(marker) {
     );
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-pen', function () {
+        actionIcon('fa-sharp fa-solid fa-pen', 'Edit', function () {
             if (editHandler) editHandler(marker);
         })
     );
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-xmark', function () {
+        actionIcon('fa-sharp fa-solid fa-xmark', 'Delete', function () {
             draw.delete(marker.id);
             // a hidden POI lives in the hidden list, not in draw, so also drop it there
             removeHiddenPoi(marker.id);
@@ -258,7 +270,7 @@ function createTowerRow(marker) {
     col.className = 'btn-col';
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-location-dot', function () {
+        actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate', function () {
             map.flyTo({ center: marker.geometry.coordinates, zoom: 11 });
         })
     );
@@ -267,7 +279,7 @@ function createTowerRow(marker) {
         ? 'fa-sharp fa-solid fa-eye-slash'
         : 'fa-sharp fa-solid fa-eye';
     col.appendChild(
-        actionIcon(towerVisClass, function () {
+        actionIcon(towerVisClass, marker.properties.hidden ? 'Show' : 'Hide', function () {
             // Towers are hidden via Mapbox layer filters (markers + their sectors),
             // keyed by feature id / towerid.
             let hiddenFilterMarkers = map.getFilter('markers') || ['all'];
@@ -296,7 +308,6 @@ function createTowerRow(marker) {
                             f[2] === marker.id
                         )
                 );
-                this.className = 'fa-sharp fa-solid fa-eye';
             } else {
                 feat.properties.hidden = true;
                 if (hiddenFilterMarkers.length === 1 && hiddenFilterMarkers[0] === 'all') {
@@ -309,8 +320,8 @@ function createTowerRow(marker) {
                 } else {
                     hiddenFilterSectors.push(['!=', ['get', 'towerid'], marker.id]);
                 }
-                this.className = 'fa-sharp fa-solid fa-eye-slash';
             }
+            setVisibilityButton(this, feat.properties.hidden, 'Show', 'Hide');
 
             map.setFilter('markers', hiddenFilterMarkers);
             map.setFilter('sectors', hiddenFilterSectors);
@@ -320,7 +331,7 @@ function createTowerRow(marker) {
     );
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-copy', function () {
+        actionIcon('fa-sharp fa-solid fa-copy', 'Duplicate', function () {
             const copyCell = draw.get(marker.id);
             copyCell.id = '';
             const newId = draw.add(copyCell);
@@ -338,13 +349,13 @@ function createTowerRow(marker) {
     );
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-pen', function () {
+        actionIcon('fa-sharp fa-solid fa-pen', 'Edit', function () {
             if (editHandler) editHandler(marker);
         })
     );
 
     col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-xmark', function () {
+        actionIcon('fa-sharp fa-solid fa-xmark', 'Delete', function () {
             draw.delete(marker.id);
             removeHiddenPoi(marker.id);
             createTable(draw.getAll());

@@ -195,7 +195,17 @@ function modificaCella() {
     resetForm();
 }
 
+// Remembers what had focus before the dialog opened, so it can be restored on close.
+let lastFocused = null;
+
+function onDialogKeydown(e) {
+    if (e.key === 'Escape') {
+        closeForm();
+    }
+}
+
 export function openForm(marker) {
+    lastFocused = document.activeElement;
     if (marker != null) {
         //change button to save instead of add
         document.getElementById('savebtn').style.display = 'inline-block';
@@ -207,12 +217,21 @@ export function openForm(marker) {
         document.getElementById('inp_icon').tomselect.disable();
     }
     document.getElementById('inputs').style.display = 'block';
+    // dialog a11y: allow Escape to close, and move focus into the dialog
+    document.addEventListener('keydown', onDialogKeydown);
+    document.getElementById('inp_name').focus();
 }
 
 export function closeForm() {
     document.getElementById('inputs').style.display = 'none';
     document.getElementById('savebtn').style.display = 'none';
     document.getElementById('addbtn').style.display = 'inline-block';
+    document.removeEventListener('keydown', onDialogKeydown);
+    // restore focus to whatever opened the dialog
+    if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+    }
+    lastFocused = null;
 }
 
 /** Run the pending edit handler (wired to the form's "Salva" button). */

@@ -6,7 +6,7 @@ a static HTML+CSS+JS map editor for planning cell-tower coverage (built on Mapbo
 ## Current status
 
 The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** safety net
-(66 tests) and GitHub Actions CI. Work so far, on branch
+(69 tests) and GitHub Actions CI. Work so far, on branch
 `claude/webapp-legacy-modernization-plan-chxyij`:
 
 **Done**
@@ -56,6 +56,14 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
   controls and hide the resizer on narrow screens; the add/edit popup is now centred and
   size-capped. Verified in headless Chromium at desktop and mobile viewports (grid tracks,
   resizer drag, breakpoint stacking, popup centring) with screenshots.
+- **Phase 7 (accessibility)** — the row action controls, the biggest gap, are now real
+  focusable `<button aria-label>`s (Locate / Show-Hide / Duplicate / Edit / Delete) with a
+  visible keyboard focus ring, instead of non-focusable `<i>` icons; decorative icons are
+  `aria-hidden`. The toolbar is a labelled `role="toolbar"`; the add/edit popup is a
+  `role="dialog"`/`aria-modal` that moves focus to its first field on open, closes on
+  Escape, and restores focus on close; the accordion panels are `role="region"`s labelled
+  by their headers, with visible focus on the (previously invisible) toggle. Logo `alt` and
+  a map region label added.
 - **Quick wins** — dead code removed (`showError`/`hideError`/`setupClustering`); input
   validation completed.
 
@@ -80,7 +88,9 @@ else lives in 16 focused `src/` modules.
   sites still use `draw.add/get/delete` directly. Higher-level coordinating operations
   (`addTower`/`removeTower`/`hidePoi`/`showPoi` that also keep sectors/hiddenPois in sync)
   could be lifted out of the DOM handlers into a state module on top of `src/draw.js`.
-- **Phase 7** — accessibility.
+- **A11y follow-ups (optional)** — a full focus-trap for the dialog (currently focus-in +
+  Escape + restore), and converting the checkbox-hack accordion to a `button aria-expanded`
+  disclosure if the checkbox semantics prove awkward with screen readers.
 - **Optional** — extract the remaining Mapbox setup/event-handler bootstrap out of
   `new_script.js` into a `src/mapEvents.js` (or similar) if a leaner entry file is wanted;
   not required, since what's left is legitimately the app's bootstrap.
@@ -169,6 +179,10 @@ Each phase leaves the app in a working, statically-deployable state.
   the resizer on mobile; centred, size-capped popup form.)_
 - **Phase 7 — Accessibility polish**: `aria-*`/`role` on accordions, form, and tables;
   real `<dialog>` semantics for the add/edit form.
+  _(**done**: row actions are focusable `<button aria-label>`s with a visible focus ring;
+  decorative icons `aria-hidden`; `role="toolbar"`; dialog role + focus-in/Escape/restore;
+  accordion `role="region"`s; logo `alt` + map label. Full focus-trap / `<dialog>` element
+  left as an optional follow-up.)_
 
 ## Quick wins (independent of the above)
 

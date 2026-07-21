@@ -39,16 +39,16 @@
 
 <body>
     <header class="line">
-        <img id="logo" src="images/Logo.png">
+        <img id="logo" src="images/Logo.png" alt="Cell Map Designer logo">
         <h1>Cell Map Designer</h1>
     </header>
     <main>
         <div id="map-container">
-            <div id="map"></div>
+            <div id="map" role="region" aria-label="Interactive map"></div>
         </div>
-        <div class="resizer" id="dragMe"></div>
+        <div class="resizer" id="dragMe" aria-hidden="true"></div>
         <div id="controls">
-            <div id="inputs">
+            <div id="inputs" role="dialog" aria-modal="true" aria-label="Add or edit feature">
                 <div id="cell-form">
 
                     <div class="line">
@@ -101,43 +101,43 @@
                     <button id="savebtn" class="form-btn" style="display: none;">Salva</button>
                 </div>
             </div>
-            <div id="buttons">
-                <button id="add"><i class="fa-sharp fa-solid fa-plus"></i> Add Cell</button>
-                <button id="import"><i class="fa-sharp fa-solid fa-file-csv"></i> Add from
+            <div id="buttons" role="toolbar" aria-label="Map tools">
+                <button id="add"><i aria-hidden="true" class="fa-sharp fa-solid fa-plus"></i> Add Cell</button>
+                <button id="import"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-csv"></i> Add from
                     CSV</button>
-                <button id="savejson"><i class="fa-sharp fa-solid fa-file-export"></i> Export
+                <button id="savejson"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-export"></i> Export
                     GeoJson</button>
-                <button id="importjson"><i class="fa-sharp fa-solid fa-file-import"></i> Import
+                <button id="importjson"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-import"></i> Import
                     GeoJson</button>
-                <button id="savekml"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>
+                <button id="savekml"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-arrow-down"></i>
                     Generate KML</button>
-                <button id="addoverlay"><i class="fa-sharp fa-solid fa-file-arrow-up"></i>
+                <button id="addoverlay"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-arrow-up"></i>
                     Add Overlay</button>
-                <button id="deleteall"><i class="fa-sharp fa-solid fa-trash-can"></i> Delete
+                <button id="deleteall"><i aria-hidden="true" class="fa-sharp fa-solid fa-trash-can"></i> Delete
                     All</button>
             </div>
             <div id="elements">
                 <div id="table" class="tab">
-                    <input type="checkbox" name="accordion-1" id="cb1" checked>
-                    <label for="cb1" class="tab__label">Cell Towers</label>
-                    <div class="tab__content">
+                    <input type="checkbox" name="accordion-1" id="cb1" aria-controls="tab1-content" checked>
+                    <label for="cb1" id="tab1-label" class="tab__label">Cell Towers</label>
+                    <div class="tab__content" id="tab1-content" role="region" aria-labelledby="tab1-label">
                         <div id="features">
 
                         </div>
                     </div>
                 </div>
                 <div id="poi-table" class="tab">
-                    <input type="checkbox" name="accordion-2" id="cb2">
-                    <label for="cb2" class="tab__label">Points of interest:</label>
-                    <div class="tab__content">
+                    <input type="checkbox" name="accordion-2" id="cb2" aria-controls="tab2-content">
+                    <label for="cb2" id="tab2-label" class="tab__label">Points of interest:</label>
+                    <div class="tab__content" id="tab2-content" role="region" aria-labelledby="tab2-label">
                         <div id="poi">
                         </div>
                     </div>
                 </div>
                 <div id="over-table" class="tab">
-                    <input type="checkbox" name="accordion-3" id="cb3">
-                    <label for="cb3" class="tab__label">Overlays</label>
-                    <div class="tab__content">
+                    <input type="checkbox" name="accordion-3" id="cb3" aria-controls="tab3-content">
+                    <label for="cb3" id="tab3-label" class="tab__label">Overlays</label>
+                    <div class="tab__content" id="tab3-content" role="region" aria-labelledby="tab3-label">
                         <div id="overlays">
                         </div>
                     </div>
