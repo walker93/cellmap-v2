@@ -56,7 +56,8 @@ beforeEach(() => {
             <input id="inp_radius"><input id="angle1"><input id="angle2">
             <input id="inp_alpha"><input id="inp_fill">
             <select id="inp_icon"></select>
-            <input id="feature-id">
+            <input type="hidden" id="feature-id">
+            <button id="cancelbtn"></button>
             <button id="addbtn" style="display:inline-block"></button>
             <button id="savebtn" style="display:none"></button>
         </div>
@@ -117,6 +118,36 @@ describe('openForm / closeForm', () => {
         form.openForm(null);
         form.closeForm();
         expect(document.activeElement).toBe(opener);
+    });
+
+    it('traps Tab: wraps from the last focusable element back to the first', () => {
+        form.openForm(null);
+        document.getElementById('addbtn').focus(); // last focusable in "add" mode
+        const event = new window.KeyboardEvent('keydown', { key: 'Tab', cancelable: true });
+        document.dispatchEvent(event);
+        expect(document.activeElement).toBe(document.getElementById('inp_name'));
+        expect(event.defaultPrevented).toBe(true);
+    });
+
+    it('traps Shift+Tab: wraps from the first focusable element back to the last', () => {
+        form.openForm(null);
+        document.getElementById('inp_name').focus(); // first focusable
+        const event = new window.KeyboardEvent('keydown', {
+            key: 'Tab',
+            shiftKey: true,
+            cancelable: true,
+        });
+        document.dispatchEvent(event);
+        expect(document.activeElement).toBe(document.getElementById('addbtn'));
+        expect(event.defaultPrevented).toBe(true);
+    });
+
+    it('leaves a Tab in the middle of the dialog to the browser default', () => {
+        form.openForm(null);
+        document.getElementById('inp_lat').focus();
+        const event = new window.KeyboardEvent('keydown', { key: 'Tab', cancelable: true });
+        document.dispatchEvent(event);
+        expect(event.defaultPrevented).toBe(false);
     });
 });
 

@@ -1,8 +1,9 @@
 import { draw } from '../draw.js';
-import { addSector, getSectors, removeSectorsByTowerId } from '../sectors.js';
+import { getSectors, removeSectorsByTowerId } from '../sectors.js';
 import { addGeoJsonSource } from '../mapSource.js';
 import { createTable, setRowEditHandler } from './table.js';
 import { buildTowerFeature, validateTowerFields } from '../towerFeature.js';
+import { addTower } from '../towerState.js';
 
 // The add/edit form: reading the inputs, building/updating a tower or POI, and
 // showing/hiding the panel. The "Salva" button edits either a cell or a POI
@@ -18,25 +19,10 @@ export function aggiungiCella(existingCell) {
     }
     var cella_feat = createFeatureFromInput();
     var tower = cella_feat[0];
-    // Se esiste una cella, aggiorno le proprietà
-    if (existingCell) tower.id = existingCell.id; // Mantengo l'id della cella esistente
-
-    var tower_id = draw.add(tower);
-    // Aggiungi l'id del marker nelle proprietà (così ["id"] funzionerà correttamente)
-    {
-        let t = draw.get(tower_id[0]);
-        t.properties.id = tower_id[0];
-        draw.add(t);
-    }
-
-    // Creare area torre
     var area_polygon = cella_feat[1];
-    area_polygon.properties.towerid = tower_id[0];
-    addSector(area_polygon);
 
-    //Aggiorno mappa
-    addGeoJsonSource('aree', getSectors());
-    addGeoJsonSource('settori', draw.getAll());
+    // Se esiste una cella, aggiorno le proprietà mantenendone l'id
+    addTower(tower, area_polygon, existingCell ? existingCell.id : undefined);
 
     createTable(draw.getAll());
     closeForm();
@@ -198,9 +184,42 @@ function modificaCella() {
 // Remembers what had focus before the dialog opened, so it can be restored on close.
 let lastFocused = null;
 
+// Every element inside the dialog that Tab can reach: standard focusable tags, minus
+// the hidden `#feature-id` input, anything currently disabled, hidden via inline
+// `display: none` (the add/save button pair toggles this way), or opted out with
+// `tabindex="-1"`.
+function getFocusableElements() {
+    const container = document.getElementById('inputs');
+    const candidates = container.querySelectorAll(
+        'a[href], button, input:not([type="hidden"]), select, textarea, [tabindex]',
+    );
+    return Array.from(candidates).filter(
+        (el) => !el.disabled && el.style.display !== 'none' && el.tabIndex !== -1,
+    );
+}
+
+// Keep Tab/Shift+Tab cycling within the dialog's own fields instead of escaping to
+// the map/sidebar behind it while the dialog is open (a real "modal" needs this —
+// aria-modal alone doesn't stop the browser from tabbing past the dialog).
+function trapFocus(e) {
+    const focusable = getFocusableElements();
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+    }
+}
+
 function onDialogKeydown(e) {
     if (e.key === 'Escape') {
         closeForm();
+    } else if (e.key === 'Tab') {
+        trapFocus(e);
     }
 }
 
