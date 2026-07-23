@@ -3,16 +3,37 @@ import { map } from '../map.js';
 // `TomSelect` is a global from lib/tom-select.complete.min.js (a <script> in
 // index.html).
 
-// Register a picked icon as a Mapbox image so it can be used as a marker symbol.
-function loadIconToMap(value, data) {
-    if (data.url && !map.hasImage(value)) {
-        map.loadImage(data.url, function (error, image) {
+// Populated once icons.json resolves (see loadIcons below); lets the
+// styleimagemissing handler resolve an icon id to its image URL without a
+// second fetch.
+let iconsByValue = null;
+
+// Register an icon as a Mapbox image so it can be used as a marker symbol.
+function loadIconToMap(value, url) {
+    if (url && !map.hasImage(value)) {
+        map.loadImage(url, function (error, image) {
             if (!error) {
                 map.addImage(value, image);
             }
         });
     }
 }
+
+// Icons are normally registered lazily when picked in the form (the TomSelect
+// `change` handler below calls loadIconToMap). But a tower/POI created outside
+// that interaction — imported from GeoJSON/CSV/KMZ, or already on the map from a
+// previous session — can carry a saved `properties.icon` whose image was never
+// registered, so the marker symbol layer asks Mapbox for an image it doesn't
+// have and silently fails to draw it (only "fixed" once the user happens to
+// open that feature's icon picker, which fires `change`). `styleimagemissing` is
+// Mapbox's documented hook for exactly this case: resolve the id against the
+// same icons.json data and register it on demand, covering every creation path.
+map.on('styleimagemissing', function (e) {
+    const data = iconsByValue && iconsByValue[e.id];
+    if (data) {
+        loadIconToMap(e.id, data.url);
+    }
+});
 
 /**
  * Populate the #inp_icon control from images/icons/icons.json: rebuild the native
@@ -31,6 +52,7 @@ export function loadIcons() {
         .then((response) => response.json())
         .then((data) => {
             // data: { "usr_xxx": { value, text, category, url }, ... }
+            iconsByValue = data;
             const options = Object.values(data);
 
             // group by category
@@ -92,7 +114,7 @@ export function loadIcons() {
             select.on('change', function (value) {
                 const optionData = this.options[value];
                 if (value && optionData) {
-                    loadIconToMap(value, optionData);
+                    loadIconToMap(value, optionData.url);
                 }
             });
             return select;

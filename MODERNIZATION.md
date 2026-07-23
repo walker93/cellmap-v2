@@ -104,6 +104,25 @@ else lives in 16 focused `src/` modules.
    via those two import paths could never be hidden/shown at all (the layer filter matches
    an id that was never set). Fixed as part of the Phase 4 refactor below, which centralises
    the sync in one place all three creation paths call.
+8. Found in manual testing: importing a GeoJSON (or CSV/KMZ) with POI icons showed no icon
+   until the feature was opened in the edit form and saved. Icons were only ever registered
+   with Mapbox (`map.addImage`) reactively, from the form's TomSelect `change` handler
+   (`src/ui/iconPicker.js`) — a feature created any other way (import, or already on the
+   map from a previous session) could carry a `properties.icon` whose image was never
+   registered, so Mapbox logged `Image "…" could not be loaded` and silently skipped it.
+   Fixed by listening for Mapbox's `styleimagemissing` event and resolving the id against
+   the cached `icons.json` data on demand — the documented hook for exactly this case,
+   and it covers every creation path at once instead of only the interactive one.
+9. Found in manual testing: icons in categories with an `&` in the name (`Culture &
+   Entertainment`, `Healt & Education`, `Hotel & Resturants`) showed as a broken image in
+   the form's icon picker. `images/icons/icons.json`'s `url` field percent-encoded the
+   category folder name (`%20` for the space, `%26` for `&`), and while `%20` resolves
+   correctly, requesting a path containing `%26` trips up Vite's dev-server static
+   resolution — it falls back to serving `index.html` (200 OK, `text/html`) instead of the
+   PNG, confirmed by comparing `Content-Type`/size against the on-disk file. `&` doesn't
+   need percent-encoding in a URL path segment (only in a query string), so the fix
+   replaces every `%26` with a literal `&` in `icons.json` — verified the corrected URLs
+   now return the real `image/png` bytes for all three affected categories.
 
 - **Phase 4 (state module)** — the coordinating operations that keep `draw`/sectors/
   hiddenPois in sync (`addTower`, `duplicateTower`, `setTowerHidden`, `duplicatePoi`,

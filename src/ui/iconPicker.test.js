@@ -4,9 +4,24 @@ let loadIcons;
 let map;
 
 const ICONS = {
-    usr_alien: { value: 'usr_alien', text: 'alien', category: 'Events', url: 'images/icons/Events/usr_alien.png' },
-    usr_ball: { value: 'usr_ball', text: 'ball', category: 'Events', url: 'images/icons/Events/usr_ball.png' },
-    usr_car: { value: 'usr_car', text: 'car', category: 'Transport', url: 'images/icons/Transport/usr_car.png' },
+    usr_alien: {
+        value: 'usr_alien',
+        text: 'alien',
+        category: 'Events',
+        url: 'images/icons/Events/usr_alien.png',
+    },
+    usr_ball: {
+        value: 'usr_ball',
+        text: 'ball',
+        category: 'Events',
+        url: 'images/icons/Events/usr_ball.png',
+    },
+    usr_car: {
+        value: 'usr_car',
+        text: 'car',
+        category: 'Transport',
+        url: 'images/icons/Transport/usr_car.png',
+    },
 };
 
 // Capture the last TomSelect the module builds so tests can drive its change event.
@@ -29,12 +44,19 @@ class TomSelectStub {
     destroy() {}
 }
 
+// Captures every map.on(event, handler) registration so tests can fire them
+// directly (used for 'styleimagemissing' below).
+let mapHandlers;
+
 beforeAll(async () => {
+    mapHandlers = {};
     vi.stubGlobal('mapboxgl', {
         accessToken: '',
         Map: function () {
             return {
-                on() {},
+                on(evt, cb) {
+                    mapHandlers[evt] = cb;
+                },
                 addControl() {},
                 addSource() {},
                 addLayer() {},
@@ -57,10 +79,7 @@ beforeAll(async () => {
 beforeEach(() => {
     document.body.innerHTML = '<select id="inp_icon"></select>';
     vi.stubGlobal('TomSelect', TomSelectStub);
-    vi.stubGlobal(
-        'fetch',
-        vi.fn().mockResolvedValue({ json: () => Promise.resolve(ICONS) })
-    );
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ json: () => Promise.resolve(ICONS) }));
     lastSelect = undefined;
 });
 
@@ -112,5 +131,26 @@ describe('loadIcons', () => {
         const destroy = vi.spyOn(first, 'destroy');
         await loadIcons();
         expect(destroy).toHaveBeenCalled();
+    });
+});
+
+describe('styleimagemissing handling', () => {
+    // Regression guard: importing a GeoJSON/CSV/KMZ file can add a POI whose
+    // `properties.icon` was never picked interactively in this session, so
+    // Mapbox asks for an image that was never registered. The handler must
+    // resolve it from the same icons.json data instead of only reacting to the
+    // form's TomSelect change event.
+    it('registers a missing icon image resolved from icons.json', async () => {
+        const addImage = vi.spyOn(map, 'addImage');
+        await loadIcons();
+        mapHandlers.styleimagemissing({ id: 'usr_car' });
+        expect(addImage).toHaveBeenCalledWith('usr_car', expect.anything());
+    });
+
+    it('does nothing for an id with no matching icon (also covers icons.json not resolved yet, same falsy lookup)', async () => {
+        const addImage = vi.spyOn(map, 'addImage');
+        await loadIcons();
+        expect(() => mapHandlers.styleimagemissing({ id: 'not-an-icon' })).not.toThrow();
+        expect(addImage).not.toHaveBeenCalled();
     });
 });
