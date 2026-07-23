@@ -1,9 +1,8 @@
 import { draw } from '../draw.js';
-import { addGeoJsonSource } from '../mapSource.js';
-import { addSector, getSectors } from '../sectors.js';
 import { buildTowerFeature, csvRowToTowerFields } from '../towerFeature.js';
 import { createTable } from '../ui/table.js';
 import { deleteAll } from '../reset.js';
+import { addTower } from '../towerState.js';
 
 // `Papa` (Papa Parse) is a global from lib/papaparse.min.js.
 
@@ -26,12 +25,7 @@ export function importCSV() {
                 deleteAll();
                 for (const cell of results.data) {
                     const { marker, sector } = buildTowerFeature(csvRowToTowerFields(cell));
-                    const tower_id = draw.add(marker);
-                    sector.properties.towerid = tower_id[0];
-                    addSector(sector);
-
-                    addGeoJsonSource('aree', getSectors());
-                    addGeoJsonSource('settori', draw.getAll());
+                    addTower(marker, sector);
                     createTable(draw.getAll());
                 }
             },

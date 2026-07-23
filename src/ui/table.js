@@ -1,20 +1,21 @@
 import * as turf from '@turf/turf';
 import { map } from '../map.js';
 import { draw } from '../draw.js';
-import { addGeoJsonSource } from '../mapSource.js';
-import { getHiddenPois, addHiddenPoi, takeHiddenPoi, removeHiddenPoi } from '../hiddenPois.js';
+import { getHiddenPois } from '../hiddenPois.js';
 import { getOverlays, removeOverlay } from '../overlays.js';
 import {
-    getSectors,
-    addSector,
-    getSectorsByTowerId,
-    removeSectorsByTowerId,
-} from '../sectors.js';
+    duplicateTower,
+    duplicatePoi,
+    hidePoi,
+    showPoi,
+    removeFeature,
+    setTowerHidden,
+} from '../towerState.js';
 
 // `numeral`, `math` and `mapboxgl` are CDN globals from index.html.
 
 // The "edit" row action opens the add/edit form, which lives with the form code
-// in new_script.js. To avoid a table<->form circular import, new_script.js
+// in bootstrap.js. To avoid a table<->form circular import, bootstrap.js
 // registers the handler here instead of table.js importing the form directly.
 let editHandler = null;
 
@@ -51,6 +52,79 @@ function setVisibilityButton(button, hidden, showLabel, hideLabel) {
     button.title = label;
 }
 
+// Shared shell for a sidebar row: some label elements, then a btn-col of actions.
+// Every row type (tower, POI, overlay) is built from this — the label elements and
+// action buttons differ per type, but the row/col scaffolding was identical.
+function createRow(labelElements, actions) {
+    const row = document.createElement('div');
+    row.className = 'table-element';
+    for (const el of labelElements) {
+        row.appendChild(el);
+    }
+
+    const col = document.createElement('span');
+    col.className = 'btn-col';
+    for (const action of actions) {
+        col.appendChild(action);
+    }
+    row.appendChild(col);
+
+    return row;
+}
+
+// The Hide/Show, Duplicate, Edit and Delete actions are identical between tower and
+// POI rows apart from which towerState function they call — only `toggle`/`duplicateFn`
+// vary, so those two row builders share one implementation of each button below.
+
+function visibilityToggleButton(marker, toggle) {
+    const visClass = marker.properties.hidden
+        ? 'fa-sharp fa-solid fa-eye-slash'
+        : 'fa-sharp fa-solid fa-eye';
+    return actionIcon(visClass, marker.properties.hidden ? 'Show' : 'Hide', function () {
+        const hidden = toggle(marker);
+        setVisibilityButton(this, hidden, 'Show', 'Hide');
+        createTable(draw.getAll());
+    });
+}
+
+function duplicateButton(marker, duplicateFn) {
+    return actionIcon('fa-sharp fa-solid fa-copy', 'Duplicate', function () {
+        duplicateFn(marker.id);
+        createTable(draw.getAll());
+    });
+}
+
+function editButton(marker) {
+    return actionIcon('fa-sharp fa-solid fa-pen', 'Edit', function () {
+        if (editHandler) editHandler(marker);
+    });
+}
+
+function deleteButton(marker) {
+    return actionIcon('fa-sharp fa-solid fa-xmark', 'Delete', function () {
+        removeFeature(marker.id);
+        createTable(draw.getAll());
+    });
+}
+
+// Toggle helpers for visibilityToggleButton: each performs the actual show/hide side
+// effect and returns the feature's new `hidden` state.
+
+function poiToggle(marker) {
+    if (marker.properties.hidden) {
+        showPoi(marker);
+    } else {
+        hidePoi(marker);
+    }
+    return marker.properties.hidden;
+}
+
+function towerToggle(marker) {
+    const hidden = !marker.properties.hidden;
+    setTowerHidden(marker.id, hidden);
+    return hidden;
+}
+
 /** Rebuild the tower / POI / overlay sidebar tables from the current features. */
 export function createTable(tableData) {
     const towerTable = document.getElementById('features');
@@ -78,55 +152,48 @@ export function createTable(tableData) {
 }
 
 function createOverlayRow(overlay) {
-    const row = document.createElement('div');
-    row.className = 'table-element';
-
     const spanName = document.createElement('span');
     spanName.innerText = overlay.file;
-    row.appendChild(spanName);
-
-    const col = document.createElement('span');
-    col.className = 'btn-col';
-
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate overlay', function () {
-            const bounds = [overlay.west, overlay.south, overlay.east, overlay.north];
-            map.fitBounds(bounds, { padding: 100, maxZoom: 13 });
-        })
-    );
 
     const overlayVisClass = overlay.hidden
         ? 'fa-sharp fa-solid fa-eye-slash'
         : 'fa-sharp fa-solid fa-eye';
-    col.appendChild(
-        actionIcon(overlayVisClass, overlay.hidden ? 'Show overlay' : 'Hide overlay', function () {
-            const layerId = 'overlay-layer-' + overlay.ID;
-            overlay.hidden = !overlay.hidden;
-            map.setLayoutProperty(layerId, 'visibility', overlay.hidden ? 'none' : 'visible');
-            setVisibilityButton(this, overlay.hidden, 'Show overlay', 'Hide overlay');
-        })
-    );
 
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-xmark', 'Delete overlay', function () {
-            if (removeOverlay(overlay)) {
-                createTable(draw.getAll());
-                map.removeLayer('overlay-layer-' + overlay.ID);
-                map.removeSource('overlay-source-' + overlay.ID);
-            }
-        })
+    return createRow(
+        [spanName],
+        [
+            actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate overlay', function () {
+                const bounds = [overlay.west, overlay.south, overlay.east, overlay.north];
+                map.fitBounds(bounds, { padding: 100, maxZoom: 13 });
+            }),
+            actionIcon(
+                overlayVisClass,
+                overlay.hidden ? 'Show overlay' : 'Hide overlay',
+                function () {
+                    const layerId = 'overlay-layer-' + overlay.ID;
+                    overlay.hidden = !overlay.hidden;
+                    map.setLayoutProperty(
+                        layerId,
+                        'visibility',
+                        overlay.hidden ? 'none' : 'visible',
+                    );
+                    setVisibilityButton(this, overlay.hidden, 'Show overlay', 'Hide overlay');
+                },
+            ),
+            actionIcon('fa-sharp fa-solid fa-xmark', 'Delete overlay', function () {
+                if (removeOverlay(overlay)) {
+                    createTable(draw.getAll());
+                    map.removeLayer('overlay-layer-' + overlay.ID);
+                    map.removeSource('overlay-source-' + overlay.ID);
+                }
+            }),
+        ],
     );
-
-    row.appendChild(col);
-    return row;
 }
 
 function createPOIRow(marker) {
-    const row = document.createElement('div');
-    row.className = 'table-element';
-
     // type label
-    let spanType = document.createElement('span');
+    const spanType = document.createElement('span');
     spanType.setAttribute('data-id', marker.id);
     let testo = '';
     switch (marker.geometry.type) {
@@ -143,7 +210,6 @@ function createPOIRow(marker) {
             break;
     }
     spanType.innerText = testo;
-    row.appendChild(spanType);
 
     // name (falls back to coordinates / length / area when unnamed)
     const spanName = document.createElement('span');
@@ -172,199 +238,53 @@ function createPOIRow(marker) {
         }
         spanName.innerText = label;
     }
-    row.appendChild(spanName);
 
     // colour swatch
     const square = document.createElement('div');
     square.className = 'square-color';
     square.style.backgroundColor = marker.properties.fill;
-    row.appendChild(square);
 
-    const col = document.createElement('span');
-    col.className = 'btn-col';
-
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate', function () {
-            const bounds = new mapboxgl.LngLatBounds(turf.bbox(marker));
-            map.fitBounds(bounds, { padding: 100, maxZoom: 13 });
-        })
+    return createRow(
+        [spanType, spanName, square],
+        [
+            actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate', function () {
+                const bounds = new mapboxgl.LngLatBounds(turf.bbox(marker));
+                map.fitBounds(bounds, { padding: 100, maxZoom: 13 });
+            }),
+            visibilityToggleButton(marker, poiToggle),
+            duplicateButton(marker, duplicatePoi),
+            editButton(marker),
+            deleteButton(marker),
+        ],
     );
-
-    const poiVisClass = marker.properties.hidden
-        ? 'fa-sharp fa-solid fa-eye-slash'
-        : 'fa-sharp fa-solid fa-eye';
-    col.appendChild(
-        actionIcon(poiVisClass, marker.properties.hidden ? 'Show' : 'Hide', function () {
-            if (marker.properties.hidden) {
-                marker.properties.hidden = false;
-                const restored = takeHiddenPoi(marker.id);
-                if (restored) {
-                    draw.add(restored);
-                }
-            } else {
-                marker.properties.hidden = true;
-                addHiddenPoi(marker);
-                draw.delete(marker.id);
-            }
-            setVisibilityButton(this, marker.properties.hidden, 'Show', 'Hide');
-            createTable(draw.getAll());
-        })
-    );
-
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-copy', 'Duplicate', function () {
-            const copyPoi = draw.get(marker.id);
-            copyPoi.id = '';
-            draw.add(copyPoi);
-            createTable(draw.getAll());
-            addGeoJsonSource('settori', draw.getAll());
-        })
-    );
-
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-pen', 'Edit', function () {
-            if (editHandler) editHandler(marker);
-        })
-    );
-
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-xmark', 'Delete', function () {
-            draw.delete(marker.id);
-            // a hidden POI lives in the hidden list, not in draw, so also drop it there
-            removeHiddenPoi(marker.id);
-            createTable(draw.getAll());
-            addGeoJsonSource('settori', draw.getAll());
-            removeSectorsByTowerId(marker.id);
-            addGeoJsonSource('aree', getSectors());
-        })
-    );
-
-    row.appendChild(col);
-    return row;
 }
 
 function createTowerRow(marker) {
-    const row = document.createElement('div');
-    row.className = 'table-element';
-
     const spanName = document.createElement('span');
     spanName.setAttribute('data-id', marker.id);
     spanName.innerText = marker.properties.name === '' ? 'Unnamed' : marker.properties.name;
-    row.appendChild(spanName);
 
     const spanAngle = document.createElement('span');
     spanAngle.innerText =
         marker.properties.Angle1.toString() + ' - ' + marker.properties.Angle2.toString() + '°';
-    row.appendChild(spanAngle);
 
     const spanRadius = document.createElement('span');
     spanRadius.innerText = marker.properties.Radius.toString() + 'km';
-    row.appendChild(spanRadius);
 
     const square = document.createElement('div');
     square.className = 'square-color';
     square.style.backgroundColor = marker.properties.fill;
-    row.appendChild(square);
 
-    const col = document.createElement('span');
-    col.className = 'btn-col';
-
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate', function () {
-            map.flyTo({ center: marker.geometry.coordinates, zoom: 11 });
-        })
+    return createRow(
+        [spanName, spanAngle, spanRadius, square],
+        [
+            actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate', function () {
+                map.flyTo({ center: marker.geometry.coordinates, zoom: 11 });
+            }),
+            visibilityToggleButton(marker, towerToggle),
+            duplicateButton(marker, duplicateTower),
+            editButton(marker),
+            deleteButton(marker),
+        ],
     );
-
-    const towerVisClass = marker.properties.hidden
-        ? 'fa-sharp fa-solid fa-eye-slash'
-        : 'fa-sharp fa-solid fa-eye';
-    col.appendChild(
-        actionIcon(towerVisClass, marker.properties.hidden ? 'Show' : 'Hide', function () {
-            // Towers are hidden via Mapbox layer filters (markers + their sectors),
-            // keyed by feature id / towerid.
-            let hiddenFilterMarkers = map.getFilter('markers') || ['all'];
-            let hiddenFilterSectors = map.getFilter('sectors') || ['all'];
-            if (!Array.isArray(hiddenFilterMarkers)) hiddenFilterMarkers = ['all'];
-            if (!Array.isArray(hiddenFilterSectors)) hiddenFilterSectors = ['all'];
-
-            const feat = draw.get(marker.id);
-            if (feat.properties.hidden) {
-                feat.properties.hidden = false;
-                hiddenFilterMarkers = hiddenFilterMarkers.filter(
-                    (f) =>
-                        !(
-                            Array.isArray(f) &&
-                            f[0] === '!=' &&
-                            JSON.stringify(f[1]) === JSON.stringify(['get', 'id']) &&
-                            f[2] === marker.id
-                        )
-                );
-                hiddenFilterSectors = hiddenFilterSectors.filter(
-                    (f) =>
-                        !(
-                            Array.isArray(f) &&
-                            f[0] === '!=' &&
-                            JSON.stringify(f[1]) === JSON.stringify(['get', 'towerid']) &&
-                            f[2] === marker.id
-                        )
-                );
-            } else {
-                feat.properties.hidden = true;
-                if (hiddenFilterMarkers.length === 1 && hiddenFilterMarkers[0] === 'all') {
-                    hiddenFilterMarkers = ['all', ['!=', ['get', 'id'], marker.id]];
-                } else {
-                    hiddenFilterMarkers.push(['!=', ['get', 'id'], marker.id]);
-                }
-                if (hiddenFilterSectors.length === 1 && hiddenFilterSectors[0] === 'all') {
-                    hiddenFilterSectors = ['all', ['!=', ['get', 'towerid'], marker.id]];
-                } else {
-                    hiddenFilterSectors.push(['!=', ['get', 'towerid'], marker.id]);
-                }
-            }
-            setVisibilityButton(this, feat.properties.hidden, 'Show', 'Hide');
-
-            map.setFilter('markers', hiddenFilterMarkers);
-            map.setFilter('sectors', hiddenFilterSectors);
-            draw.add(feat);
-            createTable(draw.getAll());
-        })
-    );
-
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-copy', 'Duplicate', function () {
-            const copyCell = draw.get(marker.id);
-            copyCell.id = '';
-            const newId = draw.add(copyCell);
-            createTable(draw.getAll());
-            addGeoJsonSource('settori', draw.getAll());
-            // Duplicate the tower's coverage sector too, relinked to the new marker id.
-            const originalSector = getSectorsByTowerId(marker.id)[0];
-            if (originalSector) {
-                const copySector = JSON.parse(JSON.stringify(originalSector));
-                copySector.properties.towerid = newId[0];
-                addSector(copySector);
-            }
-            addGeoJsonSource('aree', getSectors());
-        })
-    );
-
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-pen', 'Edit', function () {
-            if (editHandler) editHandler(marker);
-        })
-    );
-
-    col.appendChild(
-        actionIcon('fa-sharp fa-solid fa-xmark', 'Delete', function () {
-            draw.delete(marker.id);
-            removeHiddenPoi(marker.id);
-            createTable(draw.getAll());
-            addGeoJsonSource('settori', draw.getAll());
-            removeSectorsByTowerId(marker.id);
-            addGeoJsonSource('aree', getSectors());
-        })
-    );
-
-    row.appendChild(col);
-    return row;
 }

@@ -1,10 +1,11 @@
 import { draw } from '../draw.js';
 import { saveFile } from './download.js';
 import { addGeoJsonSource } from '../mapSource.js';
-import { addSector, getSectors } from '../sectors.js';
+import { getSectors } from '../sectors.js';
 import { buildCoverageSector, towerFieldsFromFeature } from '../towerFeature.js';
 import { createTable } from '../ui/table.js';
 import { deleteAll } from '../reset.js';
+import { linkTowerSector } from '../towerState.js';
 
 // Export the current draw features as a .geojson file. Sectors live in a separate
 // layer and are intentionally not included here (matching the legacy behaviour —
@@ -36,7 +37,7 @@ export function importGeoJSON() {
             draw.add(read_json);
             for (const feat of read_json.features) {
                 if (feat.properties.marker == 'cell') {
-                    addSector(buildCoverageSector(towerFieldsFromFeature(feat)));
+                    linkTowerSector(feat.id, buildCoverageSector(towerFieldsFromFeature(feat)));
                 }
             }
             addGeoJsonSource('aree', getSectors());
