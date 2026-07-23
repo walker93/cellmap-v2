@@ -4,7 +4,7 @@
 //
 // MapboxDraw is provided as a global by the CDN <script> in index.html (loaded
 // before the module scripts). The control is constructed here and attached to the
-// map later, via map.addControl(draw, ...) in new_script.js's addMeasurementTools.
+// map later, via map.addControl(draw, ...) in bootstrap.js's addMeasurementTools.
 //
 // The big `styles` array is the app's custom Mapbox Draw theme, moved verbatim
 // from the old inline `new MapboxDraw({...})` call.

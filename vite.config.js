@@ -1,7 +1,7 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 
-// The legacy app is still served from the repo root (index.html + new_script.js).
+// The legacy app is still served from the repo root (index.html + bootstrap.js).
 // Vite works with that zero-config; this file only adds the test runner setup and
 // a place to grow the build configuration as the app is migrated to ES modules.
 export default defineConfig({

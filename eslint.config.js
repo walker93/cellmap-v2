@@ -27,10 +27,11 @@ export default [
     },
   },
   {
-    // The app entry (now an ES module) and the resizer. Still references several
-    // CDN libraries through their <script> globals; linted loosely until the
+    // The app entry (now an ES module, renamed from new_script.js to bootstrap.js
+    // once it was down to setup + control wiring) and the resizer. Still references
+    // several CDN libraries through their <script> globals; linted loosely until the
     // remaining seams (state, io, ui) are extracted into src/ modules.
-    files: ['new_script.js', 'resizer.js'],
+    files: ['bootstrap.js', 'resizer.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
