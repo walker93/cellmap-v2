@@ -307,6 +307,51 @@ span>.fa-sharp:hover {
   padding-left: 10px;
 }
 
+/* Cell Towers list: a fixed column grid (instead of flex) so the header row
+   above #features lines up with every data row — flex-end sizes each row's
+   items from its own content, so nothing guarantees row N's "Radius" column
+   starts at the same x as row N+1's. */
+.table-header--tower,
+.table-element--tower {
+    display: grid;
+    grid-template-columns: 1fr 4rem 2.75rem 1rem 7rem;
+    align-items: center;
+    gap: 6px;
+    padding: 0 6px;
+}
+
+.table-header--tower {
+    font-weight: bold;
+    padding: 0.5rem 6px;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.table-element--tower > .col-name,
+.table-header--tower > .col-name {
+    text-align: left;
+    padding-left: 0;
+    overflow-wrap: anywhere;
+}
+
+.table-element--tower > .col-azimuth,
+.table-element--tower > .col-radius,
+.table-header--tower > .col-azimuth,
+.table-header--tower > .col-radius {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.table-element--tower > .col-color {
+    justify-self: center;
+}
+
+/* Tighter icon spacing than the default .icon-btn — five actions have to fit
+   in one fixed-width grid column here, unlike PoI/Overlay rows' flex layout. */
+.table-element--tower .icon-btn {
+    padding: 2px;
+    margin: 0 1px;
+}
+
 /* ---- Responsive ---------------------------------------------------------- */
 
 /* Narrow screens: stack the map on top and the controls below, and drop the

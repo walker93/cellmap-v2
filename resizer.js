@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!resizer) return;
     const main = resizer.parentNode;
 
-    const MIN_SIDEBAR = 240;
+    const MIN_SIDEBAR = 320;
     const MIN_MAP = 200;
 
     const mouseMoveHandler = function (e) {

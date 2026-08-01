@@ -261,21 +261,24 @@ function createPOIRow(marker) {
 
 function createTowerRow(marker) {
     const spanName = document.createElement('span');
+    spanName.className = 'col-name';
     spanName.setAttribute('data-id', marker.id);
     spanName.innerText = marker.properties.name === '' ? 'Unnamed' : marker.properties.name;
 
     const spanAngle = document.createElement('span');
+    spanAngle.className = 'col-azimuth';
     spanAngle.innerText =
         marker.properties.Angle1.toString() + ' - ' + marker.properties.Angle2.toString() + '°';
 
     const spanRadius = document.createElement('span');
+    spanRadius.className = 'col-radius';
     spanRadius.innerText = marker.properties.Radius.toString() + 'km';
 
     const square = document.createElement('div');
-    square.className = 'square-color';
+    square.className = 'square-color col-color';
     square.style.backgroundColor = marker.properties.fill;
 
-    return createRow(
+    const row = createRow(
         [spanName, spanAngle, spanRadius, square],
         [
             actionIcon('fa-sharp fa-solid fa-location-dot', 'Locate', function () {
@@ -287,4 +290,6 @@ function createTowerRow(marker) {
             deleteButton(marker),
         ],
     );
+    row.classList.add('table-element--tower');
+    return row;
 }
