@@ -40,6 +40,7 @@ export default [
         mapboxgl: 'readonly',
         MapboxDraw: 'readonly',
         MapboxGeocoder: 'readonly',
+        MapboxExportControl: 'readonly',
         Papa: 'readonly',
         JSZip: 'readonly',
         numeral: 'readonly',
