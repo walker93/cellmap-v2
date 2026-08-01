@@ -12,7 +12,13 @@ let iconsByValue = null;
 function loadIconToMap(value, url) {
     if (url && !map.hasImage(value)) {
         map.loadImage(url, function (error, image) {
-            if (!error) {
+            // Re-check: styleimagemissing fires once per feature that references
+            // this icon, so several loadImage calls for the same `value` can be
+            // in flight at once (e.g. importing a GeoJSON with many features
+            // sharing an icon). loadImage's callbacks still run one at a time,
+            // so this re-check is what actually closes the race — the first
+            // callback to land wins and every later one for the same value skips.
+            if (!error && !map.hasImage(value)) {
                 map.addImage(value, image);
             }
         });
