@@ -93,7 +93,10 @@ function addOtherTools() {
         }
     }
 
-    map.addControl(new MapboxExportControl({
+    // @watergis/mapbox-gl-export v4 bundles everything under one namespaced
+    // global (window.MapboxExportControl.*) instead of separate flat globals.
+    const { MapboxExportControl: ExportControl, Size, PageOrientation, Format, DPI } = MapboxExportControl;
+    map.addControl(new ExportControl({
         PageSize: Size.A4,
         PageOrientation: PageOrientation.Landscape,
         Format: Format.PNG,
