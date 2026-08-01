@@ -1,0 +1,10 @@
+dist
+node_modules
+lib
+old
+images
+CHANGELOG.md
+new_script.js
+resizer.js
+style.css
+index.html

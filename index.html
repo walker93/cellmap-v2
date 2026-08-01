@@ -4,29 +4,30 @@
 <head>
     <title>Cell Map Designer</title>
     <meta charset="utf-8">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.3.0/mapbox-gl-draw.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.3.0/mapbox-gl-draw.css"
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.27.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.27.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.5.1/mapbox-gl-draw.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.5.1/mapbox-gl-draw.css"
         type="text/css">
     <script
-        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+        src="https://unpkg.com/@mapbox/mapbox-gl-geocoder@5.1.2/dist/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet"
-        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        href="https://unpkg.com/@mapbox/mapbox-gl-geocoder@5.1.2/dist/mapbox-gl-geocoder.css"
         type="text/css">
-    <link href='https://watergis.github.io/mapbox-gl-export/mapbox-gl-export.css' rel='stylesheet' />
-    <script src="https://watergis.github.io/mapbox-gl-export/mapbox-gl-export.js"></script>
+    <link href='https://unpkg.com/@watergis/mapbox-gl-export@4.0.0/dist/mapbox-gl-export.css' rel='stylesheet' />
+    <script src="https://unpkg.com/@watergis/mapbox-gl-export@4.0.0/dist/mapbox-gl-export.umd.js"></script>
     <script src="https://kit.fontawesome.com/1f687205b2.js" crossorigin="anonymous"></script>
-    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.2/math.js"></script>
     <script src="lib/tokml.js"></script>
     <script src="lib/papaparse.min.js"></script>
     <script src="config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
-    <link rel="stylesheet" href="lib/tom-select.default.min.css">
-    <script src="lib/tom-select.complete.min.js"></script>
-
+    <!-- <link rel="stylesheet" href="lib/tom-select.default.min.css">
+    <script src="lib/tom-select.complete.min.js"></script>-->
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.6.2/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.6.2/dist/js/tom-select.complete.min.js"></script>
 
 
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -39,16 +40,16 @@
 
 <body>
     <header class="line">
-        <img id="logo" src="images/Logo.png">
+        <img id="logo" src="images/Logo.png" alt="Cell Map Designer logo">
         <h1>Cell Map Designer</h1>
     </header>
     <main>
         <div id="map-container">
-            <div id="map"></div>
+            <div id="map" role="region" aria-label="Interactive map"></div>
         </div>
-        <div class="resizer" id="dragMe"></div>
+        <div class="resizer" id="dragMe" aria-hidden="true"></div>
         <div id="controls">
-            <div id="inputs">
+            <div id="inputs" role="dialog" aria-modal="true" aria-label="Add or edit feature">
                 <div id="cell-form">
 
                     <div class="line">
@@ -69,16 +70,16 @@
                     </div>
                     <div class="line">
                         <label for="inp_radius">Radius:</label>
-                        <input type="number" id="inp_radius" placeholder="Radius in km" min="0.25" max="10" step="0.25"
+                        <input type="number" id="inp_radius" placeholder="Radius in km" min="0" max="10" step="0.25"
                             value="3">
                     </div>
                     <div class="line">
                         <label for="angle1">Start angle:</label>
-                        <input type="number" id="angle1" placeholder="Angle min" min="0" max="360" value="0">
+                        <input type="number" id="angle1" placeholder="Angle min" min="-360" max="360" value="0">
                     </div>
                     <div class="line">
                         <label for="angle2">End angle:</label>
-                        <input type="number" id="angle2" placeholder="Angle max" min="0" max="360" value="360">
+                        <input type="number" id="angle2" placeholder="Angle max" min="-360" max="360" value="360">
                     </div>
                     <div class="line">
                         <label for="inp_alpha">Trasparency:</label>
@@ -96,50 +97,55 @@
                         </select>
                     </div>
                     <input type="hidden" id="feature-id" value="">
-                    <button class="form-btn" onclick="closeForm()">Annulla</button>
-                    <button id="addbtn" class="form-btn" style="display: inline-block;"
-                        onclick="aggiungiCella()">Aggiungi</button>
-                    <button id="savebtn" class="form-btn" style="display: none;"
-                        onclick="modificaCella()">Salva</button>
+                    <button id="cancelbtn" class="form-btn">Annulla</button>
+                    <button id="addbtn" class="form-btn" style="display: inline-block;">Aggiungi</button>
+                    <button id="savebtn" class="form-btn" style="display: none;">Salva</button>
                 </div>
             </div>
-            <div id="buttons">
-                <button id="add" onclick="openForm(null)"><i class="fa-sharp fa-solid fa-plus"></i> Add Cell</button>
-                <button id="import" onclick="openfile()"><i class="fa-sharp fa-solid fa-file-csv"></i> Add from
+            <div id="buttons" role="toolbar" aria-label="Map tools">
+                <button id="add"><i aria-hidden="true" class="fa-sharp fa-solid fa-plus"></i> Add Cell</button>
+                <button id="import"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-csv"></i> Add from
                     CSV</button>
-                <button id="savejson" onclick="scaricageojson()"><i class="fa-sharp fa-solid fa-file-export"></i> Export
+                <button id="savejson"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-export"></i> Export
                     GeoJson</button>
-                <button id="importjson" onclick="importjson()"><i class="fa-sharp fa-solid fa-file-import"></i> Import
+                <button id="importjson"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-import"></i> Import
                     GeoJson</button>
-                <button id="savekml" onclick="scaricaKML()"><i class="fa-sharp fa-solid fa-file-arrow-down"></i>
+                <button id="savekml"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-arrow-down"></i>
                     Generate KML</button>
-                <button id="addoverlay" onclick="processKMZ()"><i class="fa-sharp fa-solid fa-file-arrow-up"></i>
+                <button id="addoverlay"><i aria-hidden="true" class="fa-sharp fa-solid fa-file-arrow-up"></i>
                     Add Overlay</button>
-                <button id="deleteall" onclick="deleteAll()"><i class="fa-sharp fa-solid fa-trash-can"></i> Delete
+                <button id="deleteall"><i aria-hidden="true" class="fa-sharp fa-solid fa-trash-can"></i> Delete
                     All</button>
             </div>
             <div id="elements">
                 <div id="table" class="tab">
-                    <input type="checkbox" name="accordion-1" id="cb1" checked>
-                    <label for="cb1" class="tab__label">Cell Towers</label>
-                    <div class="tab__content">
+                    <input type="checkbox" name="accordion-1" id="cb1" aria-controls="tab1-content" checked>
+                    <label for="cb1" id="tab1-label" class="tab__label">Cell Towers</label>
+                    <div class="tab__content" id="tab1-content" role="region" aria-labelledby="tab1-label">
+                        <div class="table-header table-header--tower">
+                            <span class="col-name">Name</span>
+                            <span class="col-azimuth">Azimuth</span>
+                            <span class="col-radius">Radius</span>
+                            <span class="col-color"></span>
+                            <span class="col-actions"></span>
+                        </div>
                         <div id="features">
 
                         </div>
                     </div>
                 </div>
                 <div id="poi-table" class="tab">
-                    <input type="checkbox" name="accordion-2" id="cb2">
-                    <label for="cb2" class="tab__label">Points of interest:</label>
-                    <div class="tab__content">
+                    <input type="checkbox" name="accordion-2" id="cb2" aria-controls="tab2-content">
+                    <label for="cb2" id="tab2-label" class="tab__label">Points of interest:</label>
+                    <div class="tab__content" id="tab2-content" role="region" aria-labelledby="tab2-label">
                         <div id="poi">
                         </div>
                     </div>
                 </div>
                 <div id="over-table" class="tab">
-                    <input type="checkbox" name="accordion-3" id="cb3">
-                    <label for="cb3" class="tab__label">Overlays</label>
-                    <div class="tab__content">
+                    <input type="checkbox" name="accordion-3" id="cb3" aria-controls="tab3-content">
+                    <label for="cb3" id="tab3-label" class="tab__label">Overlays</label>
+                    <div class="tab__content" id="tab3-content" role="region" aria-labelledby="tab3-label">
                         <div id="overlays">
                         </div>
                     </div>
@@ -151,8 +157,8 @@
         <p>© 2024 Cell Map Designer by <a class="link" href="https://alexcortinovis.tech" target="_blank">Alex
                 Cortinovis</a></p>
                 <p>Icons by Maps Icons Collection <a class="link" href="https://mapicons.mapsmarker.com" target="_blank">https://mapicons.mapsmarker.com</a></p>
-        <script src="new_script.js"></script>
-        <script src="resizer.js"></script>
+        <script type="module" src="bootstrap.js"></script>
+        <script type="module" src="resizer.js"></script>
     </footer>
 </body>
 

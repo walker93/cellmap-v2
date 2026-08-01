@@ -4,6 +4,8 @@
     --accent-color: #ee9b00;
     --text-color: #001219;
     --background-color: #e9d8a6;
+    /* width of the right-hand controls column; the resizer updates this live */
+    --sidebar-width: 22rem;
 }
 /* INIZIO */
 .table-element {
@@ -12,7 +14,7 @@
     align-items: center;
     flex-direction: row;
   gap: 10px;
-    height: 1.5rem;
+    /* height: 1.5rem; */
 }
 
 .tab {
@@ -77,14 +79,17 @@ body {
     font-family: 'Arial', sans-serif;
     color: var(--text-color);
     background-color: var(--background-color);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
     margin: 0;
+    /* full-viewport page grid: header / main / footer stacked */
+    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
 }
 
 header,
@@ -93,6 +98,14 @@ footer {
     padding: 0.1rem;
     background-color: var(--primary-color);
     color: white;
+}
+
+header {
+    grid-area: header;
+}
+
+footer {
+    grid-area: footer;
 }
 
 #logo {
@@ -107,22 +120,24 @@ header.line {
 }
 
 main {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    /*flex-grow: 1;*/
-    width: 100%;
+    /* map | resizer | controls, side by side; resizer drives --sidebar-width */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 5px var(--sidebar-width);
+    grid-template-areas: "map resizer controls";
+    /* min-height:0 lets the map area actually shrink to the grid track height */
+    min-height: 0;
+    overflow: hidden;
 }
 
 .resizer {
+    grid-area: resizer;
     background-color: var(--primary-color);
     cursor: ew-resize;
-    height: 100%;
-    width: 5px;
 }
 
 #map-container {
-    width: 90%;
+    grid-area: map;
+    min-width: 0;
 }
 
 #map {
@@ -141,14 +156,12 @@ main {
 
 /* contenuto laterale */
 #controls {
-    /*width: 75%;
-    /*border-left: 2px solid var(--secondary-color);*/
-    flex-grow: 1;
+    grid-area: controls;
     padding: 0rem;
-
+    min-width: 0;
     display: flex;
     flex-direction: column;
-
+    overflow-y: auto;
 }
 
 .ts-wrapper{
@@ -213,15 +226,48 @@ span>.fa-sharp:hover {
     color: var(--secondary-color);
 }
 
+/* Row action buttons: look like bare icons but are real, focusable, keyboard-
+   activatable, screen-reader-labelled <button>s. */
+.icon-btn {
+    background: none;
+    border: none;
+    padding: 3px;
+    margin: 3px;
+    cursor: pointer;
+    color: var(--primary-color);
+    font-size: inherit;
+    line-height: 1;
+}
+
+.icon-btn:hover {
+    color: var(--secondary-color);
+}
+
+.icon-btn:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 1px;
+    color: var(--secondary-color);
+}
+
+/* Visible keyboard focus for the checkbox-hack accordion (its checkbox is hidden). */
+.tab input:focus-visible+.tab__label {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
+}
+
 /* FORM a POPUP */
 #inputs {
     display: none;
     position: fixed;
-    top: 20%;
-    right: 50%;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
     border: 3px solid #f1f1f1;
     z-index: 9;
     background-color: white;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .line {
@@ -259,4 +305,91 @@ span>.fa-sharp:hover {
 .table-element >*:first-child {
   text-align: end;
   padding-left: 10px;
+}
+
+/* Cell Towers list: a fixed column grid (instead of flex) so the header row
+   above #features lines up with every data row — flex-end sizes each row's
+   items from its own content, so nothing guarantees row N's "Radius" column
+   starts at the same x as row N+1's. */
+.table-header--tower,
+.table-element--tower {
+    display: grid;
+    grid-template-columns: 1fr 4rem 2.75rem 1rem 7rem;
+    align-items: center;
+    gap: 6px;
+    padding: 0 6px;
+}
+
+.table-header--tower {
+    font-weight: bold;
+    padding: 0.5rem 6px;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.table-element--tower > .col-name,
+.table-header--tower > .col-name {
+    text-align: left;
+    padding-left: 0;
+    overflow-wrap: anywhere;
+}
+
+.table-element--tower > .col-azimuth,
+.table-element--tower > .col-radius,
+.table-header--tower > .col-azimuth,
+.table-header--tower > .col-radius {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.table-element--tower > .col-color {
+    justify-self: center;
+}
+
+/* Tighter icon spacing than the default .icon-btn — five actions have to fit
+   in one fixed-width grid column here, unlike PoI/Overlay rows' flex layout. */
+.table-element--tower .icon-btn {
+    padding: 2px;
+    margin: 0 1px;
+}
+
+/* ---- Responsive ---------------------------------------------------------- */
+
+/* Narrow screens: stack the map on top and the controls below, and drop the
+   drag-resizer (it has no place in a single-column touch layout). */
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+        grid-template-rows: 55vh minmax(0, 1fr);
+        grid-template-areas:
+            "map"
+            "controls";
+    }
+
+    .resizer {
+        display: none;
+    }
+
+    #logo {
+        height: 3rem;
+    }
+
+    /* let the toolbar buttons stretch and stay tappable */
+    #buttons > button {
+        flex: 1 1 auto;
+    }
+
+    #cell-form {
+        max-width: none;
+    }
+}
+
+/* Very small phones: give the map a bit less height so the controls are reachable. */
+@media (max-width: 480px) {
+    main {
+        grid-template-rows: 45vh minmax(0, 1fr);
+    }
+
+    header h1 {
+        font-size: 1.2rem;
+    }
 }

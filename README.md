@@ -122,12 +122,30 @@ This is an example of how to list things you need to use the software and how to
 1. Get a free API Key at [mapbox.com](https://docs.mapbox.com/help/getting-started/access-tokens/)
 2. Clone the repo
    ```sh
-   git clone https://github.com/walker93/CellMap.git
+   git clone https://github.com/walker93/cellmap-v2.git
+   cd cellmap-v2
    ```
-3. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Create your `config.js` from the template and paste your Mapbox token
+   ```sh
+   cp config.js.example config.js
+   # then edit config.js and set: window.API_KEY = 'pk.your-token'
    ```
+   `config.js` is git-ignored, so your token is never committed.
+4. Install dependencies and start the dev server
+   ```sh
+   npm install
+   npm run dev      # start Vite dev server (http://localhost:5173)
+   npm run test     # run the Vitest suite
+   npm run lint     # run ESLint
+   ```
+
+> **Build step required.** The app now uses ES modules with npm dependencies
+> (bundled by Vite), so it is no longer opened as raw files. For production run
+> `npm run build` and serve the generated `dist/` folder from any static host.
+
+> **Modernization in progress.** This repo is a rebuild of the original CellMap.
+> See [`MODERNIZATION.md`](MODERNIZATION.md) for the rationale (why an incremental
+> vanilla-JS refactor rather than a framework rewrite) and the phased roadmap.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
