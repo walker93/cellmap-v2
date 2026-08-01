@@ -10,10 +10,8 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.5.1/mapbox-gl-draw.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.5.1/mapbox-gl-draw.css"
         type="text/css">
-    <script
-        src="https://unpkg.com/@mapbox/mapbox-gl-geocoder@5.1.2/dist/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet"
-        href="https://unpkg.com/@mapbox/mapbox-gl-geocoder@5.1.2/dist/mapbox-gl-geocoder.css"
+    <script src="https://unpkg.com/@mapbox/mapbox-gl-geocoder@5.1.2/dist/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@mapbox/mapbox-gl-geocoder@5.1.2/dist/mapbox-gl-geocoder.css"
         type="text/css">
     <link href='https://unpkg.com/@watergis/mapbox-gl-export@4.0.0/dist/mapbox-gl-export.css' rel='stylesheet' />
     <script src="https://unpkg.com/@watergis/mapbox-gl-export@4.0.0/dist/mapbox-gl-export.umd.js"></script>
@@ -39,6 +37,15 @@
 </head>
 
 <body>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCJHMT6KN8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZCJHMT6KN8');
+    </script>
     <header class="line">
         <img id="logo" src="images/Logo.png" alt="Cell Map Designer logo">
         <h1>Cell Map Designer</h1>
@@ -156,7 +163,8 @@
     <footer>
         <p>© 2024 Cell Map Designer by <a class="link" href="https://alexcortinovis.tech" target="_blank">Alex
                 Cortinovis</a></p>
-                <p>Icons by Maps Icons Collection <a class="link" href="https://mapicons.mapsmarker.com" target="_blank">https://mapicons.mapsmarker.com</a></p>
+        <p>Icons by Maps Icons Collection <a class="link" href="https://mapicons.mapsmarker.com"
+                target="_blank">https://mapicons.mapsmarker.com</a></p>
         <script type="module" src="bootstrap.js"></script>
         <script type="module" src="resizer.js"></script>
     </footer>
