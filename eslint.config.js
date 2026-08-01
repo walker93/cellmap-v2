@@ -59,6 +59,19 @@ export default [
     },
   },
   {
-    ignores: ['dist/**', 'lib/**', 'old/**', 'node_modules/**'],
+    // scripts/ runs under Node (npm run build), not the browser.
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
+    // lib/ and public/lib/ are vendored third-party scripts, not our source;
+    // public/images is static data (icons.json + PNGs), not lintable JS anyway.
+    ignores: ['dist/**', 'lib/**', 'public/**', 'old/**', 'node_modules/**'],
   },
 ];
