@@ -83,6 +83,11 @@ export function loadIcons() {
             const select = new TomSelect(iconInput, {
                 maxItems: 1,
                 maxOptions: null,
+                // #inputs (the dialog) has its own overflow-y:auto; rendering the
+                // dropdown inline would grow #inputs's scrollable content and stack
+                // a second scrollbar on top of the dropdown's own list scrollbar.
+                // Rendering into <body> keeps the dropdown a floating overlay instead.
+                dropdownParent: 'body',
                 valueField: 'value',
                 labelField: 'text',
                 searchField: ['text'],
