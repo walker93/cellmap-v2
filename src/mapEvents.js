@@ -77,6 +77,7 @@ export function registerMapEvents() {
                                 type: 'fill',
                                 label: label,
                                 size: 16,
+                                offset: 0,
                             };
                             labelFeatures.push(centroid);
                         }

@@ -257,7 +257,9 @@ export const draw = new MapboxDraw({
             ],
             paint: {
                 'circle-radius': 10, //default è 5
-                'circle-color': ['get', 'user_fill'], //'#ffe63b' //'#fbb03b'
+                // coalesce: a point is "active" the instant it's created, before
+                // draw.create's handler (mapEvents.js) has set properties.fill
+                'circle-color': ['coalesce', ['get', 'user_fill'], '#ff0000'], //'#ffe63b' //'#fbb03b'
             },
         },
         {
