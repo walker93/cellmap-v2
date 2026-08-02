@@ -4,70 +4,100 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
-## Unreleased changes
+## 1.1 (2026-08-01)
 
 ### Feature
-- :sparkles: Adds marker popup and hover effects [`cd1a9a1`](https://github.com/walker93/CellMap/commit/cd1a9a1)
-
-### Performance Improvements
-- :zap: Introduced lazyload on PoI icons for reduced network calls [`265d2b1`](https://github.com/walker93/CellMap/commit/265d2b1)
-
-### Documentation
-- :robot: changelog file generated [`c8f5973`](https://github.com/walker93/CellMap/commit/c8f5973)
-- :robot: changelog file generated [`ad57173`](https://github.com/walker93/CellMap/commit/ad57173)
-- :robot: changelog file generated [`7cd5e2f`](https://github.com/walker93/CellMap/commit/7cd5e2f)
-- :robot: changelog file generated [`b51a96f`](https://github.com/walker93/CellMap/commit/b51a96f)
-
-### Refactor
-- :rocket: fixed module attribute [`85a03f7`](https://github.com/walker93/CellMap/commit/85a03f7)
-- :rocket: using modules [`d27557c`](https://github.com/walker93/CellMap/commit/d27557c)
-
-### Other
-- Merge branch 'main' of https://github.com/walker93/CellMap [`ff28f32`](https://github.com/walker93/CellMap/commit/ff28f32)
-- Merge branch 'main' of https://github.com/walker93/CellMap into main [`eaa02ce`](https://github.com/walker93/CellMap/commit/eaa02ce)
-- revert: :ambulance: revert from using modules [`389cd66`](https://github.com/walker93/CellMap/commit/389cd66)
-- Merge branch 'main' of https://github.com/walker93/CellMap into main [`9b81191`](https://github.com/walker93/CellMap/commit/9b81191)
-
-## v1.0.0 (2025-07-23)
-
-### Feature
-- :sparkles: Added TomSelect library for icon selection [`879d3ca`](https://github.com/walker93/CellMap/commit/879d3ca)
-- :sparkles: Added PoI Icon support [`d6f61ca`](https://github.com/walker93/CellMap/commit/d6f61ca)
-- :sparkles: Improve hidden marker toggling [`8d18bec`](https://github.com/walker93/CellMap/commit/8d18bec)
-- :construction: Adding show/hide behaviour to cell towers [`3e0f2e5`](https://github.com/walker93/CellMap/commit/3e0f2e5)
-- :sparkles: Added section of manage of overlays [`42b4a0c`](https://github.com/walker93/CellMap/commit/42b4a0c)
-- :lipstick: Added functionality to resize the sidebar [`bf9d268`](https://github.com/walker93/CellMap/commit/bf9d268)
-- :sparkles: Added function to import KMZ overlays [`cc7d221`](https://github.com/walker93/CellMap/commit/cc7d221)
-- :sparkles: Added CSV import of cell towers [`96e4d66`](https://github.com/walker93/CellMap/commit/96e4d66)
+- :chart_with_upwards_trend: Aggiunto Google Analytics [`4b1f8c9`](https://github.com/walker93/cellmap-v2/commit/4b1f8c9)
+- :lipstick: Add header row in tower table and migration from flex to grid for rows [`9716c36`](https://github.com/walker93/cellmap-v2/commit/9716c36)
+- wire aggiungiCella through towerState.addTower; add a full Tab focus-trap to the add/edit dialog [`a449d88`](https://github.com/walker93/cellmap-v2/commit/a449d88)
+- accessibility pass (Phase 7) [`4cc72f7`](https://github.com/walker93/cellmap-v2/commit/4cc72f7)
+- responsive layout with CSS Grid (Phase 6) [`121748e`](https://github.com/walker93/cellmap-v2/commit/121748e)
+- use the File System Access API save dialog for exports [`da7c2f4`](https://github.com/walker93/cellmap-v2/commit/da7c2f4)
+- :sparkles: Adds marker popup and hover effects [`8ca07d6`](https://github.com/walker93/cellmap-v2/commit/8ca07d6)
+- :sparkles: Added TomSelect library for icon selection [`3656315`](https://github.com/walker93/cellmap-v2/commit/3656315)
+- :sparkles: Added PoI Icon support [`7fd6ed9`](https://github.com/walker93/cellmap-v2/commit/7fd6ed9)
+- :sparkles: Improve hidden marker toggling [`4468956`](https://github.com/walker93/cellmap-v2/commit/4468956)
+- :construction: Adding show/hide behaviour to cell towers [`97129c4`](https://github.com/walker93/cellmap-v2/commit/97129c4)
+- :sparkles: Added section of manage of overlays [`756008f`](https://github.com/walker93/cellmap-v2/commit/756008f)
+- :lipstick: Added functionality to resize the sidebar [`3da33f8`](https://github.com/walker93/cellmap-v2/commit/3da33f8)
+- :sparkles: Added function to import KMZ overlays [`1773dd7`](https://github.com/walker93/cellmap-v2/commit/1773dd7)
+- :sparkles: Added CSV import of cell towers [`89d893e`](https://github.com/walker93/cellmap-v2/commit/89d893e)
 
 ### Bug Fixes
-- :bug: Removed fetch from directories and added image loading from JSON [`bf38378`](https://github.com/walker93/CellMap/commit/bf38378)
-- :pencil2: changed fetch from root to relative subfolder [`37b85d5`](https://github.com/walker93/CellMap/commit/37b85d5)
-- :bug: Fixed show/hide feature on cells, added same functionality to overlays [`9e2ce0d`](https://github.com/walker93/CellMap/commit/9e2ce0d)
-- :bug: Fix table not populated after overlay adding [`8fe1b98`](https://github.com/walker93/CellMap/commit/8fe1b98)
-- :bug: DeleteAll button now deletes overlays, added ability to import multiple overlays [`db3e8ca`](https://github.com/walker93/CellMap/commit/db3e8ca)
+- set Vite base to /cellmapdesigner/ for the reverse-proxy deployment [`59f4873`](https://github.com/walker93/cellmap-v2/commit/59f4873)
+- move cell-tower.png into public/ so the tower icon survives the build [`89ef70b`](https://github.com/walker93/cellmap-v2/commit/89ef70b)
+- make the production build actually deployable; add Cloudflare Workers config [`cee82cc`](https://github.com/walker93/cellmap-v2/commit/cee82cc)
+- prevent duplicate map.addImage when features share an icon [`15f04fa`](https://github.com/walker93/cellmap-v2/commit/15f04fa)
+- null-safe paint/layout expressions for freshly-drawn features [`5fdd28a`](https://github.com/walker93/cellmap-v2/commit/5fdd28a)
+- render icon picker dropdown into <body> to stop double scrollbar [`c42893b`](https://github.com/walker93/cellmap-v2/commit/c42893b)
+- :lipstick: Fix for tableelement overflow [`7738752`](https://github.com/walker93/cellmap-v2/commit/7738752)
+- register icon images on demand via styleimagemissing; fix broken thumbnails for categories with "&" [`cf13ade`](https://github.com/walker93/cellmap-v2/commit/cf13ade)
+- allow radius 0 and negative angles; document final session status [`4e0f25b`](https://github.com/walker93/cellmap-v2/commit/4e0f25b)
+- :bug: Removed fetch from directories and added image loading from JSON [`62f7539`](https://github.com/walker93/cellmap-v2/commit/62f7539)
+- :pencil2: changed fetch from root to relative subfolder [`5bf2d11`](https://github.com/walker93/cellmap-v2/commit/5bf2d11)
+- :bug: Fixed show/hide feature on cells, added same functionality to overlays [`8d70c84`](https://github.com/walker93/cellmap-v2/commit/8d70c84)
+- :bug: Fix table not populated after overlay adding [`57bc4d8`](https://github.com/walker93/cellmap-v2/commit/57bc4d8)
+- :bug: DeleteAll button now deletes overlays, added ability to import multiple overlays [`14b7309`](https://github.com/walker93/cellmap-v2/commit/14b7309)
+
+### Performance Improvements
+- :zap: Introduced lazyload on PoI icons for reduced network calls [`8522670`](https://github.com/walker93/cellmap-v2/commit/8522670)
+
+### Documentation
+- update roadmap for Phase 4/5, the dialog focus-trap, mapEvents extraction, and the bootstrap.js rename [`3e16ec9`](https://github.com/walker93/cellmap-v2/commit/3e16ec9)
+- :robot: changelog file generated [`ee74fb6`](https://github.com/walker93/cellmap-v2/commit/ee74fb6)
+- :robot: changelog file generated [`da3505f`](https://github.com/walker93/cellmap-v2/commit/da3505f)
+- :robot: changelog file generated [`ab276b1`](https://github.com/walker93/cellmap-v2/commit/ab276b1)
+- :robot: changelog file generated [`24d3dd5`](https://github.com/walker93/cellmap-v2/commit/24d3dd5)
+- :robot: changelog file generated [`acbe814`](https://github.com/walker93/cellmap-v2/commit/acbe814)
+
+### Chore
+- declare MapboxExportControl as a known CDN global for eslint [`098ae6d`](https://github.com/walker93/cellmap-v2/commit/098ae6d)
+- upgrade mapbox-gl-js, draw, geocoder, and export plugin [`3a65741`](https://github.com/walker93/cellmap-v2/commit/3a65741)
+- scaffold modern tooling and test safety net (Phase 0/2) [`aa33b7e`](https://github.com/walker93/cellmap-v2/commit/aa33b7e)
 
 ### Style
-- :lipstick: Added full set of icons [`821a8d4`](https://github.com/walker93/CellMap/commit/821a8d4)
-- :art: Format webmanifest [`6255803`](https://github.com/walker93/CellMap/commit/6255803)
-- :lipstick: Responsive layout [`e57437b`](https://github.com/walker93/CellMap/commit/e57437b)
-- :lipstick: Added logo in the header [`23342ea`](https://github.com/walker93/CellMap/commit/23342ea)
+- :lipstick: Added full set of icons [`b603d5e`](https://github.com/walker93/cellmap-v2/commit/b603d5e)
+- :art: Format webmanifest [`6144fca`](https://github.com/walker93/cellmap-v2/commit/6144fca)
+- :lipstick: Responsive layout [`9a8be06`](https://github.com/walker93/cellmap-v2/commit/9a8be06)
+- :lipstick: Added logo in the header [`660c942`](https://github.com/walker93/cellmap-v2/commit/660c942)
 
 ### Refactor
-- :hammer: Added CSV parser, and moved libraries to separate folder [`ebe5c6f`](https://github.com/walker93/CellMap/commit/ebe5c6f)
+- extract src/mapEvents.js from the bootstrap file; rename new_script.js -> bootstrap.js [`6eadb41`](https://github.com/walker93/cellmap-v2/commit/6eadb41)
+- lift tower/POI create-duplicate-hide-delete sync into src/towerState.js (Phase 4); dedupe row builders (Phase 5) [`d7ed4d0`](https://github.com/walker93/cellmap-v2/commit/d7ed4d0)
+- extract the io import orchestrators — Phase 3 complete [`ad3e55f`](https://github.com/walker93/cellmap-v2/commit/ad3e55f)
+- extract the icon picker into src/ui/iconPicker.js + verify it [`2538634`](https://github.com/walker93/cellmap-v2/commit/2538634)
+- extract the add/edit form into src/ui/form.js (Phase 3) [`c97d490`](https://github.com/walker93/cellmap-v2/commit/c97d490)
+- extract the render layer into src/ui/table.js + src/mapSource.js [`9bac8a7`](https://github.com/walker93/cellmap-v2/commit/9bac8a7)
+- extract the io export/download seam into src/io/ (Phase 3) [`3f0a1bb`](https://github.com/walker93/cellmap-v2/commit/3f0a1bb)
+- extract the MapboxDraw feature store into src/draw.js (Phase 4) [`53b56f9`](https://github.com/walker93/cellmap-v2/commit/53b56f9)
+- quick wins — remove dead code and strengthen input validation [`6f0bea3`](https://github.com/walker93/cellmap-v2/commit/6f0bea3)
+- extract KMZ-overlay state into src/overlays.js (Phase 4) [`f445e4e`](https://github.com/walker93/cellmap-v2/commit/f445e4e)
+- extract hidden-POI state into src/hiddenPois.js (Phase 4) [`aef92be`](https://github.com/walker93/cellmap-v2/commit/aef92be)
+- extract the coverage-sector state into src/sectors.js (Phase 4) [`3f9abbc`](https://github.com/walker93/cellmap-v2/commit/3f9abbc)
+- convert the app to ES modules — first slice (Phase 3) [`ca81bb6`](https://github.com/walker93/cellmap-v2/commit/ca81bb6)
+- replace inline onclick handlers with addEventListener (Phase 1) [`1efae68`](https://github.com/walker93/cellmap-v2/commit/1efae68)
+- cover the GeoJSON import path in the shared tower-feature module [`07e0334`](https://github.com/walker93/cellmap-v2/commit/07e0334)
+- :rocket: fixed module attribute [`d8a32fc`](https://github.com/walker93/cellmap-v2/commit/d8a32fc)
+- :rocket: using modules [`54f893a`](https://github.com/walker93/cellmap-v2/commit/54f893a)
+- :hammer: Added CSV parser, and moved libraries to separate folder [`333bc34`](https://github.com/walker93/cellmap-v2/commit/333bc34)
 
 ### Other
-- Create changelog.yml [`9531134`](https://github.com/walker93/CellMap/commit/9531134)
-- commit for push [`0f27804`](https://github.com/walker93/CellMap/commit/0f27804)
-- Added Logo and Favicon [`77bbd04`](https://github.com/walker93/CellMap/commit/77bbd04)
-- Added edit PoI feature [`f288c63`](https://github.com/walker93/CellMap/commit/f288c63)
-- fixed poi table area calculation [`2e9d211`](https://github.com/walker93/CellMap/commit/2e9d211)
-- Polygon Area Calculation [`6282d27`](https://github.com/walker93/CellMap/commit/6282d27)
-- POI Table Improvments [`796418f`](https://github.com/walker93/CellMap/commit/796418f)
-- Inizio sviluppo tabella poi [`bbd4147`](https://github.com/walker93/CellMap/commit/bbd4147)
-- Fixed import added KML download [`cd84353`](https://github.com/walker93/CellMap/commit/cd84353)
-- fixed form buttons [`d8cdc53`](https://github.com/walker93/CellMap/commit/d8cdc53)
-- Updated Readme [`2a814f2`](https://github.com/walker93/CellMap/commit/2a814f2)
-- test commit [`a5cfd49`](https://github.com/walker93/CellMap/commit/a5cfd49)
-- Initial Commit [`cf443af`](https://github.com/walker93/CellMap/commit/cf443af)
+- Merge branch 'claude/webapp-legacy-modernization-plan-chxyij' [`f8a4b46`](https://github.com/walker93/cellmap-v2/commit/f8a4b46)
+- Merge branch 'main' of https://github.com/walker93/CellMap [`93d4a4d`](https://github.com/walker93/cellmap-v2/commit/93d4a4d)
+- Merge branch 'main' of https://github.com/walker93/CellMap into main [`81e6b7e`](https://github.com/walker93/cellmap-v2/commit/81e6b7e)
+- revert: :ambulance: revert from using modules [`0352b9d`](https://github.com/walker93/cellmap-v2/commit/0352b9d)
+- Merge branch 'main' of https://github.com/walker93/CellMap into main [`8393522`](https://github.com/walker93/cellmap-v2/commit/8393522)
+- Create changelog.yml [`16814f1`](https://github.com/walker93/cellmap-v2/commit/16814f1)
+- commit for push [`e8575be`](https://github.com/walker93/cellmap-v2/commit/e8575be)
+- Added Logo and Favicon [`9b46d08`](https://github.com/walker93/cellmap-v2/commit/9b46d08)
+- Added edit PoI feature [`d424a3a`](https://github.com/walker93/cellmap-v2/commit/d424a3a)
+- fixed poi table area calculation [`b3f4ff5`](https://github.com/walker93/cellmap-v2/commit/b3f4ff5)
+- Polygon Area Calculation [`645e007`](https://github.com/walker93/cellmap-v2/commit/645e007)
+- POI Table Improvments [`a95d7d6`](https://github.com/walker93/cellmap-v2/commit/a95d7d6)
+- Inizio sviluppo tabella poi [`e56511c`](https://github.com/walker93/cellmap-v2/commit/e56511c)
+- Fixed import added KML download [`dcfb906`](https://github.com/walker93/cellmap-v2/commit/dcfb906)
+- fixed form buttons [`9699dde`](https://github.com/walker93/cellmap-v2/commit/9699dde)
+- Updated Readme [`297956e`](https://github.com/walker93/cellmap-v2/commit/297956e)
+- test commit [`c43ce35`](https://github.com/walker93/cellmap-v2/commit/c43ce35)
+- Initial Commit [`5df9ecb`](https://github.com/walker93/cellmap-v2/commit/5df9ecb)
 
