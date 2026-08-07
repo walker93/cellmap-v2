@@ -44,10 +44,19 @@ beforeAll(async () => {
         let counter = 0;
         return {
             getAll: () => ({ type: 'FeatureCollection', features: [...store.values()] }),
-            add(feature) {
-                const id = feature.id || `generated-${++counter}`;
-                store.set(id, JSON.parse(JSON.stringify({ ...feature, id })));
-                return [id];
+            // Real MapboxDraw takes a single feature or a whole FeatureCollection
+            // (which is how loadFeatures bulk-adds an imported file), and returns
+            // one id per feature added.
+            add(featureOrCollection) {
+                const features =
+                    featureOrCollection.type === 'FeatureCollection'
+                        ? featureOrCollection.features
+                        : [featureOrCollection];
+                return features.map((feature) => {
+                    const id = feature.id || `generated-${++counter}`;
+                    store.set(id, JSON.parse(JSON.stringify({ ...feature, id })));
+                    return id;
+                });
             },
             get(id) {
                 const feature = store.get(id);
@@ -204,6 +213,63 @@ describe('duplicatePoi', () => {
 
         expect(newId).not.toBe('poi-1');
         expect(draw.getAll().features).toHaveLength(2);
+    });
+});
+
+// The shared loader behind the GeoJSON importer and the project opener.
+describe('loadFeatures', () => {
+    const cell = (id) => ({ ...towerMarker(), id, properties: { ...towerMarker().properties, id } });
+    const point = (id, properties = {}) => ({
+        id,
+        type: 'Feature',
+        properties,
+        geometry: { type: 'Point', coordinates: [9.2, 45.5] },
+    });
+
+    it('adds the features and rebuilds one coverage sector per tower', () => {
+        towerState.loadFeatures({
+            type: 'FeatureCollection',
+            features: [cell('t1'), cell('t2'), point('p1')],
+        });
+
+        expect(draw.getAll().features.map((f) => f.id).sort()).toEqual(['p1', 't1', 't2']);
+        expect(getSectors().features.map((s) => s.properties.towerid).sort()).toEqual(['t1', 't2']);
+        // sectors are geometry, not a copied blob: they come out of turf with real coordinates
+        expect(getSectors().features[0].geometry.coordinates[0].length).toBeGreaterThan(2);
+    });
+
+    it('syncs properties.id even for a file written before that invariant', () => {
+        towerState.loadFeatures({ type: 'FeatureCollection', features: [{ ...cell('t1'), properties: { marker: 'cell', Angle1: 0, Angle2: 90, Radius: 2 } }] });
+        expect(draw.get('t1').properties.id).toBe('t1');
+    });
+
+    it('puts a hidden POI in the hidden list instead of the draw store', () => {
+        towerState.loadFeatures({
+            type: 'FeatureCollection',
+            features: [point('p1'), point('p2', { hidden: true })],
+        });
+
+        expect(draw.get('p2')).toBeUndefined();
+        expect(getHiddenPois().map((f) => f.id)).toEqual(['p2']);
+        expect(draw.get('p1')).not.toBeUndefined();
+    });
+
+    it('keeps a hidden tower in the draw store and re-applies its layer filter', () => {
+        towerState.loadFeatures({
+            type: 'FeatureCollection',
+            features: [cell('t1'), { ...cell('t2'), properties: { ...cell('t2').properties, hidden: true } }],
+        });
+
+        expect(draw.get('t2')).not.toBeUndefined();
+        expect(getHiddenPois()).toHaveLength(0);
+        expect(map.getFilter('markers')).toEqual(['all', ['!=', ['get', 'id'], 't2']]);
+        expect(map.getFilter('sectors')).toEqual(['all', ['!=', ['get', 'towerid'], 't2']]);
+    });
+
+    it('accepts an empty or absent collection', () => {
+        expect(() => towerState.loadFeatures({ type: 'FeatureCollection', features: [] })).not.toThrow();
+        expect(() => towerState.loadFeatures(undefined)).not.toThrow();
+        expect(draw.getAll().features).toHaveLength(0);
     });
 });
 
