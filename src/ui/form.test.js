@@ -55,6 +55,7 @@ beforeEach(() => {
             <input id="inp_lat"><input id="inp_lon">
             <input id="inp_radius"><input id="angle1"><input id="angle2">
             <input id="inp_alpha"><input id="inp_fill">
+            <input type="checkbox" id="inp_gradient">
             <select id="inp_icon"></select>
             <input type="hidden" id="feature-id">
             <button id="cancelbtn"></button>
