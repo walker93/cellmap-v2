@@ -24,3 +24,18 @@ export function deleteAll() {
     addGeoJsonSource('settori', draw.getAll());
     createTable(draw.getAll());
 }
+
+/**
+ * "Delete All" as the menu offers it: ask first, and only when there is something
+ * to lose. It used to be a button in a row of seven, one click from wiping an
+ * afternoon's work with no undo behind it (roadmap point 8) and no way back.
+ * @returns {boolean} true if the map was cleared.
+ */
+export function confirmAndDeleteAll() {
+    const empty = draw.getAll().features.length === 0 && getOverlays().length === 0;
+    if (!empty && !window.confirm('Eliminare tutto il contenuto della mappa? Non è annullabile.')) {
+        return false;
+    }
+    deleteAll();
+    return true;
+}

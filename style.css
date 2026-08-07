@@ -25,15 +25,29 @@
   overflow: hidden;
   transition: all 0.35s;
 }
-/* The header is a <button aria-expanded> driven by src/ui/accordion.js, so the
-   same attribute assistive tech reads is what opens the panel here — no hidden
-   checkbox in between. */
-.tab__label[aria-expanded="true"] + .tab__content {
+/* The section header holds the disclosure button and, where the section has one,
+   its "add" action. They have to be siblings: a <button> cannot contain another. */
+.tab__header {
+  display: flex;
+  align-items: stretch;
+  background: var(--primary-color);
+  /* the sidebar is drag-resizable, so how narrow this gets is not a question any
+     breakpoint can answer: let the action drop to its own line when it stops
+     fitting, whatever the viewport says */
+  flex-wrap: wrap;
+}
+
+/* The disclosure button is a <button aria-expanded> driven by src/ui/accordion.js,
+   so the same attribute assistive tech reads is what opens the panel here — no
+   hidden checkbox in between. :has() is what lets that stay true now that the
+   button sits inside the header row rather than directly before the panel. */
+.tab__header:has(.tab__label[aria-expanded="true"]) + .tab__content {
   max-height: 15rem;
   overflow-y: auto;
 }
 
 .tab__label,
+.tab__action,
 .tab__close {
   display: flex;
   color: white;
@@ -46,13 +60,28 @@
   padding: 1rem;
   /* strip the UA button chrome and let it span the section like the old <label> */
   box-sizing: border-box;
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
   border: none;
   font: inherit;
   text-align: left;
 }
-.tab__label:hover {
+.tab__label:hover,
+.tab__action:hover {
     background-color: var(--secondary-color);
+}
+
+/* The per-section action ("Aggiungi cella", "Aggiungi overlay"): it sits next to
+   the list it adds to, which is what makes a short label enough. */
+.tab__action {
+  align-items: center;
+  gap: 0.35rem;
+  flex: 0 0 auto;
+  padding: 1rem 0.75rem;
+  border: none;
+  font: inherit;
+  font-size: 0.85em;
+  white-space: nowrap;
 }
 .tab__label::after {
   content: "\276F";
@@ -179,26 +208,99 @@ main {
     /* margin: 0.5rem 0; */
 }
 
-#buttons {
+/* ---- "Progetto" menu ----------------------------------------------------- */
+/* The file-level commands used to be a row of seven buttons wrapping across three
+   lines at the top of the sidebar. They are one-shot commands, so they live under
+   one labelled trigger now; the per-list actions moved into the list headers. */
+
+#project-bar {
+    position: relative;
     margin: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 5px;
 }
 
-#buttons>button {
+.menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px;
     border: none;
     background-color: var(--primary-color);
     color: white;
+    font: inherit;
     cursor: pointer;
 }
 
-#buttons>button:hover {
+.menu-trigger:hover {
     background-color: var(--secondary-color);
+}
 
+.menu-trigger__label {
+    flex: 1 1 auto;
+    text-align: left;
+}
+
+.menu-trigger__caret {
+    transition: transform 0.2s;
+}
+
+.menu-trigger[aria-expanded="true"] .menu-trigger__caret {
+    transform: rotate(180deg);
+}
+
+.menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 8;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* `hidden` has to keep winning over the display above. */
+.menu[hidden] {
+    display: none;
+}
+
+.menu__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border: none;
+    background: none;
+    color: var(--text-color);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menu__item:hover,
+.menu__item:focus-visible {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.menu__item--danger {
+    color: #9b2226;
+}
+
+.menu__item--danger:hover,
+.menu__item--danger:focus-visible {
+    background-color: #9b2226;
+    color: white;
+}
+
+.menu__separator {
+    height: 1px;
+    margin: 0.25rem 0;
+    background-color: var(--primary-color);
+    opacity: 0.3;
 }
 
 /* tabella elementi */
@@ -254,8 +356,11 @@ span>.fa-sharp:hover {
     color: var(--secondary-color);
 }
 
-/* Visible keyboard focus for the accordion headers. */
-.tab__label:focus-visible {
+/* Visible keyboard focus for the accordion headers and the menu trigger. */
+.tab__label:focus-visible,
+.tab__action:focus-visible,
+.menu-trigger:focus-visible,
+.menu__item:focus-visible {
     outline: 2px solid var(--accent-color);
     outline-offset: -2px;
 }
@@ -376,11 +481,6 @@ span>.fa-sharp:hover {
 
     #logo {
         height: 3rem;
-    }
-
-    /* let the toolbar buttons stretch and stay tappable */
-    #buttons > button {
-        flex: 1 1 auto;
     }
 
     #cell-form {
