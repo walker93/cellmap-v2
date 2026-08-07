@@ -9,9 +9,10 @@ import { saveProject, openProject } from './src/io/project.js';
 import { addGeoJsonSource } from './src/mapSource.js';
 import { openForm, closeForm, aggiungiCella, submitEditForm } from './src/ui/form.js';
 import { loadIcons } from './src/ui/iconPicker.js';
-import { deleteAll } from './src/reset.js';
+import { confirmAndDeleteAll } from './src/reset.js';
 import { registerMapEvents } from './src/mapEvents.js';
 import { initAccordions } from './src/ui/accordion.js';
+import { initMenu } from './src/ui/menu.js';
 
 map.on('load', setupMapLayers);
 
@@ -161,15 +162,17 @@ registerMapEvents();
 // ---------------------------------------------------------------------------
 function wireControls() {
     var handlers = {
+        // "Progetto" menu: one-shot, file-level commands.
         saveproject: saveProject,
         openproject: openProject,
-        add: function () { openForm(null); },
-        import: importCSV,
-        savejson: exportGeoJSON,
         importjson: importGeoJSON,
+        savejson: exportGeoJSON,
+        import: importCSV,
         savekml: exportKML,
+        deleteall: confirmAndDeleteAll,
+        // Section headers: each action sits on the list it adds to.
+        addcell: function () { openForm(null); },
         addoverlay: importKMZ,
-        deleteall: deleteAll,
         cancelbtn: closeForm,
         addbtn: function () { aggiungiCella(); },
         savebtn: submitEditForm,
@@ -186,3 +189,4 @@ function wireControls() {
 
 wireControls();
 initAccordions();
+initMenu(document.getElementById('project-menu-btn'), document.getElementById('project-menu'));

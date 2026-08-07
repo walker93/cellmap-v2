@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, beforeEach, vi } from 'vitest';
 
-let deleteAll, map;
+let deleteAll, confirmAndDeleteAll, map;
 let sectors, hidden, overlays;
 
 beforeAll(async () => {
@@ -22,7 +22,7 @@ beforeAll(async () => {
     vi.stubGlobal('MapboxDraw', function () {
         return { deleteAll() {}, getAll: () => ({ type: 'FeatureCollection', features: [] }) };
     });
-    ({ deleteAll } = await import('./reset.js'));
+    ({ deleteAll, confirmAndDeleteAll } = await import('./reset.js'));
     ({ map } = await import('./map.js'));
     sectors = await import('./sectors.js');
     hidden = await import('./hiddenPois.js');
@@ -61,5 +61,37 @@ describe('deleteAll', () => {
         expect(removeSource).toHaveBeenCalledWith('overlay-source-42');
         removeLayer.mockRestore();
         removeSource.mockRestore();
+    });
+});
+
+describe('confirmAndDeleteAll', () => {
+    it('asks before wiping a map that has something on it', () => {
+        const confirm = vi.spyOn(window, 'confirm').mockReturnValue(true);
+        overlays.addOverlay({ ID: 5, file: 'o.kmz' });
+
+        expect(confirmAndDeleteAll()).toBe(true);
+
+        expect(confirm).toHaveBeenCalled();
+        expect(overlays.getOverlays()).toHaveLength(0);
+        confirm.mockRestore();
+    });
+
+    it('leaves everything alone when the answer is no', () => {
+        const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
+        overlays.addOverlay({ ID: 5, file: 'o.kmz' });
+
+        expect(confirmAndDeleteAll()).toBe(false);
+
+        expect(overlays.getOverlays()).toHaveLength(1);
+        confirm.mockRestore();
+    });
+
+    it('does not ask when there is nothing to lose', () => {
+        const confirm = vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+        expect(confirmAndDeleteAll()).toBe(true);
+
+        expect(confirm).not.toHaveBeenCalled();
+        confirm.mockRestore();
     });
 });

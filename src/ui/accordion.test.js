@@ -6,20 +6,28 @@ function renderSidebar() {
     document.body.innerHTML = `
         <div id="elements">
             <div class="tab">
-                <button type="button" id="tab1-label" class="tab__label" aria-expanded="true"
-                    aria-controls="tab1-content">Cell Towers</button>
+                <div class="tab__header">
+                    <button type="button" id="tab1-label" class="tab__label" aria-expanded="true"
+                        aria-controls="tab1-content">Cell Towers</button>
+                    <button type="button" id="addcell" class="tab__action">Aggiungi cella</button>
+                </div>
                 <div class="tab__content" id="tab1-content" role="region" aria-labelledby="tab1-label">
                     <button id="row-action">edit</button>
                 </div>
             </div>
             <div class="tab">
-                <button type="button" id="tab2-label" class="tab__label" aria-expanded="false"
-                    aria-controls="tab2-content">Points of interest</button>
+                <div class="tab__header">
+                    <button type="button" id="tab2-label" class="tab__label" aria-expanded="false"
+                        aria-controls="tab2-content">Points of interest</button>
+                </div>
                 <div class="tab__content" id="tab2-content" role="region" aria-labelledby="tab2-label"></div>
             </div>
             <div class="tab">
-                <button type="button" id="tab3-label" class="tab__label" aria-expanded="false"
-                    aria-controls="tab3-content">Overlays</button>
+                <div class="tab__header">
+                    <button type="button" id="tab3-label" class="tab__label" aria-expanded="false"
+                        aria-controls="tab3-content">Overlays</button>
+                    <button type="button" id="addoverlay" class="tab__action">Aggiungi overlay</button>
+                </div>
                 <div class="tab__content" id="tab3-content" role="region" aria-labelledby="tab3-label"></div>
             </div>
         </div>`;
