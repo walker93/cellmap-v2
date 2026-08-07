@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## Unreleased changes
+
+### Feature
+- replace the checkbox-hack accordions with aria-expanded disclosure buttons [`3fe0421`](https://github.com/walker93/cellmap-v2/commit/3fe0421)
+
+### Performance Improvements
+- resolve the app's static elements once through a memoized el() helper [`af619ff`](https://github.com/walker93/cellmap-v2/commit/af619ff)
+
+### Documentation
+- :robot: changelog file generated [`62a5205`](https://github.com/walker93/cellmap-v2/commit/62a5205)
+
+### Other
+- Merge branch 'feat/cache-element-lookups' [`3a76d61`](https://github.com/walker93/cellmap-v2/commit/3a76d61)
+- Merge branch 'feat/accordion-disclosure-buttons' [`5c8758d`](https://github.com/walker93/cellmap-v2/commit/5c8758d)
+
 ## 1.1 (2026-08-01)
 
 ### Feature
