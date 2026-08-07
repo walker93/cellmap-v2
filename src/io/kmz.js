@@ -197,8 +197,8 @@ export function importKMZ() {
         importKmzFile(this.files[0])
             .then(() => createTable(draw.getAll()))
             .catch((error) => {
-                console.error("Errore nell'elaborazione del file KMZ:", error);
-                alert("Si è verificato un errore durante l'elaborazione del file KMZ.");
+                console.error('Could not process the KMZ file:', error);
+                alert('Something went wrong while processing the KMZ file.');
             });
     });
 }
