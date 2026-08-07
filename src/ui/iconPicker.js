@@ -1,4 +1,5 @@
 import { map } from '../map.js';
+import { el } from './dom.js';
 
 // `TomSelect` is a global from lib/tom-select.complete.min.js (a <script> in
 // index.html).
@@ -50,7 +51,7 @@ map.on('styleimagemissing', function (e) {
  * @returns {Promise<object>} resolves with the TomSelect instance.
  */
 export function loadIcons() {
-    const iconInput = document.getElementById('inp_icon');
+    const iconInput = el('inp_icon');
     iconInput.innerHTML = '<option value="" selected>Choose an icon</option>';
     iconInput.disabled = true;
 
