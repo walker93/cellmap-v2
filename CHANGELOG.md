@@ -16,12 +16,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - resolve the app's static elements once through a memoized el() helper [`af619ff`](https://github.com/walker93/cellmap-v2/commit/af619ff)
 
 ### Documentation
+- :robot: changelog file generated [`f74ec5f`](https://github.com/walker93/cellmap-v2/commit/f74ec5f)
 - :robot: changelog file generated [`9c54197`](https://github.com/walker93/cellmap-v2/commit/9c54197)
 - :robot: changelog file generated [`003d03c`](https://github.com/walker93/cellmap-v2/commit/003d03c)
 - :robot: changelog file generated [`4403d51`](https://github.com/walker93/cellmap-v2/commit/4403d51)
 - :robot: changelog file generated [`62a5205`](https://github.com/walker93/cellmap-v2/commit/62a5205)
 
+### Chore
+- put the whole UI in English [`c57a013`](https://github.com/walker93/cellmap-v2/commit/c57a013)
+
 ### Other
+- Merge origin/main (changelog bot commit) [`d832d36`](https://github.com/walker93/cellmap-v2/commit/d832d36)
+- Merge branch 'chore/english-ui-strings' [`d0f9b78`](https://github.com/walker93/cellmap-v2/commit/d0f9b78)
 - Merge origin/main (changelog bot commit) [`abe7f8e`](https://github.com/walker93/cellmap-v2/commit/abe7f8e)
 - Merge branch 'feat/project-menu-ui' [`74d4a6d`](https://github.com/walker93/cellmap-v2/commit/74d4a6d)
 - Merge origin/main (changelog bot commit) [`9985fc2`](https://github.com/walker93/cellmap-v2/commit/9985fc2)
