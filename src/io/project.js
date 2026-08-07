@@ -182,13 +182,13 @@ export async function loadProjectArchive(blob) {
 export async function saveProject() {
     try {
         const blob = await buildProjectArchive();
-        return await saveFile('progetto' + PROJECT_EXTENSION, blob, PROJECT_MIME, {
+        return await saveFile('project' + PROJECT_EXTENSION, blob, PROJECT_MIME, {
             description: 'Cell Map Designer project',
             extensions: [PROJECT_EXTENSION],
         });
     } catch (error) {
-        console.error('Errore nel salvataggio del progetto:', error);
-        alert('Non è stato possibile salvare il progetto.');
+        console.error('Could not save the project:', error);
+        alert('The project could not be saved.');
         return false;
     }
 }
@@ -199,7 +199,7 @@ export function openProject() {
     // silently, but a project is what someone reaches for *after* an afternoon's
     // work, so it's worth one question.
     const hasWork = draw.getAll().features.length > 0 || getOverlays().length > 0;
-    if (hasWork && !window.confirm('Aprire un progetto sostituisce la mappa attuale. Continuare?')) {
+    if (hasWork && !window.confirm('Opening a project replaces the current map. Continue?')) {
         return;
     }
     const inp_file = document.createElement('input');
@@ -212,8 +212,8 @@ export function openProject() {
             return;
         }
         loadProjectArchive(this.files[0]).catch((error) => {
-            console.error("Errore nell'apertura del progetto:", error);
-            alert(error && error.message ? error.message : 'Non è stato possibile aprire il progetto.');
+            console.error('Could not open the project:', error);
+            alert(error && error.message ? error.message : 'The project could not be opened.');
         });
     });
 }

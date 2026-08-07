@@ -8,12 +8,12 @@ function render() {
         <button id="before">before</button>
         <div id="project-bar">
             <button type="button" id="trigger" aria-haspopup="true" aria-expanded="false"
-                aria-controls="menu">Progetto</button>
+                aria-controls="menu">Project</button>
             <div id="menu" role="menu" aria-labelledby="trigger" hidden>
-                <button type="button" role="menuitem" id="save">Salva progetto</button>
-                <button type="button" role="menuitem" id="open">Apri progetto</button>
+                <button type="button" role="menuitem" id="save">Save project</button>
+                <button type="button" role="menuitem" id="open">Open project</button>
                 <div role="separator"></div>
-                <button type="button" role="menuitem" id="wipe">Elimina tutto</button>
+                <button type="button" role="menuitem" id="wipe">Delete all</button>
             </div>
         </div>
         <button id="outside">elsewhere</button>`;

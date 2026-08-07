@@ -346,7 +346,7 @@ describe('saveProject', () => {
         await expect(project.saveProject()).resolves.toBe(true);
 
         const [name, blob, mime] = mocks.saveFile.mock.calls[0];
-        expect(name).toBe('progetto.cellmap');
+        expect(name).toBe('project.cellmap');
         expect(mime).toBe(project.PROJECT_MIME);
         // what was handed over is a readable archive, not just any blob
         const zip = await JSZip.loadAsync(blob);

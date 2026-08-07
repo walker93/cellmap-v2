@@ -33,7 +33,7 @@ export function deleteAll() {
  */
 export function confirmAndDeleteAll() {
     const empty = draw.getAll().features.length === 0 && getOverlays().length === 0;
-    if (!empty && !window.confirm('Eliminare tutto il contenuto della mappa? Non è annullabile.')) {
+    if (!empty && !window.confirm('Delete everything on the map? This cannot be undone.')) {
         return false;
     }
     deleteAll();
