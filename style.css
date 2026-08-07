@@ -208,6 +208,26 @@ main {
     /* margin: 0.5rem 0; */
 }
 
+/* A checkbox has nothing to do with the 60% input column: reserving it for one
+   left the label only 40% of a 300px dialog and broke "Uncertainty cone:" across
+   two lines. Keep the box next to its label instead, as one right-aligned pair. */
+.line--toggle {
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.line--toggle>label {
+    white-space: nowrap;
+}
+
+.line--toggle>input[type="checkbox"] {
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
 /* ---- "Progetto" menu ----------------------------------------------------- */
 /* The file-level commands used to be a row of seven buttons wrapping across three
    lines at the top of the sidebar. They are one-shot commands, so they live under

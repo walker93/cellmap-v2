@@ -45,6 +45,112 @@ export function buildCoverageSector(fields) {
     return turf.sector([lon, lat], radius, angle1, angle2, { properties });
 }
 
+// How many bands a graduated cone is drawn with. Enough that the steps stop being
+// visible — at the default 0.2 opacity each step is 0.0125 — without making the
+// GeoJSON/KML export (the only place the bands are written out; .cellmap rebuilds
+// them from the tower's fields) heavier than it needs to be.
+export const GRADIENT_BANDS = 16;
+
+function angleMod360(angle) {
+    return ((angle % 360) + 360) % 360;
+}
+
+// turf.sector's own rule for "this is really a full circle": the two bearings are
+// the same angle. Worth matching exactly, since a band has to be a ring with a
+// hole in that case rather than a slice with two radial edges.
+function isFullSweep(angle1, angle2) {
+    return angleMod360(angle1) === angleMod360(angle2);
+}
+
+function outerRing(polygon) {
+    return polygon.geometry.coordinates[0];
+}
+
+/**
+ * The rings of one band: the area between two radii over the same bearings.
+ * @returns {number[][][]} GeoJSON Polygon coordinates.
+ */
+function bandRings(center, innerRadius, outerRadius, angle1, angle2) {
+    if (innerRadius <= 0) {
+        // innermost band: no hole to cut, so this is just a sector
+        return turf.sector(center, outerRadius, angle1, angle2).geometry.coordinates;
+    }
+    if (isFullSweep(angle1, angle2)) {
+        return [
+            outerRing(turf.circle(center, outerRadius)),
+            outerRing(turf.circle(center, innerRadius)).slice().reverse(),
+        ];
+    }
+    // A slice of an annulus: out along the far arc, back along the near one.
+    const outer = turf.lineArc(center, outerRadius, angle1, angle2).geometry.coordinates;
+    const inner = turf.lineArc(center, innerRadius, angle1, angle2).geometry.coordinates;
+    return [[...outer, ...inner.slice().reverse(), outer[0]]];
+}
+
+/**
+ * Build the coverage area for a tower as one or more polygons.
+ *
+ * A plain sector says "the phone was in here, and we are equally sure about every
+ * point of it", which is not what a coverage estimate means: confidence falls off
+ * with distance from the antenna. With `fields.gradient` the same wedge is drawn
+ * as {@link GRADIENT_BANDS} concentric bands whose opacity fades outwards, so the
+ * picture reads as a probability ramp rather than a hard edge.
+ *
+ * Bands rather than an actual gradient because Mapbox GL cannot gradient-fill a
+ * polygon — `fill-opacity` is per feature. Nested bands are also what makes this
+ * survive everything else the app does: each band is an ordinary polygon, so the
+ * KML export, the sector/tower link and the .cellmap round trip need no special
+ * case. The bands do not overlap, so what you see is each band's own opacity and
+ * not an accumulation of them.
+ *
+ * A tower with radius 0 gets no polygon at all. validateTowerFields has always
+ * allowed that — it is how you place a tower whose coverage comes from a KMZ
+ * overlay instead — but turf.sector rejects a 0 radius outright ("radius is
+ * required", since it tests for falsy), so the documented case used to throw on
+ * the way from the form to the map.
+ *
+ * @param {object} fields Same fields as {@link buildCoverageSector}, plus
+ *   `gradient` (boolean).
+ * @returns {object[]} No polygon, one, or GRADIENT_BANDS of them.
+ */
+export function buildCoverageSectors(fields) {
+    const radius = Number(fields.radius);
+    if (!Number.isFinite(radius) || radius <= 0) return [];
+    if (!fields.gradient) return [buildCoverageSector(fields)];
+
+    const { lon, lat, angle1, angle2 } = fields;
+    const opacity = parseFloat(fields.opacity);
+    const center = [lon, lat];
+
+    const sectors = [];
+    for (let band = 0; band < GRADIENT_BANDS; band++) {
+        const properties = {
+            name: fields.name,
+            description: fields.description,
+            fill: fields.fill,
+            // full strength at the antenna, fading to a fraction of it at the rim
+            'fill-opacity': opacity * (1 - band / GRADIENT_BANDS),
+            marker: 'cell',
+            band,
+        };
+        if (fields.towerid !== undefined) properties.towerid = fields.towerid;
+
+        sectors.push(
+            turf.polygon(
+                bandRings(
+                    center,
+                    (radius * band) / GRADIENT_BANDS,
+                    (radius * (band + 1)) / GRADIENT_BANDS,
+                    angle1,
+                    angle2,
+                ),
+                properties,
+            ),
+        );
+    }
+    return sectors;
+}
+
 /**
  * Build the pair of GeoJSON features that represent a single cell tower:
  *   1. a Point marker at the tower location, and
@@ -55,12 +161,15 @@ export function buildCoverageSector(fields) {
  * and only calls {@link buildCoverageSector}.
  *
  * @param {object} fields Same fields as {@link buildCoverageSector}.
- * @returns {{ marker: object, sector: object }} The point and sector features.
+ * @returns {{ marker: object, sectors: object[] }} The point and its coverage
+ *   polygons — one, or one per band when the tower is drawn as a graduated cone.
  */
 export function buildTowerFeature(fields) {
     const { lon, lat, radius, angle1, angle2, name, description, fill } = fields;
     const opacity = parseFloat(fields.opacity);
 
+    // buildCoverageSectors below is the one that decides how many polygons this
+    // tower gets (none, one, or one per band).
     const marker = turf.point([lon, lat], {
         name,
         description,
@@ -71,11 +180,13 @@ export function buildTowerFeature(fields) {
         Angle2: angle2,
         Radius: radius,
         opacity,
+        // On the marker, not on the polygons: the sectors are derived and get
+        // rebuilt from the marker's fields on every import, so this is where the
+        // choice has to live for it to survive a save/open cycle.
+        gradient: Boolean(fields.gradient),
     });
 
-    const sector = buildCoverageSector(fields);
-
-    return { marker, sector };
+    return { marker, sectors: buildCoverageSectors(fields) };
 }
 
 /**
@@ -97,6 +208,8 @@ export function csvRowToTowerFields(row) {
         description: row.desc,
         fill: row.fill,
         opacity: row.opacity,
+        // optional column; a file without it just gets plain sectors
+        gradient: Boolean(row.gradient),
     };
 }
 
@@ -172,6 +285,7 @@ export function towerFieldsFromFeature(feature) {
         description: p.description,
         fill: p.fill,
         opacity: p.opacity,
+        gradient: Boolean(p.gradient),
         towerid: feature.id,
     };
 }

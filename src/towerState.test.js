@@ -7,6 +7,7 @@ import { describe, it, expect, beforeAll, beforeEach, vi } from 'vitest';
 // alias the stored feature), and the map fake tracks per-layer filters so
 // setTowerHidden's filter-array bookkeeping can be asserted on.
 let towerState;
+let GRADIENT_BANDS;
 let getSectors, clearSectors, getSectorsByTowerId;
 let getHiddenPois, clearHiddenPois;
 let draw, map;
@@ -72,6 +73,7 @@ beforeAll(async () => {
     });
 
     towerState = await import('./towerState.js');
+    ({ GRADIENT_BANDS } = await import('./towerFeature.js'));
     ({ getSectors, clearSectors, getSectorsByTowerId } = await import('./sectors.js'));
     ({ getHiddenPois, clearHiddenPois } = await import('./hiddenPois.js'));
     ({ draw } = await import('./draw.js'));
@@ -270,6 +272,48 @@ describe('loadFeatures', () => {
         expect(() => towerState.loadFeatures({ type: 'FeatureCollection', features: [] })).not.toThrow();
         expect(() => towerState.loadFeatures(undefined)).not.toThrow();
         expect(draw.getAll().features).toHaveLength(0);
+    });
+});
+
+// A graduated cone is several polygons for one tower, so everything that touches
+// "the tower's sector" has to mean all of them.
+describe('graduated cones', () => {
+    const gradientCell = (id) => ({
+        ...towerMarker(),
+        id,
+        properties: { ...towerMarker().properties, id, gradient: true },
+    });
+
+    it('links every band to the tower', () => {
+        const id = towerState.addTower(towerMarker(), [sectorFor(), sectorFor(), sectorFor()]);
+        expect(getSectorsByTowerId(id)).toHaveLength(3);
+    });
+
+    it('duplicates every band, not just the first — regression guard', () => {
+        const id = towerState.addTower(towerMarker(), [sectorFor(), sectorFor(), sectorFor()]);
+        const newId = towerState.duplicateTower(id);
+
+        expect(getSectorsByTowerId(newId)).toHaveLength(3);
+        expect(getSectorsByTowerId(id)).toHaveLength(3);
+    });
+
+    it('removes every band with the tower', () => {
+        const id = towerState.addTower(towerMarker(), [sectorFor(), sectorFor()]);
+        towerState.removeFeature(id);
+        expect(getSectorsByTowerId(id)).toHaveLength(0);
+    });
+
+    it('rebuilds the bands when a graduated tower comes back from a file', () => {
+        towerState.loadFeatures({ type: 'FeatureCollection', features: [gradientCell('t1')] });
+        expect(getSectorsByTowerId('t1')).toHaveLength(GRADIENT_BANDS);
+    });
+
+    it('still rebuilds a single sector for a plain tower', () => {
+        towerState.loadFeatures({
+            type: 'FeatureCollection',
+            features: [{ ...towerMarker(), id: 't1', properties: { ...towerMarker().properties, id: 't1' } }],
+        });
+        expect(getSectorsByTowerId('t1')).toHaveLength(1);
     });
 });
 

@@ -20,10 +20,10 @@ export function aggiungiCella(existingCell) {
     }
     var cella_feat = createFeatureFromInput();
     var tower = cella_feat[0];
-    var area_polygon = cella_feat[1];
+    var area_polygons = cella_feat[1];
 
     // Se esiste una cella, aggiorno le proprietà mantenendone l'id
-    addTower(tower, area_polygon, existingCell ? existingCell.id : undefined);
+    addTower(tower, area_polygons, existingCell ? existingCell.id : undefined);
 
     createTable(draw.getAll());
     closeForm();
@@ -54,7 +54,7 @@ function createFeatureFromInput() {
     var fillcolor = el('inp_fill');
     var alpha = el('inp_alpha');
 
-    const { marker, sector } = buildTowerFeature({
+    const { marker, sectors } = buildTowerFeature({
         lon,
         lat,
         radius: radius.value,
@@ -64,10 +64,11 @@ function createFeatureFromInput() {
         description: desc.value,
         fill: fillcolor.value,
         opacity: alpha.value,
+        gradient: el('inp_gradient').checked,
     });
     resetForm();
 
-    return [marker, sector];
+    return [marker, sectors];
 }
 
 function resetForm() {
@@ -80,6 +81,7 @@ function resetForm() {
     el('inp_radius').value = '3';
     el('inp_fill').value = '#FF0000';
     el('inp_alpha').value = '0.2';
+    el('inp_gradient').checked = false;
     el('feature-id').value = '';
     el('inp_icon').tomselect.clear();
 }
@@ -96,15 +98,18 @@ function loadForm(feature) {
     var alpha = el('inp_alpha');
     var feat_id = el('feature-id');
     var icn = el('inp_icon');
+    var gradient = el('inp_gradient');
 
     if (feature.properties.marker && feature.properties.marker == 'cell') {
         //if cell feature load all previus fields
         angolo1.value = feature.properties.Angle1;
         angolo2.value = feature.properties.Angle2;
         radius.value = feature.properties.Radius;
+        gradient.checked = Boolean(feature.properties.gradient);
         radius.disabled = false;
         angolo1.disabled = false;
         angolo2.disabled = false;
+        gradient.disabled = false;
         icn.tomselect.disable(); // disable icon input for cell features
         pendingSaveHandler = modificaCella;
     } else {
@@ -112,6 +117,7 @@ function loadForm(feature) {
         radius.disabled = true;
         angolo1.disabled = true;
         angolo2.disabled = true;
+        gradient.disabled = true;
         icn.tomselect.enable();
         pendingSaveHandler = modificaPoi;
     }

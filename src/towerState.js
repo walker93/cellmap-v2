@@ -15,7 +15,7 @@ import { draw } from './draw.js';
 import { addGeoJsonSource } from './mapSource.js';
 import { addSector, getSectors, getSectorsByTowerId, removeSectorsByTowerId } from './sectors.js';
 import { addHiddenPoi, takeHiddenPoi, removeHiddenPoi } from './hiddenPois.js';
-import { buildCoverageSector, towerFieldsFromFeature } from './towerFeature.js';
+import { buildCoverageSectors, towerFieldsFromFeature } from './towerFeature.js';
 
 function refreshMarkersSource() {
     addGeoJsonSource('settori', draw.getAll());
@@ -33,23 +33,31 @@ function syncMarkerIdProperty(id) {
     draw.add(stored);
 }
 
+// A tower's coverage is one polygon normally and one per band when it is drawn as
+// a graduated cone, so everything here takes either and works on the list.
+function linkSectors(id, sectors) {
+    for (const sector of [].concat(sectors)) {
+        sector.properties.towerid = id;
+        addSector(sector);
+    }
+}
+
 /**
- * Add a tower marker and its coverage sector, linked together and with
+ * Add a tower marker and its coverage polygon(s), linked together and with
  * `properties.id` synced to the new draw feature id. Pass `existingId` to update an
  * existing marker in place (the edit flow) instead of creating a new one; the caller
- * is responsible for removing the old sector first (see `modificaCella`).
+ * is responsible for removing the old sectors first (see `modificaCella`).
  * @param {object} marker A Point feature (see towerFeature.js `buildTowerFeature`).
- * @param {object} sector Its coverage-sector Polygon feature.
+ * @param {object|object[]} sectors Its coverage polygon, or the bands of one.
  * @param {string} [existingId] Draw feature id to update instead of creating new.
  * @returns {string} The tower's draw feature id.
  */
-export function addTower(marker, sector, existingId) {
+export function addTower(marker, sectors, existingId) {
     if (existingId) marker.id = existingId;
     const [id] = draw.add(marker);
     syncMarkerIdProperty(id);
 
-    sector.properties.towerid = id;
-    addSector(sector);
+    linkSectors(id, sectors);
 
     refreshMarkersSource();
     refreshSectorsSource();
@@ -57,18 +65,17 @@ export function addTower(marker, sector, existingId) {
 }
 
 /**
- * Link an already-added tower marker to a fresh coverage sector, keeping
+ * Link an already-added tower marker to freshly built coverage polygon(s), keeping
  * `properties.id` synced to the marker's own draw id. Used by the GeoJSON importer,
  * which bulk-adds every feature in one `draw.add(FeatureCollection)` call (preserving
- * the file's own ids) and then needs to (re)build each cell tower's sector — and its
- * id sync, in case the source file predates that invariant — individually.
+ * the file's own ids) and then needs to (re)build each cell tower's coverage — and
+ * its id sync, in case the source file predates that invariant — individually.
  * @param {string} id The tower marker's draw feature id.
- * @param {object} sector Its coverage-sector Polygon feature.
+ * @param {object|object[]} sectors Its coverage polygon, or the bands of one.
  */
-export function linkTowerSector(id, sector) {
+export function linkTowerSector(id, sectors) {
     syncMarkerIdProperty(id);
-    sector.properties.towerid = id;
-    addSector(sector);
+    linkSectors(id, sectors);
 }
 
 function isCell(feature) {
@@ -105,7 +112,7 @@ export function loadFeatures(featureCollection) {
     draw.add({ type: 'FeatureCollection', features: inDrawStore });
     for (const feature of inDrawStore) {
         if (!isCell(feature)) continue;
-        linkTowerSector(feature.id, buildCoverageSector(towerFieldsFromFeature(feature)));
+        linkTowerSector(feature.id, buildCoverageSectors(towerFieldsFromFeature(feature)));
         if (feature.properties.hidden) setTowerHidden(feature.id, true);
     }
 
@@ -124,9 +131,9 @@ export function duplicateTower(id) {
     const [newId] = draw.add(copy);
     syncMarkerIdProperty(newId);
 
-    const originalSector = getSectorsByTowerId(id)[0];
-    if (originalSector) {
-        const copySector = JSON.parse(JSON.stringify(originalSector));
+    // every band, not just the first: a graduated cone is several polygons
+    for (const sector of getSectorsByTowerId(id)) {
+        const copySector = JSON.parse(JSON.stringify(sector));
         copySector.properties.towerid = newId;
         addSector(copySector);
     }
