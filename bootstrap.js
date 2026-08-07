@@ -10,6 +10,7 @@ import { openForm, closeForm, aggiungiCella, submitEditForm } from './src/ui/for
 import { loadIcons } from './src/ui/iconPicker.js';
 import { deleteAll } from './src/reset.js';
 import { registerMapEvents } from './src/mapEvents.js';
+import { initAccordions } from './src/ui/accordion.js';
 
 map.on('load', setupMapLayers);
 
@@ -181,3 +182,4 @@ function wireControls() {
 }
 
 wireControls();
+initAccordions();
