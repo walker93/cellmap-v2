@@ -7,15 +7,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Feature
+- open the edit form right after a POI is drawn on the map [`9733105`](https://github.com/walker93/cellmap-v2/commit/9733105)
 - replace the checkbox-hack accordions with aria-expanded disclosure buttons [`3fe0421`](https://github.com/walker93/cellmap-v2/commit/3fe0421)
 
 ### Performance Improvements
 - resolve the app's static elements once through a memoized el() helper [`af619ff`](https://github.com/walker93/cellmap-v2/commit/af619ff)
 
 ### Documentation
+- :robot: changelog file generated [`4403d51`](https://github.com/walker93/cellmap-v2/commit/4403d51)
 - :robot: changelog file generated [`62a5205`](https://github.com/walker93/cellmap-v2/commit/62a5205)
 
 ### Other
+- Merge origin/main (changelog bot commit) [`4f07c5b`](https://github.com/walker93/cellmap-v2/commit/4f07c5b)
+- Merge branch 'feat/poi-form-on-create' [`b468e76`](https://github.com/walker93/cellmap-v2/commit/b468e76)
 - Merge branch 'feat/cache-element-lookups' [`3a76d61`](https://github.com/walker93/cellmap-v2/commit/3a76d61)
 - Merge branch 'feat/accordion-disclosure-buttons' [`5c8758d`](https://github.com/walker93/cellmap-v2/commit/5c8758d)
 
