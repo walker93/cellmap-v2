@@ -11,6 +11,7 @@ import {
     removeFeature,
     setTowerHidden,
 } from '../towerState.js';
+import { el } from './dom.js';
 
 // `numeral`, `math` and `mapboxgl` are CDN globals from index.html.
 
@@ -58,8 +59,8 @@ function setVisibilityButton(button, hidden, showLabel, hideLabel) {
 function createRow(labelElements, actions) {
     const row = document.createElement('div');
     row.className = 'table-element';
-    for (const el of labelElements) {
-        row.appendChild(el);
+    for (const label of labelElements) {
+        row.appendChild(label);
     }
 
     const col = document.createElement('span');
@@ -127,9 +128,9 @@ function towerToggle(marker) {
 
 /** Rebuild the tower / POI / overlay sidebar tables from the current features. */
 export function createTable(tableData) {
-    const towerTable = document.getElementById('features');
-    const poiTable = document.getElementById('poi');
-    const overlayTable = document.getElementById('overlays');
+    const towerTable = el('features');
+    const poiTable = el('poi');
+    const overlayTable = el('overlays');
     towerTable.innerHTML = '';
     poiTable.innerHTML = '';
     overlayTable.innerHTML = '';

@@ -8,6 +8,7 @@ import * as turf from '@turf/turf';
 import { map } from './map.js';
 import { draw } from './draw.js';
 import { createTable } from './ui/table.js';
+import { el } from './ui/dom.js';
 
 // `numeral` and `mapboxgl` are CDN globals from index.html.
 
@@ -109,9 +110,9 @@ export function registerMapEvents() {
     });
 
     map.on('contextmenu', (e) => {
-        if (document.getElementById('inputs').style.display == 'block') {
-            var lat = document.getElementById('inp_lat');
-            var lon = document.getElementById('inp_lon');
+        if (el('inputs').style.display == 'block') {
+            var lat = el('inp_lat');
+            var lon = el('inp_lon');
             lat.value = e.lngLat.lat;
             lon.value = e.lngLat.lng;
         }

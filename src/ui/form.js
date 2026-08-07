@@ -4,6 +4,7 @@ import { addGeoJsonSource } from '../mapSource.js';
 import { createTable, setRowEditHandler } from './table.js';
 import { buildTowerFeature, validateTowerFields } from '../towerFeature.js';
 import { addTower } from '../towerState.js';
+import { el } from './dom.js';
 
 // The add/edit form: reading the inputs, building/updating a tower or POI, and
 // showing/hiding the panel. The "Salva" button edits either a cell or a POI
@@ -30,11 +31,11 @@ export function aggiungiCella(existingCell) {
 
 function validateCellInput() {
     const result = validateTowerFields({
-        lat: document.getElementById('inp_lat').value,
-        lon: document.getElementById('inp_lon').value,
-        radius: document.getElementById('inp_radius').value,
-        angle1: document.getElementById('angle1').value,
-        angle2: document.getElementById('angle2').value,
+        lat: el('inp_lat').value,
+        lon: el('inp_lon').value,
+        radius: el('inp_radius').value,
+        angle1: el('angle1').value,
+        angle2: el('angle2').value,
     });
     if (!result.valid) {
         alert(result.errors.join('\n'));
@@ -43,15 +44,15 @@ function validateCellInput() {
 }
 
 function createFeatureFromInput() {
-    const lat = parseFloat(document.getElementById('inp_lat').value);
-    const lon = parseFloat(document.getElementById('inp_lon').value);
-    var angolo1 = document.getElementById('angle1');
-    var angolo2 = document.getElementById('angle2');
-    var name = document.getElementById('inp_name');
-    var desc = document.getElementById('inp_desc');
-    var radius = document.getElementById('inp_radius');
-    var fillcolor = document.getElementById('inp_fill');
-    var alpha = document.getElementById('inp_alpha');
+    const lat = parseFloat(el('inp_lat').value);
+    const lon = parseFloat(el('inp_lon').value);
+    var angolo1 = el('angle1');
+    var angolo2 = el('angle2');
+    var name = el('inp_name');
+    var desc = el('inp_desc');
+    var radius = el('inp_radius');
+    var fillcolor = el('inp_fill');
+    var alpha = el('inp_alpha');
 
     const { marker, sector } = buildTowerFeature({
         lon,
@@ -70,31 +71,31 @@ function createFeatureFromInput() {
 }
 
 function resetForm() {
-    document.getElementById('inp_lat').value = '';
-    document.getElementById('inp_lon').value = '';
-    document.getElementById('angle1').value = '0';
-    document.getElementById('angle2').value = '360';
-    document.getElementById('inp_name').value = '';
-    document.getElementById('inp_desc').value = '';
-    document.getElementById('inp_radius').value = '3';
-    document.getElementById('inp_fill').value = '#FF0000';
-    document.getElementById('inp_alpha').value = '0.2';
-    document.getElementById('feature-id').value = '';
-    document.getElementById('inp_icon').tomselect.clear();
+    el('inp_lat').value = '';
+    el('inp_lon').value = '';
+    el('angle1').value = '0';
+    el('angle2').value = '360';
+    el('inp_name').value = '';
+    el('inp_desc').value = '';
+    el('inp_radius').value = '3';
+    el('inp_fill').value = '#FF0000';
+    el('inp_alpha').value = '0.2';
+    el('feature-id').value = '';
+    el('inp_icon').tomselect.clear();
 }
 
 function loadForm(feature) {
-    var lat = document.getElementById('inp_lat');
-    var lon = document.getElementById('inp_lon');
-    var angolo1 = document.getElementById('angle1');
-    var angolo2 = document.getElementById('angle2');
-    var name = document.getElementById('inp_name');
-    var desc = document.getElementById('inp_desc');
-    var radius = document.getElementById('inp_radius');
-    var fillcolor = document.getElementById('inp_fill');
-    var alpha = document.getElementById('inp_alpha');
-    var feat_id = document.getElementById('feature-id');
-    var icn = document.getElementById('inp_icon');
+    var lat = el('inp_lat');
+    var lon = el('inp_lon');
+    var angolo1 = el('angle1');
+    var angolo2 = el('angle2');
+    var name = el('inp_name');
+    var desc = el('inp_desc');
+    var radius = el('inp_radius');
+    var fillcolor = el('inp_fill');
+    var alpha = el('inp_alpha');
+    var feat_id = el('feature-id');
+    var icn = el('inp_icon');
 
     if (feature.properties.marker && feature.properties.marker == 'cell') {
         //if cell feature load all previus fields
@@ -134,14 +135,14 @@ function loadForm(feature) {
 }
 
 function modificaPoi() {
-    var feature_id = document.getElementById('feature-id').value;
+    var feature_id = el('feature-id').value;
     var feature = draw.get(feature_id);
-    var lat = document.getElementById('inp_lat');
-    var lon = document.getElementById('inp_lon');
-    var name = document.getElementById('inp_name');
-    var desc = document.getElementById('inp_desc');
-    var fillcolor = document.getElementById('inp_fill');
-    var alpha = document.getElementById('inp_alpha');
+    var lat = el('inp_lat');
+    var lon = el('inp_lon');
+    var name = el('inp_name');
+    var desc = el('inp_desc');
+    var fillcolor = el('inp_fill');
+    var alpha = el('inp_alpha');
     feature.properties.name = name.value;
     feature.properties.description = desc.value;
     feature.properties.fill = fillcolor.value;
@@ -151,7 +152,7 @@ function modificaPoi() {
         feature.geometry.coordinates[1] = parseFloat(lat.value);
     }
     if (!(feature.properties.marker && feature.properties.marker == 'cell')) {
-        var icon_select = document.getElementById('inp_icon');
+        var icon_select = el('inp_icon');
         var category = icon_select.options[icon_select.selectedIndex].parentNode;
         feature.properties.icon = icon_select.value || undefined; // Set icon or remove if empty
         feature.properties.icon_category = category.label || undefined; // Set category or remove if empty
@@ -165,7 +166,7 @@ function modificaPoi() {
 }
 
 function modificaCella() {
-    var feature_id = document.getElementById('feature-id').value;
+    var feature_id = el('feature-id').value;
 
     //Delete old sector (the tower itself is re-added by aggiungiCella below)
     removeSectorsByTowerId(feature_id);
@@ -189,12 +190,12 @@ let lastFocused = null;
 // `display: none` (the add/save button pair toggles this way), or opted out with
 // `tabindex="-1"`.
 function getFocusableElements() {
-    const container = document.getElementById('inputs');
+    const container = el('inputs');
     const candidates = container.querySelectorAll(
         'a[href], button, input:not([type="hidden"]), select, textarea, [tabindex]',
     );
     return Array.from(candidates).filter(
-        (el) => !el.disabled && el.style.display !== 'none' && el.tabIndex !== -1,
+        (node) => !node.disabled && node.style.display !== 'none' && node.tabIndex !== -1,
     );
 }
 
@@ -227,24 +228,24 @@ export function openForm(marker) {
     lastFocused = document.activeElement;
     if (marker != null) {
         //change button to save instead of add
-        document.getElementById('savebtn').style.display = 'inline-block';
-        document.getElementById('addbtn').style.display = 'none';
+        el('savebtn').style.display = 'inline-block';
+        el('addbtn').style.display = 'none';
     } else {
         //change button to add instead of save
-        document.getElementById('savebtn').style.display = 'none';
-        document.getElementById('addbtn').style.display = 'inline-block';
-        document.getElementById('inp_icon').tomselect.disable();
+        el('savebtn').style.display = 'none';
+        el('addbtn').style.display = 'inline-block';
+        el('inp_icon').tomselect.disable();
     }
-    document.getElementById('inputs').style.display = 'block';
+    el('inputs').style.display = 'block';
     // dialog a11y: allow Escape to close, and move focus into the dialog
     document.addEventListener('keydown', onDialogKeydown);
-    document.getElementById('inp_name').focus();
+    el('inp_name').focus();
 }
 
 export function closeForm() {
-    document.getElementById('inputs').style.display = 'none';
-    document.getElementById('savebtn').style.display = 'none';
-    document.getElementById('addbtn').style.display = 'inline-block';
+    el('inputs').style.display = 'none';
+    el('savebtn').style.display = 'none';
+    el('addbtn').style.display = 'inline-block';
     document.removeEventListener('keydown', onDialogKeydown);
     // restore focus to whatever opened the dialog
     if (lastFocused && typeof lastFocused.focus === 'function') {
