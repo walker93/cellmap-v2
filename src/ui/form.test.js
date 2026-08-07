@@ -63,6 +63,9 @@ beforeEach(() => {
         </div>
         <div id="features"></div><div id="poi"></div><div id="overlays"></div>`;
     document.getElementById('inp_icon').tomselect = tomselectStub();
+    // The form keeps its pending-save handler in module state; closing clears it,
+    // so every case starts from "nothing is being edited" whatever ran before.
+    form.closeForm();
 });
 
 afterEach(() => vi.restoreAllMocks());
@@ -169,6 +172,78 @@ describe('aggiungiCella', () => {
         form.aggiungiCella();
         expect(alertSpy).toHaveBeenCalled();
         expect(getSectors().features).toHaveLength(0);
+    });
+});
+
+// The entry point shared by the sidebar pencil and by mapEvents when a POI has
+// just been drawn on the map.
+describe('editFeature', () => {
+    const poi = () => ({
+        id: 'poi-1',
+        properties: {
+            name: 'Bar',
+            description: "all'angolo",
+            fill: '#00ff00',
+            opacity: 0.5,
+            icon: 'usr_bar',
+        },
+        geometry: { type: 'Point', coordinates: [9.19, 45.46] },
+    });
+
+    const cell = () => ({
+        id: 't1',
+        properties: { marker: 'cell', Angle1: -60, Angle2: 60, Radius: 2, fill: '#ff0000' },
+        geometry: { type: 'Point', coordinates: [9.19, 45.46] },
+    });
+
+    it('opens a POI in edit mode with the icon picker enabled', () => {
+        const enable = vi.spyOn(document.getElementById('inp_icon').tomselect, 'enable');
+        form.editFeature(poi());
+        expect(document.getElementById('inputs').style.display).toBe('block');
+        expect(document.getElementById('savebtn').style.display).toBe('inline-block');
+        expect(document.getElementById('addbtn').style.display).toBe('none');
+        expect(enable).toHaveBeenCalled();
+        // sector geometry is meaningless for a POI
+        expect(document.getElementById('inp_radius').disabled).toBe(true);
+        expect(document.getElementById('angle1').disabled).toBe(true);
+        expect(document.getElementById('angle2').disabled).toBe(true);
+    });
+
+    it('fills the fields from the feature', () => {
+        form.editFeature(poi());
+        expect(document.getElementById('inp_name').value).toBe('Bar');
+        expect(document.getElementById('inp_desc').value).toBe("all'angolo");
+        expect(document.getElementById('inp_lon').value).toBe('9.19');
+        expect(document.getElementById('inp_lat').value).toBe('45.46');
+        expect(document.getElementById('inp_fill').value).toBe('#00ff00');
+        expect(document.getElementById('inp_alpha').value).toBe('0.5');
+        expect(document.getElementById('feature-id').value).toBe('poi-1');
+    });
+
+    it('keeps the sector fields for a cell and locks the icon picker', () => {
+        const disable = vi.spyOn(document.getElementById('inp_icon').tomselect, 'disable');
+        form.editFeature(cell());
+        expect(document.getElementById('inp_radius').disabled).toBe(false);
+        expect(document.getElementById('angle1').value).toBe('-60');
+        expect(document.getElementById('angle2').value).toBe('60');
+        expect(document.getElementById('inp_radius').value).toBe('2');
+        expect(disable).toHaveBeenCalled();
+    });
+
+    it('disables the coordinates for a non-Point geometry', () => {
+        form.editFeature({
+            id: 'l1',
+            properties: {},
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [9, 45],
+                    [9.1, 45.1],
+                ],
+            },
+        });
+        expect(document.getElementById('inp_lat').disabled).toBe(true);
+        expect(document.getElementById('inp_lon').disabled).toBe(true);
     });
 });
 

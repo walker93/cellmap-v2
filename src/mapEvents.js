@@ -1,13 +1,12 @@
 // Mapbox/MapboxDraw event handlers: measurement labels on draw.render, sidebar
 // refresh on draw create/delete/update, the tower/POI click popup, the contextmenu
 // lat/lon fill-in, and the marker hover cursor. Split out of bootstrap.js so the
-// bootstrap file is just layer/control setup plus button wiring; there's no shared
-// logic or state here worth testing in isolation, so this is a straight code move,
-// not a behavioural change.
+// bootstrap file is just layer/control setup plus button wiring.
 import * as turf from '@turf/turf';
 import { map } from './map.js';
 import { draw } from './draw.js';
 import { createTable } from './ui/table.js';
+import { editFeature } from './ui/form.js';
 import { el } from './ui/dom.js';
 
 // `numeral` and `mapboxgl` are CDN globals from index.html.
@@ -99,6 +98,21 @@ export function registerMapEvents() {
         feature.properties.opacity = 0.2;
         draw.add(feature);
         createTable(draw.getAll());
+
+        // A point drawn on the map is a POI, and a POI without an icon is only
+        // half-made: it used to take three separate steps (place it, find its row
+        // in the sidebar, open it with the pencil) to pick one. Chain the form onto
+        // the placement instead — click-to-place is kept, the form just opens on
+        // top of it. Re-read the feature through draw.get so the form sees the
+        // defaults applied just above.
+        //
+        // Points only: draw.create also fires for the measurement lines and
+        // polygons, and a modal after every one of those would be in the way (they
+        // even finish on a double click). Those keep the sidebar pencil. Cells are
+        // unaffected — addTower calls draw.add directly, which emits no draw.create.
+        if (feature.geometry.type === 'Point') {
+            editFeature(draw.get(feature.id));
+        }
     });
 
     map.on('draw.delete', function () {

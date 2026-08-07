@@ -243,6 +243,9 @@ export function openForm(marker) {
 }
 
 export function closeForm() {
+    // Closing ends the edit: drop the handler so a later submit can't fire against
+    // the feature that was being edited two dialogs ago.
+    pendingSaveHandler = null;
     el('inputs').style.display = 'none';
     el('savebtn').style.display = 'none';
     el('addbtn').style.display = 'inline-block';
@@ -259,8 +262,17 @@ export function submitEditForm() {
     if (pendingSaveHandler) pendingSaveHandler();
 }
 
-// A row's "edit" (pencil) button loads that feature into the form and opens it.
-setRowEditHandler(function (marker) {
+/**
+ * Load an existing feature into the form and open it in edit mode. loadForm picks
+ * the field set (cell vs POI) and the save handler from the feature itself, so
+ * both entry points — the row pencil and a POI just drawn on the map — go through
+ * exactly the same path.
+ * @param {object} marker A feature from the Draw store.
+ */
+export function editFeature(marker) {
     loadForm(marker);
     openForm(marker);
-});
+}
+
+// A row's "edit" (pencil) button loads that feature into the form and opens it.
+setRowEditHandler(editFeature);
