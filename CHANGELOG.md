@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Feature
+- replace the sidebar button row with a "Progetto" menu and per-section actions [`177919d`](https://github.com/walker93/cellmap-v2/commit/177919d)
 - save and open the whole map as a .cellmap project file [`2c9016c`](https://github.com/walker93/cellmap-v2/commit/2c9016c)
 - open the edit form right after a POI is drawn on the map [`9733105`](https://github.com/walker93/cellmap-v2/commit/9733105)
 - replace the checkbox-hack accordions with aria-expanded disclosure buttons [`3fe0421`](https://github.com/walker93/cellmap-v2/commit/3fe0421)
@@ -15,11 +16,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - resolve the app's static elements once through a memoized el() helper [`af619ff`](https://github.com/walker93/cellmap-v2/commit/af619ff)
 
 ### Documentation
+- :robot: changelog file generated [`9c54197`](https://github.com/walker93/cellmap-v2/commit/9c54197)
 - :robot: changelog file generated [`003d03c`](https://github.com/walker93/cellmap-v2/commit/003d03c)
 - :robot: changelog file generated [`4403d51`](https://github.com/walker93/cellmap-v2/commit/4403d51)
 - :robot: changelog file generated [`62a5205`](https://github.com/walker93/cellmap-v2/commit/62a5205)
 
 ### Other
+- Merge origin/main (changelog bot commit) [`abe7f8e`](https://github.com/walker93/cellmap-v2/commit/abe7f8e)
+- Merge branch 'feat/project-menu-ui' [`74d4a6d`](https://github.com/walker93/cellmap-v2/commit/74d4a6d)
 - Merge origin/main (changelog bot commit) [`9985fc2`](https://github.com/walker93/cellmap-v2/commit/9985fc2)
 - Merge branch 'feat/cellmap-project-format' [`12802d3`](https://github.com/walker93/cellmap-v2/commit/12802d3)
 - Merge origin/main (changelog bot commit) [`4f07c5b`](https://github.com/walker93/cellmap-v2/commit/4f07c5b)
