@@ -126,8 +126,8 @@
             </div>
             <div id="elements">
                 <div id="table" class="tab">
-                    <input type="checkbox" name="accordion-1" id="cb1" aria-controls="tab1-content" checked>
-                    <label for="cb1" id="tab1-label" class="tab__label">Cell Towers</label>
+                    <button type="button" id="tab1-label" class="tab__label" aria-expanded="true"
+                        aria-controls="tab1-content">Cell Towers</button>
                     <div class="tab__content" id="tab1-content" role="region" aria-labelledby="tab1-label">
                         <div class="table-header table-header--tower">
                             <span class="col-name">Name</span>
@@ -142,16 +142,16 @@
                     </div>
                 </div>
                 <div id="poi-table" class="tab">
-                    <input type="checkbox" name="accordion-2" id="cb2" aria-controls="tab2-content">
-                    <label for="cb2" id="tab2-label" class="tab__label">Points of interest:</label>
+                    <button type="button" id="tab2-label" class="tab__label" aria-expanded="false"
+                        aria-controls="tab2-content">Points of interest</button>
                     <div class="tab__content" id="tab2-content" role="region" aria-labelledby="tab2-label">
                         <div id="poi">
                         </div>
                     </div>
                 </div>
                 <div id="over-table" class="tab">
-                    <input type="checkbox" name="accordion-3" id="cb3" aria-controls="tab3-content">
-                    <label for="cb3" id="tab3-label" class="tab__label">Overlays</label>
+                    <button type="button" id="tab3-label" class="tab__label" aria-expanded="false"
+                        aria-controls="tab3-content">Overlays</button>
                     <div class="tab__content" id="tab3-content" role="region" aria-labelledby="tab3-label">
                         <div id="overlays">
                         </div>

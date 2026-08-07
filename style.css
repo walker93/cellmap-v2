@@ -20,17 +20,15 @@
 .tab {
   position: relative;
 }
-.tab input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
 .tab__content {
   max-height: 0;
   overflow: hidden;
   transition: all 0.35s;
 }
-.tab input:checked ~ .tab__content {
+/* The header is a <button aria-expanded> driven by src/ui/accordion.js, so the
+   same attribute assistive tech reads is what opens the panel here — no hidden
+   checkbox in between. */
+.tab__label[aria-expanded="true"] + .tab__content {
   max-height: 15rem;
   overflow-y: auto;
 }
@@ -44,7 +42,14 @@
 }
 .tab__label {
   justify-content: space-between;
+  align-items: center;
   padding: 1rem;
+  /* strip the UA button chrome and let it span the section like the old <label> */
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+  font: inherit;
+  text-align: left;
 }
 .tab__label:hover {
     background-color: var(--secondary-color);
@@ -57,11 +62,11 @@
   transform: rotate(90deg);
   transition: all 0.35s;
 }
-.tab input:checked + .tab__label::after {
+.tab__label[aria-expanded="true"]::after {
   transform: rotate(270deg);
 }
 /* Arrow animation */
-.tab input:not(:checked) + .tab__label:hover::after {
+.tab__label[aria-expanded="false"]:hover::after {
   animation: bounce .5s infinite;
 
 }
@@ -249,8 +254,8 @@ span>.fa-sharp:hover {
     color: var(--secondary-color);
 }
 
-/* Visible keyboard focus for the checkbox-hack accordion (its checkbox is hidden). */
-.tab input:focus-visible+.tab__label {
+/* Visible keyboard focus for the accordion headers. */
+.tab__label:focus-visible {
     outline: 2px solid var(--accent-color);
     outline-offset: -2px;
 }
