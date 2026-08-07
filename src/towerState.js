@@ -15,6 +15,7 @@ import { draw } from './draw.js';
 import { addGeoJsonSource } from './mapSource.js';
 import { addSector, getSectors, getSectorsByTowerId, removeSectorsByTowerId } from './sectors.js';
 import { addHiddenPoi, takeHiddenPoi, removeHiddenPoi } from './hiddenPois.js';
+import { buildCoverageSector, towerFieldsFromFeature } from './towerFeature.js';
 
 function refreshMarkersSource() {
     addGeoJsonSource('settori', draw.getAll());
@@ -68,6 +69,48 @@ export function linkTowerSector(id, sector) {
     syncMarkerIdProperty(id);
     sector.properties.towerid = id;
     addSector(sector);
+}
+
+function isCell(feature) {
+    return Boolean(feature.properties && feature.properties.marker === 'cell');
+}
+
+/**
+ * Load a FeatureCollection into the map state: features into the draw store, a
+ * freshly rebuilt coverage sector for every cell tower, and the hidden ones put
+ * back the way they were saved.
+ *
+ * Sectors are never stored in a file — they're derived from the tower's fields —
+ * so they're recomputed here rather than read. Hidden state is restored through
+ * the two different mechanisms the app uses for it: a hidden POI lives *outside*
+ * the draw store (see hiddenPois.js), while a hidden tower stays in it and is
+ * filtered out at the layer level.
+ *
+ * Shared by the GeoJSON importer and the project opener; both call deleteAll()
+ * first, since this adds to the current state rather than replacing it.
+ *
+ * @param {object} featureCollection A GeoJSON FeatureCollection.
+ */
+export function loadFeatures(featureCollection) {
+    const features = (featureCollection && featureCollection.features) || [];
+    const inDrawStore = [];
+    for (const feature of features) {
+        if (feature.properties && feature.properties.hidden && !isCell(feature)) {
+            addHiddenPoi(feature);
+        } else {
+            inDrawStore.push(feature);
+        }
+    }
+
+    draw.add({ type: 'FeatureCollection', features: inDrawStore });
+    for (const feature of inDrawStore) {
+        if (!isCell(feature)) continue;
+        linkTowerSector(feature.id, buildCoverageSector(towerFieldsFromFeature(feature)));
+        if (feature.properties.hidden) setTowerHidden(feature.id, true);
+    }
+
+    refreshMarkersSource();
+    refreshSectorsSource();
 }
 
 /**

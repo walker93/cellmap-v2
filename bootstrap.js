@@ -5,6 +5,7 @@ import { exportGeoJSON, importGeoJSON } from './src/io/geojson.js';
 import { exportKML } from './src/io/kml.js';
 import { importCSV } from './src/io/csv.js';
 import { importKMZ } from './src/io/kmz.js';
+import { saveProject, openProject } from './src/io/project.js';
 import { addGeoJsonSource } from './src/mapSource.js';
 import { openForm, closeForm, aggiungiCella, submitEditForm } from './src/ui/form.js';
 import { loadIcons } from './src/ui/iconPicker.js';
@@ -160,6 +161,8 @@ registerMapEvents();
 // ---------------------------------------------------------------------------
 function wireControls() {
     var handlers = {
+        saveproject: saveProject,
+        openproject: openProject,
         add: function () { openForm(null); },
         import: importCSV,
         savejson: exportGeoJSON,
