@@ -269,6 +269,7 @@ describe('csvRowToTowerFields', () => {
             fill: '#00ff00',
             opacity: 0.8,
             gradient: false,
+            rings: false,
         });
     });
 

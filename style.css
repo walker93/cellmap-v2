@@ -71,6 +71,18 @@
     background-color: var(--secondary-color);
 }
 
+/* The settings section has rows of controls rather than a list of rows, so it
+   needs the padding the tables provide for themselves. */
+.tab__settings {
+  padding: 0.25rem 0.75rem 0.75rem;
+}
+
+.tab__note {
+  margin: 0.25rem 0 0;
+  font-size: 0.8em;
+  opacity: 0.75;
+}
+
 /* The per-section action ("Aggiungi cella", "Aggiungi overlay"): it sits next to
    the list it adds to, which is what makes a short label enough. */
 .tab__action {

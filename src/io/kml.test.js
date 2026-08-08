@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, vi } from 'vitest';
 import { buildCoverageSector, buildCoverageSectors, buildTowerFeature } from '../towerFeature.js';
+import { buildRings } from '../distanceRings.js';
 
 // kml.js transitively imports draw.js, which builds a MapboxDraw control from a
 // CDN global at module-eval time; and `tokml` is itself a CDN global in the app.
@@ -81,6 +82,23 @@ describe('generateKML outlines', () => {
         // alpha 00 => invisible whatever the colour, and a zero width on top
         expect(kml).toContain('<color>000000ff</color><width>0</width>');
         expect(kml).not.toContain('<width>2</width>');
+    });
+
+    // Distance rings are the one thing on the map that is *meant* to be a line, and
+    // they are in the export because the KML is the copy that ends up in a report.
+    it('styles a distance ring in the cell’s colour', () => {
+        const [ring] = buildRings(
+            {
+                id: 't1',
+                geometry: { type: 'Point', coordinates: [9.19, 45.46] },
+                properties: { Radius: 3, Angle1: 0, Angle2: 90, fill: '#ff0000' },
+            },
+            1,
+        );
+        const kml = kmlOf([ring]);
+        expect(kml).toContain('<LineStyle><color>ff0000ff</color><width>1</width></LineStyle>');
+        expect(kml).toContain('<LineString>');
+        expect(kml).not.toContain('ff555555');
     });
 
     it('still carries the fill through', () => {

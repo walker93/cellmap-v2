@@ -1,5 +1,6 @@
 import { draw } from '../draw.js';
 import { getSectors } from '../sectors.js';
+import { buildRingCollection, getRingSettings } from '../distanceRings.js';
 import { saveFile } from './download.js';
 
 // `tokml` is a global provided by lib/tokml.js (a <script> in index.html).
@@ -24,11 +25,19 @@ export function generateKML(featureCollection) {
     });
 }
 
-/** Export both the draw features and their coverage sectors as a .kml file. */
+/** Export the draw features, their coverage sectors and any distance rings. */
 export function exportKML() {
     const merged = {
         type: 'FeatureCollection',
-        features: draw.getAll().features.concat(getSectors().features),
+        features: draw
+            .getAll()
+            .features.concat(getSectors().features)
+            // Derived like the sectors, and included for the same reason: the KML
+            // is the copy that ends up in a report, so it has to show what the
+            // screen showed.
+            .concat(
+                buildRingCollection(draw.getAll().features, getRingSettings().interval).features,
+            ),
     };
     return saveFile('map.kml', generateKML(merged), 'application/vnd.google-earth.kml+xml', {
         description: 'KML',

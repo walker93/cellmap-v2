@@ -13,6 +13,7 @@ import { confirmAndDeleteAll } from './src/reset.js';
 import { registerMapEvents } from './src/mapEvents.js';
 import { initAccordions } from './src/ui/accordion.js';
 import { initMenu } from './src/ui/menu.js';
+import { initDisplaySettings } from './src/ui/displaySettings.js';
 
 map.on('load', setupMapLayers);
 
@@ -23,10 +24,14 @@ function setupMapLayers() {
     };
     addGeoJsonSource('settori', geojson);
     addGeoJsonSource('aree', getSectors());
+    addGeoJsonSource('anelli', geojson);
     addCellLayer();
+    addRingLayers();
     addOtherTools();
     addMeasurementTools();
     loadIcons();
+    // After the layers exist: it applies the stored ring-label visibility to one.
+    initDisplaySettings();
 }
 
 function addCellLayer() {
@@ -68,6 +73,47 @@ function addCellLayer() {
         ]
 
     });
+}
+
+// Distance rings: real line features at round distances, as opposed to the band
+// boundaries that used to show through the uncertainty cone by accident. Both
+// layers go in below `markers`, so the lines sit over the sector fill but never
+// over an antenna.
+function addRingLayers() {
+    map.addLayer({
+        id: 'rings',
+        type: 'line',
+        source: 'anelli',
+        paint: {
+            "line-color": ["get", "stroke"],
+            "line-width": ["get", "stroke-width"],
+            "line-opacity": ["get", "stroke-opacity"],
+        }
+    }, 'markers');
+
+    map.addLayer({
+        id: 'ring-labels',
+        type: 'symbol',
+        source: 'anelli',
+        // Off until the checkbox in "Map display" says otherwise.
+        layout: {
+            "visibility": "none",
+            "text-field": ["get", "label"],
+            // along the arc rather than at a point: the label reads as belonging
+            // to that ring and not to whatever it happens to sit next to
+            "symbol-placement": "line",
+            "text-size": 11,
+            "text-allow-overlap": false,
+        },
+        paint: {
+            "text-color": ["get", "stroke"],
+            "text-halo-color": "hsl(0, 0%, 100%)",
+            "text-halo-width": 1.5,
+        }
+        // Under the tower markers, so that when a ring label and a cell name want
+        // the same spot the cell name is the one that gets it: Mapbox resolves
+        // symbol collisions from the top layer down.
+    }, 'markers');
 }
 
 function addOtherTools() {

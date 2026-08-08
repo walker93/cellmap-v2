@@ -58,6 +58,7 @@ beforeEach(() => {
             <input id="inp_radius"><input id="angle1"><input id="angle2">
             <input id="inp_alpha"><input id="inp_fill">
             <input type="checkbox" id="inp_gradient">
+            <input type="checkbox" id="inp_rings">
             <div id="cell-identity">
                 <input id="inp_mcc"><input id="inp_mnc">
                 <input id="inp_lac"><input id="inp_cellid">
@@ -339,6 +340,38 @@ describe('cell identity', () => {
         form.aggiungiCella();
         expect(alertSpy).toHaveBeenCalled();
         expect(getSectors().features).toHaveLength(0);
+    });
+});
+
+// Rings are switched on per cell but spaced per map, so the only thing the cell
+// form owns is the flag — and it rides on the marker, like `gradient`, because the
+// rings are rebuilt from the tower's fields on every import.
+describe('distance rings flag', () => {
+    it('records the choice on the tower it creates', () => {
+        const added = vi.spyOn(draw, 'add');
+        form.openForm(null);
+        fillValidTower();
+        document.getElementById('inp_rings').checked = true;
+        form.aggiungiCella();
+        expect(added.mock.calls[0][0].properties.rings).toBe(true);
+    });
+
+    it('reads the choice back when editing that tower', () => {
+        form.editFeature({
+            id: 't1',
+            properties: { marker: 'cell', Angle1: 0, Angle2: 90, Radius: 2, rings: true },
+            geometry: { type: 'Point', coordinates: [9.19, 45.46] },
+        });
+        expect(document.getElementById('inp_rings').checked).toBe(true);
+    });
+
+    it('is meaningless for a POI, so the control is locked', () => {
+        form.editFeature({
+            id: 'p1',
+            properties: { name: 'Bar' },
+            geometry: { type: 'Point', coordinates: [9.19, 45.46] },
+        });
+        expect(document.getElementById('inp_rings').disabled).toBe(true);
     });
 });
 

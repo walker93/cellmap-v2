@@ -101,6 +101,13 @@
                             <span class="tooltiptext">If checked, the sector will be drawn with a gradient that fades to transparent at the edges.</span>
                         </i>
                     </div>
+                    <div class="line line--toggle">
+                        <label for="inp_rings">Distance rings:</label>
+                        <input type="checkbox" id="inp_rings">
+                        <i aria-hidden="true" class="fa-solid fa-circle-info tooltip">
+                            <span class="tooltiptext">If checked, arcs are drawn across this cell's coverage at round distances. The spacing is set once for the whole map, under Map display.</span>
+                        </i>
+                    </div>
                     <!-- Widest scope first: the fields read down the page in the same
                          order they are written in a CGI, MCC-MNC-LAC-CID. -->
                     <div id="cell-identity">
@@ -218,6 +225,29 @@
                     </div>
                     <div class="tab__content" id="tab3-content" role="region" aria-labelledby="tab3-label">
                         <div id="overlays">
+                        </div>
+                    </div>
+                </div>
+                <!-- Not a collection like the three above but a group of settings that
+                     apply to the whole map, so: last, because it is consulted rarely,
+                     and no "add" action in the header, because there is nothing to add
+                     to. The layer switcher belongs in here too when it arrives. -->
+                <div id="display-table" class="tab">
+                    <div class="tab__header">
+                        <button type="button" id="tab4-label" class="tab__label" aria-expanded="false"
+                            aria-controls="tab4-content">Map display</button>
+                    </div>
+                    <div class="tab__content" id="tab4-content" role="region" aria-labelledby="tab4-label">
+                        <div class="tab__settings">
+                            <div class="line">
+                                <label for="ring-interval">Ring spacing:</label>
+                                <select id="ring-interval"></select>
+                            </div>
+                            <div class="line line--toggle">
+                                <label for="ring-labels">Ring labels:</label>
+                                <input type="checkbox" id="ring-labels">
+                            </div>
+                            <p class="tab__note">Rings are switched on per cell, in the cell's own form.</p>
                         </div>
                     </div>
                 </div>

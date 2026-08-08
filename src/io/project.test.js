@@ -40,6 +40,7 @@ beforeAll(async () => {
                 removeLayer(id) {
                     mapState.layers.delete(id);
                 },
+                getLayer: (id) => mapState.layers.get(id),
                 setLayoutProperty(id, name, value) {
                     mapState.layers.get(id).layout = { [name]: value };
                 },
@@ -100,7 +101,11 @@ beforeEach(() => {
     clearOverlays();
     clearHiddenPois();
     clearSectors();
-    document.body.innerHTML = '<div id="features"></div><div id="poi"></div><div id="overlays"></div>';
+    // createTable and the "Map display" controls both get repopulated on open, so
+    // the elements they write into have to exist the way they do in index.html.
+    document.body.innerHTML =
+        '<div id="features"></div><div id="poi"></div><div id="overlays"></div>' +
+        '<select id="ring-interval"></select><input type="checkbox" id="ring-labels">';
 });
 
 const tower = (id, extra = {}) => ({
@@ -200,6 +205,36 @@ describe('manifest', () => {
         // out-of-range opacity falls back rather than being written to the map
         expect(manifest.overlays[1].opacity).toBe(0.3);
     });
+
+    // Ring spacing applies to the whole map, so unlike every per-cell setting it
+    // has no feature to ride along on and has to be written here.
+    it('records the map-wide ring settings', () => {
+        const manifest = project.buildManifest([], '2026-08-08T00:00:00.000Z', {
+            interval: 0.5,
+            labels: true,
+        });
+        expect(manifest.display).toEqual({ ringInterval: 0.5, ringLabels: true });
+    });
+
+    // Adding an optional key is why this needed no format-version bump.
+    it('reads a project written before the display settings existed', () => {
+        const manifest = project.readManifest({
+            format: project.PROJECT_FORMAT,
+            formatVersion: 1,
+        });
+        expect(manifest.display).toEqual({ interval: null, labels: false });
+    });
+
+    it('ignores a ring spacing the map could not honour', () => {
+        for (const bad of [0, -1, 'wide', null]) {
+            const manifest = project.readManifest({
+                format: project.PROJECT_FORMAT,
+                formatVersion: 1,
+                display: { ringInterval: bad },
+            });
+            expect(manifest.display.interval).toBeNull();
+        }
+    });
 });
 
 describe('projectFeatures', () => {
@@ -239,6 +274,51 @@ describe('archive round trip', () => {
         expect(drawStore.get('t1').properties.name).toBe('Tower t1');
         // the hidden tower stays in the store and is filtered out at layer level
         expect(mapState.filters.get('markers')).toEqual(['all', ['!=', ['get', 'id'], 't2']]);
+    });
+
+    it('restores the ring settings and the per-cell ring flag', async () => {
+        const { setRingSettings, getRingSettings, resetRingSettings } = await import(
+            '../distanceRings.js'
+        );
+        drawStore.set('t1', tower('t1', { rings: true }));
+        drawStore.set('t2', tower('t2'));
+        setRingSettings({ interval: 0.5, labels: true });
+
+        const blob = await project.buildProjectArchive();
+        drawStore = new Map();
+        clearSectors();
+        resetRingSettings();
+
+        await project.loadProjectArchive(blob);
+
+        expect(getRingSettings()).toEqual({ interval: 0.5, labels: true });
+        expect(drawStore.get('t1').properties.rings).toBe(true);
+        expect(drawStore.get('t2').properties.rings).toBeFalsy();
+        // the rings themselves are derived, like the sectors: recomputed, not stored
+        const zip = await JSZip.loadAsync(blob);
+        const stored = JSON.parse(await zip.file('features.geojson').async('string'));
+        expect(stored.features.every((f) => f.geometry.type === 'Point')).toBe(true);
+    });
+
+    // A project saved before this feature has no spacing of its own, so rather
+    // than a default that may suit none of its cells it gets one measured off them.
+    it('derives a ring spacing for a project that predates the setting', async () => {
+        const { getRingSettings, resetRingSettings } = await import('../distanceRings.js');
+        drawStore.set('t1', tower('t1', { Radius: 20 }));
+        const blob = await project.buildProjectArchive();
+
+        const zip = await JSZip.loadAsync(blob);
+        const manifest = JSON.parse(await zip.file('manifest.json').async('string'));
+        delete manifest.display;
+        zip.file('manifest.json', JSON.stringify(manifest));
+        const legacy = await zip.generateAsync({ type: 'blob' });
+
+        drawStore = new Map();
+        clearSectors();
+        resetRingSettings();
+        await project.loadProjectArchive(legacy);
+
+        expect(getRingSettings().interval).toBe(2);
     });
 
     it('restores overlays with their order, name, opacity and visibility', async () => {
