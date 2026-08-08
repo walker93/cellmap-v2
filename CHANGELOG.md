@@ -13,10 +13,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - open the edit form right after a POI is drawn on the map [`9733105`](https://github.com/walker93/cellmap-v2/commit/9733105)
 - replace the checkbox-hack accordions with aria-expanded disclosure buttons [`3fe0421`](https://github.com/walker93/cellmap-v2/commit/3fe0421)
 
+### Bug Fixes
+- :lipstick: Improved form css and style [`9b09fe3`](https://github.com/walker93/cellmap-v2/commit/9b09fe3)
+
 ### Performance Improvements
 - resolve the app's static elements once through a memoized el() helper [`af619ff`](https://github.com/walker93/cellmap-v2/commit/af619ff)
 
 ### Documentation
+- :robot: changelog file generated [`dc97cec`](https://github.com/walker93/cellmap-v2/commit/dc97cec)
 - :robot: changelog file generated [`a187acd`](https://github.com/walker93/cellmap-v2/commit/a187acd)
 - :robot: changelog file generated [`f74ec5f`](https://github.com/walker93/cellmap-v2/commit/f74ec5f)
 - :robot: changelog file generated [`9c54197`](https://github.com/walker93/cellmap-v2/commit/9c54197)
