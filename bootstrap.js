@@ -84,6 +84,7 @@ function addRingLayers() {
         id: 'rings',
         type: 'line',
         source: 'anelli',
+        filter: ['==', ['get', 'kind'], 'ring'],
         paint: {
             "line-color": ["get", "stroke"],
             "line-width": ["get", "stroke-width"],
@@ -95,14 +96,18 @@ function addRingLayers() {
         id: 'ring-labels',
         type: 'symbol',
         source: 'anelli',
+        // One anchor point per ring, built in distanceRings.js. Labelling the arc
+        // itself with symbol-placement "line"/"line-center" gives a label per tile
+        // the line is split across, so the wide rings came out labelled twice.
+        filter: ['==', ['get', 'kind'], 'ring-label'],
         // Off until the checkbox in "Map display" says otherwise.
         layout: {
             "visibility": "none",
             "text-field": ["get", "label"],
-            // along the arc rather than at a point: the label reads as belonging
-            // to that ring and not to whatever it happens to sit next to
-            "symbol-placement": "line",
             "text-size": 11,
+            // upright rather than turned along the arc: easier to read, and the
+            // anchors line up on one radius so they read as a column
+            "text-rotation-alignment": "viewport",
             "text-allow-overlap": false,
         },
         paint: {

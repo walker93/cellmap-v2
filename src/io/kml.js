@@ -34,9 +34,14 @@ export function exportKML() {
             .features.concat(getSectors().features)
             // Derived like the sectors, and included for the same reason: the KML
             // is the copy that ends up in a report, so it has to show what the
-            // screen showed.
+            // screen showed. The label anchors stay behind — they exist only
+            // because Mapbox cannot label a line once, and Google Earth takes a
+            // ring's label from the Placemark name instead.
             .concat(
-                buildRingCollection(draw.getAll().features, getRingSettings().interval).features,
+                buildRingCollection(
+                    draw.getAll().features,
+                    getRingSettings().interval,
+                ).features.filter((f) => f.properties.kind === 'ring'),
             ),
     };
     return saveFile('map.kml', generateKML(merged), 'application/vnd.google-earth.kml+xml', {

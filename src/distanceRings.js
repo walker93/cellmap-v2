@@ -36,6 +36,16 @@ const TARGET_RINGS = 10;
 const MAX_RINGS_PER_CELL = 200;
 
 /**
+ * How strongly a ring is drawn. Well under full strength on purpose: at 1.0 a
+ * dozen saturated arcs read as the subject of the picture, when the subject is
+ * the coverage they are measuring. They have to be followable, not loud.
+ *
+ * Applies to the line only — the labels stay at full strength, since a label
+ * that is hard to read is a label that is not doing anything.
+ */
+export const RING_STROKE_OPACITY = 0.45;
+
+/**
  * Pick the spacing a project should start with.
  *
  * Driven by the *widest* cell rather than the typical one. The two failure modes
@@ -69,15 +79,40 @@ export function formatDistance(km) {
 }
 
 /**
+ * Where a ring's label goes: one explicit anchor point, at the middle of the arc.
+ *
+ * Not `symbol-placement: 'line-center'`, which is the obvious way to label an arc
+ * and which labelled the big rings twice. Mapbox splits a GeoJSON feature at tile
+ * boundaries and places a line label once per *piece*, so a ring wide enough to
+ * cross one came out labelled at both ends of the split. A point can only ever be
+ * labelled once, however the source is carved up.
+ *
+ * The middle of the arc is also where line-center would have put it — on the
+ * bisector of the cell's sweep, or due south of a full circle — so every ring on
+ * a tower lines its label up on the same radius, which reads as a column rather
+ * than as scatter.
+ */
+function labelAnchor(arc, label, marker) {
+    const coordinates = arc.geometry.coordinates;
+    return turf.point(coordinates[Math.floor(coordinates.length / 2)], {
+        kind: 'ring-label',
+        towerid: marker.id,
+        label,
+        stroke: marker.properties.fill,
+    });
+}
+
+/**
  * The rings for one tower: an arc across its coverage at every multiple of the
- * interval that falls inside it.
+ * interval that falls inside it, each with the anchor point its label sits on.
  *
  * The rim itself (d === R) is left out — that edge is the sector's own outline,
  * and drawing a ring on top of it would just be a second line in the same place.
  *
  * @param {object} marker A cell-tower Point feature from the draw store.
  * @param {number} interval Spacing in km.
- * @returns {object[]} LineString features, innermost first.
+ * @returns {object[]} Innermost first, each arc followed by its label anchor.
+ *   Tell them apart with `properties.kind` ('ring' / 'ring-label').
  */
 export function buildRings(marker, interval) {
     const spacing = Number(interval);
@@ -92,21 +127,27 @@ export function buildRings(marker, interval) {
     const rings = [];
     for (let n = 1; n * spacing < radius && n <= MAX_RINGS_PER_CELL; n++) {
         const distance = n * spacing;
+        const label = formatDistance(distance);
         const arc = turf.lineArc(center, distance, angle1, angle2);
         // Assigned rather than passed in: unlike turf.sector, lineArc ignores
         // `options.properties` altogether and only copies them off the centre
         // when the centre is a Feature.
         arc.properties = {
+            kind: 'ring',
             towerid: marker.id,
             marker: 'cell',
-            label: formatDistance(distance),
+            label,
+            // tokml takes the Placemark name from here, which is how the ring is
+            // labelled in Google Earth — it has no equivalent of a label placed
+            // along a line
+            name: label,
             // simplestyle, so the KML export styles these instead of falling back
             // to its default grey (see io/kml.js)
             stroke: marker.properties.fill,
-            'stroke-opacity': 1,
+            'stroke-opacity': RING_STROKE_OPACITY,
             'stroke-width': 1,
         };
-        rings.push(arc);
+        rings.push(arc, labelAnchor(arc, label, marker));
     }
     return rings;
 }
