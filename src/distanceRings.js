@@ -43,7 +43,7 @@ const MAX_RINGS_PER_CELL = 200;
  * Applies to the line only — the labels stay at full strength, since a label
  * that is hard to read is a label that is not doing anything.
  */
-export const RING_STROKE_OPACITY = 0.45;
+export const DEFAULT_RING_STROKE_OPACITY = 0.35;
 
 /**
  * Pick the spacing a project should start with.
@@ -114,11 +114,13 @@ function labelAnchor(arc, label, marker) {
  * @returns {object[]} Innermost first, each arc followed by its label anchor.
  *   Tell them apart with `properties.kind` ('ring' / 'ring-label').
  */
-export function buildRings(marker, interval) {
+export function buildRings(marker, interval, opacity) {
     const spacing = Number(interval);
     const radius = Number(marker.properties.Radius);
+    const opacityValue = Number(opacity);
     if (!Number.isFinite(spacing) || spacing <= 0) return [];
     if (!Number.isFinite(radius) || radius <= 0) return [];
+    if (!Number.isFinite(opacityValue) || opacityValue < 0 || opacityValue > 1) return [];
 
     const center = marker.geometry.coordinates;
     const angle1 = Number(marker.properties.Angle1);
@@ -144,7 +146,7 @@ export function buildRings(marker, interval) {
             // simplestyle, so the KML export styles these instead of falling back
             // to its default grey (see io/kml.js)
             stroke: marker.properties.fill,
-            'stroke-opacity': RING_STROKE_OPACITY,
+            'stroke-opacity': opacityValue,
             'stroke-width': 1,
         };
         rings.push(arc, labelAnchor(arc, label, marker));
@@ -164,13 +166,13 @@ export function buildRings(marker, interval) {
  * @param {number} interval Spacing in km.
  * @returns {object} A GeoJSON FeatureCollection.
  */
-export function buildRingCollection(markers, interval) {
+export function buildRingCollection(markers, interval, opacity) {
     const features = [];
     for (const marker of markers || []) {
         const p = marker.properties || {};
         if (p.marker !== 'cell' || !p.rings || p.hidden) continue;
         if (!marker.geometry || marker.geometry.type !== 'Point') continue;
-        features.push(...buildRings(marker, interval));
+        features.push(...buildRings(marker, interval, opacity));
     }
     return { type: 'FeatureCollection', features };
 }
@@ -181,6 +183,7 @@ export function buildRingCollection(markers, interval) {
 const settings = {
     interval: DEFAULT_RING_INTERVAL,
     labels: false,
+    opacity: DEFAULT_RING_STROKE_OPACITY,
 };
 
 /** The current map-wide ring settings. */
@@ -192,13 +195,24 @@ export function getRingSettings() {
  * Update the map-wide ring settings. Unknown or malformed values are ignored
  * rather than applied, so a hand-edited project file cannot leave the map with a
  * spacing of 0 or NaN.
- * @param {{interval?: number, labels?: boolean}} next
- * @returns {{interval: number, labels: boolean}} The settings now in force.
+ * @param {{interval?: number, labels?: boolean, opacity?: number}} next
+ * @returns {{interval: number, labels: boolean, opacity: number}} The settings now in force.
  */
 export function setRingSettings(next = {}) {
     const interval = Number(next.interval);
+    // Blank and null are held out before the conversion, because `Number(null)`
+    // and `Number('')` are both 0 — which unlike a 0 spacing is *inside* the
+    // valid range, so a caller meaning "no opinion" would end up asking for
+    // invisible rings. Same coercion trap validateTowerFields guards against.
+    const blank = next.opacity === null || next.opacity === '';
+    const opacity = blank ? NaN : Number(next.opacity);
+
     if (Number.isFinite(interval) && interval > 0) settings.interval = interval;
     if (next.labels !== undefined) settings.labels = Boolean(next.labels);
+    // Range-checked, not merely "is it a number": buildRings draws nothing at all
+    // for an opacity outside 0..1, so storing one would make every ring on the
+    // map quietly disappear with nothing to say why.
+    if (Number.isFinite(opacity) && opacity >= 0 && opacity <= 1) settings.opacity = opacity;
     return getRingSettings();
 }
 
@@ -206,4 +220,5 @@ export function setRingSettings(next = {}) {
 export function resetRingSettings() {
     settings.interval = DEFAULT_RING_INTERVAL;
     settings.labels = false;
+    settings.opacity = DEFAULT_RING_STROKE_OPACITY;
 }

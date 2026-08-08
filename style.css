@@ -5,8 +5,19 @@
     --text-color: #001219;
     --background-color: #e9d8a6;
     /* width of the right-hand controls column; the resizer updates this live */
-    --sidebar-width: 22rem;
+    --sidebar-width: 24rem;
 }
+
+#elements {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+#elements > .tab:last-child {
+    margin-bottom: 2px;
+    margin-top: auto;
+}
+
 /* INIZIO */
 .table-element {
     display: flex;
@@ -65,6 +76,7 @@
   border: none;
   font: inherit;
   text-align: left;
+  gap: 0.5rem;
 }
 .tab__label:hover,
 .tab__action:hover {

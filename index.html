@@ -87,7 +87,8 @@
                     <div class="line">
                         <label for="inp_alpha">Transparency:</label>
                         <input type="range" id="inp_alpha" placeholder="Transparency" min="0.1" max="1" step="0.01"
-                            value="0.2" oninput="this.nextElementSibling.value = Number.parseFloat(this.value).toFixed(2)">
+                            value="0.2"
+                            oninput="this.nextElementSibling.value = Number.parseFloat(this.value).toFixed(2)">
                         <output for="inp_alpha" id="alpha-value">0.20</output>
                     </div>
                     <div class="line">
@@ -96,16 +97,18 @@
                     </div>
                     <div class="line line--toggle">
                         <label for="inp_gradient">Uncertainty cone:</label>
-                        <input type="checkbox" id="inp_gradient"> 
+                        <input type="checkbox" id="inp_gradient">
                         <i aria-hidden="true" class="fa-solid fa-circle-info tooltip">
-                            <span class="tooltiptext">If checked, the sector will be drawn with a gradient that fades to transparent at the edges.</span>
+                            <span class="tooltiptext">If checked, the sector will be drawn with a gradient that fades to
+                                transparent at the edges.</span>
                         </i>
                     </div>
                     <div class="line line--toggle">
                         <label for="inp_rings">Distance rings:</label>
                         <input type="checkbox" id="inp_rings">
                         <i aria-hidden="true" class="fa-solid fa-circle-info tooltip">
-                            <span class="tooltiptext">If checked, arcs are drawn across this cell's coverage at round distances. The spacing is set once for the whole map, under Map display.</span>
+                            <span class="tooltiptext">If checked, arcs are drawn across this cell's coverage at round
+                                distances. The spacing is set once for the whole map, under Map display.</span>
                         </i>
                     </div>
                     <!-- Widest scope first: the fields read down the page in the same
@@ -235,13 +238,23 @@
                 <div id="display-table" class="tab">
                     <div class="tab__header">
                         <button type="button" id="tab4-label" class="tab__label" aria-expanded="false"
-                            aria-controls="tab4-content">Map display</button>
+                            aria-controls="tab4-content">
+                            <i aria-hidden="true" class="fa-sharp fa-solid fa-gear"></i>
+                            <span class="menu-trigger__label">Map display Settings</span>
+                        </button>
                     </div>
                     <div class="tab__content" id="tab4-content" role="region" aria-labelledby="tab4-label">
                         <div class="tab__settings">
                             <div class="line">
                                 <label for="ring-interval">Ring spacing:</label>
                                 <select id="ring-interval"></select>
+                            </div>
+                            <div class="line">
+                                <label for="ring-opacity">Ring opacity:</label>
+                                <input type="range" id="ring-opacity" min="0.1" max="1"
+                                    step="0.01" value="0.35"
+                                    oninput="this.nextElementSibling.value = Number.parseFloat(this.value).toFixed(2)">
+                                <output for="ring-opacity" id="opacity-value">0.35</output>
                             </div>
                             <div class="line line--toggle">
                                 <label for="ring-labels">Ring labels:</label>

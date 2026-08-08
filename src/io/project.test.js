@@ -15,7 +15,7 @@ vi.mock('./download.js', () => ({ saveFile: mocks.saveFile }));
 
 let project, drawStore, mapState;
 let getOverlays, clearOverlays, getHiddenPois, clearHiddenPois, getSectors, clearSectors;
-let addRasterOverlay;
+let addRasterOverlay, DEFAULT_RING_STROKE_OPACITY;
 
 beforeAll(async () => {
     vi.stubGlobal('JSZip', JSZip);
@@ -93,6 +93,7 @@ beforeAll(async () => {
     ({ getOverlays, clearOverlays } = await import('../overlays.js'));
     ({ getHiddenPois, clearHiddenPois } = await import('../hiddenPois.js'));
     ({ getSectors, clearSectors } = await import('../sectors.js'));
+    ({ DEFAULT_RING_STROKE_OPACITY } = await import('../distanceRings.js'));
 });
 
 beforeEach(() => {
@@ -105,7 +106,8 @@ beforeEach(() => {
     // the elements they write into have to exist the way they do in index.html.
     document.body.innerHTML =
         '<div id="features"></div><div id="poi"></div><div id="overlays"></div>' +
-        '<select id="ring-interval"></select><input type="checkbox" id="ring-labels">';
+        '<select id="ring-interval"></select><input type="checkbox" id="ring-labels">' +
+        '<input type="range" id="ring-opacity" min="0" max="1" step="0.01"><output id="opacity-value"></output>';
 });
 
 const tower = (id, extra = {}) => ({
@@ -212,8 +214,9 @@ describe('manifest', () => {
         const manifest = project.buildManifest([], '2026-08-08T00:00:00.000Z', {
             interval: 0.5,
             labels: true,
+            opacity: 0.8,
         });
-        expect(manifest.display).toEqual({ ringInterval: 0.5, ringLabels: true });
+        expect(manifest.display).toEqual({ ringInterval: 0.5, ringLabels: true, ringOpacity: 0.8 });
     });
 
     // Adding an optional key is why this needed no format-version bump.
@@ -222,7 +225,7 @@ describe('manifest', () => {
             format: project.PROJECT_FORMAT,
             formatVersion: 1,
         });
-        expect(manifest.display).toEqual({ interval: null, labels: false });
+        expect(manifest.display).toEqual({ interval: null, labels: false, opacity: DEFAULT_RING_STROKE_OPACITY });
     });
 
     it('ignores a ring spacing the map could not honour', () => {
@@ -282,7 +285,7 @@ describe('archive round trip', () => {
         );
         drawStore.set('t1', tower('t1', { rings: true }));
         drawStore.set('t2', tower('t2'));
-        setRingSettings({ interval: 0.5, labels: true });
+        setRingSettings({ interval: 0.5, labels: true, opacity: 0.8 });
 
         const blob = await project.buildProjectArchive();
         drawStore = new Map();
@@ -291,7 +294,10 @@ describe('archive round trip', () => {
 
         await project.loadProjectArchive(blob);
 
-        expect(getRingSettings()).toEqual({ interval: 0.5, labels: true });
+        expect(getRingSettings()).toEqual({ interval: 0.5, labels: true, opacity: 0.8 });
+        // the slider's readout is only wired to its own oninput, so opening a
+        // project has to set it explicitly or it keeps showing the old number
+        expect(document.getElementById('opacity-value').value).toBe('0.80');
         expect(drawStore.get('t1').properties.rings).toBe(true);
         expect(drawStore.get('t2').properties.rings).toBeFalsy();
         // the rings themselves are derived, like the sectors: recomputed, not stored
