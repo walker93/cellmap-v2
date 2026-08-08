@@ -1,4 +1,5 @@
 import * as turf from '@turf/turf';
+import { normalizeCellIdentity, validateCellIdentity } from './cellIdentity.js';
 
 /**
  * Build the coverage-sector polygon for a cell tower with turf.sector().
@@ -184,6 +185,10 @@ export function buildTowerFeature(fields) {
         // rebuilt from the marker's fields on every import, so this is where the
         // choice has to live for it to survive a save/open cycle.
         gradient: Boolean(fields.gradient),
+        // Same reasoning for the network identity — it describes the cell, not
+        // its coverage estimate. Spread last so an absent field stays `undefined`
+        // and drops out of the exported JSON rather than being written as "".
+        ...normalizeCellIdentity(fields),
     });
 
     return { marker, sectors: buildCoverageSectors(fields) };
@@ -210,6 +215,13 @@ export function csvRowToTowerFields(row) {
         opacity: row.opacity,
         // optional column; a file without it just gets plain sectors
         gradient: Boolean(row.gradient),
+        // optional identity columns; a file without them gets a tower with no
+        // network metadata, which is what every CSV produced so far contains
+        cellId: row.cellid,
+        lac: row.lac,
+        mcc: row.mcc,
+        mnc: row.mnc,
+        cellType: row.celltype,
     };
 }
 
@@ -242,7 +254,12 @@ function toNumber(value) {
  *  - angles may be negative — sectors are expressed as azimuth offsets, so an
  *    antenna pointing at azimuth 0 with a 120° beam is start=-60, end=60.
  *
- * @param {object} fields { lat, lon, radius, angle1, angle2 } (strings or numbers).
+ * The network identity fields are optional and validated by cellIdentity.js;
+ * they are folded in here so the form has one call to make and one list of
+ * messages to show.
+ *
+ * @param {object} fields { lat, lon, radius, angle1, angle2 } (strings or
+ *   numbers), plus the optional { cellId, lac, mcc, mnc, cellType }.
  * @returns {{ valid: boolean, errors: string[] }}
  */
 export function validateTowerFields(fields) {
@@ -268,6 +285,8 @@ export function validateTowerFields(fields) {
     if (!Number.isFinite(angle2) || angle2 < -360 || angle2 > 360) {
         errors.push('End angle must be between -360 and 360.');
     }
+
+    errors.push(...validateCellIdentity(fields));
 
     return { valid: errors.length === 0, errors };
 }

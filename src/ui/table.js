@@ -260,11 +260,21 @@ function createPOIRow(marker) {
     );
 }
 
+// What to call a tower in the sidebar. A CSV of cells from an operator often has
+// no name column at all but always has the Cell ID, and a list of rows all
+// reading "Unnamed" is unusable — so the identity stands in for the name when
+// there isn't one.
+function towerLabel(properties) {
+    if (properties.name) return properties.name;
+    if (properties.cellId) return 'Cell ' + properties.cellId;
+    return 'Unnamed';
+}
+
 function createTowerRow(marker) {
     const spanName = document.createElement('span');
     spanName.className = 'col-name';
     spanName.setAttribute('data-id', marker.id);
-    spanName.innerText = marker.properties.name === '' ? 'Unnamed' : marker.properties.name;
+    spanName.innerText = towerLabel(marker.properties);
 
     const spanAngle = document.createElement('span');
     spanAngle.className = 'col-azimuth';

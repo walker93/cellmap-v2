@@ -113,6 +113,20 @@ describe('createTable', () => {
         expect(labels).toEqual(['Locate', 'Hide', 'Duplicate', 'Edit', 'Delete']);
     });
 
+    // An operator's cell list often has no name column, and a sidebar of rows all
+    // reading "Unnamed" is unusable — the Cell ID is what tells them apart.
+    it('names an unnamed tower after its Cell ID when it has one', () => {
+        const unnamed = { ...tower, properties: { ...tower.properties, name: '', cellId: '21437' } };
+        createTable({ type: 'FeatureCollection', features: [unnamed] });
+        expect(document.querySelector('#features .col-name').innerText).toBe('Cell 21437');
+    });
+
+    it('falls back to "Unnamed" when there is neither a name nor a Cell ID', () => {
+        const unnamed = { ...tower, properties: { ...tower.properties, name: undefined } };
+        createTable({ type: 'FeatureCollection', features: [unnamed] });
+        expect(document.querySelector('#features .col-name').innerText).toBe('Unnamed');
+    });
+
     it('clears and rebuilds on each call (no duplicate rows)', () => {
         createTable({ type: 'FeatureCollection', features: [tower] });
         createTable({ type: 'FeatureCollection', features: [tower] });

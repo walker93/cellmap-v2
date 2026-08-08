@@ -82,6 +82,36 @@ describe('buildTowerFeature', () => {
         expect(marker.properties.opacity).toBe(0.25);
         expect(sectors[0].properties['fill-opacity']).toBe(0.25);
     });
+
+    it('records the network identity on the marker', () => {
+        const { marker } = buildTowerFeature({
+            ...baseFields,
+            cellId: '21437',
+            lac: '4501',
+            mcc: '222',
+            mnc: '01',
+            cellType: 'macro',
+        });
+        expect(marker.properties).toMatchObject({
+            cellId: '21437',
+            lac: '4501',
+            mcc: '222',
+            mnc: '01',
+            cellType: 'macro',
+        });
+    });
+
+    // The identity describes the cell, not its coverage estimate, and the
+    // polygons are thrown away and rebuilt on every import.
+    it('keeps the identity off the coverage polygons', () => {
+        const { sectors } = buildTowerFeature({ ...baseFields, cellId: '21437' });
+        expect(sectors[0].properties).not.toHaveProperty('cellId');
+    });
+
+    it('writes no identity keys at all when none were given', () => {
+        const { marker } = buildTowerFeature(baseFields);
+        expect(JSON.parse(JSON.stringify(marker.properties))).not.toHaveProperty('cellId');
+    });
 });
 
 describe('buildCoverageSectors', () => {
@@ -199,6 +229,27 @@ describe('csvRowToTowerFields', () => {
         });
     });
 
+    it('maps the optional identity columns onto the identity fields', () => {
+        const fields = csvRowToTowerFields({
+            ...baseFields,
+            desc: '',
+            cellid: 21437,
+            lac: 4501,
+            mcc: 222,
+            mnc: 1,
+            celltype: 'macro',
+        });
+        expect(fields).toMatchObject({
+            cellId: 21437,
+            lac: 4501,
+            mcc: 222,
+            mnc: 1,
+            cellType: 'macro',
+        });
+        // dynamicTyping ate the leading zero of "01"; the marker gets it back
+        expect(buildTowerFeature(fields).marker.properties.mnc).toBe('01');
+    });
+
     it('builds the same feature shape from the form and CSV paths', () => {
         const row = {
             lon: 9.19,
@@ -259,6 +310,18 @@ describe('validateTowerFields', () => {
         const r = validateTowerFields({ lat: '', lon: '', radius: -1, angle1: -400, angle2: 400 });
         expect(r.valid).toBe(false);
         expect(r.errors).toHaveLength(5);
+    });
+
+    // The identity rules live in cellIdentity.js and are tested there; what
+    // matters here is that the form's single validation call sees them.
+    it('reports an invalid network identity alongside the geometry errors', () => {
+        expect(validateTowerFields({ ...valid, cellId: '21A37' }).valid).toBe(false);
+        const r = validateTowerFields({ ...valid, lat: '', mcc: '222' });
+        expect(r.errors).toHaveLength(2);
+    });
+
+    it('stays valid for a tower with no identity, which is every tower so far', () => {
+        expect(validateTowerFields(valid).valid).toBe(true);
     });
 });
 

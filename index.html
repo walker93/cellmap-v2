@@ -101,7 +101,41 @@
                             <span class="tooltiptext">If checked, the sector will be drawn with a gradient that fades to transparent at the edges.</span>
                         </i>
                     </div>
-                    <div class="line">
+                    <!-- Widest scope first: the fields read down the page in the same
+                         order they are written in a CGI, MCC-MNC-LAC-CID. -->
+                    <div id="cell-identity">
+                        <div class="line">
+                            <label for="inp_mcc">MCC-MNC:</label>
+                            <span class="field-pair">
+                                <input type="text" id="inp_mcc" placeholder="MCC" aria-label="MCC" maxlength="3"
+                                    inputmode="numeric" autocomplete="off">
+                                <span aria-hidden="true">&ndash;</span>
+                                <input type="text" id="inp_mnc" placeholder="MNC" aria-label="MNC" maxlength="3"
+                                    inputmode="numeric" autocomplete="off">
+                            </span>
+                        </div>
+                        <div class="line">
+                            <label for="inp_lac">LAC / TAC:</label>
+                            <input type="text" id="inp_lac" placeholder="e.g. 4501" inputmode="numeric"
+                                autocomplete="off">
+                        </div>
+                        <div class="line">
+                            <label for="inp_cellid">Cell ID:</label>
+                            <input type="text" id="inp_cellid" placeholder="e.g. 21437" inputmode="numeric"
+                                autocomplete="off">
+                        </div>
+                        <div class="line">
+                            <label for="inp_celltype">Cell type:</label>
+                            <select id="inp_celltype">
+                                <option value="" selected>Unspecified</option>
+                                <option value="macro">Macro</option>
+                                <option value="micro">Micro</option>
+                                <option value="pico">Pico</option>
+                                <option value="femto">Femto</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line" id="icon-line">
                         <label for="inp_icon">Icon:</label>
                         <select id="inp_icon" placeholder="Select icon" value="" disabled>
                             <option value="" selected>Choose an icon</option>

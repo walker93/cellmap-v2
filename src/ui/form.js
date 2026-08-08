@@ -29,6 +29,19 @@ export function aggiungiCella(existingCell) {
     closeForm();
 }
 
+// The optional network identity of a cell, read straight off the dialog. Shared
+// by the validation and the build step so the two can never disagree on which
+// inputs make up the identity.
+function readIdentityInput() {
+    return {
+        mcc: el('inp_mcc').value,
+        mnc: el('inp_mnc').value,
+        lac: el('inp_lac').value,
+        cellId: el('inp_cellid').value,
+        cellType: el('inp_celltype').value,
+    };
+}
+
 function validateCellInput() {
     const result = validateTowerFields({
         lat: el('inp_lat').value,
@@ -36,6 +49,7 @@ function validateCellInput() {
         radius: el('inp_radius').value,
         angle1: el('angle1').value,
         angle2: el('angle2').value,
+        ...readIdentityInput(),
     });
     if (!result.valid) {
         alert(result.errors.join('\n'));
@@ -65,6 +79,7 @@ function createFeatureFromInput() {
         fill: fillcolor.value,
         opacity: alpha.value,
         gradient: el('inp_gradient').checked,
+        ...readIdentityInput(),
     });
     resetForm();
 
@@ -82,8 +97,35 @@ function resetForm() {
     el('inp_fill').value = '#FF0000';
     el('inp_alpha').value = '0.2';
     el('inp_gradient').checked = false;
+    clearIdentity();
     el('feature-id').value = '';
     el('inp_icon').tomselect.clear();
+}
+
+// The dialog serves both feature types, and the two have disjoint extra fields:
+// a cell has a network identity, a POI has an icon. Hide the set that does not
+// apply rather than showing it disabled — four dead inputs on every POI is a lot
+// of dialog to scroll past, and `hidden` (unlike a disabled input) also takes the
+// fields out of the tab order.
+function showCellFields(isCell) {
+    el('cell-identity').hidden = !isCell;
+    el('icon-line').hidden = isCell;
+}
+
+function clearIdentity() {
+    el('inp_mcc').value = '';
+    el('inp_mnc').value = '';
+    el('inp_lac').value = '';
+    el('inp_cellid').value = '';
+    el('inp_celltype').value = '';
+}
+
+function loadIdentity(properties) {
+    el('inp_mcc').value = properties.mcc || '';
+    el('inp_mnc').value = properties.mnc || '';
+    el('inp_lac').value = properties.lac || '';
+    el('inp_cellid').value = properties.cellId || '';
+    el('inp_celltype').value = properties.cellType || '';
 }
 
 function loadForm(feature) {
@@ -110,7 +152,8 @@ function loadForm(feature) {
         angolo1.disabled = false;
         angolo2.disabled = false;
         gradient.disabled = false;
-        icn.parentElement.style.display = 'none'; // hide icon input for cell features
+        showCellFields(true);
+        loadIdentity(feature.properties);
         pendingSaveHandler = modificaCella;
     } else {
         //if marker is a PoI feature disable sector related fields
@@ -118,7 +161,7 @@ function loadForm(feature) {
         angolo1.disabled = true;
         angolo2.disabled = true;
         gradient.disabled = true;
-        icn.parentElement.style.display = 'flex'; // show icon input for PoI features
+        showCellFields(false);
         pendingSaveHandler = modificaPoi;
     }
     //enable or disable coords field according to geometry type
@@ -191,17 +234,28 @@ function modificaCella() {
 // Remembers what had focus before the dialog opened, so it can be restored on close.
 let lastFocused = null;
 
+// A field is out of reach when it, or anything it sits inside, is hidden. The
+// dialog hides things at both levels: the add/save buttons toggle their own
+// inline `display`, while the icon row and the identity block are hidden as
+// whole groups — so checking only the field itself would leave the fields of a
+// hidden group in the list, and Tab would land focus on nothing.
+function isHidden(node, container) {
+    for (let n = node; n && n !== container; n = n.parentElement) {
+        if (n.hidden || n.style.display === 'none') return true;
+    }
+    return false;
+}
+
 // Every element inside the dialog that Tab can reach: standard focusable tags, minus
-// the hidden `#feature-id` input, anything currently disabled, hidden via inline
-// `display: none` (the add/save button pair toggles this way), or opted out with
-// `tabindex="-1"`.
+// the hidden `#feature-id` input, anything currently disabled or hidden (see above),
+// or opted out with `tabindex="-1"`.
 function getFocusableElements() {
     const container = el('inputs');
     const candidates = container.querySelectorAll(
         'a[href], button, input:not([type="hidden"]), select, textarea, [tabindex]',
     );
     return Array.from(candidates).filter(
-        (node) => !node.disabled && node.style.display !== 'none' && node.tabIndex !== -1,
+        (node) => !node.disabled && !isHidden(node, container) && node.tabIndex !== -1,
     );
 }
 
@@ -240,7 +294,13 @@ export function openForm(marker) {
         //change button to add instead of save
         el('savebtn').style.display = 'none';
         el('addbtn').style.display = 'inline-block';
-        el('inp_icon').parentElement.style.display = 'none'; // hide icon input for new PoI features
+        // "Add cell" only ever creates a cell, so it gets the cell field set.
+        showCellFields(true);
+        // The rest of the dialog deliberately keeps its last values, which makes
+        // entering a row of similar cells quick. An identity must not be sticky
+        // the same way: a CGI names one cell, and silently copying the previous
+        // one onto the next tower would be a wrong answer, not a shortcut.
+        clearIdentity();
     }
     el('inputs').style.display = 'block';
     // dialog a11y: allow Escape to close, and move focus into the dialog
