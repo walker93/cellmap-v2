@@ -2,6 +2,27 @@ import * as turf from '@turf/turf';
 import { normalizeCellIdentity, validateCellIdentity } from './cellIdentity.js';
 
 /**
+ * The simplestyle outline properties for a sector polygon.
+ *
+ * These have to be written even when the outline is meant to be invisible.
+ * `tokml` styles a polygon from the simplestyle keys, and when *no* `stroke*`
+ * key is present at all it falls back to an opaque grey line 2px wide
+ * (`ff555555`) rather than to no line — so a graduated cone, which sets only
+ * `fill`/`fill-opacity`, used to open in Google Earth as a stack of grey-edged
+ * rings. Saying "no outline" explicitly is the only way to get no outline.
+ *
+ * The Mapbox `sectors` layer reads `fill`/`fill-opacity` only, so none of this
+ * changes what the app itself draws.
+ *
+ * @param {string} color Hex colour (tokml needs a string here, or it falls back).
+ * @param {number} opacity 0..1; 0 means genuinely invisible.
+ * @param {number} width Line width in px.
+ */
+function outline(color, opacity, width) {
+    return { stroke: color, 'stroke-opacity': opacity, 'stroke-width': width };
+}
+
+/**
  * Build the coverage-sector polygon for a cell tower with turf.sector().
  *
  * This is the single source of truth for the sector geometry + properties.
@@ -37,6 +58,10 @@ export function buildCoverageSector(fields) {
         description,
         fill,
         'fill-opacity': opacity,
+        // A single sector gets a thin outline in its own colour. At 0.2 fill
+        // opacity the shape is very pale in Google Earth, and the hard edge is
+        // real information: it is where the estimated coverage stops.
+        ...outline(fill, 1, 1),
         marker: 'cell',
     };
     if (towerid !== undefined) {
@@ -46,46 +71,45 @@ export function buildCoverageSector(fields) {
     return turf.sector([lon, lat], radius, angle1, angle2, { properties });
 }
 
-// How many bands a graduated cone is drawn with. Enough that the steps stop being
-// visible — at the default 0.2 opacity each step is 0.0125 — without making the
-// GeoJSON/KML export (the only place the bands are written out; .cellmap rebuilds
-// them from the tower's fields) heavier than it needs to be.
+// How many steps a graduated cone is drawn in. Fine enough that the ramp does not
+// read as terraced — at the default 0.2 opacity each step is 0.0125 of it — without
+// making the GeoJSON/KML export (the only place the bands are written out; .cellmap
+// rebuilds them from the tower's fields) heavier than it needs to be.
+//
+// Deliberately a count and not a fixed distance: the number of steps is a rendering
+// resolution, not a claim about the world. The claim is the ramp itself, which is
+// normalised on the tower's own radius. A fixed metric step would give a 1 km cell
+// four visible terraces and a 20 km one eighty polygons, and a 200 m femto no
+// gradient at all — a rule that switches the feature off for a whole class of cells.
+// Rings at round distances are a separate thing, and are drawn as lines.
 export const GRADIENT_BANDS = 16;
 
-function angleMod360(angle) {
-    return ((angle % 360) + 360) % 360;
-}
-
-// turf.sector's own rule for "this is really a full circle": the two bearings are
-// the same angle. Worth matching exactly, since a band has to be a ring with a
-// hole in that case rather than a slice with two radial edges.
-function isFullSweep(angle1, angle2) {
-    return angleMod360(angle1) === angleMod360(angle2);
-}
-
-function outerRing(polygon) {
-    return polygon.geometry.coordinates[0];
+/** The opacity the finished picture should show in the k-th ring out. */
+function targetOpacity(k, opacity) {
+    // linear from full strength at the antenna down towards the rim, and 0 just
+    // past it — k === GRADIENT_BANDS is the "nothing left to draw" terminator
+    // that makes the formula below work for the outermost band too.
+    return opacity * (1 - k / GRADIENT_BANDS);
 }
 
 /**
- * The rings of one band: the area between two radii over the same bearings.
- * @returns {number[][][]} GeoJSON Polygon coordinates.
+ * The opacity to give band k so that the *stack* comes out at the target.
+ *
+ * Band k is a whole sector out to its own radius, not an annulus, so a point in
+ * ring k is painted by every band from k outwards. Alpha compositing multiplies
+ * what each layer lets through, so the visible result there is
+ * `1 - Π(1 - aᵢ)` for i ≥ k. Solving that pair of products for one band leaves
+ * only its two neighbouring targets:
+ *
+ *   (1 - Tₖ) = (1 - aₖ)·(1 - Tₖ₊₁)   ⇒   aₖ = 1 - (1 - Tₖ)/(1 - Tₖ₊₁)
+ *
+ * T is decreasing in k, so aₖ is always positive. And because every band is the
+ * same colour, the composite is symmetric in the aᵢ — the result does not depend
+ * on the order the bands happen to be drawn in, which is not something either
+ * Mapbox's fill layer or Google Earth's placemark order would guarantee.
  */
-function bandRings(center, innerRadius, outerRadius, angle1, angle2) {
-    if (innerRadius <= 0) {
-        // innermost band: no hole to cut, so this is just a sector
-        return turf.sector(center, outerRadius, angle1, angle2).geometry.coordinates;
-    }
-    if (isFullSweep(angle1, angle2)) {
-        return [
-            outerRing(turf.circle(center, outerRadius)),
-            outerRing(turf.circle(center, innerRadius)).slice().reverse(),
-        ];
-    }
-    // A slice of an annulus: out along the far arc, back along the near one.
-    const outer = turf.lineArc(center, outerRadius, angle1, angle2).geometry.coordinates;
-    const inner = turf.lineArc(center, innerRadius, angle1, angle2).geometry.coordinates;
-    return [[...outer, ...inner.slice().reverse(), outer[0]]];
+function bandOpacity(k, opacity) {
+    return 1 - (1 - targetOpacity(k, opacity)) / (1 - targetOpacity(k + 1, opacity));
 }
 
 /**
@@ -98,11 +122,28 @@ function bandRings(center, innerRadius, outerRadius, angle1, angle2) {
  * picture reads as a probability ramp rather than a hard edge.
  *
  * Bands rather than an actual gradient because Mapbox GL cannot gradient-fill a
- * polygon — `fill-opacity` is per feature. Nested bands are also what makes this
- * survive everything else the app does: each band is an ordinary polygon, so the
- * KML export, the sector/tower link and the .cellmap round trip need no special
- * case. The bands do not overlap, so what you see is each band's own opacity and
- * not an accumulation of them.
+ * polygon — `fill-opacity` is per feature. Each band is an ordinary polygon, which
+ * is what makes this survive everything else the app does: the KML export, the
+ * sector/tower link and the .cellmap round trip need no special case.
+ *
+ * The bands are **nested sectors**, each running from the antenna out to its own
+ * radius, and they deliberately overlap. The obvious construction — abutting
+ * annuli, each painted at the opacity it should show — was what this did first,
+ * and it put a visible hairline on every band boundary: two polygons that share an
+ * edge are antialiased independently, so the shared pixels never recompose to full
+ * coverage. That seam is worse than the quantisation it came with (more bands make
+ * it worse, not better), and it is not reproducible either — it moves with zoom,
+ * device pixel ratio and browser, and it does not survive an export. For a picture
+ * that ends up in a report, an artefact you cannot control is the real problem.
+ * Nesting removes the shared edges outright; {@link bandOpacity} then works out
+ * what each layer must contribute for the stack to land on the intended ramp.
+ *
+ * The cost is that an exported GeoJSON of a graduated cone contains overlapping
+ * polygons rather than a tiling, which is untidy for anything downstream that
+ * assumes coverage areas do not intersect (QGIS, say). The two straight edges of
+ * the wedge also stay collinear across all the bands, so a faint line can survive
+ * there — but that is the cone's own boundary, where an edge belongs, rather than
+ * N arcs through the middle of it.
  *
  * A tower with radius 0 gets no polygon at all. validateTowerFields has always
  * allowed that — it is how you place a tower whose coverage comes from a KMZ
@@ -129,24 +170,22 @@ export function buildCoverageSectors(fields) {
             name: fields.name,
             description: fields.description,
             fill: fields.fill,
-            // full strength at the antenna, fading to a fraction of it at the rim
-            'fill-opacity': opacity * (1 - band / GRADIENT_BANDS),
+            // what this layer contributes, not what it shows — see bandOpacity
+            'fill-opacity': bandOpacity(band, opacity),
+            // No outline on the bands: they are one shape drawn in layers, and
+            // drawing the edge of every layer is exactly the artefact to avoid.
+            ...outline(fields.fill, 0, 0),
             marker: 'cell',
             band,
         };
         if (fields.towerid !== undefined) properties.towerid = fields.towerid;
 
+        // a whole sector from the antenna outwards, not a slice of an annulus:
+        // the widest one is the plain sector, the rest sit inside it
         sectors.push(
-            turf.polygon(
-                bandRings(
-                    center,
-                    (radius * band) / GRADIENT_BANDS,
-                    (radius * (band + 1)) / GRADIENT_BANDS,
-                    angle1,
-                    angle2,
-                ),
+            turf.sector(center, (radius * (band + 1)) / GRADIENT_BANDS, angle1, angle2, {
                 properties,
-            ),
+            }),
         );
     }
     return sectors;

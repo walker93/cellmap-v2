@@ -38,6 +38,15 @@ describe('buildCoverageSector', () => {
         expect(sector.properties.marker).toBe('cell');
     });
 
+    // Not decoration: tokml outlines a polygon in opaque grey whenever no stroke
+    // property is present at all, so "no outline" has to be said out loud.
+    it('outlines the sector in its own colour', () => {
+        const sector = buildCoverageSector(baseFields);
+        expect(sector.properties.stroke).toBe('#ff0000');
+        expect(sector.properties['stroke-opacity']).toBe(1);
+        expect(sector.properties['stroke-width']).toBe(1);
+    });
+
     it('omits towerid when not provided (form/CSV attach it after draw.add)', () => {
         const sector = buildCoverageSector(baseFields);
         expect(sector.properties).not.toHaveProperty('towerid');
@@ -123,17 +132,39 @@ describe('buildCoverageSectors', () => {
         expect(sectors[0].geometry).toEqual(buildCoverageSector(baseFields).geometry);
     });
 
-    it('splits the wedge into bands that fade outwards', () => {
+    // The bands are stacked, not tiled, so a band's own fill-opacity is what it
+    // contributes and not what you see. What you see in ring k is every band from
+    // k outwards composited together.
+    const seenInRing = (bands, k) =>
+        1 - bands.slice(k).reduce((through, b) => through * (1 - b.properties['fill-opacity']), 1);
+
+    it('draws the ramp in GRADIENT_BANDS steps', () => {
         const sectors = buildCoverageSectors({ ...baseFields, gradient: true });
         expect(sectors).toHaveLength(GRADIENT_BANDS);
 
         const opacities = sectors.map((s) => s.properties['fill-opacity']);
-        // full strength at the antenna, monotonically down to the rim
-        expect(opacities[0]).toBeCloseTo(0.5, 10);
         for (let i = 1; i < opacities.length; i++) {
             expect(opacities[i]).toBeLessThan(opacities[i - 1]);
         }
         expect(opacities[opacities.length - 1]).toBeGreaterThan(0);
+    });
+
+    // The one that matters: switching from abutting annuli to nested sectors was a
+    // change of rendering, not of meaning, and the picture has to come out at the
+    // same opacity it did before — full strength at the antenna, linearly down
+    // towards the rim.
+    it('composites to the same ramp the bands used to be painted at directly', () => {
+        const bands = buildCoverageSectors({ ...baseFields, gradient: true });
+        for (let k = 0; k < GRADIENT_BANDS; k++) {
+            expect(seenInRing(bands, k)).toBeCloseTo(0.5 * (1 - k / GRADIENT_BANDS), 10);
+        }
+    });
+
+    it('composites the same whatever order the bands are drawn in', () => {
+        // every band is the same colour, so 1 - Π(1 - aᵢ) is symmetric — neither
+        // Mapbox's fill layer nor Google Earth promises us a draw order
+        const bands = buildCoverageSectors({ ...baseFields, gradient: true });
+        expect(seenInRing([...bands].reverse(), 0)).toBeCloseTo(seenInRing(bands, 0), 10);
     });
 
     it('carries the same identity properties as a plain sector', () => {
@@ -148,48 +179,60 @@ describe('buildCoverageSectors', () => {
         }
     });
 
-    it('covers the same ground as the plain sector, once', () => {
+    // The bands are one shape cut into slices; drawing every cut is the artefact
+    // to avoid. Stated explicitly because tokml's fallback for "no stroke given"
+    // is a grey outline, not the absence of one.
+    it('gives the bands no visible outline', () => {
+        for (const band of buildCoverageSectors({ ...baseFields, gradient: true })) {
+            expect(band.properties['stroke-opacity']).toBe(0);
+            expect(band.properties['stroke-width']).toBe(0);
+        }
+    });
+
+    // Nested, not tiled: the outermost band *is* the plain sector and the others
+    // sit inside it. This is what removes the shared edges that antialiasing turned
+    // into a visible hairline on every band boundary.
+    it('nests the bands, the widest being the plain sector itself', () => {
         const plain = buildCoverageSector(baseFields);
         const bands = buildCoverageSectors({ ...baseFields, gradient: true });
-        const banded = bands.reduce((sum, band) => sum + areaOf(band), 0);
-        // Bands tile the wedge instead of stacking on it: their areas add up to the
-        // whole, which is what keeps each one's opacity the one you actually see.
-        expect(banded / areaOf(plain)).toBeCloseTo(1, 2);
+        expect(bands[bands.length - 1].geometry).toEqual(plain.geometry);
     });
 
-    it('grows outwards: every band is further from the tower than the last', () => {
-        const center = turf.point([baseFields.lon, baseFields.lat]);
+    it('grows outwards: every band contains the one before it', () => {
         const bands = buildCoverageSectors({ ...baseFields, gradient: true });
-        const distances = bands.map((band) =>
-            turf.distance(center, turf.centroid(band), { units: 'kilometers' }),
-        );
-        for (let i = 1; i < distances.length; i++) {
-            expect(distances[i]).toBeGreaterThan(distances[i - 1]);
+        const areas = bands.map(areaOf);
+        for (let i = 1; i < areas.length; i++) {
+            expect(areas[i]).toBeGreaterThan(areas[i - 1]);
         }
-        // and none of them reaches past the tower's radius
-        expect(Math.max(...distances)).toBeLessThan(baseFields.radius);
+        // ...and the widest still stops at the tower's radius
+        const center = turf.point([baseFields.lon, baseFields.lat]);
+        const rim = turf.explode(bands[bands.length - 1]).features.map((p) =>
+            turf.distance(center, p, { units: 'kilometers' }),
+        );
+        expect(Math.max(...rim)).toBeLessThanOrEqual(baseFields.radius + 1e-9);
     });
 
-    it('makes each band a valid closed ring', () => {
+    it('makes each band a single unbroken ring', () => {
         for (const band of buildCoverageSectors({ ...baseFields, gradient: true })) {
             expect(band.geometry.type).toBe('Polygon');
-            for (const ring of band.geometry.coordinates) {
-                expect(ring.length).toBeGreaterThan(3);
-                expect(ring[0]).toEqual(ring[ring.length - 1]);
-            }
+            // no holes to cut any more — that was the annulus construction
+            expect(band.geometry.coordinates).toHaveLength(1);
+            const ring = band.geometry.coordinates[0];
+            expect(ring.length).toBeGreaterThan(3);
+            expect(ring[0]).toEqual(ring[ring.length - 1]);
         }
     });
 
-    it('handles a full circle, where a band is a ring with a hole', () => {
-        const bands = buildCoverageSectors({ ...baseFields, angle1: 0, angle2: 360, gradient: true });
+    it('handles a full circle with no special case', () => {
+        const full = { ...baseFields, angle1: 0, angle2: 360, gradient: true };
+        const bands = buildCoverageSectors(full);
         expect(bands).toHaveLength(GRADIENT_BANDS);
-        // the innermost is a disc; every other one has the previous radius cut out
-        expect(bands[0].geometry.coordinates).toHaveLength(1);
-        expect(bands[1].geometry.coordinates).toHaveLength(2);
-
-        const plain = buildCoverageSector({ ...baseFields, angle1: 0, angle2: 360 });
-        const banded = bands.reduce((sum, band) => sum + areaOf(band), 0);
-        expect(banded / areaOf(plain)).toBeCloseTo(1, 2);
+        for (const band of bands) {
+            expect(band.geometry.coordinates).toHaveLength(1);
+        }
+        expect(bands[bands.length - 1].geometry).toEqual(
+            buildCoverageSector({ ...baseFields, angle1: 0, angle2: 360 }).geometry,
+        );
     });
 
     // validateTowerFields allows radius 0 — a tower placed where the coverage comes
