@@ -204,9 +204,32 @@ main {
 }
 
 .line>input[type="text"],
-.line>input[type="number"] {
+.line>input[type="number"],
+.line>select,
+.line>.field-pair {
     width: 60%;
     /* margin: 0.5rem 0; */
+}
+
+/* Two codes that are read as one value (MCC-MNC) share the input column instead
+   of taking a row each. The rule above is scoped to direct children, so the
+   nested inputs get their width from the pair, not from .line. */
+.field-pair {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.field-pair>input {
+    width: 100%;
+    min-width: 0;
+}
+
+/* The dialog shows a different field set per feature type — the identity block
+   for cells, the icon picker for POIs — by hiding the other one. `display: flex`
+   above would otherwise win over the attribute's own display: none. */
+.line[hidden] {
+    display: none;
 }
 
 /* A checkbox has nothing to do with the 60% input column: reserving it for one

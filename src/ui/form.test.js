@@ -5,6 +5,7 @@ import { describe, it, expect, beforeAll, beforeEach, afterEach, vi } from 'vite
 // importing so the graph loads under jsdom. draw.add returns a fixed id so
 // aggiungiCella can link the sector to it.
 let form;
+let draw;
 let getSectors, clearSectors;
 
 beforeAll(async () => {
@@ -40,6 +41,7 @@ beforeAll(async () => {
         };
     });
     form = await import('./form.js');
+    ({ draw } = await import('../draw.js'));
     ({ getSectors, clearSectors } = await import('../sectors.js'));
 });
 
@@ -56,7 +58,16 @@ beforeEach(() => {
             <input id="inp_radius"><input id="angle1"><input id="angle2">
             <input id="inp_alpha"><input id="inp_fill">
             <input type="checkbox" id="inp_gradient">
-            <select id="inp_icon"></select>
+            <div id="cell-identity">
+                <input id="inp_mcc"><input id="inp_mnc">
+                <input id="inp_lac"><input id="inp_cellid">
+                <select id="inp_celltype">
+                    <option value="" selected></option>
+                    <option value="macro"></option>
+                    <option value="femto"></option>
+                </select>
+            </div>
+            <div class="line" id="icon-line"><select id="inp_icon"></select></div>
             <input type="hidden" id="feature-id">
             <button id="cancelbtn"></button>
             <button id="addbtn" style="display:inline-block"></button>
@@ -197,13 +208,14 @@ describe('editFeature', () => {
         geometry: { type: 'Point', coordinates: [9.19, 45.46] },
     });
 
-    it('opens a POI in edit mode with the icon picker enabled', () => {
-        const enable = vi.spyOn(document.getElementById('inp_icon').tomselect, 'enable');
+    it('opens a POI in edit mode with the icon picker shown', () => {
         form.editFeature(poi());
         expect(document.getElementById('inputs').style.display).toBe('block');
         expect(document.getElementById('savebtn').style.display).toBe('inline-block');
         expect(document.getElementById('addbtn').style.display).toBe('none');
-        expect(enable).toHaveBeenCalled();
+        expect(document.getElementById('icon-line').hidden).toBe(false);
+        // a POI has no network identity
+        expect(document.getElementById('cell-identity').hidden).toBe(true);
         // sector geometry is meaningless for a POI
         expect(document.getElementById('inp_radius').disabled).toBe(true);
         expect(document.getElementById('angle1').disabled).toBe(true);
@@ -221,14 +233,14 @@ describe('editFeature', () => {
         expect(document.getElementById('feature-id').value).toBe('poi-1');
     });
 
-    it('keeps the sector fields for a cell and locks the icon picker', () => {
-        const disable = vi.spyOn(document.getElementById('inp_icon').tomselect, 'disable');
+    it('keeps the sector fields for a cell and hides the icon picker', () => {
         form.editFeature(cell());
         expect(document.getElementById('inp_radius').disabled).toBe(false);
         expect(document.getElementById('angle1').value).toBe('-60');
         expect(document.getElementById('angle2').value).toBe('60');
         expect(document.getElementById('inp_radius').value).toBe('2');
-        expect(disable).toHaveBeenCalled();
+        expect(document.getElementById('icon-line').hidden).toBe(true);
+        expect(document.getElementById('cell-identity').hidden).toBe(false);
     });
 
     it('disables the coordinates for a non-Point geometry', () => {
@@ -245,6 +257,88 @@ describe('editFeature', () => {
         });
         expect(document.getElementById('inp_lat').disabled).toBe(true);
         expect(document.getElementById('inp_lon').disabled).toBe(true);
+    });
+});
+
+// The optional network identity of a cell: recorded on the tower marker, read
+// back into the dialog, and never silently carried over to the next tower.
+describe('cell identity', () => {
+    const identified = () => ({
+        id: 't1',
+        properties: {
+            marker: 'cell',
+            Angle1: -60,
+            Angle2: 60,
+            Radius: 2,
+            fill: '#ff0000',
+            cellId: '21437',
+            lac: '4501',
+            mcc: '222',
+            mnc: '01',
+            cellType: 'macro',
+        },
+        geometry: { type: 'Point', coordinates: [9.19, 45.46] },
+    });
+
+    function fillIdentity() {
+        document.getElementById('inp_mcc').value = '222';
+        document.getElementById('inp_mnc').value = '01';
+        document.getElementById('inp_lac').value = '4501';
+        document.getElementById('inp_cellid').value = '21437';
+        document.getElementById('inp_celltype').value = 'macro';
+    }
+
+    it('writes the identity onto the tower it creates', () => {
+        const added = vi.spyOn(draw, 'add');
+        form.openForm(null);
+        fillValidTower();
+        fillIdentity();
+        form.aggiungiCella();
+        expect(added.mock.calls[0][0].properties).toMatchObject({
+            cellId: '21437',
+            lac: '4501',
+            mcc: '222',
+            mnc: '01',
+            cellType: 'macro',
+        });
+    });
+
+    it('reads the identity back into the dialog when editing that tower', () => {
+        form.editFeature(identified());
+        expect(document.getElementById('inp_mcc').value).toBe('222');
+        expect(document.getElementById('inp_mnc').value).toBe('01');
+        expect(document.getElementById('inp_lac').value).toBe('4501');
+        expect(document.getElementById('inp_cellid').value).toBe('21437');
+        expect(document.getElementById('inp_celltype').value).toBe('macro');
+    });
+
+    it('blanks the fields for a tower that has no identity', () => {
+        form.editFeature(identified());
+        form.editFeature({ ...identified(), properties: { marker: 'cell', Radius: 2 } });
+        expect(document.getElementById('inp_cellid').value).toBe('');
+        expect(document.getElementById('inp_celltype').value).toBe('');
+    });
+
+    // A CGI names one cell. The rest of the dialog stays sticky between towers on
+    // purpose; this must not, or "Add cell" twice in a row would produce two
+    // towers claiming the same identity.
+    it('does not carry an identity over to the next new cell', () => {
+        form.editFeature(identified());
+        form.closeForm();
+        form.openForm(null);
+        expect(document.getElementById('inp_cellid').value).toBe('');
+        expect(document.getElementById('inp_mcc').value).toBe('');
+    });
+
+    it('refuses to add a tower whose identity is malformed', () => {
+        const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+        form.openForm(null);
+        fillValidTower();
+        fillIdentity();
+        document.getElementById('inp_mnc').value = ''; // half a PLMN
+        form.aggiungiCella();
+        expect(alertSpy).toHaveBeenCalled();
+        expect(getSectors().features).toHaveLength(0);
     });
 });
 

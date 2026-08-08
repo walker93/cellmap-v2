@@ -8,8 +8,20 @@ import { draw } from './draw.js';
 import { createTable } from './ui/table.js';
 import { editFeature } from './ui/form.js';
 import { el } from './ui/dom.js';
+import { cellIdentityLines } from './cellIdentity.js';
 
 // `numeral` and `mapboxgl` are CDN globals from index.html.
+
+// The popup is built as an HTML string, and every value in it comes from a
+// name/description someone typed or, worse, from an imported CSV or GeoJSON —
+// an ampersand or an angle bracket in there would otherwise reshape the markup.
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
 
 export function registerMapEvents() {
     // on draw.render update the measurments
@@ -135,12 +147,23 @@ export function registerMapEvents() {
     map.on('click', ['markers'], function (e) {
         const feature = e.features[0];
         const coordinates = feature.geometry.coordinates.slice();
-        const name = feature.properties.name || 'PoI';
-        const description = feature.properties.description || 'Nessuna descrizione';
+        // The `markers` layer is filtered to marker == 'cell', so whatever was
+        // clicked is a tower.
+        const name = feature.properties.name || 'Unnamed cell';
+        const description = feature.properties.description || 'No description';
+
+        // Where the network identity earns its keep: the codes are recorded on
+        // the tower, and this is where they are read back — click the antenna,
+        // get the CGI you have to quote in the report.
+        const identity = cellIdentityLines(feature.properties)
+            .map((line) => `<br><small>${escapeHtml(line.label)}: ${escapeHtml(line.value)}</small>`)
+            .join('');
 
         new mapboxgl.Popup({ offset: [0, -25] })
             .setLngLat(coordinates)
-            .setHTML(`<strong>${name}</strong><br>${description}`)
+            .setHTML(
+                `<strong>${escapeHtml(name)}</strong><br>${escapeHtml(description)}${identity}`,
+            )
             .addTo(map);
     });
 

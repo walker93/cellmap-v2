@@ -17,6 +17,8 @@ vi.mock('./ui/table.js', () => ({
 // Handlers registered by registerMapEvents, keyed by event name.
 const handlers = new Map();
 let drawStore;
+// The HTML the last popup was built with.
+let popupHtml;
 
 beforeAll(async () => {
     vi.stubGlobal('mapboxgl', {
@@ -35,7 +37,14 @@ beforeAll(async () => {
             };
         },
         Popup: function () {
-            return { setLngLat: () => ({ setHTML: () => ({ addTo() {} }) }) };
+            return {
+                setLngLat: () => ({
+                    setHTML(html) {
+                        popupHtml = html;
+                        return { addTo() {} };
+                    },
+                }),
+            };
         },
     });
     vi.stubGlobal('MapboxDraw', function () {
@@ -100,5 +109,56 @@ describe('draw.create', () => {
         // ...but they still get the defaults and a sidebar refresh.
         expect(drawStore.get('l1').properties.fill).toBe('#ff0000');
         expect(mocks.createTable).toHaveBeenCalledTimes(2);
+    });
+});
+
+// Clicking a tower is where the network identity recorded on it is read back.
+describe('tower popup', () => {
+    function clickTower(properties) {
+        popupHtml = undefined;
+        handlers.get('click')({
+            features: [{ geometry: { coordinates: [9, 45] }, properties }],
+        });
+        return popupHtml;
+    }
+
+    it('shows the name and description', () => {
+        const html = clickTower({ name: 'Tower A', description: 'city centre' });
+        expect(html).toContain('<strong>Tower A</strong>');
+        expect(html).toContain('city centre');
+    });
+
+    it('falls back for a tower with neither', () => {
+        const html = clickTower({});
+        expect(html).toContain('Unnamed cell');
+        expect(html).toContain('No description');
+    });
+
+    it('appends the CGI when the tower carries a full identity', () => {
+        const html = clickTower({
+            name: 'Tower A',
+            cellId: '21437',
+            lac: '4501',
+            mcc: '222',
+            mnc: '01',
+            cellType: 'macro',
+        });
+        expect(html).toContain('CGI: 222-01-4501-21437');
+        expect(html).toContain('Type: Macro');
+    });
+
+    it('says nothing about the identity of a tower that has none', () => {
+        expect(clickTower({ name: 'Tower A' })).toBe(
+            '<strong>Tower A</strong><br>No description',
+        );
+    });
+
+    // Names and descriptions come out of imported CSV/GeoJSON files as often as
+    // they are typed, so they cannot be trusted to be markup-free.
+    it('escapes the values instead of letting them reshape the markup', () => {
+        const html = clickTower({ name: '<img src=x onerror=alert(1)>', description: 'a & b' });
+        expect(html).not.toContain('<img');
+        expect(html).toContain('&lt;img');
+        expect(html).toContain('a &amp; b');
     });
 });

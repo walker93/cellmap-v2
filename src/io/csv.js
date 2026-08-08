@@ -8,7 +8,9 @@ import { addTower } from '../towerState.js';
 
 // Import cell towers from a .csv file. Expected columns:
 //   lat,lon,name,desc,fill,marker,angle1,angle2,radius,opacity
-// plus an optional `gradient` (true/false) to draw the cell as a graduated cone.
+// plus these optional ones:
+//   gradient                        true/false, draw the cell as a graduated cone
+//   cellid,lac,mcc,mnc,celltype     the cell's network identity (see cellIdentity.js)
 export function importCSV() {
     const inp_file = document.createElement('input');
     inp_file.setAttribute('type', 'file');
