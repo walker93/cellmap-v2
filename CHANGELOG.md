@@ -7,6 +7,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Feature
+- make ring opacity a map setting, and draw the cone in 32 steps [`2654897`](https://github.com/walker93/cellmap-v2/commit/2654897)
+- draw distance rings across a cell's coverage at round distances [`e218188`](https://github.com/walker93/cellmap-v2/commit/e218188)
+- record a cell's network identity (Cell ID / LAC / MCC-MNC / type) [`130a532`](https://github.com/walker93/cellmap-v2/commit/130a532)
+
+### Bug Fixes
+- one label per distance ring, and a quieter line [`cee0a47`](https://github.com/walker93/cellmap-v2/commit/cee0a47)
+- draw the uncertainty cone as nested sectors so the bands stop seaming [`5d5f047`](https://github.com/walker93/cellmap-v2/commit/5d5f047)
+- stop the KML export outlining every sector, and crashing on unset fields [`581c222`](https://github.com/walker93/cellmap-v2/commit/581c222)
+
+### Other
+- Merge branch 'feat/ring-opacity-control' [`4c8494b`](https://github.com/walker93/cellmap-v2/commit/4c8494b)
+- Merge branch 'fix/distance-ring-legibility' [`c5dd796`](https://github.com/walker93/cellmap-v2/commit/c5dd796)
+- Merge branch 'feat/distance-rings' [`02366dc`](https://github.com/walker93/cellmap-v2/commit/02366dc)
+- Merge branch 'fix/cone-rendering' [`7b63de0`](https://github.com/walker93/cellmap-v2/commit/7b63de0)
+- Merge branch 'feat/cell-identity-metadata' [`643ec90`](https://github.com/walker93/cellmap-v2/commit/643ec90)
+
+## 1.2 (2026-08-08)
+
+### Feature
 - draw a cell's coverage as a graduated uncertainty cone [`3f9b9b2`](https://github.com/walker93/cellmap-v2/commit/3f9b9b2)
 - replace the sidebar button row with a "Progetto" menu and per-section actions [`177919d`](https://github.com/walker93/cellmap-v2/commit/177919d)
 - save and open the whole map as a .cellmap project file [`2c9016c`](https://github.com/walker93/cellmap-v2/commit/2c9016c)
@@ -20,6 +39,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - resolve the app's static elements once through a memoized el() helper [`af619ff`](https://github.com/walker93/cellmap-v2/commit/af619ff)
 
 ### Documentation
+- :robot: changelog file generated [`fa2fcba`](https://github.com/walker93/cellmap-v2/commit/fa2fcba)
 - :robot: changelog file generated [`dc97cec`](https://github.com/walker93/cellmap-v2/commit/dc97cec)
 - :robot: changelog file generated [`a187acd`](https://github.com/walker93/cellmap-v2/commit/a187acd)
 - :robot: changelog file generated [`f74ec5f`](https://github.com/walker93/cellmap-v2/commit/f74ec5f)
