@@ -172,6 +172,7 @@ main {
 #map-container {
     grid-area: map;
     min-width: 0;
+    position: relative;
 }
 
 #map {
@@ -226,6 +227,32 @@ main {
     margin: 0;
     accent-color: var(--primary-color);
     cursor: pointer;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+    display: none;
+    width: 150px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    font-size: 9pt;
+    font-family: arial;
+    font-weight: 100;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    right: 50%;
+}
+
+.tooltip:hover .tooltiptext {
+    display: block;
 }
 
 /* ---- "Progetto" menu ----------------------------------------------------- */
@@ -388,7 +415,7 @@ span>.fa-sharp:hover {
 /* FORM a POPUP */
 #inputs {
     display: none;
-    position: fixed;
+    position: absolute;
     top: 15%;
     left: 50%;
     transform: translateX(-50%);

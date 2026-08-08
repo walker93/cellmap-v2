@@ -110,7 +110,7 @@ function loadForm(feature) {
         angolo1.disabled = false;
         angolo2.disabled = false;
         gradient.disabled = false;
-        icn.tomselect.disable(); // disable icon input for cell features
+        icn.parentElement.style.display = 'none'; // hide icon input for cell features
         pendingSaveHandler = modificaCella;
     } else {
         //if marker is a PoI feature disable sector related fields
@@ -118,7 +118,7 @@ function loadForm(feature) {
         angolo1.disabled = true;
         angolo2.disabled = true;
         gradient.disabled = true;
-        icn.tomselect.enable();
+        icn.parentElement.style.display = 'flex'; // show icon input for PoI features
         pendingSaveHandler = modificaPoi;
     }
     //enable or disable coords field according to geometry type
@@ -240,7 +240,7 @@ export function openForm(marker) {
         //change button to add instead of save
         el('savebtn').style.display = 'none';
         el('addbtn').style.display = 'inline-block';
-        el('inp_icon').tomselect.disable();
+        el('inp_icon').parentElement.style.display = 'none'; // hide icon input for new PoI features
     }
     el('inputs').style.display = 'block';
     // dialog a11y: allow Escape to close, and move focus into the dialog
