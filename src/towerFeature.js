@@ -2,6 +2,27 @@ import * as turf from '@turf/turf';
 import { normalizeCellIdentity, validateCellIdentity } from './cellIdentity.js';
 
 /**
+ * The simplestyle outline properties for a sector polygon.
+ *
+ * These have to be written even when the outline is meant to be invisible.
+ * `tokml` styles a polygon from the simplestyle keys, and when *no* `stroke*`
+ * key is present at all it falls back to an opaque grey line 2px wide
+ * (`ff555555`) rather than to no line — so a graduated cone, which sets only
+ * `fill`/`fill-opacity`, used to open in Google Earth as a stack of grey-edged
+ * rings. Saying "no outline" explicitly is the only way to get no outline.
+ *
+ * The Mapbox `sectors` layer reads `fill`/`fill-opacity` only, so none of this
+ * changes what the app itself draws.
+ *
+ * @param {string} color Hex colour (tokml needs a string here, or it falls back).
+ * @param {number} opacity 0..1; 0 means genuinely invisible.
+ * @param {number} width Line width in px.
+ */
+function outline(color, opacity, width) {
+    return { stroke: color, 'stroke-opacity': opacity, 'stroke-width': width };
+}
+
+/**
  * Build the coverage-sector polygon for a cell tower with turf.sector().
  *
  * This is the single source of truth for the sector geometry + properties.
@@ -37,6 +58,10 @@ export function buildCoverageSector(fields) {
         description,
         fill,
         'fill-opacity': opacity,
+        // A single sector gets a thin outline in its own colour. At 0.2 fill
+        // opacity the shape is very pale in Google Earth, and the hard edge is
+        // real information: it is where the estimated coverage stops.
+        ...outline(fill, 1, 1),
         marker: 'cell',
     };
     if (towerid !== undefined) {
@@ -131,6 +156,9 @@ export function buildCoverageSectors(fields) {
             fill: fields.fill,
             // full strength at the antenna, fading to a fraction of it at the rim
             'fill-opacity': opacity * (1 - band / GRADIENT_BANDS),
+            // No outline on the bands: they are one shape cut into slices, and
+            // drawing every cut is exactly the artefact to avoid.
+            ...outline(fields.fill, 0, 0),
             marker: 'cell',
             band,
         };

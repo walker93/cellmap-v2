@@ -38,6 +38,15 @@ describe('buildCoverageSector', () => {
         expect(sector.properties.marker).toBe('cell');
     });
 
+    // Not decoration: tokml outlines a polygon in opaque grey whenever no stroke
+    // property is present at all, so "no outline" has to be said out loud.
+    it('outlines the sector in its own colour', () => {
+        const sector = buildCoverageSector(baseFields);
+        expect(sector.properties.stroke).toBe('#ff0000');
+        expect(sector.properties['stroke-opacity']).toBe(1);
+        expect(sector.properties['stroke-width']).toBe(1);
+    });
+
     it('omits towerid when not provided (form/CSV attach it after draw.add)', () => {
         const sector = buildCoverageSector(baseFields);
         expect(sector.properties).not.toHaveProperty('towerid');
@@ -145,6 +154,16 @@ describe('buildCoverageSectors', () => {
                 marker: 'cell',
                 towerid: 't1',
             });
+        }
+    });
+
+    // The bands are one shape cut into slices; drawing every cut is the artefact
+    // to avoid. Stated explicitly because tokml's fallback for "no stroke given"
+    // is a grey outline, not the absence of one.
+    it('gives the bands no visible outline', () => {
+        for (const band of buildCoverageSectors({ ...baseFields, gradient: true })) {
+            expect(band.properties['stroke-opacity']).toBe(0);
+            expect(band.properties['stroke-width']).toBe(0);
         }
     });
 
