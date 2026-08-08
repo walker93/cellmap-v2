@@ -28,6 +28,8 @@ import { deleteAll } from '../reset.js';
 import { createTable } from '../ui/table.js';
 import { saveFile } from './download.js';
 import { importKmzFile, overlayToKmz, DEFAULT_OVERLAY_OPACITY } from './kmz.js';
+import { defaultRingInterval, getRingSettings, setRingSettings } from '../distanceRings.js';
+import { syncDisplaySettings } from '../ui/displaySettings.js';
 
 /** Marker written into every manifest, so a random zip isn't mistaken for a project. */
 export const PROJECT_FORMAT = 'cellmap-project';
@@ -60,11 +62,15 @@ export function projectFeatures() {
  * @param {object[]} overlays Entries from the overlay list, in sidebar order.
  * @param {string} savedAt ISO timestamp.
  */
-export function buildManifest(overlays, savedAt) {
+export function buildManifest(overlays, savedAt, display = getRingSettings()) {
     return {
         format: PROJECT_FORMAT,
         formatVersion: PROJECT_FORMAT_VERSION,
         savedAt,
+        // Ring spacing is a property of the map, not of any cell, so it has no
+        // feature to ride along on and has to be recorded here. The rings
+        // themselves are not stored: like sectors, they are recomputed on open.
+        display: { ringInterval: display.interval, ringLabels: Boolean(display.labels) },
         overlays: overlays.map((overlay, index) => ({
             entry: `${OVERLAY_DIR}/${index}.kmz`,
             file: overlay.file,
@@ -111,9 +117,22 @@ export function readManifest(raw) {
     return {
         formatVersion: version,
         savedAt: typeof raw.savedAt === 'string' ? raw.savedAt : null,
+        display: normalizeDisplay(raw.display),
         overlays: Array.isArray(raw.overlays)
             ? raw.overlays.map(normalizeOverlayEntry).filter(Boolean)
             : [],
+    };
+}
+
+// A project written before the "Map display" settings existed simply has no
+// `display` key, and gets a spacing derived from its own cells instead. Adding an
+// optional key is why this needed no format-version bump: an older build ignores
+// what it doesn't know, and a newer one has an answer for what isn't there.
+function normalizeDisplay(raw) {
+    const interval = Number(raw && raw.ringInterval);
+    return {
+        interval: Number.isFinite(interval) && interval > 0 ? interval : null,
+        labels: Boolean(raw && raw.ringLabels),
     };
 }
 
@@ -159,6 +178,21 @@ export async function loadProjectArchive(blob) {
     // Everything below this line replaces the map, so nothing that can fail on
     // malformed input (the manifest, the feature JSON) is left to run after it.
     deleteAll();
+
+    // Before loadFeatures, which draws the rings: a project that predates these
+    // settings has no spacing of its own, so one is derived from the cells it
+    // does have rather than leaving it at a default that may suit none of them.
+    setRingSettings({
+        interval:
+            manifest.display.interval ||
+            defaultRingInterval(
+                featureCollection.features
+                    .filter((f) => f.properties && f.properties.marker === 'cell')
+                    .map((f) => f.properties.Radius),
+            ),
+        labels: manifest.display.labels,
+    });
+
     loadFeatures(featureCollection);
 
     for (const entry of manifest.overlays) {
@@ -175,6 +209,7 @@ export async function loadProjectArchive(blob) {
     }
 
     createTable(draw.getAll());
+    syncDisplaySettings();
     return manifest;
 }
 

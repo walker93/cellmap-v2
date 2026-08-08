@@ -79,6 +79,7 @@ function createFeatureFromInput() {
         fill: fillcolor.value,
         opacity: alpha.value,
         gradient: el('inp_gradient').checked,
+        rings: el('inp_rings').checked,
         ...readIdentityInput(),
     });
     resetForm();
@@ -97,6 +98,7 @@ function resetForm() {
     el('inp_fill').value = '#FF0000';
     el('inp_alpha').value = '0.2';
     el('inp_gradient').checked = false;
+    el('inp_rings').checked = false;
     clearIdentity();
     el('feature-id').value = '';
     el('inp_icon').tomselect.clear();
@@ -141,6 +143,7 @@ function loadForm(feature) {
     var feat_id = el('feature-id');
     var icn = el('inp_icon');
     var gradient = el('inp_gradient');
+    var rings = el('inp_rings');
 
     if (feature.properties.marker && feature.properties.marker == 'cell') {
         //if cell feature load all previus fields
@@ -148,10 +151,12 @@ function loadForm(feature) {
         angolo2.value = feature.properties.Angle2;
         radius.value = feature.properties.Radius;
         gradient.checked = Boolean(feature.properties.gradient);
+        rings.checked = Boolean(feature.properties.rings);
         radius.disabled = false;
         angolo1.disabled = false;
         angolo2.disabled = false;
         gradient.disabled = false;
+        rings.disabled = false;
         showCellFields(true);
         loadIdentity(feature.properties);
         pendingSaveHandler = modificaCella;
@@ -161,6 +166,7 @@ function loadForm(feature) {
         angolo1.disabled = true;
         angolo2.disabled = true;
         gradient.disabled = true;
+        rings.disabled = true;
         showCellFields(false);
         pendingSaveHandler = modificaPoi;
     }

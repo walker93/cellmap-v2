@@ -16,6 +16,7 @@ import { addGeoJsonSource } from './mapSource.js';
 import { addSector, getSectors, getSectorsByTowerId, removeSectorsByTowerId } from './sectors.js';
 import { addHiddenPoi, takeHiddenPoi, removeHiddenPoi } from './hiddenPois.js';
 import { buildCoverageSectors, towerFieldsFromFeature } from './towerFeature.js';
+import { buildRingCollection, getRingSettings } from './distanceRings.js';
 
 function refreshMarkersSource() {
     addGeoJsonSource('settori', draw.getAll());
@@ -23,6 +24,20 @@ function refreshMarkersSource() {
 
 function refreshSectorsSource() {
     addGeoJsonSource('aree', getSectors());
+}
+
+/**
+ * Redraw every distance ring on the map.
+ *
+ * Unlike sectors, rings are not kept as a collection that has to be added to and
+ * pruned in step with the towers: they are entirely a function of (tower, spacing),
+ * so rebuilding the lot is both cheaper to reason about and impossible to desync.
+ * It also means hidden towers need no special handling here — buildRingCollection
+ * just leaves them out, rather than needing the layer-filter dance setTowerHidden
+ * does for the markers and sectors.
+ */
+export function refreshRingsSource() {
+    addGeoJsonSource('anelli', buildRingCollection(draw.getAll().features, getRingSettings().interval));
 }
 
 // The show/hide layer filter (see setTowerHidden) matches on `properties.id`, not
@@ -61,6 +76,7 @@ export function addTower(marker, sectors, existingId) {
 
     refreshMarkersSource();
     refreshSectorsSource();
+    refreshRingsSource();
     return id;
 }
 
@@ -118,6 +134,7 @@ export function loadFeatures(featureCollection) {
 
     refreshMarkersSource();
     refreshSectorsSource();
+    refreshRingsSource();
 }
 
 /**
@@ -140,6 +157,7 @@ export function duplicateTower(id) {
 
     refreshMarkersSource();
     refreshSectorsSource();
+    refreshRingsSource();
     return newId;
 }
 
@@ -155,6 +173,10 @@ export function setTowerHidden(id, hidden) {
     const feat = draw.get(id);
     feat.properties.hidden = hidden;
     draw.add(feat);
+
+    // The rings are rebuilt rather than filtered, so they need telling; the two
+    // layers below are filtered instead and do not.
+    refreshRingsSource();
 
     for (const [layerId, prop] of [
         ['markers', 'id'],
@@ -225,4 +247,5 @@ export function removeFeature(id) {
     removeSectorsByTowerId(id);
     refreshMarkersSource();
     refreshSectorsSource();
+    refreshRingsSource();
 }

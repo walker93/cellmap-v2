@@ -222,8 +222,12 @@ export function buildTowerFeature(fields) {
         opacity,
         // On the marker, not on the polygons: the sectors are derived and get
         // rebuilt from the marker's fields on every import, so this is where the
-        // choice has to live for it to survive a save/open cycle.
+        // choice has to live for it to survive a save/open cycle. Same for the
+        // distance rings, which are derived the same way — though only their
+        // visibility is per cell; their spacing belongs to the map (see
+        // distanceRings.js).
         gradient: Boolean(fields.gradient),
+        rings: Boolean(fields.rings),
         // Same reasoning for the network identity — it describes the cell, not
         // its coverage estimate. Spread last so an absent field stays `undefined`
         // and drops out of the exported JSON rather than being written as "".
@@ -252,8 +256,10 @@ export function csvRowToTowerFields(row) {
         description: row.desc,
         fill: row.fill,
         opacity: row.opacity,
-        // optional column; a file without it just gets plain sectors
+        // optional columns; a file without them just gets plain sectors and no
+        // distance rings
         gradient: Boolean(row.gradient),
+        rings: Boolean(row.rings),
         // optional identity columns; a file without them gets a tower with no
         // network metadata, which is what every CSV produced so far contains
         cellId: row.cellid,

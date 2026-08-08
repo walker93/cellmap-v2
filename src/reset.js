@@ -4,6 +4,8 @@ import { addGeoJsonSource } from './mapSource.js';
 import { clearSectors, getSectors } from './sectors.js';
 import { clearHiddenPois } from './hiddenPois.js';
 import { getOverlays, clearOverlays } from './overlays.js';
+import { resetRingSettings } from './distanceRings.js';
+import { refreshRingsSource } from './towerState.js';
 import { createTable } from './ui/table.js';
 
 // Clear the whole map: draw features, coverage sectors, hidden POIs and KMZ
@@ -20,8 +22,13 @@ export function deleteAll() {
     });
     clearOverlays();
 
+    // The ring spacing is part of the project, not a lasting preference, so an
+    // empty map goes back to the default rather than keeping the last one.
+    resetRingSettings();
+
     addGeoJsonSource('aree', getSectors());
     addGeoJsonSource('settori', draw.getAll());
+    refreshRingsSource();
     createTable(draw.getAll());
 }
 
