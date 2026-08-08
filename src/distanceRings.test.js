@@ -3,6 +3,7 @@ import * as turf from '@turf/turf';
 import {
     DEFAULT_RING_INTERVAL,
     RING_INTERVALS,
+    RING_STROKE_OPACITY,
     buildRingCollection,
     buildRings,
     defaultRingInterval,
@@ -29,10 +30,20 @@ const tower = (id, properties = {}) => ({
     },
 });
 
-const distanceOf = (ring) =>
-    turf.distance(turf.point(centre), turf.point(ring.geometry.coordinates[0]), {
-        units: 'kilometers',
-    });
+// Each ring comes with the anchor point its label is placed on, so anything
+// counting or measuring rings has to say which of the two it means.
+const arcs = (features) => features.filter((f) => f.properties.kind === 'ring');
+const anchors = (features) => features.filter((f) => f.properties.kind === 'ring-label');
+
+// How far a feature sits from the antenna: its first vertex for an arc, itself
+// for an anchor point.
+const distanceOf = (feature) => {
+    const at =
+        feature.geometry.type === 'Point'
+            ? feature.geometry.coordinates
+            : feature.geometry.coordinates[0];
+    return turf.distance(turf.point(centre), turf.point(at), { units: 'kilometers' });
+};
 
 describe('defaultRingInterval', () => {
     it('sizes the spacing so the widest cell gets roughly ten rings', () => {
@@ -72,7 +83,7 @@ describe('formatDistance', () => {
 
 describe('buildRings', () => {
     it('puts a ring at every multiple of the spacing inside the cell', () => {
-        const rings = buildRings(tower('t1'), 1);
+        const rings = arcs(buildRings(tower('t1'), 1));
         expect(rings).toHaveLength(2);
         expect(rings.map(distanceOf)[0]).toBeCloseTo(1, 3);
         expect(rings.map(distanceOf)[1]).toBeCloseTo(2, 3);
@@ -81,9 +92,22 @@ describe('buildRings', () => {
     // The rim is the sector's own outline; a ring there would be a second line in
     // the same place.
     it('stops short of the rim', () => {
-        const rings = buildRings(tower('t1', { Radius: 3 }), 1.5);
+        const rings = arcs(buildRings(tower('t1', { Radius: 3 }), 1.5));
         expect(rings).toHaveLength(1);
         expect(distanceOf(rings[0])).toBeCloseTo(1.5, 3);
+    });
+
+    // Mapbox splits a GeoJSON feature at tile boundaries and labels a line once
+    // per piece, so a wide ring came out labelled twice. A point cannot be.
+    it('gives each ring exactly one label anchor, on the ring itself', () => {
+        const features = buildRings(tower('t1'), 1);
+        expect(anchors(features)).toHaveLength(arcs(features).length);
+        for (const anchor of anchors(features)) {
+            expect(anchor.geometry.type).toBe('Point');
+        }
+        expect(anchors(features).map((a) => a.properties.label)).toEqual(['1 km', '2 km']);
+        // sits on its own ring, not somewhere near it
+        expect(distanceOf(anchors(features)[0])).toBeCloseTo(1, 3);
     });
 
     it('follows the cell’s own sweep rather than closing a circle', () => {
@@ -103,6 +127,14 @@ describe('buildRings', () => {
         expect(ring.properties.label).toBe('1 km');
     });
 
+    // A dozen saturated arcs read as the subject of the picture, when the subject
+    // is the coverage they are measuring.
+    it('draws the line well under full strength', () => {
+        const [ring] = buildRings(tower('t1'), 1);
+        expect(ring.properties['stroke-opacity']).toBe(RING_STROKE_OPACITY);
+        expect(RING_STROKE_OPACITY).toBeLessThan(1);
+    });
+
     it('draws nothing for a cell with no coverage, or with no spacing', () => {
         expect(buildRings(tower('t1', { Radius: 0 }), 1)).toEqual([]);
         expect(buildRings(tower('t1'), 0)).toEqual([]);
@@ -110,7 +142,9 @@ describe('buildRings', () => {
     });
 
     it('does not run away when the spacing is far finer than the cell', () => {
-        expect(buildRings(tower('t1', { Radius: 100 }), 0.05).length).toBeLessThanOrEqual(200);
+        expect(arcs(buildRings(tower('t1', { Radius: 100 }), 0.05)).length).toBeLessThanOrEqual(
+            200,
+        );
     });
 });
 
@@ -147,7 +181,7 @@ describe('buildRingCollection', () => {
     it('gives two co-located cells coincident rings, which is the point', () => {
         const a = tower('a', { Radius: 1 });
         const b = tower('b', { Radius: 3 });
-        const rings = buildRingCollection([a, b], 0.25).features;
+        const rings = arcs(buildRingCollection([a, b], 0.25).features);
         const forA = rings.filter((r) => r.properties.towerid === 'a').map(distanceOf);
         const forB = rings.filter((r) => r.properties.towerid === 'b').map(distanceOf);
         // same spacing for both, so a ring on one lines up with a ring on the other
