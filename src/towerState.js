@@ -37,7 +37,7 @@ function refreshSectorsSource() {
  * does for the markers and sectors.
  */
 export function refreshRingsSource() {
-    addGeoJsonSource('anelli', buildRingCollection(draw.getAll().features, getRingSettings().interval));
+    addGeoJsonSource('anelli', buildRingCollection(draw.getAll().features, getRingSettings().interval, getRingSettings().opacity));
 }
 
 // The show/hide layer filter (see setTowerHidden) matches on `properties.id`, not

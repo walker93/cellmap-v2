@@ -34,7 +34,7 @@ function applyLabelVisibility(visible) {
 /** Push the current settings into the controls — used at startup and after a
  *  project is opened, which is the other way these values can change. */
 export function syncDisplaySettings() {
-    const { interval, labels } = getRingSettings();
+    const { interval, labels, opacity } = getRingSettings();
     const select = el('ring-interval');
     if (select.options.length === 0) {
         for (const km of RING_INTERVALS) {
@@ -43,6 +43,11 @@ export function syncDisplaySettings() {
     }
     select.value = String(interval);
     el('ring-labels').checked = labels;
+    el('ring-opacity').value = opacity;
+    // The slider's inline oninput only fires when someone drags it, so the
+    // readout has to be set here too — otherwise opening a project moves the
+    // slider and leaves the number next to it showing the previous value.
+    el('opacity-value').value = Number(opacity).toFixed(2);
     applyLabelVisibility(labels);
 }
 
@@ -58,5 +63,11 @@ export function initDisplaySettings() {
 
     el('ring-labels').addEventListener('change', function () {
         applyLabelVisibility(setRingSettings({ labels: this.checked }).labels);
+    });
+
+    el('ring-opacity').addEventListener('input', function () {
+        const opacity = Number(this.value);
+        setRingSettings({ opacity });
+        refreshRingsSource();
     });
 }

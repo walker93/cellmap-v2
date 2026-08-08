@@ -82,7 +82,7 @@ export function buildCoverageSector(fields) {
 // four visible terraces and a 20 km one eighty polygons, and a 200 m femto no
 // gradient at all — a rule that switches the feature off for a whole class of cells.
 // Rings at round distances are a separate thing, and are drawn as lines.
-export const GRADIENT_BANDS = 16;
+export const GRADIENT_BANDS = 32;
 
 /** The opacity the finished picture should show in the k-th ring out. */
 function targetOpacity(k, opacity) {

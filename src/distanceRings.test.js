@@ -3,7 +3,7 @@ import * as turf from '@turf/turf';
 import {
     DEFAULT_RING_INTERVAL,
     RING_INTERVALS,
-    RING_STROKE_OPACITY,
+    DEFAULT_RING_STROKE_OPACITY,
     buildRingCollection,
     buildRings,
     defaultRingInterval,
@@ -83,7 +83,7 @@ describe('formatDistance', () => {
 
 describe('buildRings', () => {
     it('puts a ring at every multiple of the spacing inside the cell', () => {
-        const rings = arcs(buildRings(tower('t1'), 1));
+        const rings = arcs(buildRings(tower('t1'), 1, 0.5));
         expect(rings).toHaveLength(2);
         expect(rings.map(distanceOf)[0]).toBeCloseTo(1, 3);
         expect(rings.map(distanceOf)[1]).toBeCloseTo(2, 3);
@@ -92,7 +92,7 @@ describe('buildRings', () => {
     // The rim is the sector's own outline; a ring there would be a second line in
     // the same place.
     it('stops short of the rim', () => {
-        const rings = arcs(buildRings(tower('t1', { Radius: 3 }), 1.5));
+        const rings = arcs(buildRings(tower('t1', { Radius: 3 }), 1.5, 0.5));
         expect(rings).toHaveLength(1);
         expect(distanceOf(rings[0])).toBeCloseTo(1.5, 3);
     });
@@ -100,7 +100,7 @@ describe('buildRings', () => {
     // Mapbox splits a GeoJSON feature at tile boundaries and labels a line once
     // per piece, so a wide ring came out labelled twice. A point cannot be.
     it('gives each ring exactly one label anchor, on the ring itself', () => {
-        const features = buildRings(tower('t1'), 1);
+        const features = buildRings(tower('t1'), 1, 0.5);
         expect(anchors(features)).toHaveLength(arcs(features).length);
         for (const anchor of anchors(features)) {
             expect(anchor.geometry.type).toBe('Point');
@@ -111,7 +111,7 @@ describe('buildRings', () => {
     });
 
     it('follows the cell’s own sweep rather than closing a circle', () => {
-        const [ring] = buildRings(tower('t1', { Angle1: 0, Angle2: 90 }), 1);
+        const [ring] = buildRings(tower('t1', { Angle1: 0, Angle2: 90 }), 1, 0.5);
         expect(ring.geometry.type).toBe('LineString');
         const bearings = ring.geometry.coordinates.map((c) =>
             turf.bearing(turf.point(centre), turf.point(c)),
@@ -121,7 +121,7 @@ describe('buildRings', () => {
     });
 
     it('takes its colour from the cell and links back to it', () => {
-        const [ring] = buildRings(tower('t1', { fill: '#00ff00' }), 1);
+        const [ring] = buildRings(tower('t1', { fill: '#00ff00' }), 1, 0.5);
         expect(ring.properties.stroke).toBe('#00ff00');
         expect(ring.properties.towerid).toBe('t1');
         expect(ring.properties.label).toBe('1 km');
@@ -129,20 +129,19 @@ describe('buildRings', () => {
 
     // A dozen saturated arcs read as the subject of the picture, when the subject
     // is the coverage they are measuring.
-    it('draws the line well under full strength', () => {
-        const [ring] = buildRings(tower('t1'), 1);
-        expect(ring.properties['stroke-opacity']).toBe(RING_STROKE_OPACITY);
-        expect(RING_STROKE_OPACITY).toBeLessThan(1);
+    it('draws the line with the specified opacity', () => {
+        const [ring] = buildRings(tower('t1'), 1, 0.5);
+        expect(ring.properties['stroke-opacity']).toBe(0.5);
     });
 
     it('draws nothing for a cell with no coverage, or with no spacing', () => {
-        expect(buildRings(tower('t1', { Radius: 0 }), 1)).toEqual([]);
-        expect(buildRings(tower('t1'), 0)).toEqual([]);
-        expect(buildRings(tower('t1'), NaN)).toEqual([]);
+        expect(buildRings(tower('t1', { Radius: 0 }), 1, 0.5)).toEqual([]);
+        expect(buildRings(tower('t1'), 0, 0.5)).toEqual([]);
+        expect(buildRings(tower('t1'), NaN, 0.5)).toEqual([]);
     });
 
     it('does not run away when the spacing is far finer than the cell', () => {
-        expect(arcs(buildRings(tower('t1', { Radius: 100 }), 0.05)).length).toBeLessThanOrEqual(
+        expect(arcs(buildRings(tower('t1', { Radius: 100 }), 0.05, 0.5)).length).toBeLessThanOrEqual(
             200,
         );
     });
@@ -153,6 +152,7 @@ describe('buildRingCollection', () => {
         const features = buildRingCollection(
             [tower('on'), tower('off', { rings: false })],
             1,
+            0.5
         ).features;
         expect(new Set(features.map((f) => f.properties.towerid))).toEqual(new Set(['on']));
     });
@@ -161,7 +161,7 @@ describe('buildRingCollection', () => {
     // filters setTowerHidden uses for the markers and sectors — the rings are
     // rebuilt from scratch anyway, so there is nothing to filter.
     it('leaves out a hidden cell', () => {
-        expect(buildRingCollection([tower('t1', { hidden: true })], 1).features).toEqual([]);
+        expect(buildRingCollection([tower('t1', { hidden: true })], 1, 0.5).features).toEqual([]);
     });
 
     it('ignores POIs and measurement geometry', () => {
@@ -175,13 +175,13 @@ describe('buildRingCollection', () => {
             geometry: { type: 'LineString', coordinates: [centre, [9.2, 45.5]] },
             properties: { marker: 'cell', rings: true, Radius: 3, Angle1: 0, Angle2: 90 },
         };
-        expect(buildRingCollection([poi, line], 1).features).toEqual([]);
+        expect(buildRingCollection([poi, line], 1, 0.5).features).toEqual([]);
     });
 
     it('gives two co-located cells coincident rings, which is the point', () => {
         const a = tower('a', { Radius: 1 });
         const b = tower('b', { Radius: 3 });
-        const rings = arcs(buildRingCollection([a, b], 0.25).features);
+        const rings = arcs(buildRingCollection([a, b], 0.25, 0.5).features);
         const forA = rings.filter((r) => r.properties.towerid === 'a').map(distanceOf);
         const forB = rings.filter((r) => r.properties.towerid === 'b').map(distanceOf);
         // same spacing for both, so a ring on one lines up with a ring on the other
@@ -195,13 +195,14 @@ describe('ring settings', () => {
     beforeEach(() => resetRingSettings());
 
     it('starts at the default', () => {
-        expect(getRingSettings()).toEqual({ interval: DEFAULT_RING_INTERVAL, labels: false });
+        expect(getRingSettings()).toEqual({ interval: DEFAULT_RING_INTERVAL, labels: false, opacity: DEFAULT_RING_STROKE_OPACITY });
     });
 
     it('applies a new spacing and label choice', () => {
-        expect(setRingSettings({ interval: 1, labels: true })).toEqual({
+        expect(setRingSettings({ interval: 1, labels: true, opacity: 0.5 })).toEqual({
             interval: 1,
             labels: true,
+            opacity: 0.5,
         });
     });
 
@@ -213,9 +214,23 @@ describe('ring settings', () => {
         }
     });
 
+    // buildRings draws nothing at all for an opacity outside 0..1, so accepting
+    // one here would make every ring on the map quietly disappear.
+    it('ignores an opacity outside the range rings can be drawn at', () => {
+        setRingSettings({ opacity: 0.5 });
+        // null and '' are in the list on purpose: they convert to 0, which is a
+        // legal opacity, so "no opinion" would otherwise mean "invisible".
+        for (const bad of [-0.1, 1.5, NaN, 'x', null, '', undefined]) {
+            setRingSettings({ opacity: bad });
+            expect(getRingSettings().opacity).toBe(0.5);
+        }
+        expect(setRingSettings({ opacity: 0 }).opacity).toBe(0);
+        expect(setRingSettings({ opacity: 1 }).opacity).toBe(1);
+    });
+
     it('leaves what it was not asked to change alone', () => {
-        setRingSettings({ interval: 2, labels: true });
+        setRingSettings({ interval: 2, labels: true, opacity: 0.5 });
         setRingSettings({ interval: 0.5 });
-        expect(getRingSettings()).toEqual({ interval: 0.5, labels: true });
+        expect(getRingSettings()).toEqual({ interval: 0.5, labels: true, opacity: 0.5 });
     });
 });

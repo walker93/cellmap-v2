@@ -28,7 +28,7 @@ import { deleteAll } from '../reset.js';
 import { createTable } from '../ui/table.js';
 import { saveFile } from './download.js';
 import { importKmzFile, overlayToKmz, DEFAULT_OVERLAY_OPACITY } from './kmz.js';
-import { defaultRingInterval, getRingSettings, setRingSettings } from '../distanceRings.js';
+import { defaultRingInterval, getRingSettings, setRingSettings, DEFAULT_RING_STROKE_OPACITY } from '../distanceRings.js';
 import { syncDisplaySettings } from '../ui/displaySettings.js';
 
 /** Marker written into every manifest, so a random zip isn't mistaken for a project. */
@@ -70,7 +70,7 @@ export function buildManifest(overlays, savedAt, display = getRingSettings()) {
         // Ring spacing is a property of the map, not of any cell, so it has no
         // feature to ride along on and has to be recorded here. The rings
         // themselves are not stored: like sectors, they are recomputed on open.
-        display: { ringInterval: display.interval, ringLabels: Boolean(display.labels) },
+        display: { ringInterval: display.interval, ringLabels: Boolean(display.labels), ringOpacity: display.opacity },
         overlays: overlays.map((overlay, index) => ({
             entry: `${OVERLAY_DIR}/${index}.kmz`,
             file: overlay.file,
@@ -130,9 +130,19 @@ export function readManifest(raw) {
 // what it doesn't know, and a newer one has an answer for what isn't there.
 function normalizeDisplay(raw) {
     const interval = Number(raw && raw.ringInterval);
+    const opacity = Number(raw && raw.ringOpacity);
     return {
+        // `null` means "nothing usable was written down". The two settings answer
+        // that differently: a spacing can be measured off the project's own cells,
+        // so the caller is left to do it, while an opacity has nothing to derive
+        // from and falls back to the default here — which also keeps a stored 0
+        // from being mistaken for "unset" by a truthiness check downstream.
         interval: Number.isFinite(interval) && interval > 0 ? interval : null,
         labels: Boolean(raw && raw.ringLabels),
+        opacity:
+            Number.isFinite(opacity) && opacity >= 0 && opacity <= 1
+                ? opacity
+                : DEFAULT_RING_STROKE_OPACITY,
     };
 }
 
@@ -191,6 +201,7 @@ export async function loadProjectArchive(blob) {
                     .map((f) => f.properties.Radius),
             ),
         labels: manifest.display.labels,
+        opacity: manifest.display.opacity,
     });
 
     loadFeatures(featureCollection);

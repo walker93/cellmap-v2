@@ -94,13 +94,16 @@ describe('generateKML outlines', () => {
                 properties: { Radius: 3, Angle1: 0, Angle2: 90, fill: '#ff0000' },
             },
             1,
+            // an explicit opacity rather than the default: what this case is about
+            // is that whatever the map is drawing rings at reaches the KML, not
+            // what that value currently happens to be
+            0.45,
         ).filter((f) => f.properties.kind === 'ring');
         const kml = kmlOf([ring]);
         // Google Earth has no label-along-a-line, so the distance is the Placemark
         // name — which is also why the map's label anchors are left out of the export.
         expect(kml).toContain('<name>1 km</name>');
-        // 0.45 alpha => 72; the rings are drawn well under full strength so they
-        // stay followable without becoming the subject of the picture
+        // KML alpha is a hex byte, so 0.45 => 72
         expect(kml).toContain('<LineStyle><color>720000ff</color><width>1</width></LineStyle>');
         expect(kml).toContain('<LineString>');
         expect(kml).not.toContain('ff555555');
