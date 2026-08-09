@@ -12,6 +12,7 @@ import {
     setTowerHidden,
 } from '../towerState.js';
 import { el } from './dom.js';
+import { refreshSidebar } from './sidebar.js';
 
 // `numeral`, `math` and `mapboxgl` are CDN globals from index.html.
 
@@ -102,7 +103,7 @@ function editButton(marker) {
 }
 
 function deleteButton(marker) {
-    return actionIcon('fa-sharp fa-solid fa-xmark', 'Delete', function () {
+    return actionIcon('fa-sharp fa-solid fa-trash-can', 'Delete', function () {
         removeFeature(marker.id);
         createTable(draw.getAll());
     });
@@ -150,6 +151,7 @@ export function createTable(tableData) {
     for (const overlay of getOverlays()) {
         overlayTable.appendChild(createOverlayRow(overlay));
     }
+    refreshSidebar();
 }
 
 function createOverlayRow(overlay) {
@@ -192,25 +194,32 @@ function createOverlayRow(overlay) {
     );
 }
 
+// Le stesse icone dei pulsanti Draw sulla mappa: la riga in elenco e lo
+// strumento che l'ha creata si riconoscono a colpo d'occhio come la stessa cosa.
+const POI_TYPES = {
+    Point:      { icon: 'fa-solid fa-location-pin', label: 'Point of interest' },
+    LineString: { icon: 'fa-solid fa-ruler',          label: 'Measurement' },
+    Polygon:    { icon: 'fa-solid fa-draw-polygon',   label: 'Area' },
+};
+
 function createPOIRow(marker) {
-    // type label
     const spanType = document.createElement('span');
+    spanType.className = 'col-type';
     spanType.setAttribute('data-id', marker.id);
-    let testo = '';
-    switch (marker.geometry.type) {
-        case 'Point':
-            testo = 'PoI';
-            break;
-        case 'LineString':
-            testo = 'Measure';
-            break;
-        case 'Polygon':
-            testo = 'Area';
-            break;
-        default:
-            break;
+
+    const type = POI_TYPES[marker.geometry.type];
+    if (type) {
+        const icon = document.createElement('i');
+        icon.className = type.icon;
+        icon.setAttribute('aria-hidden', 'true');
+        spanType.appendChild(icon);
+        // Il testo "PoI"/"Measure"/"Area" era anche il nome accessibile del
+        // tipo. Sostituendolo con un glifo decorativo quel nome sparisce: va
+        // riportato sul contenitore, o la riga si annuncia senza tipo.
+        spanType.setAttribute('role', 'img');
+        spanType.setAttribute('aria-label', type.label);
+        spanType.title = type.label;
     }
-    spanType.innerText = testo;
 
     // name (falls back to coordinates / length / area when unnamed)
     const spanName = document.createElement('span');
@@ -302,5 +311,8 @@ function createTowerRow(marker) {
         ],
     );
     row.classList.add('table-element--tower');
+    row.dataset.id = marker.id;
+    row.setAttribute('role', 'option');
+    row.tabIndex = 0;
     return row;
 }

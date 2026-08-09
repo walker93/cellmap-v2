@@ -1,0 +1,739 @@
+/* =============================================================================
+   Cell Map Designer — sidebar
+   Sostituisce le regole di style.css relative a #controls, .tab*, .menu*,
+   .table-element* e .icon-btn. Il resto di style.css resta com'è.
+
+   Calibrato sul DOM reale generato da src/ui/table.js:
+     .table-element.table-element--tower
+       > .col-name  > .col-azimuth  > .col-radius  > .square-color.col-color
+       > .btn-col (contiene 5 .icon-btn)
+   ============================================================================= */
+
+:root {
+    --primary-color: #005f73;
+    /* bianco su #0a9396 dava 3.74:1, sotto la soglia AA di 4.5.
+       Questo dà 5.35:1 restando nella stessa famiglia cromatica. */
+    --primary-hover: #007687;
+    --secondary-color: #0a9396;
+    --accent-color: #ee9b00;
+    --danger-color: #9b2226;
+
+    --text-color: #001219;
+    --text-muted: #52646b;
+
+    --background-color: #e9d8a6;
+    --surface: #ffffff;
+    --surface-2: #f7f2e4;
+    --border: #d6cbae;
+
+    --sidebar-width: 25rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Colonna
+   -------------------------------------------------------------------------- */
+
+/* Sotto i 768px style.css impila mappa e controlli in una colonna sola. Questa
+   regola va quindi confinata al layout affiancato: dichiarata senza media
+   query, arrivando dopo style.css vincerebbe anche sul mobile, lasciando tre
+   colonne dove le aree ne dichiarano una — le due in eccesso restano vuote. */
+@media (min-width: 769px) {
+    main {
+        /* clamp: il resizer continua a scrivere --sidebar-width, ma la colonna
+           non può più collassare a zero né divorare la mappa. */
+        grid-template-columns: minmax(0, 1fr) 6px clamp(19rem, var(--sidebar-width), 34rem);
+    }
+}
+
+#controls {
+    grid-area: controls;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    /* Lo scroll avviene solo dentro il pannello aperto, non qui: era questo a
+       produrre le due barre di scorrimento annidate. */
+    overflow: hidden;
+
+    /* La sidebar è trascinabile, quindi la sua larghezza non è deducibile dal
+       viewport: il commento in style.css diceva che nessun breakpoint può
+       rispondere. Una container query può: le righe qui sotto reagiscono alla
+       larghezza di QUESTA colonna, non della finestra. */
+    container-type: inline-size;
+    container-name: sidebar;
+}
+
+.resizer {
+    grid-area: resizer;
+    background-color: var(--primary-color);
+    cursor: ew-resize;
+    position: relative;
+}
+
+.resizer::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    width: 4px;
+    height: 34px;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.resizer:hover {
+    background-color: var(--secondary-color);
+}
+
+/* -----------------------------------------------------------------------------
+   Barra Progetto — unico elemento pieno della colonna: è l'azione primaria
+   -------------------------------------------------------------------------- */
+
+#project-bar {
+    position: relative;
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    margin: 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.55rem 0.75rem;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--primary-color);
+    color: white;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.menu-trigger:hover {
+    background-color: var(--primary-hover);
+}
+
+.menu-trigger__label {
+    flex: 1 1 auto;
+    text-align: left;
+}
+
+.menu-trigger__caret {
+    transition: transform 0.2s;
+}
+
+.menu-trigger[aria-expanded="true"] .menu-trigger__caret {
+    transform: rotate(180deg);
+}
+
+.menu {
+    position: absolute;
+    top: calc(100% - 0.5rem);
+    left: 0.5rem;
+    right: 0.5rem;
+    z-index: 8;
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem 0;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    box-shadow: 0 6px 18px rgba(0, 18, 25, 0.18);
+}
+
+.menu[hidden] {
+    display: none;
+}
+
+.menu__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: none;
+    color: var(--text-color);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menu__item>i {
+    width: 1.1em;
+    color: var(--secondary-color);
+}
+
+.menu__item:hover,
+.menu__item:focus-visible {
+    background-color: var(--primary-hover);
+    color: white;
+}
+
+.menu__item:hover>i,
+.menu__item:focus-visible>i {
+    color: white;
+}
+
+.menu__item--danger,
+.menu__item--danger>i {
+    color: var(--danger-color);
+}
+
+.menu__item--danger:hover,
+.menu__item--danger:focus-visible,
+.menu__item--danger:hover>i {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.menu__separator {
+    height: 1px;
+    margin: 0.25rem 0;
+    background-color: var(--border);
+}
+
+/* -----------------------------------------------------------------------------
+   Sezioni a fisarmonica
+   -------------------------------------------------------------------------- */
+
+#elements {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#elements>.tab:last-child {
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.tab {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 0 0 auto;
+    border-bottom: 1px solid var(--border);
+}
+
+.tab__header {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    background: var(--surface-2);
+    border-left: 3px solid transparent;
+}
+
+/* Il peso visivo ora dice quale sezione è aperta, invece di gridare allo stesso
+   volume su tutte e quattro. */
+.tab__header:has(.tab__label[aria-expanded="true"]) {
+    background: var(--surface);
+    border-left-color: var(--primary-color);
+}
+
+.tab__label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 0.6rem 0.75rem;
+    border: none;
+    background: none;
+    color: var(--primary-color);
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.tab__label:hover {
+    background: rgba(10, 147, 150, 0.09);
+}
+
+.tab__label::before {
+    content: "\276F";
+    font-size: 0.7em;
+    color: var(--secondary-color);
+    transition: transform 0.2s;
+}
+
+/* style.css disegna la propria freccia in ::after, con l'animazione bounce.
+   Qui la freccia è in ::before: senza questa riga se ne vedono due. Meglio
+   ancora: cancellare quelle regole da style.css. */
+.tab__label::after {
+    content: none;
+}
+
+.tab__label[aria-expanded="true"]::before {
+    transform: rotate(90deg);
+}
+
+.tab__title {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Dice cosa c'è dentro senza doverla aprire. */
+.tab__count {
+    flex: 0 0 auto;
+    min-width: 1.6rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: var(--border);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+/* Un badge senza testo disegnerebbe comunque la pillola: una lineetta grigia
+   che non significa niente. */
+.tab__count:empty {
+    display: none;
+}
+
+.tab__label[aria-expanded="true"] .tab__count {
+    background: var(--secondary-color);
+    color: white;
+}
+
+/* L'azione aveva lo stesso fondo e lo stesso colore del titolo accanto: leggeva
+   come parte dell'etichetta. Ora è un chip. */
+.tab__action {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex: 0 0 auto;
+    margin: 0.35rem 0.5rem 0.35rem 0;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--primary-color);
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.tab__action:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+    color: white;
+}
+
+/* Niente più max-height: 15rem. Il pannello aperto prende l'altezza che c'è. */
+.tab__content {
+    flex: 0 0 0px;
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.tab:has(.tab__label[aria-expanded="true"]) {
+    flex: 1 1 0;
+    /* Con due sezioni aperte, flex dividerebbe lo spazio in parti uguali: una
+       lista di 2 righe si prenderebbe metà colonna vuota mentre quella di 40
+       resta tagliata. Il cap sul contenuto naturale congela la sezione corta e
+       flex ridistribuisce l'avanzo a quella che ne ha bisogno. */
+    max-height: max-content;
+}
+
+.tab:has(.tab__label[aria-expanded="true"])>.tab__content {
+    /* base auto (= altezza naturale del contenuto), non 0: è ciò che rende
+       calcolabile il max-content qui sopra. */
+    flex: 1 1 auto;
+    opacity: 1;
+    overflow-y: auto;
+}
+
+/* -----------------------------------------------------------------------------
+   Filtro lista
+   -------------------------------------------------------------------------- */
+
+/* Filtro e intestazione di colonna viaggiano insieme in un unico blocco
+   sticky: l'offset dell'intestazione non è più un numero magico calcolato
+   sull'altezza del filtro (che si sfasava appena il filtro cambiava, o
+   mancava del tutto). */
+.list-head {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--surface);
+}
+
+.list-filter {
+    padding: 0.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.list-filter input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.35rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font: inherit;
+    font-size: 0.85rem;
+}
+
+.list-filter input:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -1px;
+    border-color: var(--secondary-color);
+}
+
+/* -----------------------------------------------------------------------------
+   Righe celle
+   Due disposizioni, scelte in base alla larghezza della colonna:
+   - stretta: nome su una riga, metadati e azioni sotto
+   - larga:   tutto su una riga, colonne allineate
+   -------------------------------------------------------------------------- */
+
+.table-header--tower,
+.table-element--tower {
+    display: grid;
+    align-items: center;
+    gap: 4px 6px;
+    padding: 0.3rem 0.5rem;
+}
+
+/* --- disposizione stretta (default) --- */
+.table-header--tower {
+    /* l'intestazione di colonna non ha senso finché le colonne non sono
+       allineate: sotto i 26rem sparisce */
+    display: none;
+}
+
+.table-element--tower {
+    grid-template-columns: auto auto 0.7rem 1fr;
+    grid-template-areas:
+        "name    name   name  name"
+        "azimuth radius color actions";
+    border-bottom: 1px solid #f0ece0;
+    font-size: 0.85rem;
+}
+
+.table-element--tower>.col-name {
+    grid-area: name;
+    text-align: left;
+    padding-left: 0;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.table-element--tower>.col-azimuth {
+    grid-area: azimuth;
+}
+
+.table-element--tower>.col-radius {
+    grid-area: radius;
+}
+
+.table-element--tower>.col-color {
+    grid-area: color;
+}
+
+.table-element--tower>.btn-col {
+    grid-area: actions;
+    justify-self: end;
+}
+
+.table-element--tower>.col-azimuth,
+.table-element--tower>.col-radius {
+    white-space: nowrap;
+    /* cifre a larghezza fissa: le colonne numeriche si incolonnano */
+    font-variant-numeric: tabular-nums;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* --- disposizione larga --- */
+@container sidebar (min-width: 26rem) {
+
+    .table-header--tower,
+    .table-element--tower {
+        display: grid;
+        /* azimut è "0 - 360°": 5.2rem, non le 4 di prima */
+        grid-template-columns: minmax(0, 1fr) 5.2rem 3rem 0.7rem 6.4rem;
+        grid-template-areas: "name azimuth radius color actions";
+    }
+
+    .table-header--tower {
+        background: var(--surface-2);
+        border-bottom: 1px solid var(--border);
+        padding: 0.35rem 0.5rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+    }
+
+    .table-header--tower>.col-name {
+        grid-area: name;
+    }
+
+    .table-header--tower>.col-azimuth {
+        grid-area: azimuth;
+    }
+
+    .table-header--tower>.col-radius {
+        grid-area: radius;
+    }
+
+    .table-header--tower>.col-color {
+        grid-area: color;
+    }
+
+    .table-header--tower>.col-actions {
+        grid-area: actions;
+    }
+
+    .table-element--tower>.col-name {
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow-wrap: normal;
+    }
+
+    .table-element--tower>.col-azimuth,
+    .table-element--tower>.col-radius,
+    .table-header--tower>.col-azimuth,
+    .table-header--tower>.col-radius {
+        text-align: right;
+    }
+}
+
+/* L'attributo hidden nasconde tramite [hidden]{display:none} dello user agent,
+   che ha specificità minima: qualunque display dichiarato qui la batte, e le
+   righe filtrate resterebbero visibili. Va riaffermato esplicitamente. */
+.table-element[hidden],
+.table-element--tower[hidden] {
+    display: none;
+}
+
+/* --- stati riga --- */
+.table-element--tower:hover {
+    background: rgba(10, 147, 150, 0.08);
+}
+
+.table-element--tower[aria-selected="true"] {
+    background: rgba(10, 147, 150, 0.16);
+    box-shadow: inset 3px 0 0 var(--primary-color);
+}
+
+.table-element--tower:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
+}
+
+.square-color {
+    display: block;
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 18, 25, 0.25);
+}
+
+.table-element--tower>.col-color {
+    justify-self: center;
+}
+
+.btn-col {
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    padding: 3px;
+    margin: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    color: var(--primary-color);
+    font-size: inherit;
+    line-height: 1;
+}
+
+.table-element--tower .icon-btn {
+    padding: 2px 3px;
+    font-size: 0.85rem;
+}
+
+.icon-btn:hover {
+    background: var(--primary-hover);
+    color: white;
+}
+
+.icon-btn:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -1px;
+}
+
+/* -----------------------------------------------------------------------------
+   Righe PoI e overlay (layout flex, invariato nella struttura)
+   -------------------------------------------------------------------------- */
+
+/* NB: .table-element e .table-element--tower hanno la stessa specificità (0,1,0).
+   Senza :not(), queste regole — scritte dopo — vincono il pareggio e riportano
+   le righe cella a display:flex, annullando tutta la griglia qui sopra. */
+.table-element:not(.table-element--tower) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+    padding: 0.3rem 0.5rem;
+    border-bottom: 1px solid #f0ece0;
+    font-size: 0.85rem;
+}
+
+/* Le etichette partono tutte dallo stesso bordo sinistro: è quello che dà
+   all'occhio una colonna da seguire scendendo l'elenco. L'allineamento a
+   destra ereditato da style.css faceva iniziare ogni nome a un'ascissa
+   diversa. A destra restano solo i numeri (azimut, raggio), dove incolonnare
+   le cifre per posizione serve davvero. */
+.table-element:not(.table-element--tower)>*:first-child {
+    text-align: left;
+    padding-left: 0;
+}
+
+/* Il nome può accorciarsi con l'ellissi; pastiglia colore e barra azioni no. */
+.table-element:not(.table-element--tower)>span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Colonna del tipo: larghezza fissa, così le icone si incolonnano invece di
+   spostarsi a seconda di quanto è larga quella della riga sopra. */
+.table-element:not(.table-element--tower)>.col-type {
+    flex: 0 0 1.25rem;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+/* La pastiglia colore va a filo destro, come nella colonna fissa delle righe
+   cella: appesa al nome cadeva a un'ascissa diversa in ogni riga. */
+.table-element:not(.table-element--tower)>.square-color {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+/* Un solo margine automatico per riga, altrimenti i due si spartiscono lo
+   spazio libero e la pastiglia resta a mezz'aria. Dove la pastiglia c'è, le
+   azioni la seguono; dove manca (overlay), il margine resta sulle azioni. */
+.table-element:not(.table-element--tower)>.square-color~.btn-col {
+    margin-left: 0;
+}
+
+/* Le azioni restano a filo destro senza che il nome debba essere spinto là. */
+.table-element:not(.table-element--tower)>.btn-col {
+    flex-shrink: 0;
+    overflow: visible;
+    margin-left: auto;
+}
+
+.table-element:hover {
+    background: rgba(10, 147, 150, 0.08);
+}
+
+/* Un vuoto è un invito ad agire, non un buco. */
+.empty-state {
+    margin: 0;
+    padding: 1rem 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* -----------------------------------------------------------------------------
+   Pannello impostazioni
+   -------------------------------------------------------------------------- */
+
+.tab__settings {
+    padding: 0.5rem 0.75rem 0.75rem;
+}
+
+.tab__settings .line {
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: 0.45rem 0;
+    font-size: 0.88rem;
+}
+
+.tab__settings output {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    min-width: 2.2rem;
+    text-align: right;
+}
+
+.tab__note {
+    margin: 0.5rem 0 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    opacity: 1;
+}
+
+input[type="range"],
+input[type="checkbox"] {
+    accent-color: var(--primary-color);
+}
+
+/* -----------------------------------------------------------------------------
+   Focus e movimento
+   -------------------------------------------------------------------------- */
+
+.tab__label:focus-visible,
+.tab__action:focus-visible,
+.menu-trigger:focus-visible,
+.menu__item:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   Schermi stretti: la colonna passa sotto la mappa
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #controls {
+        border-left: none;
+        border-top: 1px solid var(--border);
+    }
+}

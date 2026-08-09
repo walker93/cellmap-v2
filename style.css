@@ -31,11 +31,7 @@
 .tab {
   position: relative;
 }
-.tab__content {
-  max-height: 0;
-  overflow: hidden;
-  transition: all 0.35s;
-}
+
 /* The section header holds the disclosure button and, where the section has one,
    its "add" action. They have to be siblings: a <button> cannot contain another. */
 .tab__header {
@@ -46,15 +42,6 @@
      breakpoint can answer: let the action drop to its own line when it stops
      fitting, whatever the viewport says */
   flex-wrap: wrap;
-}
-
-/* The disclosure button is a <button aria-expanded> driven by src/ui/accordion.js,
-   so the same attribute assistive tech reads is what opens the panel here — no
-   hidden checkbox in between. :has() is what lets that stay true now that the
-   button sits inside the header row rather than directly before the panel. */
-.tab__header:has(.tab__label[aria-expanded="true"]) + .tab__content {
-  max-height: 15rem;
-  overflow-y: auto;
 }
 
 .tab__label,
@@ -106,30 +93,6 @@
   font: inherit;
   font-size: 0.85em;
   white-space: nowrap;
-}
-.tab__label::after {
-  content: "\276F";
-  width: 1em;
-  height: 1em;
-  text-align: center;
-  transform: rotate(90deg);
-  transition: all 0.35s;
-}
-.tab__label[aria-expanded="true"]::after {
-  transform: rotate(270deg);
-}
-/* Arrow animation */
-.tab__label[aria-expanded="false"]:hover::after {
-  animation: bounce .5s infinite;
-
-}
-@keyframes bounce {
-  25% {
-    transform: rotate(90deg) translate(.25rem);
-  }
-  75% {
-    transform: rotate(90deg) translate(-.25rem);
-  }
 }
 
 /* FINE */

@@ -29,6 +29,7 @@
 
 
     <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="sidebar.css" type="text/css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
@@ -192,19 +193,26 @@
                 <div id="table" class="tab">
                     <div class="tab__header">
                         <button type="button" id="tab1-label" class="tab__label" aria-expanded="true"
-                            aria-controls="tab1-content">Cell Towers</button>
+                            aria-controls="tab1-content"><span class="tab__title">Cell Towers</span><span
+                                class="tab__count" id="count-cells"></span></button>
                         <button type="button" id="addcell" class="tab__action"><i aria-hidden="true"
                                 class="fa-sharp fa-solid fa-plus"></i> Add cell</button>
                     </div>
                     <div class="tab__content" id="tab1-content" role="region" aria-labelledby="tab1-label">
-                        <div class="table-header table-header--tower">
-                            <span class="col-name">Name</span>
-                            <span class="col-azimuth">Azimuth</span>
-                            <span class="col-radius">Radius</span>
-                            <span class="col-color"></span>
-                            <span class="col-actions"></span>
+                        <div class="list-head">
+                            <div class="list-filter">
+                                <input type="search" id="filter-cells" placeholder="Filter by name or CGI…"
+                                    aria-label="Filter cell towers">
+                            </div>
+                            <div class="table-header table-header--tower">
+                                <span class="col-name">Name</span>
+                                <span class="col-azimuth">Azimuth</span>
+                                <span class="col-radius">Radius</span>
+                                <span class="col-color"></span>
+                                <span class="col-actions"></span>
+                            </div>
                         </div>
-                        <div id="features">
+                        <div id="features" role="listbox" aria-label="List of cell towers">
 
                         </div>
                     </div>
@@ -212,7 +220,8 @@
                 <div id="poi-table" class="tab">
                     <div class="tab__header">
                         <button type="button" id="tab2-label" class="tab__label" aria-expanded="false"
-                            aria-controls="tab2-content">Points of interest</button>
+                            aria-controls="tab2-content"><span class="tab__title">Points of interest</span><span
+                                class="tab__count" id="count-poi"></span></button>
                     </div>
                     <div class="tab__content" id="tab2-content" role="region" aria-labelledby="tab2-label">
                         <div id="poi">
@@ -222,7 +231,8 @@
                 <div id="over-table" class="tab">
                     <div class="tab__header">
                         <button type="button" id="tab3-label" class="tab__label" aria-expanded="false"
-                            aria-controls="tab3-content">Overlays</button>
+                            aria-controls="tab3-content"><span class="tab__title">Overlays</span><span
+                                class="tab__count" id="count-overlays"></span></button>
                         <button type="button" id="addoverlay" class="tab__action"><i aria-hidden="true"
                                 class="fa-sharp fa-solid fa-plus"></i> Add overlay</button>
                     </div>
@@ -251,8 +261,7 @@
                             </div>
                             <div class="line">
                                 <label for="ring-opacity">Ring opacity:</label>
-                                <input type="range" id="ring-opacity" min="0.1" max="1"
-                                    step="0.01" value="0.35"
+                                <input type="range" id="ring-opacity" min="0.1" max="1" step="0.01" value="0.35"
                                     oninput="this.nextElementSibling.value = Number.parseFloat(this.value).toFixed(2)">
                                 <output for="ring-opacity" id="opacity-value">0.35</output>
                             </div>

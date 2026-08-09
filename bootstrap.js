@@ -14,6 +14,7 @@ import { registerMapEvents } from './src/mapEvents.js';
 import { initAccordions } from './src/ui/accordion.js';
 import { initMenu } from './src/ui/menu.js';
 import { initDisplaySettings } from './src/ui/displaySettings.js';
+import { initSidebar, addHighlightLayer } from './src/ui/sidebar.js';
 
 map.on('load', setupMapLayers);
 
@@ -26,6 +27,7 @@ function setupMapLayers() {
     addGeoJsonSource('aree', getSectors());
     addGeoJsonSource('anelli', geojson);
     addCellLayer();
+    addHighlightLayer();
     addRingLayers();
     addOtherTools();
     addMeasurementTools();
@@ -240,4 +242,5 @@ function wireControls() {
 
 wireControls();
 initAccordions();
+initSidebar();
 initMenu(document.getElementById('project-menu-btn'), document.getElementById('project-menu'));
