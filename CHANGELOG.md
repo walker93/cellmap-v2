@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Feature
+- :lipstick: Rework the sidebar: fill the height that is there, make the cell list scannable [`172117f`](https://github.com/walker93/cellmap-v2/commit/172117f)
 - make ring opacity a map setting, and draw the cone in 32 steps [`2654897`](https://github.com/walker93/cellmap-v2/commit/2654897)
 - draw distance rings across a cell's coverage at round distances [`e218188`](https://github.com/walker93/cellmap-v2/commit/e218188)
 - record a cell's network identity (Cell ID / LAC / MCC-MNC / type) [`130a532`](https://github.com/walker93/cellmap-v2/commit/130a532)
@@ -16,7 +17,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - draw the uncertainty cone as nested sectors so the bands stop seaming [`5d5f047`](https://github.com/walker93/cellmap-v2/commit/5d5f047)
 - stop the KML export outlining every sector, and crashing on unset fields [`581c222`](https://github.com/walker93/cellmap-v2/commit/581c222)
 
+### Documentation
+- :robot: changelog file generated [`c8726e2`](https://github.com/walker93/cellmap-v2/commit/c8726e2)
+
 ### Other
+- Merge branch 'main' of https://github.com/walker93/cellmap-v2 [`ddc25c6`](https://github.com/walker93/cellmap-v2/commit/ddc25c6)
 - Merge branch 'feat/ring-opacity-control' [`4c8494b`](https://github.com/walker93/cellmap-v2/commit/4c8494b)
 - Merge branch 'fix/distance-ring-legibility' [`c5dd796`](https://github.com/walker93/cellmap-v2/commit/c5dd796)
 - Merge branch 'feat/distance-rings' [`02366dc`](https://github.com/walker93/cellmap-v2/commit/02366dc)
