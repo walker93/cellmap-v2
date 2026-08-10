@@ -277,10 +277,28 @@
         </div>
     </main>
     <footer>
-        <p>© 2024 Cell Map Designer by <a class="link" href="https://alexcortinovis.tech" target="_blank">Alex
-                Cortinovis</a></p>
+        <div id="donate-button-container">
+            <p>© 2024 Cell Map Designer by <a class="link" href="https://alexcortinovis.tech" target="_blank">Alex
+                    Cortinovis</a>&nbsp;&nbsp;</p>
+
+            <div id="donate-button"></div>
+            <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+            <script>
+                PayPal.Donation.Button({
+                    env: 'production',
+                    hosted_button_id: 'D6TWYPC9GPDAQ',
+                    image: {
+                        src: 'https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif',
+                        alt: 'Donate with PayPal button',
+                        title: 'PayPal - The safer, easier way to pay online!',
+                    }
+                }).render('#donate-button');
+            </script>
+        </div>
         <p>Icons by Maps Icons Collection <a class="link" href="https://mapicons.mapsmarker.com"
                 target="_blank">https://mapicons.mapsmarker.com</a></p>
+
+
         <script type="module" src="bootstrap.js"></script>
         <script type="module" src="resizer.js"></script>
     </footer>
