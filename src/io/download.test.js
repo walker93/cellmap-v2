@@ -11,7 +11,10 @@ afterEach(() => {
 
 describe('saveFile — File System Access API path', () => {
     function mockPicker() {
-        const writable = { write: vi.fn().mockResolvedValue(undefined), close: vi.fn().mockResolvedValue(undefined) };
+        const writable = {
+            write: vi.fn().mockResolvedValue(undefined),
+            close: vi.fn().mockResolvedValue(undefined),
+        };
         const handle = { createWritable: vi.fn().mockResolvedValue(writable) };
         window.showSaveFilePicker = vi.fn().mockResolvedValue(handle);
         return { writable };
@@ -34,9 +37,9 @@ describe('saveFile — File System Access API path', () => {
     });
 
     it('returns false (no throw) when the user cancels the dialog', async () => {
-        window.showSaveFilePicker = vi.fn().mockRejectedValue(
-            Object.assign(new Error('cancelled'), { name: 'AbortError' })
-        );
+        window.showSaveFilePicker = vi
+            .fn()
+            .mockRejectedValue(Object.assign(new Error('cancelled'), { name: 'AbortError' }));
         await expect(saveFile('map.kml', 'x', 'text/plain')).resolves.toBe(false);
     });
 

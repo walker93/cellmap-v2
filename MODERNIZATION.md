@@ -10,6 +10,7 @@ The app now runs entirely on **ES modules bundled by Vite**, with a **Vitest** s
 `claude/webapp-legacy-modernization-plan-chxyij`:
 
 **Done**
+
 - Seeded from CellMap with the **leaked Mapbox token scrubbed from git history** and the
   deprecated `old/` backup removed.
 - Tooling: **Vite + Vitest + ESLint (flat) + Prettier + CI**; `config.js` now sets
@@ -79,6 +80,7 @@ bootstrap (map/layer setup, the Mapbox event handlers, and `wireControls`), and 
 else lives in 16 focused `src/` modules.
 
 **Real bugs found and fixed while formalizing state**
+
 1. Duplicating a tower silently lost its coverage sector (referenced an undefined
    `feature_id` and pushed the raw filter array).
 2. "Delete All" didn't clear the hidden-POI list, so hidden POIs reappeared.
@@ -114,7 +116,7 @@ else lives in 16 focused `src/` modules.
    the cached `icons.json` data on demand — the documented hook for exactly this case,
    and it covers every creation path at once instead of only the interactive one.
 9. Found in manual testing: icons in categories with an `&` in the name (`Culture &
-   Entertainment`, `Healt & Education`, `Hotel & Resturants`) showed as a broken image in
+Entertainment`, `Healt & Education`, `Hotel & Resturants`) showed as a broken image in
    the form's icon picker. `images/icons/icons.json`'s `url` field percent-encoded the
    category folder name (`%20` for the space, `%26` for `&`), and while `%20` resolves
    correctly, requesting a path containing `%26` trips up Vite's dev-server static
@@ -157,6 +159,7 @@ else lives in 16 focused `src/` modules.
   `src/ui/table.js`.
 
 **Remaining**
+
 - **A11y follow-up (optional)** — converting the checkbox-hack accordion (`index.html`'s
   `#cb1`/`#cb2`/`#cb3`) to a `button aria-expanded` disclosure, if the checkbox semantics
   (which already work with keyboard via Space/Enter) prove awkward with screen readers in
@@ -208,7 +211,7 @@ a deliberate learning exercise — none of which apply to the app as it stands t
 Each phase leaves the app in a working, statically-deployable state.
 
 - **Phase 0 — Safety net first.** Vitest + tests for the highest-risk logic (CSV import,
-  KML export, KMZ georeferencing, draw/geojson/hiddenPois sync) *before* any refactor.
+  KML export, KMZ georeferencing, draw/geojson/hiddenPois sync) _before_ any refactor.
   _(started: tooling in place, first pure module + tests landed under `src/`.)_
 - **Phase 1 — Decouple from inline `onclick`.** Replace the ~10 inline handlers in
   `index.html` (and the dynamic `setAttribute('onclick', …)`) with `addEventListener`.

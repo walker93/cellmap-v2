@@ -119,7 +119,10 @@ describe('createTable', () => {
     // An operator's cell list often has no name column, and a sidebar of rows all
     // reading "Unnamed" is unusable — the Cell ID is what tells them apart.
     it('names an unnamed tower after its Cell ID when it has one', () => {
-        const unnamed = { ...tower, properties: { ...tower.properties, name: '', cellId: '21437' } };
+        const unnamed = {
+            ...tower,
+            properties: { ...tower.properties, name: '', cellId: '21437' },
+        };
         createTable({ type: 'FeatureCollection', features: [unnamed] });
         expect(document.querySelector('#features .col-name').innerText).toBe('Cell 21437');
     });

@@ -41,7 +41,11 @@ describe('accordion', () => {
     });
 
     it('wires every header button once', () => {
-        expect(initAccordions().map((el) => el.id)).toEqual(['tab1-label', 'tab2-label', 'tab3-label']);
+        expect(initAccordions().map((el) => el.id)).toEqual([
+            'tab1-label',
+            'tab2-label',
+            'tab3-label',
+        ]);
         // Called again after a re-render: nothing is double-wired.
         expect(initAccordions()).toEqual([]);
     });

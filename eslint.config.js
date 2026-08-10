@@ -3,75 +3,75 @@ import globals from 'globals';
 import prettier from 'eslint-config-prettier';
 
 export default [
-  js.configs.recommended,
-  prettier,
-  {
-    files: ['src/**/*.js'],
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
-      globals: {
-        ...globals.browser,
-        // CDN libraries exposed as globals by <script> tags in index.html and
-        // referenced from modules (e.g. src/map.js uses mapboxgl, src/draw.js uses
-        // MapboxDraw).
-        mapboxgl: 'readonly',
-        MapboxDraw: 'readonly',
-        tokml: 'readonly',
-        numeral: 'readonly',
-        math: 'readonly',
-        TomSelect: 'readonly',
-        Papa: 'readonly',
-        JSZip: 'readonly',
-      },
+    js.configs.recommended,
+    prettier,
+    {
+        files: ['src/**/*.js'],
+        languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: 'module',
+            globals: {
+                ...globals.browser,
+                // CDN libraries exposed as globals by <script> tags in index.html and
+                // referenced from modules (e.g. src/map.js uses mapboxgl, src/draw.js uses
+                // MapboxDraw).
+                mapboxgl: 'readonly',
+                MapboxDraw: 'readonly',
+                tokml: 'readonly',
+                numeral: 'readonly',
+                math: 'readonly',
+                TomSelect: 'readonly',
+                Papa: 'readonly',
+                JSZip: 'readonly',
+            },
+        },
     },
-  },
-  {
-    // The app entry (now an ES module, renamed from new_script.js to bootstrap.js
-    // once it was down to setup + control wiring) and the resizer. Still references
-    // several CDN libraries through their <script> globals; linted loosely until the
-    // remaining seams (state, io, ui) are extracted into src/ modules.
-    files: ['bootstrap.js', 'resizer.js'],
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
-      globals: {
-        ...globals.browser,
-        mapboxgl: 'readonly',
-        MapboxDraw: 'readonly',
-        MapboxGeocoder: 'readonly',
-        MapboxExportControl: 'readonly',
-        Papa: 'readonly',
-        JSZip: 'readonly',
-        numeral: 'readonly',
-        math: 'readonly',
-        tokml: 'readonly',
-        TomSelect: 'readonly',
-      },
+    {
+        // The app entry (now an ES module, renamed from new_script.js to bootstrap.js
+        // once it was down to setup + control wiring) and the resizer. Still references
+        // several CDN libraries through their <script> globals; linted loosely until the
+        // remaining seams (state, io, ui) are extracted into src/ modules.
+        files: ['bootstrap.js', 'resizer.js'],
+        languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: 'module',
+            globals: {
+                ...globals.browser,
+                mapboxgl: 'readonly',
+                MapboxDraw: 'readonly',
+                MapboxGeocoder: 'readonly',
+                MapboxExportControl: 'readonly',
+                Papa: 'readonly',
+                JSZip: 'readonly',
+                numeral: 'readonly',
+                math: 'readonly',
+                tokml: 'readonly',
+                TomSelect: 'readonly',
+            },
+        },
+        rules: {
+            // Legacy code is linted loosely (warnings only) until each file is
+            // converted to an ES module; these flag real cleanups for later phases
+            // without blocking CI in the meantime.
+            'no-unused-vars': 'warn',
+            'no-undef': 'warn',
+            'no-redeclare': 'warn',
+        },
     },
-    rules: {
-      // Legacy code is linted loosely (warnings only) until each file is
-      // converted to an ES module; these flag real cleanups for later phases
-      // without blocking CI in the meantime.
-      'no-unused-vars': 'warn',
-      'no-undef': 'warn',
-      'no-redeclare': 'warn',
+    {
+        // scripts/ runs under Node (npm run build), not the browser.
+        files: ['scripts/**/*.js'],
+        languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: 'module',
+            globals: {
+                ...globals.node,
+            },
+        },
     },
-  },
-  {
-    // scripts/ runs under Node (npm run build), not the browser.
-    files: ['scripts/**/*.js'],
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
-      globals: {
-        ...globals.node,
-      },
+    {
+        // lib/ and public/lib/ are vendored third-party scripts, not our source;
+        // public/images is static data (icons.json + PNGs), not lintable JS anyway.
+        ignores: ['dist/**', 'lib/**', 'public/**', 'old/**', 'node_modules/**'],
     },
-  },
-  {
-    // lib/ and public/lib/ are vendored third-party scripts, not our source;
-    // public/images is static data (icons.json + PNGs), not lintable JS anyway.
-    ignores: ['dist/**', 'lib/**', 'public/**', 'old/**', 'node_modules/**'],
-  },
 ];

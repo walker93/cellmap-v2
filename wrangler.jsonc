@@ -1,10 +1,10 @@
 {
-  // Static-asset-only Worker (no server-side script) serving the Vite build
-  // output. dist/ is produced by `npm run build`, which also writes
-  // dist/config.js — see scripts/generate-config.js and MAPBOX_ACCESS_TOKEN.
-  "name": "cellmap-v2",
-  "compatibility_date": "2024-09-23",
-  "assets": {
-    "directory": "./dist"
-  }
+    // Static-asset-only Worker (no server-side script) serving the Vite build
+    // output. dist/ is produced by `npm run build`, which also writes
+    // dist/config.js — see scripts/generate-config.js and MAPBOX_ACCESS_TOKEN.
+    "name": "cellmap-v2",
+    "compatibility_date": "2024-09-23",
+    "assets": {
+        "directory": "./dist",
+    },
 }

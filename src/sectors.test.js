@@ -11,7 +11,11 @@ import {
 beforeEach(() => clearSectors());
 
 function sector(towerid, name = 'x') {
-    return { type: 'Feature', properties: { towerid, name }, geometry: { type: 'Polygon', coordinates: [] } };
+    return {
+        type: 'Feature',
+        properties: { towerid, name },
+        geometry: { type: 'Polygon', coordinates: [] },
+    };
 }
 
 describe('sectors collection', () => {

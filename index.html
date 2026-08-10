@@ -30,6 +30,7 @@
 
     <link rel="stylesheet" href="style.css" type="text/css">
     <link rel="stylesheet" href="sidebar.css" type="text/css">
+    <link rel="stylesheet" href="form.css" type="text/css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
@@ -53,109 +54,143 @@
     </header>
     <main>
         <div id="map-container">
-            <div id="inputs" role="dialog" aria-modal="true" aria-label="Add or edit feature">
+            <div id="inputs" role="dialog" aria-modal="true" aria-labelledby="form-title">
                 <div id="cell-form">
+                    <h2 class="form__title" id="form-title">New cell</h2>
+                    <div class="form__body">
 
-                    <div class="line">
-                        <label for="inp_name">Name:</label>
-                        <input type="text" id="inp_name" placeholder="Enter cell name">
-                    </div>
-                    <div class="line">
-                        <label for="inp_desc">Description:</label>
-                        <input type="text" id="inp_desc" placeholder="Description">
-                    </div>
-                    <div class="line">
-                        <label for="inp_lat">Lat:</label>
-                        <input type="text" id="inp_lat" placeholder="Latitude">
-                    </div>
-                    <div class="line">
-                        <label for="inp_lon">Long:</label>
-                        <input type="text" id="inp_lon" placeholder="Longitude">
-                    </div>
-                    <div class="line">
-                        <label for="inp_radius">Radius:</label>
-                        <input type="number" id="inp_radius" placeholder="Radius in km" min="0" max="10" step="0.25"
-                            value="3">
-                    </div>
-                    <div class="line">
-                        <label for="angle1">Start angle:</label>
-                        <input type="number" id="angle1" placeholder="Angle min" min="-360" max="360" value="0">
-                    </div>
-                    <div class="line">
-                        <label for="angle2">End angle:</label>
-                        <input type="number" id="angle2" placeholder="Angle max" min="-360" max="360" value="360">
-                    </div>
-                    <div class="line">
-                        <label for="inp_alpha">Transparency:</label>
-                        <input type="range" id="inp_alpha" placeholder="Transparency" min="0.1" max="1" step="0.01"
-                            value="0.2"
-                            oninput="this.nextElementSibling.value = Number.parseFloat(this.value).toFixed(2)">
-                        <output for="inp_alpha" id="alpha-value">0.20</output>
-                    </div>
-                    <div class="line">
-                        <label for="inp_fill">Color:</label>
-                        <input type="color" id="inp_fill" placeholder="Color" value="#FF0000">
-                    </div>
-                    <div class="line line--toggle">
-                        <label for="inp_gradient">Uncertainty cone:</label>
-                        <input type="checkbox" id="inp_gradient">
-                        <i aria-hidden="true" class="fa-solid fa-circle-info tooltip">
-                            <span class="tooltiptext">If checked, the sector will be drawn with a gradient that fades to
-                                transparent at the edges.</span>
-                        </i>
-                    </div>
-                    <div class="line line--toggle">
-                        <label for="inp_rings">Distance rings:</label>
-                        <input type="checkbox" id="inp_rings">
-                        <i aria-hidden="true" class="fa-solid fa-circle-info tooltip">
-                            <span class="tooltiptext">If checked, arcs are drawn across this cell's coverage at round
-                                distances. The spacing is set once for the whole map, under Map display.</span>
-                        </i>
-                    </div>
-                    <!-- Widest scope first: the fields read down the page in the same
-                         order they are written in a CGI, MCC-MNC-LAC-CID. -->
-                    <div id="cell-identity">
-                        <div class="line">
-                            <label for="inp_mcc">MCC-MNC:</label>
-                            <span class="field-pair">
-                                <input type="text" id="inp_mcc" placeholder="MCC" aria-label="MCC" maxlength="3"
-                                    inputmode="numeric" autocomplete="off">
-                                <span aria-hidden="true">&ndash;</span>
-                                <input type="text" id="inp_mnc" placeholder="MNC" aria-label="MNC" maxlength="3"
-                                    inputmode="numeric" autocomplete="off">
-                            </span>
+                        <div class="field">
+                            <label for="inp_name">Name</label>
+                            <input type="text" id="inp_name" placeholder="e.g. TIM_Milan_1">
                         </div>
-                        <div class="line">
-                            <label for="inp_lac">LAC / TAC:</label>
-                            <input type="text" id="inp_lac" placeholder="e.g. 4501" inputmode="numeric"
-                                autocomplete="off">
+                        <div class="field">
+                            <label for="inp_desc">Description</label>
+                            <input type="text" id="inp_desc" placeholder="Optional note">
                         </div>
-                        <div class="line">
-                            <label for="inp_cellid">Cell ID:</label>
-                            <input type="text" id="inp_cellid" placeholder="e.g. 21437" inputmode="numeric"
-                                autocomplete="off">
-                        </div>
-                        <div class="line">
-                            <label for="inp_celltype">Cell type:</label>
-                            <select id="inp_celltype">
-                                <option value="" selected>Unspecified</option>
-                                <option value="macro">Macro</option>
-                                <option value="micro">Micro</option>
-                                <option value="pico">Pico</option>
-                                <option value="femto">Femto</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="line" id="icon-line">
-                        <label for="inp_icon">Icon:</label>
-                        <select id="inp_icon" placeholder="Select icon" value="" disabled>
-                            <option value="" selected>Choose an icon</option>
-                        </select>
+
+                        <fieldset id="fs-position">
+                            <legend>Position</legend>
+                            <div class="field-row">
+                                <div class="field">
+                                    <label for="inp_lat">Latitude</label>
+                                    <input type="text" id="inp_lat" autocomplete="off">
+                                </div>
+                                <div class="field">
+                                    <label for="inp_lon">Longitude</label>
+                                    <input type="text" id="inp_lon" autocomplete="off">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset id="fs-sector">
+                            <legend>Sector</legend>
+                            <div class="field field--unit">
+                                <label for="inp_radius">Radius</label>
+                                <input type="number" id="inp_radius" min="0" max="10" step="0.25" value="3">
+                                <span class="field__unit">km</span>
+                            </div>
+                            <div class="field-row">
+                                <div class="field field--unit">
+                                    <label for="angle1">Start angle</label>
+                                    <input type="number" id="angle1" min="-360" max="360" value="0">
+                                    <span class="field__unit">&deg;</span>
+                                </div>
+                                <div class="field field--unit">
+                                    <label for="angle2">End angle</label>
+                                    <input type="number" id="angle2" min="-360" max="360" value="360">
+                                    <span class="field__unit">&deg;</span>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset id="fs-appearance">
+                            <legend>Appearance</legend>
+                            <div class="appearance-row">
+                                <div class="field">
+                                    <label for="inp_fill">Fill colour</label>
+                                    <input type="color" id="inp_fill" value="#FF0000">
+                                </div>
+                                <div class="field">
+                                    <label for="inp_alpha">Opacity</label>
+                                    <span class="slider-row">
+                                        <input type="range" id="inp_alpha" min="0.1" max="1" step="0.01" value="0.2">
+                                        <output for="inp_alpha" id="alpha-value">20%</output>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- Cone and rings describe a sector, so they have nothing to
+                                 apply to on a point of interest. They share a container
+                                 because form.js hides them as one group. -->
+                            <div id="sector-options">
+                                <div class="switch">
+                                    <input type="checkbox" id="inp_gradient">
+                                    <label for="inp_gradient">Uncertainty cone</label>
+                                    <p class="switch__help">The sector fades to transparent towards its outer edge.</p>
+                                </div>
+                                <div class="switch">
+                                    <input type="checkbox" id="inp_rings">
+                                    <label for="inp_rings">Distance rings</label>
+                                    <p class="switch__help">Arcs at round distances across the coverage. Spacing is set
+                                        for the whole map, under Map display.</p>
+                                </div>
+                            </div>
+                            <div class="field" id="icon-line" hidden>
+                                <label for="inp_icon">Marker icon</label>
+                                <select id="inp_icon">
+                                    <option value="" selected>Choose an icon</option>
+                                </select>
+                            </div>
+                        </fieldset>
+
+                        <!-- Widest scope first: the fields read down the page in the same
+                             order they are written in a CGI, MCC-MNC-LAC-CID. -->
+                        <fieldset id="cell-identity">
+                            <legend>Cell identity (CGI)</legend>
+                            <div class="field-row">
+                                <div class="field">
+                                    <label for="inp_mcc">MCC &ndash; MNC</label>
+                                    <span class="field-pair">
+                                        <input type="text" id="inp_mcc" placeholder="222" aria-label="MCC" maxlength="3"
+                                            inputmode="numeric" autocomplete="off">
+                                        <span aria-hidden="true">&ndash;</span>
+                                        <input type="text" id="inp_mnc" placeholder="01" aria-label="MNC" maxlength="3"
+                                            inputmode="numeric" autocomplete="off">
+                                    </span>
+                                </div>
+                                <div class="field">
+                                    <label for="inp_lac">LAC / TAC</label>
+                                    <input type="text" id="inp_lac" placeholder="4501" inputmode="numeric"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="field">
+                                    <label for="inp_cellid">Cell ID</label>
+                                    <input type="text" id="inp_cellid" placeholder="21437" inputmode="numeric"
+                                        autocomplete="off">
+                                </div>
+                                <div class="field">
+                                    <label for="inp_celltype">Cell type</label>
+                                    <select id="inp_celltype">
+                                        <option value="" selected>Unspecified</option>
+                                        <option value="macro">Macro</option>
+                                        <option value="micro">Micro</option>
+                                        <option value="pico">Pico</option>
+                                        <option value="femto">Femto</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+
                     </div>
                     <input type="hidden" id="feature-id" value="">
-                    <button id="cancelbtn" class="form-btn">Cancel</button>
-                    <button id="addbtn" class="form-btn" style="display: inline-block;">Add</button>
-                    <button id="savebtn" class="form-btn" style="display: none;">Save</button>
+                    <div class="form__actions">
+                        <button type="button" id="cancelbtn" class="form-btn form-btn--ghost">Cancel</button>
+                        <button type="button" id="addbtn" class="form-btn form-btn--primary"
+                            style="display: inline-block;">Add cell</button>
+                        <button type="button" id="savebtn" class="form-btn form-btn--primary"
+                            style="display: none;">Save</button>
+                    </div>
                 </div>
             </div>
             <div id="map" role="region" aria-label="Interactive map"></div>

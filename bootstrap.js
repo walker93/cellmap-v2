@@ -7,7 +7,7 @@ import { importCSV } from './src/io/csv.js';
 import { importKMZ } from './src/io/kmz.js';
 import { saveProject, openProject } from './src/io/project.js';
 import { addGeoJsonSource } from './src/mapSource.js';
-import { openForm, closeForm, aggiungiCella, submitEditForm } from './src/ui/form.js';
+import { openForm, closeForm, aggiungiCella, submitEditForm, initForm } from './src/ui/form.js';
 import { loadIcons } from './src/ui/iconPicker.js';
 import { confirmAndDeleteAll } from './src/reset.js';
 import { registerMapEvents } from './src/mapEvents.js';
@@ -20,8 +20,8 @@ map.on('load', setupMapLayers);
 
 function setupMapLayers() {
     const geojson = {
-        'type': 'FeatureCollection',
-        'features': []
+        type: 'FeatureCollection',
+        features: [],
     };
     addGeoJsonSource('settori', geojson);
     addGeoJsonSource('aree', getSectors());
@@ -37,7 +37,7 @@ function setupMapLayers() {
 }
 
 function addCellLayer() {
-    map.loadImage("cell-tower.png", (error, image) => {
+    map.loadImage('cell-tower.png', (error, image) => {
         if (error) throw error;
         map.addImage('tower', image, { sdf: true });
     });
@@ -46,9 +46,9 @@ function addCellLayer() {
         type: 'fill',
         source: 'aree',
         paint: {
-            "fill-color": ["get", "fill"],
-            "fill-opacity": ["get", "fill-opacity"]
-        }
+            'fill-color': ['get', 'fill'],
+            'fill-opacity': ['get', 'fill-opacity'],
+        },
     });
 
     map.addLayer({
@@ -56,24 +56,21 @@ function addCellLayer() {
         type: 'symbol',
         source: 'settori',
         layout: {
-            "icon-image": 'tower',
-            "icon-size": 0.7,
-            "text-field": ["get", "name"],
-            "text-variable-anchor": ["bottom", "top", "left", "right"],
-            "text-justify": "auto",
-            "text-radial-offset": 1.5,
-            "text-allow-overlap": false,
-            "text-ignore-placement": false,
-            "icon-allow-overlap": true,
-            "icon-ignore-placement": true,
+            'icon-image': 'tower',
+            'icon-size': 0.7,
+            'text-field': ['get', 'name'],
+            'text-variable-anchor': ['bottom', 'top', 'left', 'right'],
+            'text-justify': 'auto',
+            'text-radial-offset': 1.5,
+            'text-allow-overlap': false,
+            'text-ignore-placement': false,
+            'icon-allow-overlap': true,
+            'icon-ignore-placement': true,
         },
         paint: {
-            "icon-color": ["get", "fill"],
+            'icon-color': ['get', 'fill'],
         },
-        filter: ['all', ["==", ["geometry-type"], "Point"],
-            ['==', ['get', "marker"], 'cell'],
-        ]
-
+        filter: ['all', ['==', ['geometry-type'], 'Point'], ['==', ['get', 'marker'], 'cell']],
     });
 }
 
@@ -82,57 +79,61 @@ function addCellLayer() {
 // layers go in below `markers`, so the lines sit over the sector fill but never
 // over an antenna.
 function addRingLayers() {
-    map.addLayer({
-        id: 'rings',
-        type: 'line',
-        source: 'anelli',
-        filter: ['==', ['get', 'kind'], 'ring'],
-        paint: {
-            "line-color": ["get", "stroke"],
-            "line-width": ["get", "stroke-width"],
-            "line-opacity": ["get", "stroke-opacity"],
-        }
-    }, 'markers');
-
-    map.addLayer({
-        id: 'ring-labels',
-        type: 'symbol',
-        source: 'anelli',
-        // One anchor point per ring, built in distanceRings.js. Labelling the arc
-        // itself with symbol-placement "line"/"line-center" gives a label per tile
-        // the line is split across, so the wide rings came out labelled twice.
-        filter: ['==', ['get', 'kind'], 'ring-label'],
-        // Off until the checkbox in "Map display" says otherwise.
-        layout: {
-            "visibility": "none",
-            "text-field": ["get", "label"],
-            "text-size": 11,
-            // upright rather than turned along the arc: easier to read, and the
-            // anchors line up on one radius so they read as a column
-            "text-rotation-alignment": "viewport",
-            "text-allow-overlap": false,
+    map.addLayer(
+        {
+            id: 'rings',
+            type: 'line',
+            source: 'anelli',
+            filter: ['==', ['get', 'kind'], 'ring'],
+            paint: {
+                'line-color': ['get', 'stroke'],
+                'line-width': ['get', 'stroke-width'],
+                'line-opacity': ['get', 'stroke-opacity'],
+            },
         },
-        paint: {
-            "text-color": ["get", "stroke"],
-            "text-halo-color": "hsl(0, 0%, 100%)",
-            "text-halo-width": 1.5,
-        }
-        // Under the tower markers, so that when a ring label and a cell name want
-        // the same spot the cell name is the one that gets it: Mapbox resolves
-        // symbol collisions from the top layer down.
-    }, 'markers');
+        'markers',
+    );
+
+    map.addLayer(
+        {
+            id: 'ring-labels',
+            type: 'symbol',
+            source: 'anelli',
+            // One anchor point per ring, built in distanceRings.js. Labelling the arc
+            // itself with symbol-placement "line"/"line-center" gives a label per tile
+            // the line is split across, so the wide rings came out labelled twice.
+            filter: ['==', ['get', 'kind'], 'ring-label'],
+            // Off until the checkbox in "Map display" says otherwise.
+            layout: {
+                visibility: 'none',
+                'text-field': ['get', 'label'],
+                'text-size': 11,
+                // upright rather than turned along the arc: easier to read, and the
+                // anchors line up on one radius so they read as a column
+                'text-rotation-alignment': 'viewport',
+                'text-allow-overlap': false,
+            },
+            paint: {
+                'text-color': ['get', 'stroke'],
+                'text-halo-color': 'hsl(0, 0%, 100%)',
+                'text-halo-width': 1.5,
+            },
+            // Under the tower markers, so that when a ring label and a cell name want
+            // the same spot the cell name is the one that gets it: Mapbox resolves
+            // symbol collisions from the top layer down.
+        },
+        'markers',
+    );
 }
 
 function addOtherTools() {
     map.addControl(
         new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl
-        })
+            mapboxgl: mapboxgl,
+        }),
     );
-    map.addControl(
-        new mapboxgl.NavigationControl({ position: 'top-left' })
-    );
+    map.addControl(new mapboxgl.NavigationControl({ position: 'top-left' }));
     // Control implemented as ES6 class
     class IControl {
         onAdd(map) {
@@ -151,17 +152,24 @@ function addOtherTools() {
 
     // @watergis/mapbox-gl-export v4 bundles everything under one namespaced
     // global (window.MapboxExportControl.*) instead of separate flat globals.
-    const { MapboxExportControl: ExportControl, Size, PageOrientation, Format, DPI } = MapboxExportControl;
-    map.addControl(new ExportControl({
-        PageSize: Size.A4,
-        PageOrientation: PageOrientation.Landscape,
-        Format: Format.PNG,
-        DPI: DPI[200],
-        Crosshair: true,
-        PrintableArea: true,
-    }), 'top-right');
-
-
+    const {
+        MapboxExportControl: ExportControl,
+        Size,
+        PageOrientation,
+        Format,
+        DPI,
+    } = MapboxExportControl;
+    map.addControl(
+        new ExportControl({
+            PageSize: Size.A4,
+            PageOrientation: PageOrientation.Landscape,
+            Format: Format.PNG,
+            DPI: DPI[200],
+            Crosshair: true,
+            PrintableArea: true,
+        }),
+        'top-right',
+    );
 }
 
 function addMeasurementTools() {
@@ -172,8 +180,8 @@ function addMeasurementTools() {
         type: 'geojson',
         data: {
             type: 'FeatureCollection',
-            features: []
-        }
+            features: [],
+        },
     });
 
     // measurements layer
@@ -184,19 +192,19 @@ function addMeasurementTools() {
         paint: {
             'text-color': '#000000',
             'text-halo-color': 'hsl(0, 0%, 100%)',
-            'text-halo-width': 2
+            'text-halo-width': 2,
         },
         layout: {
             'text-field': '{label}',
             'text-size': ['get', 'size'],
-            "text-variable-anchor": ["bottom", "top", "left", "right"],
-            "text-justify": "auto",
-            "text-radial-offset": ['get', 'offset'],
-            "text-allow-overlap": false,
-            "text-ignore-placement": false,
+            'text-variable-anchor': ['bottom', 'top', 'left', 'right'],
+            'text-justify': 'auto',
+            'text-radial-offset': ['get', 'offset'],
+            'text-allow-overlap': false,
+            'text-ignore-placement': false,
             //"text-rotation-alignment": 'map',
             //"symbol-placement": "point",
-        }
+        },
     });
 }
 
@@ -224,10 +232,14 @@ function wireControls() {
         savekml: exportKML,
         deleteall: confirmAndDeleteAll,
         // Section headers: each action sits on the list it adds to.
-        addcell: function () { openForm(null); },
+        addcell: function () {
+            openForm(null);
+        },
         addoverlay: importKMZ,
         cancelbtn: closeForm,
-        addbtn: function () { aggiungiCella(); },
+        addbtn: function () {
+            aggiungiCella();
+        },
         savebtn: submitEditForm,
     };
     Object.keys(handlers).forEach(function (id) {
@@ -243,4 +255,5 @@ function wireControls() {
 wireControls();
 initAccordions();
 initSidebar();
+initForm();
 initMenu(document.getElementById('project-menu-btn'), document.getElementById('project-menu'));

@@ -220,7 +220,11 @@ describe('duplicatePoi', () => {
 
 // The shared loader behind the GeoJSON importer and the project opener.
 describe('loadFeatures', () => {
-    const cell = (id) => ({ ...towerMarker(), id, properties: { ...towerMarker().properties, id } });
+    const cell = (id) => ({
+        ...towerMarker(),
+        id,
+        properties: { ...towerMarker().properties, id },
+    });
     const point = (id, properties = {}) => ({
         id,
         type: 'Feature',
@@ -234,14 +238,28 @@ describe('loadFeatures', () => {
             features: [cell('t1'), cell('t2'), point('p1')],
         });
 
-        expect(draw.getAll().features.map((f) => f.id).sort()).toEqual(['p1', 't1', 't2']);
-        expect(getSectors().features.map((s) => s.properties.towerid).sort()).toEqual(['t1', 't2']);
+        expect(
+            draw
+                .getAll()
+                .features.map((f) => f.id)
+                .sort(),
+        ).toEqual(['p1', 't1', 't2']);
+        expect(
+            getSectors()
+                .features.map((s) => s.properties.towerid)
+                .sort(),
+        ).toEqual(['t1', 't2']);
         // sectors are geometry, not a copied blob: they come out of turf with real coordinates
         expect(getSectors().features[0].geometry.coordinates[0].length).toBeGreaterThan(2);
     });
 
     it('syncs properties.id even for a file written before that invariant', () => {
-        towerState.loadFeatures({ type: 'FeatureCollection', features: [{ ...cell('t1'), properties: { marker: 'cell', Angle1: 0, Angle2: 90, Radius: 2 } }] });
+        towerState.loadFeatures({
+            type: 'FeatureCollection',
+            features: [
+                { ...cell('t1'), properties: { marker: 'cell', Angle1: 0, Angle2: 90, Radius: 2 } },
+            ],
+        });
         expect(draw.get('t1').properties.id).toBe('t1');
     });
 
@@ -259,7 +277,10 @@ describe('loadFeatures', () => {
     it('keeps a hidden tower in the draw store and re-applies its layer filter', () => {
         towerState.loadFeatures({
             type: 'FeatureCollection',
-            features: [cell('t1'), { ...cell('t2'), properties: { ...cell('t2').properties, hidden: true } }],
+            features: [
+                cell('t1'),
+                { ...cell('t2'), properties: { ...cell('t2').properties, hidden: true } },
+            ],
         });
 
         expect(draw.get('t2')).not.toBeUndefined();
@@ -269,7 +290,9 @@ describe('loadFeatures', () => {
     });
 
     it('accepts an empty or absent collection', () => {
-        expect(() => towerState.loadFeatures({ type: 'FeatureCollection', features: [] })).not.toThrow();
+        expect(() =>
+            towerState.loadFeatures({ type: 'FeatureCollection', features: [] }),
+        ).not.toThrow();
         expect(() => towerState.loadFeatures(undefined)).not.toThrow();
         expect(draw.getAll().features).toHaveLength(0);
     });
@@ -311,7 +334,13 @@ describe('graduated cones', () => {
     it('still rebuilds a single sector for a plain tower', () => {
         towerState.loadFeatures({
             type: 'FeatureCollection',
-            features: [{ ...towerMarker(), id: 't1', properties: { ...towerMarker().properties, id: 't1' } }],
+            features: [
+                {
+                    ...towerMarker(),
+                    id: 't1',
+                    properties: { ...towerMarker().properties, id: 't1' },
+                },
+            ],
         });
         expect(getSectorsByTowerId('t1')).toHaveLength(1);
     });

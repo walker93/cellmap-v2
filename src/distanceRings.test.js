@@ -141,9 +141,9 @@ describe('buildRings', () => {
     });
 
     it('does not run away when the spacing is far finer than the cell', () => {
-        expect(arcs(buildRings(tower('t1', { Radius: 100 }), 0.05, 0.5)).length).toBeLessThanOrEqual(
-            200,
-        );
+        expect(
+            arcs(buildRings(tower('t1', { Radius: 100 }), 0.05, 0.5)).length,
+        ).toBeLessThanOrEqual(200);
     });
 });
 
@@ -152,7 +152,7 @@ describe('buildRingCollection', () => {
         const features = buildRingCollection(
             [tower('on'), tower('off', { rings: false })],
             1,
-            0.5
+            0.5,
         ).features;
         expect(new Set(features.map((f) => f.properties.towerid))).toEqual(new Set(['on']));
     });
@@ -195,7 +195,11 @@ describe('ring settings', () => {
     beforeEach(() => resetRingSettings());
 
     it('starts at the default', () => {
-        expect(getRingSettings()).toEqual({ interval: DEFAULT_RING_INTERVAL, labels: false, opacity: DEFAULT_RING_STROKE_OPACITY });
+        expect(getRingSettings()).toEqual({
+            interval: DEFAULT_RING_INTERVAL,
+            labels: false,
+            opacity: DEFAULT_RING_STROKE_OPACITY,
+        });
     });
 
     it('applies a new spacing and label choice', () => {

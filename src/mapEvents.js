@@ -156,7 +156,9 @@ export function registerMapEvents() {
         // the tower, and this is where they are read back — click the antenna,
         // get the CGI you have to quote in the report.
         const identity = cellIdentityLines(feature.properties)
-            .map((line) => `<br><small>${escapeHtml(line.label)}: ${escapeHtml(line.value)}</small>`)
+            .map(
+                (line) => `<br><small>${escapeHtml(line.label)}: ${escapeHtml(line.value)}</small>`,
+            )
             .join('');
 
         new mapboxgl.Popup({ offset: [0, -25] })

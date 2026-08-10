@@ -198,9 +198,9 @@ function createOverlayRow(overlay) {
 // Le stesse icone dei pulsanti Draw sulla mappa: la riga in elenco e lo
 // strumento che l'ha creata si riconoscono a colpo d'occhio come la stessa cosa.
 const POI_TYPES = {
-    Point:      { icon: 'fa-solid fa-location-pin', label: 'Point of interest' },
-    LineString: { icon: 'fa-solid fa-ruler',          label: 'Measurement' },
-    Polygon:    { icon: 'fa-solid fa-draw-polygon',   label: 'Area' },
+    Point: { icon: 'fa-solid fa-location-pin', label: 'Point of interest' },
+    LineString: { icon: 'fa-solid fa-ruler', label: 'Measurement' },
+    Polygon: { icon: 'fa-solid fa-draw-polygon', label: 'Area' },
 };
 
 function createPOIRow(marker) {

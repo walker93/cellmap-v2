@@ -97,6 +97,7 @@ function resetForm() {
     el('inp_radius').value = '3';
     el('inp_fill').value = '#FF0000';
     el('inp_alpha').value = '0.2';
+    syncOpacityOutput();
     el('inp_gradient').checked = false;
     el('inp_rings').checked = false;
     clearIdentity();
@@ -104,14 +105,47 @@ function resetForm() {
     el('inp_icon').tomselect.clear();
 }
 
+/** Whether a feature is a cell tower rather than a POI — the split the dialog is
+ *  built around, so the title, the field sets and the save handler all read it
+ *  from one place instead of repeating the test. */
+function isCellFeature(feature) {
+    return Boolean(feature.properties.marker && feature.properties.marker === 'cell');
+}
+
 // The dialog serves both feature types, and the two have disjoint extra fields:
-// a cell has a network identity, a POI has an icon. Hide the set that does not
-// apply rather than showing it disabled — four dead inputs on every POI is a lot
-// of dialog to scroll past, and `hidden` (unlike a disabled input) also takes the
-// fields out of the tab order.
+// a cell has a sector and a network identity, a POI has an icon. Hide the set
+// that does not apply rather than showing it disabled — a screenful of dead
+// inputs on every POI is a lot of dialog to scroll past, and `hidden` (unlike a
+// disabled input) also takes the fields out of the tab order.
 function showCellFields(isCell) {
     el('cell-identity').hidden = !isCell;
     el('icon-line').hidden = isCell;
+    el('fs-sector').hidden = !isCell;
+    el('sector-options').hidden = !isCell;
+}
+
+// The dialog looked identical for a new cell, an existing cell and a POI, so
+// nothing on screen said what was about to happen when the primary button was
+// pressed. Both labels come from the same two flags that already pick the field
+// sets and the save handler.
+function setDialogMode(isEdit, isCell) {
+    el('form-title').textContent = isEdit
+        ? isCell
+            ? 'Edit cell'
+            : 'Edit point of interest'
+        : isCell
+          ? 'New cell'
+          : 'New point of interest';
+    el('addbtn').textContent = isCell ? 'Add cell' : 'Add point';
+    el('savebtn').textContent = 'Save';
+}
+
+// The slider's readout was updated only by an inline oninput handler, which a
+// real edit never fires: loadForm assigns .value in code, so opening a feature
+// left the percentage showing the previous one's opacity next to a correctly
+// positioned slider. Every path that writes the value calls this instead.
+function syncOpacityOutput() {
+    el('alpha-value').value = Math.round(Number(el('inp_alpha').value) * 100) + '%';
 }
 
 function clearIdentity() {
@@ -145,46 +179,33 @@ function loadForm(feature) {
     var gradient = el('inp_gradient');
     var rings = el('inp_rings');
 
-    if (feature.properties.marker && feature.properties.marker == 'cell') {
+    if (isCellFeature(feature)) {
         //if cell feature load all previus fields
         angolo1.value = feature.properties.Angle1;
         angolo2.value = feature.properties.Angle2;
         radius.value = feature.properties.Radius;
         gradient.checked = Boolean(feature.properties.gradient);
         rings.checked = Boolean(feature.properties.rings);
-        radius.disabled = false;
-        angolo1.disabled = false;
-        angolo2.disabled = false;
-        gradient.disabled = false;
-        rings.disabled = false;
         showCellFields(true);
         loadIdentity(feature.properties);
         pendingSaveHandler = modificaCella;
     } else {
-        //if marker is a PoI feature disable sector related fields
-        radius.disabled = true;
-        angolo1.disabled = true;
-        angolo2.disabled = true;
-        gradient.disabled = true;
-        rings.disabled = true;
         showCellFields(false);
         pendingSaveHandler = modificaPoi;
     }
-    //enable or disable coords field according to geometry type
+    // Only a Point has coordinates to edit: a line or a polygon is reshaped by
+    // dragging its vertices on the map, so the whole group goes away.
+    el('fs-position').hidden = feature.geometry.type !== 'Point';
     if (feature.geometry.type === 'Point') {
         lon.value = feature.geometry.coordinates[0];
         lat.value = feature.geometry.coordinates[1];
-        lon.disabled = false;
-        lat.disabled = false;
-    } else {
-        lon.disabled = true;
-        lat.disabled = true;
     }
     //load all the other features
     name.value = feature.properties.name || '';
     desc.value = feature.properties.description || '';
     fillcolor.value = feature.properties.fill || '';
     alpha.value = feature.properties.opacity || '0.2';
+    syncOpacityOutput();
     icn.tomselect.setValue(feature.properties.icon || '');
     feat_id.value = feature.id;
 }
@@ -292,7 +313,8 @@ function onDialogKeydown(e) {
 
 export function openForm(marker) {
     lastFocused = document.activeElement;
-    if (marker != null) {
+    const isEdit = marker != null;
+    if (isEdit) {
         //change button to save instead of add
         el('savebtn').style.display = 'inline-block';
         el('addbtn').style.display = 'none';
@@ -302,12 +324,17 @@ export function openForm(marker) {
         el('addbtn').style.display = 'inline-block';
         // "Add cell" only ever creates a cell, so it gets the cell field set.
         showCellFields(true);
+        // A new cell is always placed by coordinates. Without this the group
+        // would still be hidden from whichever line or polygon was edited last,
+        // leaving no way to type a position.
+        el('fs-position').hidden = false;
         // The rest of the dialog deliberately keeps its last values, which makes
         // entering a row of similar cells quick. An identity must not be sticky
         // the same way: a CGI names one cell, and silently copying the previous
         // one onto the next tower would be a wrong answer, not a shortcut.
         clearIdentity();
     }
+    setDialogMode(isEdit, isEdit ? isCellFeature(marker) : true);
     el('inputs').style.display = 'block';
     // dialog a11y: allow Escape to close, and move focus into the dialog
     document.addEventListener('keydown', onDialogKeydown);
@@ -344,6 +371,16 @@ export function submitEditForm() {
 export function editFeature(marker) {
     loadForm(marker);
     openForm(marker);
+}
+
+/**
+ * Wire the dialog's own controls. Called once from bootstrap.js, like the other
+ * init* functions — the listener needs the markup to exist, so it cannot be
+ * attached at module scope.
+ */
+export function initForm() {
+    el('inp_alpha').addEventListener('input', syncOpacityOutput);
+    syncOpacityOutput();
 }
 
 // A row's "edit" (pencil) button loads that feature into the form and opens it.

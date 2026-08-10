@@ -24,7 +24,9 @@ const byId = (id) => document.getElementById(id);
 const trigger = () => byId('trigger');
 const menu = () => byId('menu');
 const key = (target, k) =>
-    target.dispatchEvent(new window.KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true }));
+    target.dispatchEvent(
+        new window.KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true }),
+    );
 
 describe('menu', () => {
     beforeEach(render);

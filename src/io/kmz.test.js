@@ -7,7 +7,13 @@ beforeAll(async () => {
     vi.stubGlobal('mapboxgl', {
         accessToken: '',
         Map: function () {
-            return { on() {}, addControl() {}, addSource() {}, addLayer() {}, getCanvas: () => ({ style: {} }) };
+            return {
+                on() {},
+                addControl() {},
+                addSource() {},
+                addLayer() {},
+                getCanvas: () => ({ style: {} }),
+            };
         },
     });
     vi.stubGlobal('MapboxDraw', function () {

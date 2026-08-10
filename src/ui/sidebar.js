@@ -121,7 +121,10 @@ function setCount(id, value) {
  */
 export function refreshSidebar() {
     // Se la cella selezionata è stata cancellata, la selezione decade.
-    if (selectedTowerId && !document.querySelector(`#features [data-id="${CSS.escape(selectedTowerId)}"]`)) {
+    if (
+        selectedTowerId &&
+        !document.querySelector(`#features [data-id="${CSS.escape(selectedTowerId)}"]`)
+    ) {
         selectedTowerId = null;
         paintHighlight();
     }

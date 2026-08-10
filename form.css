@@ -1,0 +1,315 @@
+/* =============================================================================
+   Cell Map Designer — add/edit dialog
+   Tutto è scopato sotto #inputs / #cell-form: .line è usata anche dal pannello
+   impostazioni nella sidebar e non va toccata da qui.
+   ============================================================================= */
+
+/* form.js apre e chiude con style.display = 'block' / 'none', quindi il
+   contenitore deve restare display:block: niente flex o grid qui sopra. */
+#inputs {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+    max-width: min(32rem, 94vw);
+    max-height: 88vh;
+    border: none;
+    overflow: visible;
+}
+
+#cell-form {
+    display: flex;
+    flex-direction: column;
+    max-width: none;
+    max-height: 88vh;
+    padding: 0;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 12px 32px rgba(0, 18, 25, 0.35);
+    overflow: hidden;
+}
+
+/* ---- intestazione --------------------------------------------------------- */
+
+/* Il dialogo non diceva su cosa stavi lavorando: stesso aspetto per una cella
+   nuova, una cella esistente e un punto di interesse. */
+.form__title {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    background: var(--primary-color);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.form__body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0.25rem 1rem 1rem;
+}
+
+/* ---- gruppi --------------------------------------------------------------- */
+
+#cell-form fieldset {
+    margin: 0.75rem 0 0;
+    padding: 0;
+    border: none;
+    border-top: 1px solid #e2d9be;
+}
+
+#cell-form legend {
+    padding: 0 0.4rem 0 0;
+    color: var(--primary-color);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* Ogni volta che si dichiara display su un elemento che può ricevere hidden,
+   [hidden]{display:none} dello user agent viene scavalcato: ha specificità
+   minima e perde contro qualunque regola d'autore. Va riaffermato. */
+#cell-form fieldset[hidden],
+#cell-form .field[hidden],
+#cell-form .switch[hidden] {
+    display: none;
+}
+
+/* ---- campi ---------------------------------------------------------------- */
+
+/* Etichetta sopra il campo: con quattordici righe, etichette a destra di
+   larghezza variabile lasciano l'occhio senza un bordo da seguire. Sopra, sia
+   etichetta che campo partono dalla stessa ascissa. */
+#cell-form .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 0.6rem 0 0;
+    min-width: 0;
+}
+
+#cell-form .field > label {
+    color: var(--text-color);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+#cell-form .field > input,
+#cell-form .field > select,
+#cell-form .field-pair > input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #b9ae90;
+    border-radius: 3px;
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background: #fff;
+}
+
+#cell-form input:focus-visible,
+#cell-form select:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -1px;
+    border-color: var(--secondary-color);
+}
+
+/* Campi che si leggono come una coppia stanno su una riga sola: latitudine e
+   longitudine sono una coordinata, non due dati indipendenti. */
+#cell-form .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    align-items: end;
+}
+
+#cell-form .field-pair {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* Cifre a larghezza fissa: coordinate e angoli si confrontano incolonnati. */
+#cell-form input[inputmode='numeric'],
+#cell-form input[type='number'],
+#inp_lat,
+#inp_lon {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Unità dentro il campo: "3" non dice se sono chilometri o metri, e una riga
+   di etichetta in più per dirlo sarebbe sproporzionata. */
+#cell-form .field--unit {
+    position: relative;
+}
+
+#cell-form .field--unit > input {
+    padding-right: 2.4rem;
+}
+
+#cell-form .field--unit > .field__unit {
+    position: absolute;
+    right: 0.55rem;
+    bottom: 0.45rem;
+    color: #6b7c82;
+    font-size: 0.82rem;
+    pointer-events: none;
+}
+
+/* ---- interruttori --------------------------------------------------------- */
+
+#cell-form .switch {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.15rem 0.5rem;
+    margin: 0.7rem 0 0;
+}
+
+#cell-form .switch > input[type='checkbox'] {
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0.1rem 0 0;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+#cell-form .switch > label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Il testo che spiegava questi due controlli viveva in un tooltip in hover,
+   dentro un elemento aria-hidden: irraggiungibile da tastiera, touch e screen
+   reader. Una riga visibile costa meno di un tooltip accessibile. */
+#cell-form .switch > .switch__help {
+    grid-column: 2;
+    margin: 0;
+    color: #52646b;
+    font-size: 0.78rem;
+    line-height: 1.35;
+}
+
+/* ---- colore e opacità ----------------------------------------------------- */
+
+/* Colore e opacità sono due proprietà del riempimento: stessa riga, ognuna con
+   la propria etichetta come tutti gli altri campi. */
+#cell-form .appearance-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    gap: 0.6rem;
+}
+
+#cell-form .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    /* allinea il cursore alla base dei campi accanto */
+    height: 2.1rem;
+}
+
+/* Stessa altezza di .slider-row: le due colonne di .appearance-row sono allineate
+   in basso, quindi se i due controlli non sono alti uguale è l'etichetta sopra a
+   sfalsarsi, non il controllo. */
+#cell-form .field > input[type='color'] {
+    width: 3rem;
+    height: 2.1rem;
+    padding: 2px;
+    border: 1px solid #b9ae90;
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+}
+
+#cell-form input[type='range'] {
+    width: 100%;
+    accent-color: var(--primary-color);
+}
+
+#cell-form output {
+    min-width: 2.8rem;
+    color: #52646b;
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+/* ---- pulsanti ------------------------------------------------------------- */
+
+/* Erano due rettangoli identici: nulla diceva quale fosse l'azione e quale la
+   via d'uscita. */
+#cell-form .form__actions {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #e2d9be;
+    background: #faf6ea;
+}
+
+#cell-form .form-btn {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0.45rem 1.1rem;
+    border-radius: 3px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#cell-form .form-btn--primary {
+    border: 1px solid var(--primary-color);
+    background: var(--primary-color);
+    color: #fff;
+}
+
+#cell-form .form-btn--primary:hover {
+    background: #007687;
+    border-color: #007687;
+}
+
+#cell-form .form-btn--ghost {
+    border: 1px solid #b9ae90;
+    background: transparent;
+    color: var(--text-color);
+}
+
+#cell-form .form-btn--ghost:hover {
+    background: #efe8d4;
+}
+
+#cell-form .form-btn:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+    #inputs {
+        max-width: 100vw;
+        width: 100vw;
+        max-height: 100dvh;
+    }
+
+    #cell-form {
+        max-height: 100dvh;
+        border-radius: 0;
+    }
+
+    #cell-form .field-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before {
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -225,7 +225,11 @@ describe('manifest', () => {
             format: project.PROJECT_FORMAT,
             formatVersion: 1,
         });
-        expect(manifest.display).toEqual({ interval: null, labels: false, opacity: DEFAULT_RING_STROKE_OPACITY });
+        expect(manifest.display).toEqual({
+            interval: null,
+            labels: false,
+            opacity: DEFAULT_RING_STROKE_OPACITY,
+        });
     });
 
     it('ignores a ring spacing the map could not honour', () => {
@@ -273,16 +277,19 @@ describe('archive round trip', () => {
         expect([...drawStore.keys()].sort()).toEqual(['p1', 't1', 't2']);
         expect(getHiddenPois().map((f) => f.id)).toEqual(['p2']);
         // sectors are derived, never stored: one is rebuilt per tower on open
-        expect(getSectors().features.map((s) => s.properties.towerid).sort()).toEqual(['t1', 't2']);
+        expect(
+            getSectors()
+                .features.map((s) => s.properties.towerid)
+                .sort(),
+        ).toEqual(['t1', 't2']);
         expect(drawStore.get('t1').properties.name).toBe('Tower t1');
         // the hidden tower stays in the store and is filtered out at layer level
         expect(mapState.filters.get('markers')).toEqual(['all', ['!=', ['get', 'id'], 't2']]);
     });
 
     it('restores the ring settings and the per-cell ring flag', async () => {
-        const { setRingSettings, getRingSettings, resetRingSettings } = await import(
-            '../distanceRings.js'
-        );
+        const { setRingSettings, getRingSettings, resetRingSettings } =
+            await import('../distanceRings.js');
         drawStore.set('t1', tower('t1', { rings: true }));
         drawStore.set('t2', tower('t2'));
         setRingSettings({ interval: 0.5, labels: true, opacity: 0.8 });
@@ -381,7 +388,11 @@ describe('archive round trip', () => {
         const zip = await JSZip.loadAsync(await project.buildProjectArchive());
         const { kmlText } = await readKmz(await zip.file('overlays/0.kmz').async('blob'));
         expect(kmlText).toContain('rilievo &lt;A&amp;B&gt;.kmz');
-        expect(new DOMParser().parseFromString(kmlText, 'application/xml').querySelector('parsererror')).toBeNull();
+        expect(
+            new DOMParser()
+                .parseFromString(kmlText, 'application/xml')
+                .querySelector('parsererror'),
+        ).toBeNull();
     });
 
     it('opens an empty project', async () => {
