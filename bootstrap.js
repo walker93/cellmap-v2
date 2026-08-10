@@ -7,7 +7,7 @@ import { importCSV } from './src/io/csv.js';
 import { importKMZ } from './src/io/kmz.js';
 import { saveProject, openProject } from './src/io/project.js';
 import { addGeoJsonSource } from './src/mapSource.js';
-import { openForm, closeForm, aggiungiCella, submitEditForm } from './src/ui/form.js';
+import { openForm, closeForm, aggiungiCella, submitEditForm, initForm } from './src/ui/form.js';
 import { loadIcons } from './src/ui/iconPicker.js';
 import { confirmAndDeleteAll } from './src/reset.js';
 import { registerMapEvents } from './src/mapEvents.js';
@@ -243,4 +243,5 @@ function wireControls() {
 wireControls();
 initAccordions();
 initSidebar();
+initForm();
 initMenu(document.getElementById('project-menu-btn'), document.getElementById('project-menu'));
