@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Feature
+- redesign the add/edit dialog around what is actually being edited [`1c99774`](https://github.com/walker93/cellmap-v2/commit/1c99774)
 - :sparkles: Add paypal donate button in the footer [`c20bf8a`](https://github.com/walker93/cellmap-v2/commit/c20bf8a)
 - search a cell's network identity from the sidebar filter [`1fb7aea`](https://github.com/walker93/cellmap-v2/commit/1fb7aea)
 - :lipstick: Rework the sidebar: fill the height that is there, make the cell list scannable [`172117f`](https://github.com/walker93/cellmap-v2/commit/172117f)
@@ -20,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - stop the KML export outlining every sector, and crashing on unset fields [`581c222`](https://github.com/walker93/cellmap-v2/commit/581c222)
 
 ### Documentation
+- :robot: changelog file generated [`4d33ab5`](https://github.com/walker93/cellmap-v2/commit/4d33ab5)
 - :robot: changelog file generated [`d72d05b`](https://github.com/walker93/cellmap-v2/commit/d72d05b)
 - :robot: changelog file generated [`e82fde9`](https://github.com/walker93/cellmap-v2/commit/e82fde9)
 - :robot: changelog file generated [`c8726e2`](https://github.com/walker93/cellmap-v2/commit/c8726e2)
@@ -27,7 +29,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Test
 - cover the sidebar rework [`87b43ef`](https://github.com/walker93/cellmap-v2/commit/87b43ef)
 
+### Style
+- make the whole repo pass prettier --check [`0368c88`](https://github.com/walker93/cellmap-v2/commit/0368c88)
+
 ### Other
+- Merge origin/main (changelog bot commit) [`afb87a9`](https://github.com/walker93/cellmap-v2/commit/afb87a9)
+- Merge branch 'feat/redesign-feature-dialog' [`151ee30`](https://github.com/walker93/cellmap-v2/commit/151ee30)
 - Merge branch 'main' of https://github.com/walker93/cellmap-v2 [`aa3707c`](https://github.com/walker93/cellmap-v2/commit/aa3707c)
 - Merge branch 'feat/sidebar-filter-by-cgi' [`5c6a56d`](https://github.com/walker93/cellmap-v2/commit/5c6a56d)
 - Merge branch 'main' of https://github.com/walker93/cellmap-v2 [`ddc25c6`](https://github.com/walker93/cellmap-v2/commit/ddc25c6)
