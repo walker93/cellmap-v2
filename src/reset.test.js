@@ -39,7 +39,11 @@ beforeEach(() => {
 
 describe('deleteAll', () => {
     it('clears sectors, hidden POIs and overlays', () => {
-        sectors.addSector({ type: 'Feature', properties: { towerid: 't1' }, geometry: { type: 'Polygon', coordinates: [] } });
+        sectors.addSector({
+            type: 'Feature',
+            properties: { towerid: 't1' },
+            geometry: { type: 'Polygon', coordinates: [] },
+        });
         hidden.addHiddenPoi({ id: 'p1', properties: {} });
         overlays.addOverlay({ ID: 5, file: 'o.kmz' });
 

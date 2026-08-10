@@ -100,10 +100,23 @@ describe('draw.create', () => {
     });
 
     it('leaves lines and polygons to the sidebar pencil', () => {
-        place('l1', { type: 'LineString', coordinates: [[9, 45], [9.1, 45.1]] });
+        place('l1', {
+            type: 'LineString',
+            coordinates: [
+                [9, 45],
+                [9.1, 45.1],
+            ],
+        });
         place('a1', {
             type: 'Polygon',
-            coordinates: [[[9, 45], [9.1, 45], [9.1, 45.1], [9, 45]]],
+            coordinates: [
+                [
+                    [9, 45],
+                    [9.1, 45],
+                    [9.1, 45.1],
+                    [9, 45],
+                ],
+            ],
         });
         expect(mocks.editFeature).not.toHaveBeenCalled();
         // ...but they still get the defaults and a sidebar refresh.
@@ -148,9 +161,7 @@ describe('tower popup', () => {
     });
 
     it('says nothing about the identity of a tower that has none', () => {
-        expect(clickTower({ name: 'Tower A' })).toBe(
-            '<strong>Tower A</strong><br>No description',
-        );
+        expect(clickTower({ name: 'Tower A' })).toBe('<strong>Tower A</strong><br>No description');
     });
 
     // Names and descriptions come out of imported CSV/GeoJSON files as often as

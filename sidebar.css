@@ -72,7 +72,7 @@
 }
 
 .resizer::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 1px;
@@ -128,7 +128,7 @@
     transition: transform 0.2s;
 }
 
-.menu-trigger[aria-expanded="true"] .menu-trigger__caret {
+.menu-trigger[aria-expanded='true'] .menu-trigger__caret {
     transform: rotate(180deg);
 }
 
@@ -164,7 +164,7 @@
     cursor: pointer;
 }
 
-.menu__item>i {
+.menu__item > i {
     width: 1.1em;
     color: var(--secondary-color);
 }
@@ -175,19 +175,19 @@
     color: white;
 }
 
-.menu__item:hover>i,
-.menu__item:focus-visible>i {
+.menu__item:hover > i,
+.menu__item:focus-visible > i {
     color: white;
 }
 
 .menu__item--danger,
-.menu__item--danger>i {
+.menu__item--danger > i {
     color: var(--danger-color);
 }
 
 .menu__item--danger:hover,
 .menu__item--danger:focus-visible,
-.menu__item--danger:hover>i {
+.menu__item--danger:hover > i {
     background-color: var(--danger-color);
     color: white;
 }
@@ -209,7 +209,7 @@
     flex-direction: column;
 }
 
-#elements>.tab:last-child {
+#elements > .tab:last-child {
     margin-top: auto;
     margin-bottom: 0;
 }
@@ -233,7 +233,7 @@
 
 /* Il peso visivo ora dice quale sezione è aperta, invece di gridare allo stesso
    volume su tutte e quattro. */
-.tab__header:has(.tab__label[aria-expanded="true"]) {
+.tab__header:has(.tab__label[aria-expanded='true']) {
     background: var(--surface);
     border-left-color: var(--primary-color);
 }
@@ -260,7 +260,7 @@
 }
 
 .tab__label::before {
-    content: "\276F";
+    content: '\276F';
     font-size: 0.7em;
     color: var(--secondary-color);
     transition: transform 0.2s;
@@ -273,7 +273,7 @@
     content: none;
 }
 
-.tab__label[aria-expanded="true"]::before {
+.tab__label[aria-expanded='true']::before {
     transform: rotate(90deg);
 }
 
@@ -305,7 +305,7 @@
     display: none;
 }
 
-.tab__label[aria-expanded="true"] .tab__count {
+.tab__label[aria-expanded='true'] .tab__count {
     background: var(--secondary-color);
     color: white;
 }
@@ -345,7 +345,7 @@
     transition: opacity 0.2s ease;
 }
 
-.tab:has(.tab__label[aria-expanded="true"]) {
+.tab:has(.tab__label[aria-expanded='true']) {
     flex: 1 1 0;
     /* Con due sezioni aperte, flex dividerebbe lo spazio in parti uguali: una
        lista di 2 righe si prenderebbe metà colonna vuota mentre quella di 40
@@ -354,7 +354,7 @@
     max-height: max-content;
 }
 
-.tab:has(.tab__label[aria-expanded="true"])>.tab__content {
+.tab:has(.tab__label[aria-expanded='true']) > .tab__content {
     /* base auto (= altezza naturale del contenuto), non 0: è ciò che rende
        calcolabile il max-content qui sopra. */
     flex: 1 1 auto;
@@ -424,13 +424,13 @@
 .table-element--tower {
     grid-template-columns: auto auto 0.7rem 1fr;
     grid-template-areas:
-        "name    name   name  name"
-        "azimuth radius color actions";
+        'name    name   name  name'
+        'azimuth radius color actions';
     border-bottom: 1px solid #f0ece0;
     font-size: 0.85rem;
 }
 
-.table-element--tower>.col-name {
+.table-element--tower > .col-name {
     grid-area: name;
     text-align: left;
     padding-left: 0;
@@ -438,25 +438,25 @@
     overflow-wrap: anywhere;
 }
 
-.table-element--tower>.col-azimuth {
+.table-element--tower > .col-azimuth {
     grid-area: azimuth;
 }
 
-.table-element--tower>.col-radius {
+.table-element--tower > .col-radius {
     grid-area: radius;
 }
 
-.table-element--tower>.col-color {
+.table-element--tower > .col-color {
     grid-area: color;
 }
 
-.table-element--tower>.btn-col {
+.table-element--tower > .btn-col {
     grid-area: actions;
     justify-self: end;
 }
 
-.table-element--tower>.col-azimuth,
-.table-element--tower>.col-radius {
+.table-element--tower > .col-azimuth,
+.table-element--tower > .col-radius {
     white-space: nowrap;
     /* cifre a larghezza fissa: le colonne numeriche si incolonnano */
     font-variant-numeric: tabular-nums;
@@ -466,13 +466,12 @@
 
 /* --- disposizione larga --- */
 @container sidebar (min-width: 26rem) {
-
     .table-header--tower,
     .table-element--tower {
         display: grid;
         /* azimut è "0 - 360°": 5.2rem, non le 4 di prima */
         grid-template-columns: minmax(0, 1fr) 5.2rem 3rem 0.7rem 6.4rem;
-        grid-template-areas: "name azimuth radius color actions";
+        grid-template-areas: 'name azimuth radius color actions';
     }
 
     .table-header--tower {
@@ -486,27 +485,27 @@
         color: var(--text-muted);
     }
 
-    .table-header--tower>.col-name {
+    .table-header--tower > .col-name {
         grid-area: name;
     }
 
-    .table-header--tower>.col-azimuth {
+    .table-header--tower > .col-azimuth {
         grid-area: azimuth;
     }
 
-    .table-header--tower>.col-radius {
+    .table-header--tower > .col-radius {
         grid-area: radius;
     }
 
-    .table-header--tower>.col-color {
+    .table-header--tower > .col-color {
         grid-area: color;
     }
 
-    .table-header--tower>.col-actions {
+    .table-header--tower > .col-actions {
         grid-area: actions;
     }
 
-    .table-element--tower>.col-name {
+    .table-element--tower > .col-name {
         font-weight: 400;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -514,10 +513,10 @@
         overflow-wrap: normal;
     }
 
-    .table-element--tower>.col-azimuth,
-    .table-element--tower>.col-radius,
-    .table-header--tower>.col-azimuth,
-    .table-header--tower>.col-radius {
+    .table-element--tower > .col-azimuth,
+    .table-element--tower > .col-radius,
+    .table-header--tower > .col-azimuth,
+    .table-header--tower > .col-radius {
         text-align: right;
     }
 }
@@ -535,7 +534,7 @@
     background: rgba(10, 147, 150, 0.08);
 }
 
-.table-element--tower[aria-selected="true"] {
+.table-element--tower[aria-selected='true'] {
     background: rgba(10, 147, 150, 0.16);
     box-shadow: inset 3px 0 0 var(--primary-color);
 }
@@ -553,7 +552,7 @@
     border: 1px solid rgba(0, 18, 25, 0.25);
 }
 
-.table-element--tower>.col-color {
+.table-element--tower > .col-color {
     justify-self: center;
 }
 
@@ -613,13 +612,13 @@
    destra ereditato da style.css faceva iniziare ogni nome a un'ascissa
    diversa. A destra restano solo i numeri (azimut, raggio), dove incolonnare
    le cifre per posizione serve davvero. */
-.table-element:not(.table-element--tower)>*:first-child {
+.table-element:not(.table-element--tower) > *:first-child {
     text-align: left;
     padding-left: 0;
 }
 
 /* Il nome può accorciarsi con l'ellissi; pastiglia colore e barra azioni no. */
-.table-element:not(.table-element--tower)>span {
+.table-element:not(.table-element--tower) > span {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -628,7 +627,7 @@
 
 /* Colonna del tipo: larghezza fissa, così le icone si incolonnano invece di
    spostarsi a seconda di quanto è larga quella della riga sopra. */
-.table-element:not(.table-element--tower)>.col-type {
+.table-element:not(.table-element--tower) > .col-type {
     flex: 0 0 1.25rem;
     text-align: center;
     color: var(--secondary-color);
@@ -636,7 +635,7 @@
 
 /* La pastiglia colore va a filo destro, come nella colonna fissa delle righe
    cella: appesa al nome cadeva a un'ascissa diversa in ogni riga. */
-.table-element:not(.table-element--tower)>.square-color {
+.table-element:not(.table-element--tower) > .square-color {
     flex-shrink: 0;
     margin-left: auto;
 }
@@ -644,12 +643,12 @@
 /* Un solo margine automatico per riga, altrimenti i due si spartiscono lo
    spazio libero e la pastiglia resta a mezz'aria. Dove la pastiglia c'è, le
    azioni la seguono; dove manca (overlay), il margine resta sulle azioni. */
-.table-element:not(.table-element--tower)>.square-color~.btn-col {
+.table-element:not(.table-element--tower) > .square-color ~ .btn-col {
     margin-left: 0;
 }
 
 /* Le azioni restano a filo destro senza che il nome debba essere spinto là. */
-.table-element:not(.table-element--tower)>.btn-col {
+.table-element:not(.table-element--tower) > .btn-col {
     flex-shrink: 0;
     overflow: visible;
     margin-left: auto;
@@ -700,8 +699,8 @@
     opacity: 1;
 }
 
-input[type="range"],
-input[type="checkbox"] {
+input[type='range'],
+input[type='checkbox'] {
     accent-color: var(--primary-color);
 }
 
@@ -718,7 +717,6 @@ input[type="checkbox"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {

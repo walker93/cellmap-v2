@@ -28,7 +28,12 @@ import { deleteAll } from '../reset.js';
 import { createTable } from '../ui/table.js';
 import { saveFile } from './download.js';
 import { importKmzFile, overlayToKmz, DEFAULT_OVERLAY_OPACITY } from './kmz.js';
-import { defaultRingInterval, getRingSettings, setRingSettings, DEFAULT_RING_STROKE_OPACITY } from '../distanceRings.js';
+import {
+    defaultRingInterval,
+    getRingSettings,
+    setRingSettings,
+    DEFAULT_RING_STROKE_OPACITY,
+} from '../distanceRings.js';
 import { syncDisplaySettings } from '../ui/displaySettings.js';
 
 /** Marker written into every manifest, so a random zip isn't mistaken for a project. */
@@ -70,11 +75,16 @@ export function buildManifest(overlays, savedAt, display = getRingSettings()) {
         // Ring spacing is a property of the map, not of any cell, so it has no
         // feature to ride along on and has to be recorded here. The rings
         // themselves are not stored: like sectors, they are recomputed on open.
-        display: { ringInterval: display.interval, ringLabels: Boolean(display.labels), ringOpacity: display.opacity },
+        display: {
+            ringInterval: display.interval,
+            ringLabels: Boolean(display.labels),
+            ringOpacity: display.opacity,
+        },
         overlays: overlays.map((overlay, index) => ({
             entry: `${OVERLAY_DIR}/${index}.kmz`,
             file: overlay.file,
-            opacity: typeof overlay.opacity === 'number' ? overlay.opacity : DEFAULT_OVERLAY_OPACITY,
+            opacity:
+                typeof overlay.opacity === 'number' ? overlay.opacity : DEFAULT_OVERLAY_OPACITY,
             hidden: Boolean(overlay.hidden),
         })),
     };

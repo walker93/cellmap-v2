@@ -206,9 +206,9 @@ describe('buildCoverageSectors', () => {
         }
         // ...and the widest still stops at the tower's radius
         const center = turf.point([baseFields.lon, baseFields.lat]);
-        const rim = turf.explode(bands[bands.length - 1]).features.map((p) =>
-            turf.distance(center, p, { units: 'kilometers' }),
-        );
+        const rim = turf
+            .explode(bands[bands.length - 1])
+            .features.map((p) => turf.distance(center, p, { units: 'kilometers' }));
         expect(Math.max(...rim)).toBeLessThanOrEqual(baseFields.radius + 1e-9);
     });
 
@@ -318,7 +318,15 @@ describe('validateTowerFields', () => {
 
     it('accepts valid numeric fields (as numbers or strings)', () => {
         expect(validateTowerFields(valid).valid).toBe(true);
-        expect(validateTowerFields({ lat: '45.46', lon: '9.19', radius: '2', angle1: '0', angle2: '90' }).valid).toBe(true);
+        expect(
+            validateTowerFields({
+                lat: '45.46',
+                lon: '9.19',
+                radius: '2',
+                angle1: '0',
+                angle2: '90',
+            }).valid,
+        ).toBe(true);
     });
 
     it('rejects an empty latitude/longitude (the isFinite("") === true bug)', () => {

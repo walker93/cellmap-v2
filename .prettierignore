@@ -8,3 +8,7 @@ new_script.js
 resizer.js
 style.css
 index.html
+
+# npm owns this file and rewrites it on every install, so formatting it only
+# means format:check goes red again the next time someone runs npm i.
+package-lock.json
