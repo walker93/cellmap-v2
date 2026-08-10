@@ -81,12 +81,21 @@ export function addHighlightLayer() {
 /* Filtro                                                                      */
 /* -------------------------------------------------------------------------- */
 
+// Cosa si cerca in una riga: il nome che si vede, più l'identità di rete che la
+// riga porta in data-filter (vedi filterKey() in table.js). Il nome è come la
+// cella è chiamata qui, il CGI è come è chiamata nei tabulati dell'operatore, e
+// chi filtra digita l'uno o l'altro senza pensarci.
+function haystack(row) {
+    const name = row.querySelector('.col-name');
+    const text = name ? name.textContent : '';
+    return `${text} ${row.dataset.filter || ''}`.toLowerCase();
+}
+
 function paintFilter() {
     const rows = document.querySelectorAll('#features .table-element--tower');
     let visible = 0;
     rows.forEach((row) => {
-        const name = row.querySelector('.col-name');
-        const hit = !filterQuery || (name && name.textContent.toLowerCase().includes(filterQuery));
+        const hit = !filterQuery || haystack(row).includes(filterQuery);
         row.hidden = !hit;
         if (hit) visible += 1;
     });
