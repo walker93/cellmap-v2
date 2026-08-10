@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Feature
+- :sparkles: Add paypal donate button in the footer [`c20bf8a`](https://github.com/walker93/cellmap-v2/commit/c20bf8a)
 - search a cell's network identity from the sidebar filter [`1fb7aea`](https://github.com/walker93/cellmap-v2/commit/1fb7aea)
 - :lipstick: Rework the sidebar: fill the height that is there, make the cell list scannable [`172117f`](https://github.com/walker93/cellmap-v2/commit/172117f)
 - make ring opacity a map setting, and draw the cone in 32 steps [`2654897`](https://github.com/walker93/cellmap-v2/commit/2654897)
@@ -19,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - stop the KML export outlining every sector, and crashing on unset fields [`581c222`](https://github.com/walker93/cellmap-v2/commit/581c222)
 
 ### Documentation
+- :robot: changelog file generated [`d72d05b`](https://github.com/walker93/cellmap-v2/commit/d72d05b)
 - :robot: changelog file generated [`e82fde9`](https://github.com/walker93/cellmap-v2/commit/e82fde9)
 - :robot: changelog file generated [`c8726e2`](https://github.com/walker93/cellmap-v2/commit/c8726e2)
 
@@ -26,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - cover the sidebar rework [`87b43ef`](https://github.com/walker93/cellmap-v2/commit/87b43ef)
 
 ### Other
+- Merge branch 'main' of https://github.com/walker93/cellmap-v2 [`aa3707c`](https://github.com/walker93/cellmap-v2/commit/aa3707c)
 - Merge branch 'feat/sidebar-filter-by-cgi' [`5c6a56d`](https://github.com/walker93/cellmap-v2/commit/5c6a56d)
 - Merge branch 'main' of https://github.com/walker93/cellmap-v2 [`ddc25c6`](https://github.com/walker93/cellmap-v2/commit/ddc25c6)
 - Merge branch 'feat/ring-opacity-control' [`4c8494b`](https://github.com/walker93/cellmap-v2/commit/4c8494b)
