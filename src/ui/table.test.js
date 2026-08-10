@@ -142,6 +142,49 @@ describe('createTable', () => {
         expect(document.querySelector('#poi .table-element').getAttribute('role')).toBeNull();
     });
 
+    // The sidebar filter searches the row, and the network identity is nowhere in
+    // the row's visible text — so createTowerRow() has to carry it there itself.
+    describe('the filter key it puts on a tower row', () => {
+        const withIdentity = (identity) => ({
+            ...tower,
+            properties: { ...tower.properties, ...identity },
+        });
+        const key = () => document.querySelector('#features .table-element--tower').dataset.filter;
+
+        it('is the CGI when the identity is complete', () => {
+            createTable({
+                type: 'FeatureCollection',
+                features: [withIdentity({ mcc: '222', mnc: '01', lac: '4501', cellId: '21437' })],
+            });
+            // Every code is a substring of the CGI, so the one string covers a
+            // search for the Cell ID, the LAC or the PLMN as well.
+            expect(key()).toBe('222-01-4501-21437');
+        });
+
+        it('is whichever codes are there when the identity is incomplete', () => {
+            createTable({
+                type: 'FeatureCollection',
+                features: [withIdentity({ lac: '4501', cellId: '21437' })],
+            });
+            expect(key()).toBe('4501 21437');
+        });
+
+        it('pads a zero-stripped MNC back, the way the rest of the app stores it', () => {
+            // Papa Parse's dynamicTyping turns "01" into 1 on a CSV import; the
+            // filter key has to read like the CGI the user will type.
+            createTable({
+                type: 'FeatureCollection',
+                features: [withIdentity({ mcc: 222, mnc: 1, lac: '4501', cellId: '21437' })],
+            });
+            expect(key()).toBe('222-01-4501-21437');
+        });
+
+        it('is left off entirely when the tower has no identity', () => {
+            createTable({ type: 'FeatureCollection', features: [tower] });
+            expect(key()).toBeUndefined();
+        });
+    });
+
     // The type column used to read "PoI"/"Measure"/"Area". The glyph that replaced
     // that text is decorative, so the type has to be named on the container or the
     // row announces itself without one.

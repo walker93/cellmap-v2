@@ -27,9 +27,10 @@ const NO_MATCH = String.fromCharCode(0);
 // not implement — assigning it leaves the element's text empty, and the filter
 // reads `.col-name` text. Building the fixture as markup puts the name where the
 // module actually looks for it, the way a real browser would.
-function towerRow(id, name) {
+function towerRow(id, name, filterKey = '') {
+    const key = filterKey ? ` data-filter="${filterKey}"` : '';
     return `
-        <div class="table-element table-element--tower" data-id="${id}" role="option" tabindex="0">
+        <div class="table-element table-element--tower" data-id="${id}"${key} role="option" tabindex="0">
             <span class="col-name" data-id="${id}">${name}</span>
             <span class="btn-col">
                 <button type="button" class="icon-btn" aria-label="Delete"></button>
@@ -46,7 +47,7 @@ function render({ towers = [], poi = 0, overlays = 0 } = {}) {
         <span class="tab__count" id="count-poi"></span>
         <span class="tab__count" id="count-overlays"></span>
         <input type="search" id="filter-cells" aria-label="Filter cell towers">
-        <div id="features" role="listbox">${towers.map(([id, name]) => towerRow(id, name)).join('')}</div>
+        <div id="features" role="listbox">${towers.map((tower) => towerRow(...tower)).join('')}</div>
         <div id="poi">${plainRows(poi)}</div>
         <div id="overlays">${plainRows(overlays)}</div>`;
 }
@@ -70,7 +71,7 @@ async function mount(config = { towers: TOWERS }) {
 // What createTable() does: wipe the rows and build them again, then refresh.
 function rebuild(towers) {
     document.getElementById('features').innerHTML = towers
-        .map(([id, name]) => towerRow(id, name))
+        .map((tower) => towerRow(...tower))
         .join('');
     sidebar.refreshSidebar();
 }
@@ -309,6 +310,60 @@ describe('sidebar filter', () => {
         type('');
         expect(visibleNames()).toEqual(['Milano Centro', 'Milano Nord', 'Bergamo']);
         expect(rows().every((r) => !r.hidden)).toBe(true);
+    });
+
+    // The identity travels on the row in data-filter (filterKey() in table.js),
+    // because a cell is quoted by its CGI in an operator's records and that is
+    // what gets typed in here — none of those codes are on screen.
+    describe('on the network identity carried by the row', () => {
+        // A named cell: its codes appear nowhere in the visible text.
+        const IDENTIFIED = [
+            ['tower-1', 'Milano Centro', '222-01-4501-21437'],
+            ['tower-2', 'Milano Nord', '222-88-4502-21438'],
+            ['tower-3', 'Bergamo'],
+        ];
+
+        it('matches the whole CGI', async () => {
+            await mount({ towers: IDENTIFIED });
+            type('222-01-4501-21437');
+            expect(visibleNames()).toEqual(['Milano Centro']);
+        });
+
+        it('matches a Cell ID even when the cell has a name of its own', async () => {
+            await mount({ towers: IDENTIFIED });
+            type('21438');
+            expect(visibleNames()).toEqual(['Milano Nord']);
+        });
+
+        it('matches the LAC and the PLMN, which are parts of the same CGI', async () => {
+            await mount({ towers: IDENTIFIED });
+            type('4501');
+            expect(visibleNames()).toEqual(['Milano Centro']);
+            type('222-');
+            expect(visibleNames()).toEqual(['Milano Centro', 'Milano Nord']);
+        });
+
+        it('still matches the name of a cell that carries an identity', async () => {
+            await mount({ towers: IDENTIFIED });
+            type('milano');
+            expect(visibleNames()).toEqual(['Milano Centro', 'Milano Nord']);
+        });
+
+        it('leaves rows without an identity searchable by name only', async () => {
+            await mount({ towers: IDENTIFIED });
+            type('bergamo');
+            expect(visibleNames()).toEqual(['Bergamo']);
+            type('4501');
+            expect(visibleNames()).toEqual(['Milano Centro']);
+        });
+
+        // An incomplete identity is not a CGI, but the codes that are there are
+        // still what the user has to go on.
+        it('matches a partial identity', async () => {
+            await mount({ towers: [['tower-1', 'Senza CGI', '4501 21437']] });
+            type('21437');
+            expect(visibleNames()).toEqual(['Senza CGI']);
+        });
     });
 
     // Same rebuild problem as the selection: the new rows come back visible, and

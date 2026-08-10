@@ -11,6 +11,7 @@ import {
     removeFeature,
     setTowerHidden,
 } from '../towerState.js';
+import { formatCgi, normalizeCellIdentity } from '../cellIdentity.js';
 import { el } from './dom.js';
 import { refreshSidebar } from './sidebar.js';
 
@@ -279,6 +280,21 @@ function towerLabel(properties) {
     return 'Unnamed';
 }
 
+// What the sidebar filter searches besides the visible name. A cell is called by
+// its CGI in an operator's records, and that is what gets typed into the filter —
+// but the codes are metadata, not something the row shows, so they have to travel
+// on the row for the filter to reach them.
+//
+// A complete CGI already contains every code as a substring (MCC-MNC, LAC and Cell
+// ID are its parts), so it stands in for all of them; an incomplete identity is
+// not a CGI, and contributes whichever codes are actually there.
+function filterKey(properties) {
+    const cgi = formatCgi(properties);
+    if (cgi) return cgi;
+    const { cellId, lac, mcc, mnc } = normalizeCellIdentity(properties);
+    return [mcc && mnc ? `${mcc}-${mnc}` : '', lac, cellId].filter(Boolean).join(' ');
+}
+
 function createTowerRow(marker) {
     const spanName = document.createElement('span');
     spanName.className = 'col-name';
@@ -312,6 +328,8 @@ function createTowerRow(marker) {
     );
     row.classList.add('table-element--tower');
     row.dataset.id = marker.id;
+    const key = filterKey(marker.properties);
+    if (key) row.dataset.filter = key;
     row.setAttribute('role', 'option');
     row.tabIndex = 0;
     return row;
