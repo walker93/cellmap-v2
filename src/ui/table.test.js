@@ -61,8 +61,11 @@ beforeAll(async () => {
 });
 
 beforeEach(() => {
+    // The count badges belong to the sidebar (src/ui/sidebar.js), which createTable()
+    // refreshes at the end of every rebuild — they are part of the markup it writes to.
     document.body.innerHTML =
-        '<div id="features"></div><div id="poi"></div><div id="overlays"></div>';
+        '<div id="features"></div><div id="poi"></div><div id="overlays"></div>' +
+        '<span id="count-cells"></span><span id="count-poi"></span><span id="count-overlays"></span>';
 });
 
 const tower = {
@@ -125,6 +128,60 @@ describe('createTable', () => {
         const unnamed = { ...tower, properties: { ...tower.properties, name: undefined } };
         createTable({ type: 'FeatureCollection', features: [unnamed] });
         expect(document.querySelector('#features .col-name').innerText).toBe('Unnamed');
+    });
+
+    // A tower row is what the sidebar selects, so it has to carry the id the
+    // selection is keyed on and be reachable by keyboard, not just by mouse.
+    it('gives each tower row the identity and listbox semantics the sidebar needs', () => {
+        createTable({ type: 'FeatureCollection', features: [tower, poi] });
+        const row = document.querySelector('#features .table-element--tower');
+        expect(row.dataset.id).toBe('tower-1');
+        expect(row.getAttribute('role')).toBe('option');
+        expect(row.tabIndex).toBe(0);
+        // POI rows are a plain list: no selection, so no option semantics.
+        expect(document.querySelector('#poi .table-element').getAttribute('role')).toBeNull();
+    });
+
+    // The type column used to read "PoI"/"Measure"/"Area". The glyph that replaced
+    // that text is decorative, so the type has to be named on the container or the
+    // row announces itself without one.
+    it('names the POI type on the icon container when the label became a glyph', () => {
+        const line = {
+            id: 'poi-2',
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [9.1, 45.4],
+                    [9.2, 45.5],
+                ],
+            },
+            properties: { name: 'A measure', fill: '#00ff00' },
+        };
+        createTable({ type: 'FeatureCollection', features: [poi, line] });
+        const types = [...document.querySelectorAll('#poi .col-type')];
+        expect(types).toHaveLength(2);
+        for (const type of types) {
+            expect(type.getAttribute('role')).toBe('img');
+            expect(type.getAttribute('aria-label')).toBeTruthy();
+            expect(type.querySelector('i').getAttribute('aria-hidden')).toBe('true');
+        }
+        expect(types.map((t) => t.getAttribute('aria-label'))).toEqual([
+            'Point of interest',
+            'Measurement',
+        ]);
+    });
+
+    // createTable() is the only place the lists are rebuilt, so it is also the only
+    // place that can put the sidebar's counts back in step with them.
+    it('refreshes the sidebar counts on every rebuild', () => {
+        const other = { ...tower, id: 'tower-2' };
+        createTable({ type: 'FeatureCollection', features: [tower, other, poi] });
+        expect(document.getElementById('count-cells').textContent).toBe('2');
+        expect(document.getElementById('count-poi').textContent).toBe('1');
+
+        createTable({ type: 'FeatureCollection', features: [tower] });
+        expect(document.getElementById('count-cells').textContent).toBe('1');
+        expect(document.getElementById('count-poi').textContent).toBe('0');
     });
 
     it('clears and rebuilds on each call (no duplicate rows)', () => {
