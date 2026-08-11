@@ -1,8 +1,7 @@
 import { map } from '../map.js';
 import { el } from './dom.js';
 
-// `TomSelect` is a global from lib/tom-select.complete.min.js (a <script> in
-// index.html).
+// `TomSelect` is a global from the jsDelivr <script> in index.html.
 
 // Populated once icons.json resolves (see loadIcons below); lets the
 // styleimagemissing handler resolve an icon id to its image URL without a

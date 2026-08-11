@@ -70,8 +70,8 @@ export default [
         },
     },
     {
-        // lib/ and public/lib/ are vendored third-party scripts, not our source;
+        // public/lib/ holds the vendored third-party scripts, not our source;
         // public/images is static data (icons.json + PNGs), not lintable JS anyway.
-        ignores: ['dist/**', 'lib/**', 'public/**', 'old/**', 'node_modules/**'],
+        ignores: ['dist/**', 'public/**', 'old/**', 'node_modules/**'],
     },
 ];

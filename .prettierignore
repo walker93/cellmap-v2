@@ -1,6 +1,6 @@
 dist
 node_modules
-lib
+public/lib
 old
 images
 CHANGELOG.md
