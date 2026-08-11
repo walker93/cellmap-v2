@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - stop the KML export outlining every sector, and crashing on unset fields [`581c222`](https://github.com/walker93/cellmap-v2/commit/581c222)
 
 ### Documentation
+- :robot: changelog file generated [`3962ac0`](https://github.com/walker93/cellmap-v2/commit/3962ac0)
 - :robot: changelog file generated [`4d33ab5`](https://github.com/walker93/cellmap-v2/commit/4d33ab5)
 - :robot: changelog file generated [`d72d05b`](https://github.com/walker93/cellmap-v2/commit/d72d05b)
 - :robot: changelog file generated [`e82fde9`](https://github.com/walker93/cellmap-v2/commit/e82fde9)
@@ -29,10 +30,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Test
 - cover the sidebar rework [`87b43ef`](https://github.com/walker93/cellmap-v2/commit/87b43ef)
 
+### Chore
+- drop the orphaned vendored TomSelect and the unused papaparse dep [`92fc33d`](https://github.com/walker93/cellmap-v2/commit/92fc33d)
+
 ### Style
 - make the whole repo pass prettier --check [`0368c88`](https://github.com/walker93/cellmap-v2/commit/0368c88)
 
+### Refactor
+- move the app's own files out of the repo root into src/ [`641199e`](https://github.com/walker93/cellmap-v2/commit/641199e)
+
 ### Other
+- Merge branch 'chore/root-cleanup-and-restructure' [`501f081`](https://github.com/walker93/cellmap-v2/commit/501f081)
 - Merge origin/main (changelog bot commit) [`afb87a9`](https://github.com/walker93/cellmap-v2/commit/afb87a9)
 - Merge branch 'feat/redesign-feature-dialog' [`151ee30`](https://github.com/walker93/cellmap-v2/commit/151ee30)
 - Merge branch 'main' of https://github.com/walker93/cellmap-v2 [`aa3707c`](https://github.com/walker93/cellmap-v2/commit/aa3707c)
