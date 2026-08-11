@@ -21,6 +21,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - stop the KML export outlining every sector, and crashing on unset fields [`581c222`](https://github.com/walker93/cellmap-v2/commit/581c222)
 
 ### Documentation
+- reduce MODERNIZATION.md to an architecture decision record [`0ff48a0`](https://github.com/walker93/cellmap-v2/commit/0ff48a0)
+- :robot: changelog file generated [`88259a5`](https://github.com/walker93/cellmap-v2/commit/88259a5)
 - :robot: changelog file generated [`3962ac0`](https://github.com/walker93/cellmap-v2/commit/3962ac0)
 - :robot: changelog file generated [`4d33ab5`](https://github.com/walker93/cellmap-v2/commit/4d33ab5)
 - :robot: changelog file generated [`d72d05b`](https://github.com/walker93/cellmap-v2/commit/d72d05b)
@@ -40,6 +42,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - move the app's own files out of the repo root into src/ [`641199e`](https://github.com/walker93/cellmap-v2/commit/641199e)
 
 ### Other
+- Merge branch 'docs/modernization-as-decision-record' [`2b3bc49`](https://github.com/walker93/cellmap-v2/commit/2b3bc49)
 - Merge branch 'chore/root-cleanup-and-restructure' [`501f081`](https://github.com/walker93/cellmap-v2/commit/501f081)
 - Merge origin/main (changelog bot commit) [`afb87a9`](https://github.com/walker93/cellmap-v2/commit/afb87a9)
 - Merge branch 'feat/redesign-feature-dialog' [`151ee30`](https://github.com/walker93/cellmap-v2/commit/151ee30)
