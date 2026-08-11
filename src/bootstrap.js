@@ -7,6 +7,7 @@ import { importCSV } from './io/csv.js';
 import { importKMZ } from './io/kmz.js';
 import { saveProject, openProject } from './io/project.js';
 import { addGeoJsonSource } from './mapSource.js';
+import { installExportSerializerFix } from './mapExport.js';
 import { openForm, closeForm, aggiungiCella, submitEditForm, initForm } from './ui/form.js';
 import { loadIcons } from './ui/iconPicker.js';
 import { confirmAndDeleteAll } from './reset.js';
@@ -144,6 +145,9 @@ function addOtherTools() {
         Format,
         DPI,
     } = MapboxExportControl;
+    // Without this the exported image comes out with no sectors, rings or ring
+    // labels on it — see mapExport.js for what the control does to the style.
+    installExportSerializerFix(MapboxExportControl);
     map.addControl(
         new ExportControl({
             PageSize: Size.A4,

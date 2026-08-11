@@ -1,7 +1,6 @@
 {
   "0": "bootstrap.js",
   "1": "towerState.js",
-  "2": "project.js",
   "3": "form.js",
   "4": "towerFeature.js",
   "5": "sidebar.js",
@@ -16,7 +15,7 @@
   "14": "menu.test.js",
   "15": "mapEvents.test.js",
   "16": "iconPicker.test.js",
-  "17": "kmz.js",
+  "17": "project.js",
   "18": "accordion.js",
   "19": "CLAUDE.md",
   "20": "Third-Party Embeds (Google Analytics, PayPal Donate)",

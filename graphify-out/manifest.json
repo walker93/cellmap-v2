@@ -180,14 +180,14 @@
     "semantic_hash": "64e1e367e3aafb81c54cd283986bf638"
   },
   "src/towerFeature.js": {
-    "mtime": 1786452509.9323788,
-    "ast_hash": "48a368cd2e803c19b8be2dcf30d3ad6d",
+    "mtime": 1786461223.0911272,
+    "ast_hash": "db4213b6931caf99c8edc69ca6b20b9a",
     "semantic_hash": ""
   },
   "src/towerFeature.test.js": {
-    "mtime": 1786389674.978205,
-    "ast_hash": "80533794a3416b0fe326a10bffb1b8cd",
-    "semantic_hash": "80533794a3416b0fe326a10bffb1b8cd"
+    "mtime": 1786461180.4799416,
+    "ast_hash": "20d7aed430d422a9495ae37e984f68ca",
+    "semantic_hash": ""
   },
   "src/towerState.js": {
     "mtime": 1786389674.978205,
@@ -290,23 +290,23 @@
     "semantic_hash": "213e541fc328768eb1934e041dad52d9"
   },
   "CHANGELOG.md": {
-    "mtime": 1786455887.1103303,
-    "ast_hash": "d8254c4a986e7eb791e6d24a399de375",
+    "mtime": 1786457032.130664,
+    "ast_hash": "d328a0847d91e292a91adfbc8dd29c14",
     "semantic_hash": ""
   },
   "MODERNIZATION.md": {
-    "mtime": 1786389674.9732041,
-    "ast_hash": "0482220dc82b6873b673044fa152cd74",
-    "semantic_hash": "0482220dc82b6873b673044fa152cd74"
+    "mtime": 1786456976.220025,
+    "ast_hash": "c2e59f7fec334ab98164b849b10f09c2",
+    "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1786389674.9732041,
-    "ast_hash": "7bc5c31fdff408289e9c4b2378298e0f",
-    "semantic_hash": "7bc5c31fdff408289e9c4b2378298e0f"
+    "mtime": 1786456976.220025,
+    "ast_hash": "4e8976e188bd1b635e0ce01ada3effe2",
+    "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1786455741.1010537,
-    "ast_hash": "562306730d31273b54d70e93bb8b5e50",
+    "mtime": 1786460035.0988152,
+    "ast_hash": "58f287d8171e4587b13a7057ddc7b2f2",
     "semantic_hash": ""
   },
   "images/screenshot.png": {
@@ -315,8 +315,8 @@
     "semantic_hash": "18ca29a347d19d96cbc5d4d4dbef9872"
   },
   "src/bootstrap.js": {
-    "mtime": 1786455741.1030545,
-    "ast_hash": "64dca6602ab26e6d4e23737be71c5d2f",
+    "mtime": 1786462075.2030342,
+    "ast_hash": "014b260f4278a35919bf651b59f373d6",
     "semantic_hash": ""
   },
   "src/ui/resizer.js": {
@@ -330,8 +330,8 @@
     "semantic_hash": ""
   },
   "fixtures/README.md": {
-    "mtime": 1786455741.1000543,
-    "ast_hash": "7f46503207f4bf966c86371f0f6dee85",
+    "mtime": 1786456976.2210267,
+    "ast_hash": "a500b370cecdbab8dfc7f0bb3d97f37e",
     "semantic_hash": ""
   },
   "favicon/android-chrome-192x192.png": {
@@ -4992,6 +4992,16 @@
   "public/images/icons/Transportation/usr_wendepunkt.png": {
     "mtime": 1784832801.9255526,
     "ast_hash": "2cfd3e3ffad4c72dd8852f0fa1e5db06",
+    "semantic_hash": ""
+  },
+  "src/mapExport.js": {
+    "mtime": 1786462053.056694,
+    "ast_hash": "ac8ff93124d88233e317d56791e31b21",
+    "semantic_hash": ""
+  },
+  "src/mapExport.test.js": {
+    "mtime": 1786462095.3311398,
+    "ast_hash": "cb3459abbc660ec4cc952bacd7e09f34",
     "semantic_hash": ""
   }
 }

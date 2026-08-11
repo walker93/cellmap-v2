@@ -8,6 +8,9 @@ import {
     towerFieldsFromFeature,
     validateTowerFields,
     GRADIENT_BANDS,
+    CONE_MAX_OPACITY,
+    CONE_RIM_OPACITY,
+    CONE_CORE_RATIO,
 } from './towerFeature.js';
 
 const baseFields = {
@@ -138,26 +141,91 @@ describe('buildCoverageSectors', () => {
     const seenInRing = (bands, k) =>
         1 - bands.slice(k).reduce((through, b) => through * (1 - b.properties['fill-opacity']), 1);
 
+    // The band the kink at half the radius falls in, and the first one past it. Both
+    // derived rather than written out, so GRADIENT_BANDS stays a free parameter.
+    const kinkBand = Math.floor((GRADIENT_BANDS - 1) / 2);
+    const pastKink = kinkBand + 1;
+
     it('draws the ramp in GRADIENT_BANDS steps', () => {
         const sectors = buildCoverageSectors({ ...baseFields, gradient: true });
         expect(sectors).toHaveLength(GRADIENT_BANDS);
 
+        // Within each half of the ramp a band contributes less than the one inside
+        // it, because it is covering a picture the bands outside it have already
+        // painted. Only within: one band spans the kink at half the radius and the
+        // next is the first on the outer half's own slope, so the contributions step
+        // there instead of continuing the run.
         const opacities = sectors.map((s) => s.properties['fill-opacity']);
-        for (let i = 1; i < opacities.length; i++) {
-            expect(opacities[i]).toBeLessThan(opacities[i - 1]);
+        const halves = [
+            opacities.slice(0, kinkBand),
+            opacities.slice(pastKink, GRADIENT_BANDS - 1),
+        ];
+        for (const half of halves) {
+            for (let i = 1; i < half.length; i++) {
+                expect(half[i]).toBeLessThan(half[i - 1]);
+            }
         }
-        expect(opacities[opacities.length - 1]).toBeGreaterThan(0);
+        // The outermost band is out of that run altogether: nothing covers it, so it
+        // carries the whole rim opacity on its own.
+        expect(opacities[opacities.length - 1]).toBeCloseTo(CONE_RIM_OPACITY, 10);
     });
 
-    // The one that matters: switching from abutting annuli to nested sectors was a
-    // change of rendering, not of meaning, and the picture has to come out at the
-    // same opacity it did before — full strength at the antenna, linearly down
-    // towards the rim.
-    it('composites to the same ramp the bands used to be painted at directly', () => {
+    // The one that matters: the user's opacity is the value at *half* the radius, the
+    // core is a fixed step stronger than it, and the rim never fades past the floor —
+    // which is what makes the outer half of the cone say anything at all.
+    it('composites to a ramp anchored on the user opacity at half the radius', () => {
         const bands = buildCoverageSectors({ ...baseFields, gradient: true });
-        for (let k = 0; k < GRADIENT_BANDS; k++) {
-            expect(seenInRing(bands, k)).toBeCloseTo(0.5 * (1 - k / GRADIENT_BANDS), 10);
+
+        expect(seenInRing(bands, 0)).toBeCloseTo(baseFields.opacity * CONE_CORE_RATIO, 10);
+        expect(seenInRing(bands, GRADIENT_BANDS - 1)).toBeCloseTo(CONE_RIM_OPACITY, 10);
+
+        // no band sits exactly at half the radius — with an even count the midpoint
+        // falls between two of them, and those two straddle the value set
+        expect(seenInRing(bands, kinkBand)).toBeGreaterThan(baseFields.opacity);
+        expect(seenInRing(bands, pastKink)).toBeLessThan(baseFields.opacity);
+
+        for (let k = 1; k < GRADIENT_BANDS; k++) {
+            expect(seenInRing(bands, k)).toBeLessThan(seenInRing(bands, k - 1));
         }
+    });
+
+    // The whole point of the change: at any setting the rim is still there to be seen.
+    it('lands the rim on the floor whatever opacity was asked for', () => {
+        for (const opacity of [0.2, 0.35, 0.7]) {
+            const bands = buildCoverageSectors({ ...baseFields, opacity, gradient: true });
+            expect(seenInRing(bands, GRADIENT_BANDS - 1)).toBeCloseTo(CONE_RIM_OPACITY, 10);
+        }
+    });
+
+    // The tower marker is drawn in the tower's own colour, so a core that goes solid
+    // hides it. The slider runs to 1; the cone's core stops before that.
+    it('never paints the core past the ceiling, at any slider position', () => {
+        for (let opacity = 0.1; opacity <= 1.0001; opacity += 0.05) {
+            const bands = buildCoverageSectors({ ...baseFields, opacity, gradient: true });
+            expect(seenInRing(bands, 0)).toBeLessThanOrEqual(CONE_MAX_OPACITY + 1e-10);
+            for (const band of bands) {
+                expect(band.properties['fill-opacity']).toBeGreaterThanOrEqual(0);
+            }
+        }
+    });
+
+    // The bottom of the slider is where the floor would otherwise meet the value set
+    // and leave a flat sector with no ramp in it at all.
+    it('still ramps at the lowest opacity the form allows', () => {
+        const bands = buildCoverageSectors({ ...baseFields, opacity: 0.1, gradient: true });
+        expect(seenInRing(bands, 0)).toBeCloseTo(0.15, 10);
+        expect(seenInRing(bands, GRADIENT_BANDS - 1)).toBeCloseTo(0.08, 10);
+    });
+
+    // ...and the top is where the core flattens against the ceiling instead. The
+    // inner bands then contribute nothing, which is not a degenerate case: the rings
+    // they cover are already at full strength from the bands outside them.
+    it('flattens the core rather than overshooting at full opacity', () => {
+        const bands = buildCoverageSectors({ ...baseFields, opacity: 1, gradient: true });
+        expect(seenInRing(bands, 0)).toBeCloseTo(CONE_MAX_OPACITY, 10);
+        expect(seenInRing(bands, kinkBand)).toBeCloseTo(CONE_MAX_OPACITY, 10);
+        expect(seenInRing(bands, GRADIENT_BANDS - 1)).toBeCloseTo(CONE_RIM_OPACITY, 10);
+        expect(bands[0].properties['fill-opacity']).toBe(0);
     });
 
     it('composites the same whatever order the bands are drawn in', () => {

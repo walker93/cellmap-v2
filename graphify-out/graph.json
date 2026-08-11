@@ -1090,8 +1090,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_generate_config",
-      "community": 9,
-      "community_name": "papaparse.min.js",
+      "community": 8,
+      "community_name": "tokml.js",
       "norm_label": "generate-config.js"
     },
     {
@@ -1101,8 +1101,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "scripts_generate_config_root",
-      "community": 9,
-      "community_name": "papaparse.min.js",
+      "community": 8,
+      "community_name": "tokml.js",
       "norm_label": "root"
     },
     {
@@ -1112,8 +1112,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "scripts_generate_config_localconfig",
-      "community": 9,
-      "community_name": "papaparse.min.js",
+      "community": 8,
+      "community_name": "tokml.js",
       "norm_label": "localconfig"
     },
     {
@@ -1123,8 +1123,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "scripts_generate_config_distconfig",
-      "community": 9,
-      "community_name": "papaparse.min.js",
+      "community": 8,
+      "community_name": "tokml.js",
       "norm_label": "distconfig"
     },
     {
@@ -1142,7 +1142,7 @@
       "label": "setupMapLayers()",
       "file_type": "code",
       "source_file": "src/bootstrap.js",
-      "source_location": "L21",
+      "source_location": "L22",
       "_callable": true,
       "_origin": "ast",
       "id": "src_bootstrap_setupmaplayers",
@@ -1154,7 +1154,7 @@
       "label": "addCellLayer()",
       "file_type": "code",
       "source_file": "src/bootstrap.js",
-      "source_location": "L39",
+      "source_location": "L40",
       "_callable": true,
       "_origin": "ast",
       "id": "src_bootstrap_addcelllayer",
@@ -1166,7 +1166,7 @@
       "label": "addRingLayers()",
       "file_type": "code",
       "source_file": "src/bootstrap.js",
-      "source_location": "L81",
+      "source_location": "L82",
       "_callable": true,
       "_origin": "ast",
       "id": "src_bootstrap_addringlayers",
@@ -1178,7 +1178,7 @@
       "label": "addOtherTools()",
       "file_type": "code",
       "source_file": "src/bootstrap.js",
-      "source_location": "L129",
+      "source_location": "L130",
       "_callable": true,
       "_origin": "ast",
       "id": "src_bootstrap_addothertools",
@@ -1190,7 +1190,7 @@
       "label": "addMeasurementTools()",
       "file_type": "code",
       "source_file": "src/bootstrap.js",
-      "source_location": "L160",
+      "source_location": "L164",
       "_callable": true,
       "_origin": "ast",
       "id": "src_bootstrap_addmeasurementtools",
@@ -1202,12 +1202,12 @@
       "label": "wireControls()",
       "file_type": "code",
       "source_file": "src/bootstrap.js",
-      "source_location": "L209",
+      "source_location": "L213",
       "_callable": true,
       "_origin": "ast",
       "id": "src_bootstrap_wirecontrols",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 3,
+      "community_name": "form.js",
       "norm_label": "wirecontrols()"
     },
     {
@@ -1345,7 +1345,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_distancerings",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "distancerings.js"
     },
@@ -1356,7 +1356,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_distancerings_ring_intervals",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "ring_intervals"
     },
@@ -1367,7 +1367,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "src_distancerings_default_ring_interval",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "default_ring_interval"
     },
@@ -1378,7 +1378,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "src_distancerings_default_ring_stroke_opacity",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "default_ring_stroke_opacity"
     },
@@ -1390,7 +1390,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_defaultringinterval",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "defaultringinterval()"
     },
@@ -1402,7 +1402,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_formatdistance",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "formatdistance()"
     },
@@ -1414,7 +1414,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_labelanchor",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "labelanchor()"
     },
@@ -1426,7 +1426,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_buildrings",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "buildrings()"
     },
@@ -1438,8 +1438,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_buildringcollection",
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 17,
+      "community_name": "project.js",
       "norm_label": "buildringcollection()"
     },
     {
@@ -1449,7 +1449,7 @@
       "source_location": "L183",
       "_origin": "ast",
       "id": "src_distancerings_settings",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "settings"
     },
@@ -1461,7 +1461,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_getringsettings",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "getringsettings()"
     },
@@ -1473,7 +1473,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_setringsettings",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "setringsettings()"
     },
@@ -1485,8 +1485,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_resetringsettings",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "resetringsettings()"
     },
     {
@@ -1496,7 +1496,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_distancerings_test",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "distancerings.test.js"
     },
@@ -1507,7 +1507,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_distancerings_test_centre",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "centre"
     },
@@ -1519,7 +1519,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_test_tower",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "tower()"
     },
@@ -1531,7 +1531,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_test_arcs",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "arcs()"
     },
@@ -1543,7 +1543,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_test_anchors",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "anchors()"
     },
@@ -1555,7 +1555,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_distancerings_test_distanceof",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "distanceof()"
     },
@@ -1588,8 +1588,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_hiddenpois",
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "hiddenpois.js"
     },
     {
@@ -1599,8 +1599,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_hiddenpois_hidden",
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "hidden"
     },
     {
@@ -1611,8 +1611,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_hiddenpois_gethiddenpois",
-      "community": 2,
-      "community_name": "project.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "gethiddenpois()"
     },
     {
@@ -1635,8 +1635,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_hiddenpois_takehiddenpoi",
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "takehiddenpoi()"
     },
     {
@@ -1647,8 +1647,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_hiddenpois_removehiddenpoi",
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "removehiddenpoi()"
     },
     {
@@ -1659,8 +1659,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_hiddenpois_clearhiddenpois",
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "clearhiddenpois()"
     },
     {
@@ -1670,8 +1670,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_hiddenpois_test",
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "hiddenpois.test.js"
     },
     {
@@ -1682,8 +1682,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_hiddenpois_test_poi",
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "poi()"
     },
     {
@@ -1693,8 +1693,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_io_csv",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 4,
+      "community_name": "towerFeature.js",
       "norm_label": "csv.js"
     },
     {
@@ -1705,8 +1705,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_csv_importcsv",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 4,
+      "community_name": "towerFeature.js",
       "norm_label": "importcsv()"
     },
     {
@@ -1786,8 +1786,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_geojson_importgeojson",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 1,
+      "community_name": "towerState.js",
       "norm_label": "importgeojson()"
     },
     {
@@ -1927,7 +1927,7 @@
       "_origin": "ast",
       "id": "src_io_kmz",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "kmz.js"
     },
     {
@@ -1938,7 +1938,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_default_overlay_opacity",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "default_overlay_opacity"
     },
     {
@@ -1950,7 +1950,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_nextoverlayid",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "nextoverlayid()"
     },
     {
@@ -1962,7 +1962,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_parselatlonbox",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "parselatlonbox()"
     },
     {
@@ -1974,7 +1974,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_readkmz",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "readkmz()"
     },
     {
@@ -1986,7 +1986,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_addrasteroverlay",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "addrasteroverlay()"
     },
     {
@@ -1998,7 +1998,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_importkmzfile",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "importkmzfile()"
     },
     {
@@ -2010,7 +2010,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_escapexml",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "escapexml()"
     },
     {
@@ -2022,7 +2022,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_overlaytokmz",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "overlaytokmz()"
     },
     {
@@ -2034,7 +2034,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_importkmz",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "importkmz()"
     },
     {
@@ -2045,7 +2045,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_test",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "kmz.test.js"
     },
     {
@@ -2057,7 +2057,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_test_on",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "on()"
     },
     {
@@ -2069,7 +2069,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_test_addcontrol",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "addcontrol()"
     },
     {
@@ -2081,7 +2081,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_test_addsource",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "addsource()"
     },
     {
@@ -2093,7 +2093,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_test_addlayer",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "addlayer()"
     },
     {
@@ -2105,7 +2105,7 @@
       "_origin": "ast",
       "id": "src_io_kmz_test_kml",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "kml()"
     },
     {
@@ -2115,7 +2115,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_io_project",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "project.js"
     },
@@ -2126,7 +2126,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "src_io_project_project_format",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "project_format"
     },
@@ -2137,7 +2137,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "src_io_project_project_format_version",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "project_format_version"
     },
@@ -2148,7 +2148,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "src_io_project_project_mime",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "project_mime"
     },
@@ -2159,7 +2159,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "src_io_project_project_extension",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "project_extension"
     },
@@ -2171,7 +2171,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_project_projectfeatures",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "projectfeatures()"
     },
@@ -2183,7 +2183,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_project_buildmanifest",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "buildmanifest()"
     },
@@ -2195,7 +2195,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_project_normalizeoverlayentry",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "normalizeoverlayentry()"
     },
@@ -2207,7 +2207,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_project_readmanifest",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "readmanifest()"
     },
@@ -2219,7 +2219,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_project_normalizedisplay",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "normalizedisplay()"
     },
@@ -2231,7 +2231,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_project_buildprojectarchive",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "buildprojectarchive()"
     },
@@ -2243,7 +2243,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_project_loadprojectarchive",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "loadprojectarchive()"
     },
@@ -2267,8 +2267,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_io_project_openproject",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 17,
+      "community_name": "project.js",
       "norm_label": "openproject()"
     },
     {
@@ -2560,8 +2560,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_mapevents",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "mapevents.js"
     },
     {
@@ -2572,8 +2572,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_mapevents_escapehtml",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "escapehtml()"
     },
     {
@@ -2584,8 +2584,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_mapevents_registermapevents",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "registermapevents()"
     },
     {
@@ -2741,6 +2741,98 @@
       "norm_label": "clicktower()"
     },
     {
+      "label": "mapExport.js",
+      "file_type": "code",
+      "source_file": "src/mapExport.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_mapexport",
+      "community": 0,
+      "community_name": "bootstrap.js",
+      "norm_label": "mapexport.js"
+    },
+    {
+      "label": "installExportSerializerFix()",
+      "file_type": "code",
+      "source_file": "src/mapExport.js",
+      "source_location": "L28",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_mapexport_installexportserializerfix",
+      "community": 0,
+      "community_name": "bootstrap.js",
+      "norm_label": "installexportserializerfix()"
+    },
+    {
+      "label": "mapExport.test.js",
+      "file_type": "code",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_mapexport_test",
+      "community": 9,
+      "community_name": "papaparse.min.js",
+      "norm_label": "mapexport.test.js"
+    },
+    {
+      "label": "bundledStringify()",
+      "file_type": "code",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L9",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_mapexport_test_bundledstringify",
+      "community": 9,
+      "community_name": "papaparse.min.js",
+      "norm_label": "bundledstringify()"
+    },
+    {
+      "label": "marker",
+      "file_type": "code",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "src_mapexport_test_marker",
+      "community": 9,
+      "community_name": "papaparse.min.js",
+      "norm_label": "marker"
+    },
+    {
+      "label": "towerFields",
+      "file_type": "code",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "src_mapexport_test_towerfields",
+      "community": 9,
+      "community_name": "papaparse.min.js",
+      "norm_label": "towerfields"
+    },
+    {
+      "label": "namespaceWithBug()",
+      "file_type": "code",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L37",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_mapexport_test_namespacewithbug",
+      "community": 9,
+      "community_name": "papaparse.min.js",
+      "norm_label": "namespacewithbug()"
+    },
+    {
+      "label": "roundTrip()",
+      "file_type": "code",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L38",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_mapexport_test_roundtrip",
+      "community": 9,
+      "community_name": "papaparse.min.js",
+      "norm_label": "roundtrip()"
+    },
+    {
       "label": "mapSource.js",
       "file_type": "code",
       "source_file": "src/mapSource.js",
@@ -2759,8 +2851,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_mapsource_addgeojsonsource",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 1,
+      "community_name": "towerState.js",
       "norm_label": "addgeojsonsource()"
     },
     {
@@ -2770,8 +2862,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_overlays",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "overlays.js"
     },
     {
@@ -2781,8 +2873,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_overlays_overlays",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "overlays"
     },
     {
@@ -2793,8 +2885,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_overlays_getoverlays",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "getoverlays()"
     },
     {
@@ -2806,7 +2898,7 @@
       "_origin": "ast",
       "id": "src_overlays_addoverlay",
       "community": 17,
-      "community_name": "kmz.js",
+      "community_name": "project.js",
       "norm_label": "addoverlay()"
     },
     {
@@ -2817,8 +2909,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_overlays_removeoverlay",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "removeoverlay()"
     },
     {
@@ -2829,8 +2921,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_overlays_clearoverlays",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "clearoverlays()"
     },
     {
@@ -2840,8 +2932,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_overlays_test",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "overlays.test.js"
     },
     {
@@ -2852,8 +2944,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_overlays_test_overlay",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "overlay()"
     },
     {
@@ -2863,8 +2955,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_reset",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "reset.js"
     },
     {
@@ -2875,8 +2967,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_deleteall",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "deleteall()"
     },
     {
@@ -2887,8 +2979,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_confirmanddeleteall",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "confirmanddeleteall()"
     },
     {
@@ -2898,8 +2990,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_reset_test",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "reset.test.js"
     },
     {
@@ -2910,8 +3002,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_test_on",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "on()"
     },
     {
@@ -2922,8 +3014,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_test_addcontrol",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "addcontrol()"
     },
     {
@@ -2934,8 +3026,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_test_addsource",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "addsource()"
     },
     {
@@ -2946,8 +3038,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_test_addlayer",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "addlayer()"
     },
     {
@@ -2958,8 +3050,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_test_setdata",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "setdata()"
     },
     {
@@ -2970,8 +3062,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_test_removelayer",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "removelayer()"
     },
     {
@@ -2982,8 +3074,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_test_removesource",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "removesource()"
     },
     {
@@ -2994,8 +3086,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_reset_test_deleteall",
-      "community": 17,
-      "community_name": "kmz.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "deleteall()"
     },
     {
@@ -3142,7 +3234,7 @@
       "label": "GRADIENT_BANDS",
       "file_type": "code",
       "source_file": "src/towerFeature.js",
-      "source_location": "L85",
+      "source_location": "L88",
       "_origin": "ast",
       "id": "src_towerfeature_gradient_bands",
       "community": 4,
@@ -3150,10 +3242,55 @@
       "norm_label": "gradient_bands"
     },
     {
+      "label": "CONE_MAX_OPACITY",
+      "file_type": "code",
+      "source_file": "src/towerFeature.js",
+      "source_location": "L93",
+      "_origin": "ast",
+      "id": "src_towerfeature_cone_max_opacity",
+      "community": 4,
+      "community_name": "towerFeature.js",
+      "norm_label": "cone_max_opacity"
+    },
+    {
+      "label": "CONE_RIM_OPACITY",
+      "file_type": "code",
+      "source_file": "src/towerFeature.js",
+      "source_location": "L98",
+      "_origin": "ast",
+      "id": "src_towerfeature_cone_rim_opacity",
+      "community": 4,
+      "community_name": "towerFeature.js",
+      "norm_label": "cone_rim_opacity"
+    },
+    {
+      "label": "CONE_CORE_RATIO",
+      "file_type": "code",
+      "source_file": "src/towerFeature.js",
+      "source_location": "L101",
+      "_origin": "ast",
+      "id": "src_towerfeature_cone_core_ratio",
+      "community": 4,
+      "community_name": "towerFeature.js",
+      "norm_label": "cone_core_ratio"
+    },
+    {
+      "label": "coneRamp()",
+      "file_type": "code",
+      "source_file": "src/towerFeature.js",
+      "source_location": "L110",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_towerfeature_coneramp",
+      "community": 4,
+      "community_name": "towerFeature.js",
+      "norm_label": "coneramp()"
+    },
+    {
       "label": "targetOpacity()",
       "file_type": "code",
       "source_file": "src/towerFeature.js",
-      "source_location": "L88",
+      "source_location": "L136",
       "_callable": true,
       "_origin": "ast",
       "id": "src_towerfeature_targetopacity",
@@ -3165,7 +3302,7 @@
       "label": "bandOpacity()",
       "file_type": "code",
       "source_file": "src/towerFeature.js",
-      "source_location": "L115",
+      "source_location": "L163",
       "_callable": true,
       "_origin": "ast",
       "id": "src_towerfeature_bandopacity",
@@ -3177,7 +3314,7 @@
       "label": "buildCoverageSectors()",
       "file_type": "code",
       "source_file": "src/towerFeature.js",
-      "source_location": "L162",
+      "source_location": "L214",
       "_callable": true,
       "_origin": "ast",
       "id": "src_towerfeature_buildcoveragesectors",
@@ -3189,7 +3326,7 @@
       "label": "buildTowerFeature()",
       "file_type": "code",
       "source_file": "src/towerFeature.js",
-      "source_location": "L211",
+      "source_location": "L263",
       "_callable": true,
       "_origin": "ast",
       "id": "src_towerfeature_buildtowerfeature",
@@ -3201,7 +3338,7 @@
       "label": "csvRowToTowerFields()",
       "file_type": "code",
       "source_file": "src/towerFeature.js",
-      "source_location": "L252",
+      "source_location": "L304",
       "_callable": true,
       "_origin": "ast",
       "id": "src_towerfeature_csvrowtotowerfields",
@@ -3213,7 +3350,7 @@
       "label": "toNumber()",
       "file_type": "code",
       "source_file": "src/towerFeature.js",
-      "source_location": "L290",
+      "source_location": "L342",
       "_callable": true,
       "_origin": "ast",
       "id": "src_towerfeature_tonumber",
@@ -3225,7 +3362,7 @@
       "label": "validateTowerFields()",
       "file_type": "code",
       "source_file": "src/towerFeature.js",
-      "source_location": "L314",
+      "source_location": "L366",
       "_callable": true,
       "_origin": "ast",
       "id": "src_towerfeature_validatetowerfields",
@@ -3237,24 +3374,13 @@
       "label": "towerFieldsFromFeature()",
       "file_type": "code",
       "source_file": "src/towerFeature.js",
-      "source_location": "L343",
+      "source_location": "L395",
       "_callable": true,
       "_origin": "ast",
       "id": "src_towerfeature_towerfieldsfromfeature",
       "community": 4,
       "community_name": "towerFeature.js",
       "norm_label": "towerfieldsfromfeature()"
-    },
-    {
-      "label": "TODO: edit the formula to make the user's set opacity be the opacity of the\u2026",
-      "file_type": "rationale",
-      "source_file": "src/towerFeature.js",
-      "source_location": "L93",
-      "_origin": "ast",
-      "id": "src_towerfeature_rationale_93",
-      "community": 4,
-      "community_name": "towerFeature.js",
-      "norm_label": "todo: edit the formula to make the user's set opacity be the opacity of the..."
     },
     {
       "label": "towerFeature.test.js",
@@ -3271,7 +3397,7 @@
       "label": "baseFields",
       "file_type": "code",
       "source_file": "src/towerFeature.test.js",
-      "source_location": "L13",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "src_towerfeature_test_basefields",
       "community": 4,
@@ -3441,8 +3567,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_towerstate_showpoi",
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "showpoi()"
     },
     {
@@ -3785,7 +3911,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_ui_displaysettings",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "displaysettings.js"
     },
@@ -3796,7 +3922,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_ui_displaysettings_ring_label_layer",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "ring_label_layer"
     },
@@ -3808,7 +3934,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_displaysettings_applylabelvisibility",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "applylabelvisibility()"
     },
@@ -3820,7 +3946,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_displaysettings_syncdisplaysettings",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "syncdisplaysettings()"
     },
@@ -3832,7 +3958,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_displaysettings_initdisplaysettings",
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "initdisplaysettings()"
     },
@@ -4152,8 +4278,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_submiteditform",
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 3,
+      "community_name": "form.js",
       "norm_label": "submiteditform()"
     },
     {
@@ -4187,8 +4313,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_ui_form_test",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "form.test.js"
     },
     {
@@ -4199,8 +4325,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_on",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "on()"
     },
     {
@@ -4211,8 +4337,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_addcontrol",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "addcontrol()"
     },
     {
@@ -4223,8 +4349,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_addsource",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "addsource()"
     },
     {
@@ -4235,8 +4361,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_addlayer",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "addlayer()"
     },
     {
@@ -4247,8 +4373,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_getsource",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "getsource()"
     },
     {
@@ -4259,8 +4385,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_getcanvas",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "getcanvas()"
     },
     {
@@ -4271,8 +4397,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_setfilter",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "setfilter()"
     },
     {
@@ -4283,8 +4409,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_flyto",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "flyto()"
     },
     {
@@ -4295,8 +4421,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_fitbounds",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "fitbounds()"
     },
     {
@@ -4307,8 +4433,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_delete",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "delete()"
     },
     {
@@ -4319,8 +4445,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_deleteall",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "deleteall()"
     },
     {
@@ -4331,8 +4457,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_tomselectstub",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "tomselectstub()"
     },
     {
@@ -4343,8 +4469,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_fillvalidtower",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "fillvalidtower()"
     },
     {
@@ -4355,8 +4481,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_form_test_fillidentity",
-      "community": 3,
-      "community_name": "form.js",
+      "community": 12,
+      "community_name": "table.test.js",
       "norm_label": "fillidentity()"
     },
     {
@@ -5052,8 +5178,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_ui_table_setrowedithandler",
-      "community": 13,
-      "community_name": "table.js",
+      "community": 3,
+      "community_name": "form.js",
       "norm_label": "setrowedithandler()"
     },
     {
@@ -5512,8 +5638,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
-      "community_name": "scripts",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "cell map designer (product)",
       "_origin": "semantic",
       "id": "readme_cell_map_designer"
@@ -5527,8 +5653,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
-      "community_name": "scripts",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "cell tower (domain entity)",
       "_origin": "semantic",
       "id": "readme_cell_tower"
@@ -5542,8 +5668,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
-      "community_name": "scripts",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "point of interest (domain entity)",
       "_origin": "semantic",
       "id": "readme_point_of_interest"
@@ -5557,8 +5683,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 9,
-      "community_name": "papaparse.min.js",
+      "community": 8,
+      "community_name": "tokml.js",
       "norm_label": "mapbox access token via config.js",
       "_origin": "semantic",
       "id": "readme_mapbox_access_token"
@@ -5602,8 +5728,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 4,
+      "community_name": "towerFeature.js",
       "norm_label": "csv tower import feature",
       "_origin": "semantic",
       "id": "readme_csv_import"
@@ -5617,8 +5743,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
-      "community_name": "scripts",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "decision: incremental refactor, not framework rewrite",
       "_origin": "semantic",
       "id": "modernization_incremental_refactor_decision"
@@ -5632,8 +5758,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
-      "community_name": "scripts",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "mapbox gl/draw is imperative regardless of framework",
       "_origin": "semantic",
       "id": "modernization_mapbox_imperative_constraint"
@@ -5647,8 +5773,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
-      "community_name": "scripts",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "inline onclick / type=module incompatibility",
       "_origin": "semantic",
       "id": "modernization_inline_onclick_module_incompatibility"
@@ -5662,8 +5788,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "implicit undocumented data model (three-collection sync)",
       "_origin": "semantic",
       "id": "modernization_implicit_data_model"
@@ -5677,8 +5803,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "towerid string linkage between draw and sectors",
       "_origin": "semantic",
       "id": "modernization_towerid_linkage"
@@ -5722,8 +5848,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
-      "community_name": "scripts",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "phase 1 - decouple from inline onclick",
       "_origin": "semantic",
       "id": "modernization_phase1_decouple_onclick"
@@ -5767,8 +5893,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "phase 4 - formalize the state model",
       "_origin": "semantic",
       "id": "modernization_phase4_state_model"
@@ -5887,8 +6013,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
-      "community_name": "towerState.js",
+      "community": 13,
+      "community_name": "table.js",
       "norm_label": "hidden-poi list desync on delete all / delete while hidden",
       "_origin": "semantic",
       "id": "modernization_hidden_poi_desync_bug"
@@ -5932,7 +6058,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "file system access api for exports (showsavefilepicker)",
       "_origin": "semantic",
@@ -5962,8 +6088,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 13,
-      "community_name": "table.js",
+      "community": 3,
+      "community_name": "form.js",
       "norm_label": "row-edit handler injection avoids table-form circular import",
       "_origin": "semantic",
       "id": "modernization_table_form_circular_import"
@@ -5992,8 +6118,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 9,
-      "community_name": "papaparse.min.js",
+      "community": 8,
+      "community_name": "tokml.js",
       "norm_label": "mapbox cdn unreachable in ci - live map untestable",
       "_origin": "semantic",
       "id": "modernization_mapbox_cdn_unreachable_verification_gap"
@@ -6067,7 +6193,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "sector options: uncertainty cone + distance rings toggles",
       "_origin": "semantic",
@@ -6082,7 +6208,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": "map display settings panel (ring spacing/opacity/labels)",
       "_origin": "semantic",
@@ -6112,8 +6238,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 9,
-      "community_name": "papaparse.min.js",
+      "community": 8,
+      "community_name": "tokml.js",
       "norm_label": "cdn script tags (mapbox, draw, geocoder, tomselect, jszip)",
       "_origin": "semantic",
       "id": "index_cdn_script_tags"
@@ -6157,8 +6283,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
-      "community_name": "scripts",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "residual inline oninput on #ring-opacity",
       "_origin": "semantic",
       "id": "index_residual_inline_oninput"
@@ -6232,8 +6358,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
-      "community_name": "towerFeature.js",
+      "community": 17,
+      "community_name": "project.js",
       "norm_label": "distance rings feature",
       "_origin": "semantic",
       "id": "changelog_distance_rings"
@@ -6262,7 +6388,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 17,
       "community_name": "project.js",
       "norm_label": ".cellmap project file format",
       "_origin": "semantic",
@@ -6292,8 +6418,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 6,
-      "community_name": "scripts",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "memoized el() dom lookup helper",
       "_origin": "semantic",
       "id": "changelog_el_memoization"
@@ -6322,8 +6448,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
-      "community_name": "bootstrap.js",
+      "community": 5,
+      "community_name": "sidebar.js",
       "norm_label": "legacy sidebar ui (flat button row, 'elementi:' list)",
       "_origin": "semantic",
       "id": "images_screenshot_legacy_ui"
@@ -6352,8 +6478,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 3,
-      "community_name": "form.js",
+      "community": 0,
+      "community_name": "bootstrap.js",
       "norm_label": "draw measurement label (4.8km line between points)",
       "_origin": "semantic",
       "id": "images_screenshot_measurement_label"
@@ -7508,6 +7634,18 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test_bundledstringify",
+      "target": "public_lib_papaparse_min_v"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -8247,7 +8385,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8258,7 +8396,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L160",
+      "source_location": "L164",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8269,7 +8407,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L129",
+      "source_location": "L130",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8280,7 +8418,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L81",
+      "source_location": "L82",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8291,7 +8429,7 @@
       "relation": "indirect_call",
       "confidence": "INFERRED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "context": "argument",
@@ -8303,7 +8441,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L209",
+      "source_location": "L213",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8507,7 +8645,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8519,11 +8657,35 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
       "target": "src_mapevents_registermapevents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/bootstrap.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_bootstrap",
+      "target": "src_mapexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/bootstrap.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_bootstrap",
+      "target": "src_mapexport_installexportserializerfix",
       "confidence_score": 1.0
     },
     {
@@ -8555,7 +8717,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8567,7 +8729,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8603,7 +8765,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8615,7 +8777,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8627,7 +8789,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8639,7 +8801,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8651,7 +8813,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8663,7 +8825,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8675,7 +8837,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8687,7 +8849,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8699,7 +8861,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8711,7 +8873,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8723,7 +8885,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8735,7 +8897,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8747,7 +8909,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8759,7 +8921,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8771,7 +8933,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8783,7 +8945,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8795,7 +8957,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap",
@@ -8807,7 +8969,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_setupmaplayers",
@@ -8819,7 +8981,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_setupmaplayers",
@@ -8831,7 +8993,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L32",
+      "source_location": "L33",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_setupmaplayers",
@@ -8843,7 +9005,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_setupmaplayers",
@@ -8855,7 +9017,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_setupmaplayers",
@@ -8867,7 +9029,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_setupmaplayers",
@@ -8879,7 +9041,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_setupmaplayers",
@@ -8891,7 +9053,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L34",
+      "source_location": "L35",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_setupmaplayers",
@@ -8903,11 +9065,23 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L30",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_setupmaplayers",
       "target": "src_ui_sidebar_addhighlightlayer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/bootstrap.js",
+      "source_location": "L150",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_bootstrap_addothertools",
+      "target": "src_mapexport_installexportserializerfix",
       "confidence_score": 1.0
     },
     {
@@ -8916,7 +9090,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L216",
+      "source_location": "L220",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -8928,7 +9102,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L215",
+      "source_location": "L219",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -8940,7 +9114,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L214",
+      "source_location": "L218",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -8952,7 +9126,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L217",
+      "source_location": "L221",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -8964,7 +9138,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L223",
+      "source_location": "L227",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -8976,7 +9150,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L213",
+      "source_location": "L217",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -8988,7 +9162,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L212",
+      "source_location": "L216",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -9000,7 +9174,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L218",
+      "source_location": "L222",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -9011,7 +9185,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L226",
+      "source_location": "L230",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -9024,7 +9198,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L224",
+      "source_location": "L228",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -9035,7 +9209,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/bootstrap.js",
-      "source_location": "L221",
+      "source_location": "L225",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -9048,7 +9222,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/bootstrap.js",
-      "source_location": "L228",
+      "source_location": "L232",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_bootstrap_wirecontrols",
@@ -9314,7 +9488,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/towerFeature.js",
-      "source_location": "L238",
+      "source_location": "L290",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature_buildtowerfeature",
@@ -9397,7 +9571,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/towerFeature.js",
-      "source_location": "L338",
+      "source_location": "L390",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature_validatetowerfields",
@@ -9713,6 +9887,18 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_distancerings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/reset.js",
       "source_location": "L7",
       "weight": 1.0,
@@ -9956,6 +10142,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_io_kml_test",
+      "target": "src_distancerings_buildrings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
       "target": "src_distancerings_buildrings",
       "confidence_score": 1.0
     },
@@ -13620,6 +13818,132 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.js",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport",
+      "target": "src_mapexport_installexportserializerfix",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_mapexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_mapexport_installexportserializerfix",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_mapexport_test_bundledstringify",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_mapexport_test_marker",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_mapexport_test_namespacewithbug",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_mapexport_test_roundtrip",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_mapexport_test_towerfields",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_towerfeature",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test",
+      "target": "src_towerfeature_buildcoveragesectors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "context": "collection",
+      "confidence": "INFERRED",
+      "source_file": "src/mapExport.test.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_mapexport_test_namespacewithbug",
+      "target": "src_mapexport_test_bundledstringify",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/mapSource.js",
       "source_location": "L6",
       "weight": 1.0,
@@ -14808,7 +15132,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L115",
+      "source_location": "L163",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature",
@@ -14830,7 +15154,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L162",
+      "source_location": "L214",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature",
@@ -14841,7 +15165,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L211",
+      "source_location": "L263",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature",
@@ -14852,7 +15176,51 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L252",
+      "source_location": "L101",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_towerfeature",
+      "target": "src_towerfeature_cone_core_ratio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/towerFeature.js",
+      "source_location": "L93",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_towerfeature",
+      "target": "src_towerfeature_cone_max_opacity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/towerFeature.js",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_towerfeature",
+      "target": "src_towerfeature_cone_rim_opacity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/towerFeature.js",
+      "source_location": "L110",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_towerfeature",
+      "target": "src_towerfeature_coneramp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/towerFeature.js",
+      "source_location": "L304",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature",
@@ -14863,7 +15231,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L85",
+      "source_location": "L88",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature",
@@ -14885,7 +15253,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L88",
+      "source_location": "L136",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature",
@@ -14896,7 +15264,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L290",
+      "source_location": "L342",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature",
@@ -14907,7 +15275,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L343",
+      "source_location": "L395",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature",
@@ -14918,22 +15286,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L314",
+      "source_location": "L366",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature",
       "target": "src_towerfeature_validatetowerfields",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/towerFeature.js",
-      "source_location": "L93",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_towerfeature_rationale_93",
-      "target": "src_towerfeature",
       "confidence_score": 1.0
     },
     {
@@ -14998,7 +15355,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L181",
+      "source_location": "L233",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature_buildcoveragesectors",
@@ -15032,7 +15389,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L165",
+      "source_location": "L217",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature_buildcoveragesectors",
@@ -15075,6 +15432,54 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/towerFeature.test.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_towerfeature_test",
+      "target": "src_towerfeature_cone_max_opacity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/towerFeature.test.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_towerfeature_test",
+      "target": "src_towerfeature_cone_rim_opacity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/towerFeature.test.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_towerfeature_test",
+      "target": "src_towerfeature_cone_core_ratio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/towerFeature.js",
+      "source_location": "L139",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_towerfeature_targetopacity",
+      "target": "src_towerfeature_coneramp",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "confidence": "INFERRED",
       "confidence_score": 0.85,
@@ -15090,7 +15495,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L116",
+      "source_location": "L164",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature_bandopacity",
@@ -15113,7 +15518,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L178",
+      "source_location": "L230",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature_buildcoveragesectors",
@@ -15136,7 +15541,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L241",
+      "source_location": "L293",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature_buildtowerfeature",
@@ -15243,7 +15648,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.js",
-      "source_location": "L316",
+      "source_location": "L368",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature_validatetowerfields",
@@ -15348,7 +15753,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/towerFeature.test.js",
-      "source_location": "L13",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_towerfeature_test",
@@ -20452,5 +20857,5 @@
       "source_file": "images/screenshot.png"
     }
   ],
-  "built_at_commit": "88259a520d6949b333c4cdb7b6be00af54b5e852"
+  "built_at_commit": "96ee2ae29c96679ece6871a05837492a5bd0d41d"
 }

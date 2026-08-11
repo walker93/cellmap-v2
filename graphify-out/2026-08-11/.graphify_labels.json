@@ -1,1 +1,27 @@
-{"0": "TomSelect Vendored Library", "1": "Draw/State Sync Core", "2": "Rings, Export and Project IO", "3": "App Bootstrap and Form UI", "4": "Cell Identity and Sector Geometry", "5": "Sidebar and Accordion UI", "6": "Tooling, CI and Refactor Rationale", "7": "NPM Dependency Manifest", "8": "tokml KML Serializer", "9": "PapaParse and Config Generation", "10": "Project Archive Test Harness", "11": "Tower State Test Harness", "12": "Table Test Harness", "13": "Form Test Harness", "14": "Project Menu Module", "15": "Map Events Test Harness", "16": "Icon Picker Test Harness", "17": "Reset Test Harness", "18": "KMZ Test Harness", "19": "TomSelect Internal Collection", "20": "Third-Party Embeds"}
+{
+  "0": "bootstrap.js",
+  "1": "towerState.js",
+  "2": "distanceRings.js",
+  "3": "form.js",
+  "4": "towerFeature.js",
+  "5": "sidebar.js",
+  "6": "scripts",
+  "7": "devDependencies",
+  "8": "tokml.js",
+  "9": "papaparse.min.js",
+  "10": "project.test.js",
+  "11": "towerState.test.js",
+  "12": "table.test.js",
+  "13": "table.js",
+  "14": "menu.test.js",
+  "15": "mapEvents.test.js",
+  "16": "iconPicker.test.js",
+  "17": "project.js",
+  "18": "accordion.js",
+  "19": "CLAUDE.md",
+  "20": "Third-Party Embeds (Google Analytics, PayPal Donate)",
+  "21": "README.md",
+  "22": "Module Entry Points (bootstrap.js, resizer.js)",
+  "23": "Phase 6 - CSS Grid + Responsive Breakpoints",
+  "24": "form.test.js"
+}
