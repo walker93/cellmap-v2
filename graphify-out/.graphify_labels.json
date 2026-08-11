@@ -1,7 +1,6 @@
 {
   "0": "bootstrap.js",
   "1": "towerState.js",
-  "2": "distanceRings.js",
   "3": "form.js",
   "4": "towerFeature.js",
   "5": "sidebar.js",
@@ -22,6 +21,5 @@
   "20": "Third-Party Embeds (Google Analytics, PayPal Donate)",
   "21": "README.md",
   "22": "Module Entry Points (bootstrap.js, resizer.js)",
-  "23": "Phase 6 - CSS Grid + Responsive Breakpoints",
-  "24": "form.test.js"
+  "23": "Phase 6 - CSS Grid + Responsive Breakpoints"
 }
