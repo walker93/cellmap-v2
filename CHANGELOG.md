@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Feature
+- :art: anchor the uncertainty cone's opacity at half the radius [`9a817b6`](https://github.com/walker93/cellmap-v2/commit/9a817b6)
 - :memo: Add graphify to project [`1d306bd`](https://github.com/walker93/cellmap-v2/commit/1d306bd)
 - redesign the add/edit dialog around what is actually being edited [`1c99774`](https://github.com/walker93/cellmap-v2/commit/1c99774)
 - :sparkles: Add paypal donate button in the footer [`c20bf8a`](https://github.com/walker93/cellmap-v2/commit/c20bf8a)
@@ -17,11 +18,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - record a cell's network identity (Cell ID / LAC / MCC-MNC / type) [`130a532`](https://github.com/walker93/cellmap-v2/commit/130a532)
 
 ### Bug Fixes
+- :bug: put the sectors back in the exported image [`96ee2ae`](https://github.com/walker93/cellmap-v2/commit/96ee2ae)
 - one label per distance ring, and a quieter line [`cee0a47`](https://github.com/walker93/cellmap-v2/commit/cee0a47)
 - draw the uncertainty cone as nested sectors so the bands stop seaming [`5d5f047`](https://github.com/walker93/cellmap-v2/commit/5d5f047)
 - stop the KML export outlining every sector, and crashing on unset fields [`581c222`](https://github.com/walker93/cellmap-v2/commit/581c222)
 
 ### Documentation
+- :robot: knowledge graph regenerated after the export fix [`470535e`](https://github.com/walker93/cellmap-v2/commit/470535e)
+- :robot: knowledge graph regenerated after the cone opacity change [`a8c5b4f`](https://github.com/walker93/cellmap-v2/commit/a8c5b4f)
+- :robot: changelog file generated [`8065854`](https://github.com/walker93/cellmap-v2/commit/8065854)
 - :robot: changelog file generated [`3a02712`](https://github.com/walker93/cellmap-v2/commit/3a02712)
 - reduce MODERNIZATION.md to an architecture decision record [`0ff48a0`](https://github.com/walker93/cellmap-v2/commit/0ff48a0)
 - :robot: changelog file generated [`88259a5`](https://github.com/walker93/cellmap-v2/commit/88259a5)
@@ -44,6 +49,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - move the app's own files out of the repo root into src/ [`641199e`](https://github.com/walker93/cellmap-v2/commit/641199e)
 
 ### Other
+- Merge branch 'main' of https://github.com/walker93/cellmap-v2 [`5c99445`](https://github.com/walker93/cellmap-v2/commit/5c99445)
+- Merge branch feat/cone-opacity-ramp [`79751d3`](https://github.com/walker93/cellmap-v2/commit/79751d3)
 - Merge branch 'docs/modernization-as-decision-record' [`2b3bc49`](https://github.com/walker93/cellmap-v2/commit/2b3bc49)
 - Merge branch 'chore/root-cleanup-and-restructure' [`501f081`](https://github.com/walker93/cellmap-v2/commit/501f081)
 - Merge origin/main (changelog bot commit) [`afb87a9`](https://github.com/walker93/cellmap-v2/commit/afb87a9)
