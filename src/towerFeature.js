@@ -72,9 +72,12 @@ export function buildCoverageSector(fields) {
 }
 
 // How many steps a graduated cone is drawn in. Fine enough that the ramp does not
-// read as terraced — at the default 0.2 opacity each step is 0.0125 of it — without
-// making the GeoJSON/KML export (the only place the bands are written out; .cellmap
-// rebuilds them from the tower's fields) heavier than it needs to be.
+// read as terraced, without making the GeoJSON/KML export (the only place the bands
+// are written out; .cellmap rebuilds them from the tower's fields) heavier than it
+// needs to be. What sets the count is the steepest ramp the form can ask for and not
+// the default one: at 0.2 opacity a step moves the picture by 0.004, but at 0.7 the
+// outer half falls from the value set all the way to the rim and each step is worth
+// 0.026 — which is where the banding turns up first.
 //
 // Deliberately a count and not a fixed distance: the number of steps is a rendering
 // resolution, not a claim about the world. The claim is the ramp itself, which is
@@ -82,14 +85,60 @@ export function buildCoverageSector(fields) {
 // four visible terraces and a 20 km one eighty polygons, and a 200 m femto no
 // gradient at all — a rule that switches the feature off for a whole class of cells.
 // Rings at round distances are a separate thing, and are drawn as lines.
-export const GRADIENT_BANDS = 32;
+export const GRADIENT_BANDS = 48;
 
-/** The opacity the finished picture should show in the k-th ring out. */
+// The cone never goes fully solid at the antenna: the tower marker is drawn in the
+// same colour as its sector, so a core much past this buries the very thing the
+// coverage is drawn around.
+export const CONE_MAX_OPACITY = 0.85;
+// ...and it never fades below this at the rim. Under roughly a tenth the fill stops
+// registering over a map at all, which is what was wrong with running the ramp down
+// to 0: the outer half of the cone — most of its area — carried no picture, so a
+// cone at the default 0.2 opacity said nothing except where its centre was.
+export const CONE_RIM_OPACITY = 0.1;
+// How much stronger the core is than the user's own value. Deliberately modest: what
+// the cone has to show is the falloff, not a hotspot.
+export const CONE_CORE_RATIO = 1.5;
+
+/**
+ * The three anchors of the ramp for a given user opacity.
+ *
+ * `opacity` is the value the user set on the form's slider, and it lands on the band
+ * at *half* the radius rather than on the innermost one — the cone then has room to
+ * be both stronger than that near the antenna and still visible out at the rim.
+ */
+function coneRamp(opacity) {
+    const mid = Math.min(opacity, CONE_MAX_OPACITY);
+    return {
+        peak: Math.min(CONE_MAX_OPACITY, mid * CONE_CORE_RATIO),
+        mid,
+        // The floor only gives way at the very bottom of the slider, where it would
+        // otherwise meet the user's own value and flatten the cone into a plain
+        // sector. From 0.125 up the rim is the floor exactly, whatever the setting.
+        rim: Math.min(CONE_RIM_OPACITY, 0.8 * opacity),
+    };
+}
+
+/**
+ * The opacity the finished picture should show in the k-th ring out.
+ *
+ * Two straight segments, not one: peak → mid over the inner half of the radius, then
+ * mid → rim over the outer half. A single line through a fixed rim and a mid anchored
+ * on the user's value has no freedom left — it forces the core to `2·opacity - rim`,
+ * which doubles the setting at the antenna and hits the ceiling by opacity 0.5. With
+ * the line broken at the midpoint the core is a parameter instead of a consequence.
+ *
+ * k === GRADIENT_BANDS is the "nothing left to draw" terminator that makes
+ * {@link bandOpacity} work for the outermost band too — outside the cone the picture
+ * is empty, which is what makes the rim a real edge at CONE_RIM_OPACITY rather than a
+ * fade into nothing.
+ */
 function targetOpacity(k, opacity) {
-    // linear from full strength at the antenna down towards the rim, and 0 just
-    // past it — k === GRADIENT_BANDS is the "nothing left to draw" terminator
-    // that makes the formula below work for the outermost band too.
-    return opacity * (1 - k / GRADIENT_BANDS);
+    if (k >= GRADIENT_BANDS) return 0;
+
+    const { peak, mid, rim } = coneRamp(opacity);
+    const t = k / (GRADIENT_BANDS - 1);
+    return t < 0.5 ? peak + ((mid - peak) * t) / 0.5 : mid + ((rim - mid) * (t - 0.5)) / 0.5;
 }
 
 /**
@@ -103,7 +152,10 @@ function targetOpacity(k, opacity) {
  *
  *   (1 - Tₖ) = (1 - aₖ)·(1 - Tₖ₊₁)   ⇒   aₖ = 1 - (1 - Tₖ)/(1 - Tₖ₊₁)
  *
- * T is decreasing in k, so aₖ is always positive. And because every band is the
+ * T never increases with k, so aₖ is never negative — it is 0 for the bands inside a
+ * core that has flattened against CONE_MAX_OPACITY, which draws nothing and is right:
+ * those rings are already at full strength from the bands outside them. And because
+ * every band is the
  * same colour, the composite is symmetric in the aᵢ — the result does not depend
  * on the order the bands happen to be drawn in, which is not something either
  * Mapbox's fill layer or Google Earth's placemark order would guarantee.
@@ -120,6 +172,10 @@ function bandOpacity(k, opacity) {
  * with distance from the antenna. With `fields.gradient` the same wedge is drawn
  * as {@link GRADIENT_BANDS} concentric bands whose opacity fades outwards, so the
  * picture reads as a probability ramp rather than a hard edge.
+ *
+ * Worth knowing when reading this from the form: `fields.opacity` is the opacity of
+ * the band at *half* the radius, not of the innermost one. The ramp runs from a
+ * stronger core down to CONE_RIM_OPACITY at the rim — see {@link targetOpacity}.
  *
  * Bands rather than an actual gradient because Mapbox GL cannot gradient-fill a
  * polygon — `fill-opacity` is per feature. Each band is an ordinary polygon, which
