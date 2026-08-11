@@ -1,4 +1,4 @@
-import { map } from './src/map.js';
+import { map } from '../map.js';
 
 // Drag-to-resize between the map and the controls sidebar. The layout is a CSS
 // grid (`main` = "map resizer controls"), so instead of setting an element's

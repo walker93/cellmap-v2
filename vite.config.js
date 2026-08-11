@@ -1,9 +1,10 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 
-// The legacy app is still served from the repo root (index.html + bootstrap.js).
-// Vite works with that zero-config; this file only adds the test runner setup and
-// a place to grow the build configuration as the app is migrated to ES modules.
+// index.html stays in the repo root (Vite's entry point); everything it loads —
+// src/bootstrap.js, src/ui/resizer.js and the three stylesheets under src/styles/ —
+// now lives under src/. Vite works with that zero-config; this file only adds the
+// test runner setup and a place to grow the build configuration.
 export default defineConfig({
     root: '.',
     // The deployed Worker (cellmap-v2.walker1993.workers.dev) is never visited

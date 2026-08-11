@@ -4,9 +4,8 @@ public/lib
 old
 images
 CHANGELOG.md
-new_script.js
-resizer.js
-style.css
+src/ui/resizer.js
+src/styles/style.css
 index.html
 
 # npm owns this file and rewrites it on every install, so formatting it only
