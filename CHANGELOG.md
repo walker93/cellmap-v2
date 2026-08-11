@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## Unreleased changes
 
 ### Feature
+- :memo: Add graphify to project [`1d306bd`](https://github.com/walker93/cellmap-v2/commit/1d306bd)
 - redesign the add/edit dialog around what is actually being edited [`1c99774`](https://github.com/walker93/cellmap-v2/commit/1c99774)
 - :sparkles: Add paypal donate button in the footer [`c20bf8a`](https://github.com/walker93/cellmap-v2/commit/c20bf8a)
 - search a cell's network identity from the sidebar filter [`1fb7aea`](https://github.com/walker93/cellmap-v2/commit/1fb7aea)
@@ -21,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - stop the KML export outlining every sector, and crashing on unset fields [`581c222`](https://github.com/walker93/cellmap-v2/commit/581c222)
 
 ### Documentation
+- :robot: changelog file generated [`3a02712`](https://github.com/walker93/cellmap-v2/commit/3a02712)
 - reduce MODERNIZATION.md to an architecture decision record [`0ff48a0`](https://github.com/walker93/cellmap-v2/commit/0ff48a0)
 - :robot: changelog file generated [`88259a5`](https://github.com/walker93/cellmap-v2/commit/88259a5)
 - :robot: changelog file generated [`3962ac0`](https://github.com/walker93/cellmap-v2/commit/3962ac0)
