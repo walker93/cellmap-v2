@@ -6,3 +6,7 @@ node_modules/
 dist/
 *.log
 .DS_Store
+
+# Editor directories and files
+graphify-out/cost.json        # local only
+graphify-out/cache/         # optional: commit for speed, skip to keep repo small
