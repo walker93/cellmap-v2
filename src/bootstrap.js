@@ -1,20 +1,20 @@
-import { map } from './src/map.js';
-import { getSectors } from './src/sectors.js';
-import { draw } from './src/draw.js';
-import { exportGeoJSON, importGeoJSON } from './src/io/geojson.js';
-import { exportKML } from './src/io/kml.js';
-import { importCSV } from './src/io/csv.js';
-import { importKMZ } from './src/io/kmz.js';
-import { saveProject, openProject } from './src/io/project.js';
-import { addGeoJsonSource } from './src/mapSource.js';
-import { openForm, closeForm, aggiungiCella, submitEditForm, initForm } from './src/ui/form.js';
-import { loadIcons } from './src/ui/iconPicker.js';
-import { confirmAndDeleteAll } from './src/reset.js';
-import { registerMapEvents } from './src/mapEvents.js';
-import { initAccordions } from './src/ui/accordion.js';
-import { initMenu } from './src/ui/menu.js';
-import { initDisplaySettings } from './src/ui/displaySettings.js';
-import { initSidebar, addHighlightLayer } from './src/ui/sidebar.js';
+import { map } from './map.js';
+import { getSectors } from './sectors.js';
+import { draw } from './draw.js';
+import { exportGeoJSON, importGeoJSON } from './io/geojson.js';
+import { exportKML } from './io/kml.js';
+import { importCSV } from './io/csv.js';
+import { importKMZ } from './io/kmz.js';
+import { saveProject, openProject } from './io/project.js';
+import { addGeoJsonSource } from './mapSource.js';
+import { openForm, closeForm, aggiungiCella, submitEditForm, initForm } from './ui/form.js';
+import { loadIcons } from './ui/iconPicker.js';
+import { confirmAndDeleteAll } from './reset.js';
+import { registerMapEvents } from './mapEvents.js';
+import { initAccordions } from './ui/accordion.js';
+import { initMenu } from './ui/menu.js';
+import { initDisplaySettings } from './ui/displaySettings.js';
+import { initSidebar, addHighlightLayer } from './ui/sidebar.js';
 
 map.on('load', setupMapLayers);
 
@@ -134,21 +134,6 @@ function addOtherTools() {
         }),
     );
     map.addControl(new mapboxgl.NavigationControl({ position: 'top-left' }));
-    // Control implemented as ES6 class
-    class IControl {
-        onAdd(map) {
-            this._map = map;
-            this._container = document.createElement('div');
-            this._container.className = 'mapboxgl-ctrl';
-            this._container.textContent = 'Icontrol';
-            return this._container;
-        }
-
-        onRemove() {
-            this._container.parentNode.removeChild(this._container);
-            this._map = undefined;
-        }
-    }
 
     // @watergis/mapbox-gl-export v4 bundles everything under one namespaced
     // global (window.MapboxExportControl.*) instead of separate flat globals.
