@@ -1,9 +1,9 @@
 # Manual smoke-test fixtures
 
-Sample inputs for the import flows that `MODERNIZATION.md` asks you to exercise by
-hand after each phase ("import/export each file format"). Nothing in `src/` or the
-Vitest suite reads these — they exist so the import paths can be driven through a
-real browser against a real Mapbox token.
+Sample inputs for the import flows that `MODERNIZATION.md` asks you to smoke-test by
+hand ("import/export each file format"). Nothing in `src/` or the Vitest suite reads
+these — they exist so the import paths can be driven through a real browser against a
+real Mapbox token.
 
 | File                | Flow                        | Notes                                                                                                                                                                                                                                                   |
 | ------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

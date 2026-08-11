@@ -140,9 +140,10 @@ This is an example of how to list things you need to use the software and how to
 > (bundled by Vite), so it is no longer opened as raw files. For production run
 > `npm run build` and serve the generated `dist/` folder from any static host.
 
-> **Modernization in progress.** This repo is a rebuild of the original CellMap.
-> See [`MODERNIZATION.md`](MODERNIZATION.md) for the rationale (why an incremental
-> vanilla-JS refactor rather than a framework rewrite) and the phased roadmap.
+> **Rebuilt from the original CellMap.** See [`MODERNIZATION.md`](MODERNIZATION.md) for
+> the architecture decision record — why an incremental vanilla-JS refactor rather than a
+> framework rewrite, and the domain rules that are not obvious from the code. For what
+> changed and when, see [`CHANGELOG.md`](CHANGELOG.md).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
