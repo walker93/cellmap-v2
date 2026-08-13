@@ -24,6 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - stop the KML export outlining every sector, and crashing on unset fields [`581c222`](https://github.com/walker93/cellmap-v2/commit/581c222)
 
 ### Documentation
+- :memo: Edit screenshot and links in readme [`490222a`](https://github.com/walker93/cellmap-v2/commit/490222a)
+- :robot: changelog file generated [`16a19a6`](https://github.com/walker93/cellmap-v2/commit/16a19a6)
 - :robot: knowledge graph regenerated after the export fix [`470535e`](https://github.com/walker93/cellmap-v2/commit/470535e)
 - :robot: knowledge graph regenerated after the cone opacity change [`a8c5b4f`](https://github.com/walker93/cellmap-v2/commit/a8c5b4f)
 - :robot: changelog file generated [`8065854`](https://github.com/walker93/cellmap-v2/commit/8065854)
@@ -49,6 +51,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - move the app's own files out of the repo root into src/ [`641199e`](https://github.com/walker93/cellmap-v2/commit/641199e)
 
 ### Other
+- Merge branch 'main' of https://github.com/walker93/cellmap-v2 [`d8f1eb9`](https://github.com/walker93/cellmap-v2/commit/d8f1eb9)
 - Merge branch 'main' of https://github.com/walker93/cellmap-v2 [`5c99445`](https://github.com/walker93/cellmap-v2/commit/5c99445)
 - Merge branch feat/cone-opacity-ramp [`79751d3`](https://github.com/walker93/cellmap-v2/commit/79751d3)
 - Merge branch 'docs/modernization-as-decision-record' [`2b3bc49`](https://github.com/walker93/cellmap-v2/commit/2b3bc49)
