@@ -22,7 +22,7 @@
 <!-- PROJECT LOGO
 <br />
 <div align="center">
-  <a href="https://github.com/walker93/CellMap">
+  <a href="https://github.com/walker93/cellmap-v2">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 -->
@@ -31,14 +31,14 @@
   <p align="center">
     This utility lets the user visually rapresents Point of Interest and Cell Towers on a map.
     <br />
-    <a href="https://github.com/walker93/CellMap"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/walker93/cellmap-v2"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://alexcortinovis.tech/CellMapDesigner">View Demo</a>
+    <a href="https://alexcortinovis.tech/cellmapdesigner/">View Demo</a>
     ·
-    <a href="https://github.com/walker93/CellMap/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/walker93/cellmap-v2/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
-    <a href="https://github.com/walker93/CellMap/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/walker93/cellmap-v2/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -119,7 +119,7 @@ This is an example of how to list things you need to use the software and how to
 1. Get a free API Key at [mapbox.com](https://docs.mapbox.com/help/getting-started/access-tokens/)
 2. Clone the repo
     ```sh
-    git clone https://github.com/walker93/cellmap-v2.git
+    git clone https://github.com/walker93/cellmap-v2-v2.git
     cd cellmap-v2
     ```
 3. Create your `config.js` from the template and paste your Mapbox token
@@ -166,7 +166,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [ ] Feature 3
     - [ ] Nested Feature
 
-See the [open issues](https://github.com/walker93/CellMap/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/walker93/cellmap-v2/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 -->
@@ -202,7 +202,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com -->
 
-Project Link: [https://github.com/walker93/CellMap](https://github.com/walker93/CellMap)
+Project Link: [https://github.com/walker93/cellmap-v2](https://github.com/walker93/cellmap-v2)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -219,16 +219,16 @@ Project Link: [https://github.com/walker93/CellMap](https://github.com/walker93/
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/walker93/CellMap.svg?style=for-the-badge
-[contributors-url]: https://github.com/walker93/CellMap/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/walker93/CellMap.svg?style=for-the-badge
-[forks-url]: https://github.com/walker93/CellMap/network/members
-[stars-shield]: https://img.shields.io/github/stars/walker93/CellMap.svg?style=for-the-badge
-[stars-url]: https://github.com/walker93/CellMap/stargazers
-[issues-shield]: https://img.shields.io/github/issues/walker93/CellMap.svg?style=for-the-badge
-[issues-url]: https://github.com/walker93/CellMap/issues
-[license-shield]: https://img.shields.io/github/license/walker93/CellMap.svg?style=for-the-badge
-[license-url]: https://github.com/walker93/CellMap/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/walker93/cellmap-v2.svg?style=for-the-badge
+[contributors-url]: https://github.com/walker93/cellmap-v2/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/walker93/cellmap-v2.svg?style=for-the-badge
+[forks-url]: https://github.com/walker93/cellmap-v2/network/members
+[stars-shield]: https://img.shields.io/github/stars/walker93/cellmap-v2.svg?style=for-the-badge
+[stars-url]: https://github.com/walker93/cellmap-v2/stargazers
+[issues-shield]: https://img.shields.io/github/issues/walker93/cellmap-v2.svg?style=for-the-badge
+[issues-url]: https://github.com/walker93/cellmap-v2/issues
+[license-shield]: https://img.shields.io/github/license/walker93/cellmap-v2.svg?style=for-the-badge
+[license-url]: https://github.com/walker93/cellmap-v2/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
